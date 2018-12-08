@@ -21,7 +21,7 @@ export default class InboundRouter {
     }
 
     respond() {
-        let method = 'Game@refreshView';
+        let method = 'Home@refresh';
         if (this.routes[this.route]) {
             method = this.routes[this.route];
         }

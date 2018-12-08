@@ -16,6 +16,6 @@ export default class User {
     joinGameAfterSettingName() {
         window.cookies.set('guid', this.message.guid);
 
-        new OutboundRouter('joinGame');
+        new OutboundRouter('joinGame').message();
     }
 }

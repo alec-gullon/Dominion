@@ -10592,7 +10592,7 @@ var InboundRouter = function () {
     _createClass(InboundRouter, [{
         key: 'respond',
         value: function respond() {
-            var method = 'Game@refreshView';
+            var method = 'Home@refresh';
             if (this.routes[this.route]) {
                 method = this.routes[this.route];
             }
@@ -10900,7 +10900,7 @@ var User = function () {
         value: function joinGameAfterSettingName() {
             window.cookies.set('guid', this.message.guid);
 
-            new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('joinGame');
+            new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('joinGame').message();
         }
     }]);
 
