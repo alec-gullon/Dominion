@@ -10463,7 +10463,10 @@ var OutboundRouter = function () {
             'joinGameIfPossible': 'Game@joinIfPossible',
             'submitNameThenJoin': 'Game@submitNameThenJoin',
             'joinGame': 'Game@join',
-            'playTreasure': 'Game@playTreasure'
+            'playTreasure': 'Game@playTreasure',
+            'buyCard': 'Game@buyCard',
+            'endTurn': 'Game@endTurn',
+            'playCard': 'Game@playCard'
         };
         this.classMap = {
             'Home': __WEBPACK_IMPORTED_MODULE_0__messages_outbound_Home_js__["a" /* default */],
@@ -10781,6 +10784,45 @@ var Game = function () {
                 data: {
                     action: 'play-treasure',
                     input: treasureStub,
+                    guid: window.cookies.get('guid')
+                }
+            };
+            window.dominion.connection.send(JSON.stringify(message));
+        }
+    }, {
+        key: "buyCard",
+        value: function buyCard(cardStub) {
+            var message = {
+                route: '/game/update',
+                data: {
+                    action: 'buy',
+                    input: cardStub,
+                    guid: window.cookies.get('guid')
+                }
+            };
+            window.dominion.connection.send(JSON.stringify(message));
+        }
+    }, {
+        key: "endTurn",
+        value: function endTurn() {
+            var message = {
+                route: '/game/update',
+                data: {
+                    action: 'end-turn',
+                    input: null,
+                    guid: window.cookies.get('guid')
+                }
+            };
+            window.dominion.connection.send(JSON.stringify(message));
+        }
+    }, {
+        key: "playCard",
+        value: function playCard(cardStub) {
+            var message = {
+                route: '/game/update/',
+                data: {
+                    action: 'play-card',
+                    input: cardStub,
                     guid: window.cookies.get('guid')
                 }
             };
@@ -11136,6 +11178,18 @@ function refreshBindings() {
 
     __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.game-root').find('[data-action="play-treasure"]').click(function () {
         new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('playTreasure').message(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).data('stub'));
+    });
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.game-root').find('[data-action="buy-card"]').click(function () {
+        new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('buyCard').message(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).data('stub'));
+    });
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.game-root').find('[data-action="end-turn"]').click(function () {
+        new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('endTurn').message();
+    });
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.game-root').find('[data-action="play-card"]').click(function () {
+        new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('playCard').message(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).data('stub'));
     });
 }
 

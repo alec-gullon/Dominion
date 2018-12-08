@@ -59,4 +59,40 @@ export default class Game {
         window.dominion.connection.send(JSON.stringify(message));
     }
 
+    buyCard(cardStub) {
+        let message = {
+            route: '/game/update',
+            data: {
+                action: 'buy',
+                input: cardStub,
+                guid: window.cookies.get('guid')
+            }
+        };
+        window.dominion.connection.send(JSON.stringify(message));
+    }
+
+    endTurn() {
+        let message = {
+            route: '/game/update',
+            data: {
+                action: 'end-turn',
+                input: null,
+                guid: window.cookies.get('guid')
+            }
+        };
+        window.dominion.connection.send(JSON.stringify(message));
+    }
+
+    playCard(cardStub) {
+        let message = {
+            route: '/game/update/',
+            data: {
+                action: 'play-card',
+                input: cardStub,
+                guid: window.cookies.get('guid')
+            }
+        };
+        window.dominion.connection.send(JSON.stringify(message));
+    }
+
 }

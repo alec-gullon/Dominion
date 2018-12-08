@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Game;
+namespace App\Http\Controllers\Game\Actions;
 
 class WorkshopController extends ActionController {
 

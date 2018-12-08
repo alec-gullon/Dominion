@@ -8,7 +8,14 @@
 
 @foreach ($player->getHand() as $card)
     @if ($gameObserver->isHandCardActive($card, $playerKey))
-        <div class="card card--active" data-action="play-treasure" data-stub="<?= $card->getStub() ?>">
+        <?php
+            if ($card->hasType('action')) {
+                $action = 'play-card';
+            } else {
+                $action = 'play-treasure';
+            }
+        ?>
+        <div class="card card--active" data-action="<?= $action ?>" data-stub="<?= $card->getStub() ?>">
             <?= $card->getName() ?>
         </div>
     @else
@@ -19,7 +26,7 @@
 @endforeach
 
 @if ($playerKey === $state->getActivePlayerKey())
-    <div class="card card--active" data-test-active>
+    <div class="card card--active" data-action="end-turn">
         End Turn
     </div>
 @endif

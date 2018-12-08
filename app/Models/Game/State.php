@@ -13,6 +13,7 @@ class State {
         'estate' => 8,
         'duchy' => 8,
         'province' => 8,
+        'village' => 10,
         'curse' => 10
     );
 

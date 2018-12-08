@@ -13,8 +13,11 @@ export default class OutboundRouter {
             'joinGameIfPossible': 'Game@joinIfPossible',
             'submitNameThenJoin': 'Game@submitNameThenJoin',
             'joinGame': 'Game@join',
-            'playTreasure': 'Game@playTreasure'
-        }
+            'playTreasure': 'Game@playTreasure',
+            'buyCard': 'Game@buyCard',
+            'endTurn': 'Game@endTurn',
+            'playCard': 'Game@playCard'
+        };
         this.classMap = {
             'Home': Home,
             'Game': Game,

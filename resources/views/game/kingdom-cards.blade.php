@@ -21,7 +21,7 @@
             <?php $card = $cardBuilder->build($stub); ?>
             @if ($card->getValue() === $i)
                 @if ($gameObserver->canBuy($stub, $playerKey))
-                    <div class="card card--active">
+                    <div class="card card--active" data-action="buy-card" data-stub="<?= $card->getStub() ?>">
                         {{ $card->getName() }}: {{ $amount }}
                         @include('game.cards.descriptions.' . $stub, ['amount' => $amount, 'active' => true])
                     </div>
