@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import OutboundRouter from './../../routers/OutboundRouter.js';
 
 export default function refreshBindings() {
 
@@ -19,27 +20,15 @@ export default function refreshBindings() {
         });
     });
 
-    $('#submit-name').click(function() {
-        let message = {
-            route: "/user/set-name/",
-            data: {
-                name: $('#submit-name--name').val()
-            }
-        };
-        window.dominion.connection.send(JSON.stringify(message));
+    $('.home-root').find('.submit-name').click(function() {
+        new OutboundRouter('submitName').message();
     });
 
-    $('#start-game').click(function() {
-        let message = {
-            route: "/game/create/",
-            data: {
-                guid: Cookies.get('guid')
-            }
-        };
-        window.dominion.connection.send(JSON.stringify(message));
-    });
+    $('.home-root').find('.start-game').click(function() {
+        new OutboundRouter('createGame').message();
+    })
 
-    $('.submit-card').click(function() {
+    $('.home-root').find('.submit-card').click(function() {
         let message = {
             route: "/game/update/",
             data: {

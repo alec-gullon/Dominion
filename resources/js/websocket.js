@@ -10,8 +10,7 @@ export default function setupWebSocketConnection() {
     window.dominion.connection = connection;
 
     connection.onopen = function() {
-        let message = new OutboundRouter(window.dominion.route).message();
-        connection.send(JSON.stringify(message));
+        new OutboundRouter(window.dominion.route).message();
     };
 
     connection.onmessage = function (message) {

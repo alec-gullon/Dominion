@@ -1,29 +1,32 @@
+import $ from "jquery";
+
 export default class Game {
 
-    default() {
-        if (typeof window.cookies.get('guid') === 'undefined') {
-            return {
+    create() {
+        let message = {
+            route: "/game/create/",
+            data: {
+                guid: window.cookies.get('guid')
+            }
+        };
+        window.dominion.connection.send(JSON.stringify(message));
+    }
+
+    joinIfPossible() {
+        if (window.cookies.get('guid') === null) {
+            let message = {
                 route: "/user/get-name-form/",
                 data: {},
             };
-        }
-        return {
-            route: "/user/refresh-page/",
-            data: {
-                guid: window.cookies.get('guid')
-            },
-            setGuid: true
+            window.dominion.connection.send(JSON.stringify(message));
+        } else {
+            this.join();
         };
     }
 
-    joinGame() {
-        if (typeof window.cookies.get('guid') === 'undefined') {
-            return {
-                route: "/user/get-name-form/",
-                data: {},
-            };
-        }
-        return {
+    join() {
+        console.log('joining');
+        let message = {
             route: "/user/join-game/",
             data: {
                 guid: window.cookies.get('guid'),
@@ -31,6 +34,18 @@ export default class Game {
             },
             setGuid: true
         };
+        window.dominion.connection.send(JSON.stringify(message));
+    }
+
+    submitNameThenJoin() {
+        let message = {
+            route: "/user/set-name/",
+            data: {
+                name: $('#submit-name--name').val(),
+                responseAction: 'joinGameAfterSettingName'
+            }
+        }
+        window.dominion.connection.send(JSON.stringify(message));
     }
 
 }

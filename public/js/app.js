@@ -60,245 +60,12 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
-/* 0 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(1);
-module.exports = __webpack_require__(7);
-
-
-/***/ }),
+/* 0 */,
 /* 1 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__websocket_js__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_browser_cookies__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_browser_cookies___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_browser_cookies__);
-
-
-
-// define a global cookies object to keep track of cookies
-window.cookies = __WEBPACK_IMPORTED_MODULE_1_browser_cookies___default.a;
-
-// setup the websocket connection and scaffold code to handle outgoing and incoming messages
-Object(__WEBPACK_IMPORTED_MODULE_0__websocket_js__["a" /* default */])();
-
-/***/ }),
-/* 2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = setupWebSocketConnection;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__routers_InboundRouter_js__ = __webpack_require__(18);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__ = __webpack_require__(16);
-// On page load, set up a connection to the websocket server
-
-
-
-
-function setupWebSocketConnection() {
-    window.WebSocket = window.WebSocket || window.MozWebSocket;
-
-    var connection = new WebSocket('ws://127.0.0.1:1337');
-    window.dominion.connection = connection;
-
-    connection.onopen = function () {
-        var message = new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */](window.dominion.route).message();
-        connection.send(JSON.stringify(message));
-    };
-
-    connection.onmessage = function (message) {
-        try {
-            message = JSON.parse(message.data);
-            var controller = new __WEBPACK_IMPORTED_MODULE_0__routers_InboundRouter_js__["a" /* default */](message.action, message);
-            controller.respond();
-        } catch (e) {
-            console.log(e);
-        }
-    };
-}
-
-/***/ }),
-/* 3 */,
-/* 4 */,
-/* 5 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = refreshBindings;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
-
-
-function refreshBindings() {
-
-    __WEBPACK_IMPORTED_MODULE_0_jquery___default()(document).ready(function () {
-        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.card').hover(function () {
-            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).mousemove(function (event) {
-                __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).find('.card__description').css({
-                    top: event.pageY + 3,
-                    left: event.pageX + 3
-                });
-            });
-        });
-        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.card').mouseenter(function () {
-            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).find('.card__description').show();
-        });
-        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.card').mouseleave(function () {
-            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).find('.card__description').hide();
-        });
-    });
-
-    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#submit-name').click(function () {
-        var message = {
-            route: "/user/set-name/",
-            data: {
-                name: __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#submit-name--name').val()
-            }
-        };
-        window.dominion.connection.send(JSON.stringify(message));
-    });
-
-    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#start-game').click(function () {
-        var message = {
-            route: "/game/create/",
-            data: {
-                guid: Cookies.get('guid')
-            }
-        };
-        window.dominion.connection.send(JSON.stringify(message));
-    });
-
-    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.submit-card').click(function () {
-        var message = {
-            route: "/game/update/",
-            data: {
-                guid: Cookies.get('guid'),
-                action: 'play-treasure',
-                input: 'copper'
-            }
-        };
-        window.dominion.connection.send(JSON.stringify(message));
-    });
-}
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-exports.defaults = {};
-
-exports.set = function(name, value, options) {
-  // Retrieve options and defaults
-  var opts = options || {};
-  var defaults = exports.defaults;
-
-  // Apply default value for unspecified options
-  var expires  = opts.expires  || defaults.expires;
-  var domain   = opts.domain   || defaults.domain;
-  var path     = opts.path     !== undefined ? opts.path     : (defaults.path !== undefined ? defaults.path : '/');
-  var secure   = opts.secure   !== undefined ? opts.secure   : defaults.secure;
-  var httponly = opts.httponly !== undefined ? opts.httponly : defaults.httponly;
-  var samesite = opts.samesite !== undefined ? opts.samesite : defaults.samesite;
-
-  // Determine cookie expiration date
-  // If succesful the result will be a valid Date, otherwise it will be an invalid Date or false(ish)
-  var expDate = expires ? new Date(
-      // in case expires is an integer, it should specify the number of days till the cookie expires
-      typeof expires === 'number' ? new Date().getTime() + (expires * 864e5) :
-      // else expires should be either a Date object or in a format recognized by Date.parse()
-      expires
-  ) : 0;
-
-  // Set cookie
-  document.cookie = name.replace(/[^+#$&^`|]/g, encodeURIComponent)                // Encode cookie name
-  .replace('(', '%28')
-  .replace(')', '%29') +
-  '=' + value.replace(/[^+#$&/:<-\[\]-}]/g, encodeURIComponent) +                  // Encode cookie value (RFC6265)
-  (expDate && expDate.getTime() >= 0 ? ';expires=' + expDate.toUTCString() : '') + // Add expiration date
-  (domain   ? ';domain=' + domain     : '') +                                      // Add domain
-  (path     ? ';path='   + path       : '') +                                      // Add path
-  (secure   ? ';secure'               : '') +                                      // Add secure option
-  (httponly ? ';httponly'             : '') +                                      // Add httponly option
-  (samesite ? ';samesite=' + samesite : '');                                       // Add samesite option
-};
-
-exports.get = function(name) {
-  var cookies = document.cookie.split(';');
-  
-  // Iterate all cookies
-  while(cookies.length) {
-    var cookie = cookies.pop();
-
-    // Determine separator index ("name=value")
-    var separatorIndex = cookie.indexOf('=');
-
-    // IE<11 emits the equal sign when the cookie value is empty
-    separatorIndex = separatorIndex < 0 ? cookie.length : separatorIndex;
-
-    var cookie_name = decodeURIComponent(cookie.slice(0, separatorIndex).replace(/^\s+/, ''));
-
-    // Return cookie value if the name matches
-    if (cookie_name === name) {
-      return decodeURIComponent(cookie.slice(separatorIndex + 1));
-    }
-  }
-
-  // Return `null` as the cookie was not found
-  return null;
-};
-
-exports.erase = function(name, options) {
-  exports.set(name, '', {
-    expires:  -1,
-    domain:   options && options.domain,
-    path:     options && options.path,
-    secure:   0,
-    httponly: 0}
-  );
-};
-
-exports.all = function() {
-  var all = {};
-  var cookies = document.cookie.split(';');
-
-  // Iterate all cookies
-  while(cookies.length) {
-    var cookie = cookies.pop();
-
-    // Determine separator index ("name=value")
-    var separatorIndex = cookie.indexOf('=');
-
-    // IE<11 emits the equal sign when the cookie value is empty
-    separatorIndex = separatorIndex < 0 ? cookie.length : separatorIndex;
-
-    // add the cookie name and value to the `all` object
-    var cookie_name = decodeURIComponent(cookie.slice(0, separatorIndex).replace(/^\s+/, ''));
-    all[cookie_name] = decodeURIComponent(cookie.slice(separatorIndex + 1));
-  }
-
-  return all;
-};
-
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */,
-/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10669,17 +10436,18 @@ return jQuery;
 
 
 /***/ }),
-/* 13 */,
-/* 14 */,
-/* 15 */,
-/* 16 */
+/* 2 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__messages_outbound_Game_js__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__messages_outbound_Home_js__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__messages_outbound_Game_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__messages_outbound_User_js__ = __webpack_require__(10);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
 
 
 
@@ -10689,8 +10457,17 @@ var OutboundRouter = function () {
 
         this.route = route;
         this.routes = {
-            'refreshView': 'Game@default',
-            'publicGameJoin': 'Game@publicGameJoin'
+            'home': 'Home@refresh',
+            'submitName': 'User@submitName',
+            'createGame': 'Game@create',
+            'joinGameIfPossible': 'Game@joinIfPossible',
+            'submitNameThenJoin': 'Game@submitNameThenJoin',
+            'joinGame': 'Game@join'
+        };
+        this.classMap = {
+            'Home': __WEBPACK_IMPORTED_MODULE_0__messages_outbound_Home_js__["a" /* default */],
+            'Game': __WEBPACK_IMPORTED_MODULE_1__messages_outbound_Game_js__["a" /* default */],
+            'User': __WEBPACK_IMPORTED_MODULE_2__messages_outbound_User_js__["a" /* default */]
         };
     }
 
@@ -10704,7 +10481,10 @@ var OutboundRouter = function () {
 
             var parts = method.split('@');
 
-            var controller = new __WEBPACK_IMPORTED_MODULE_0__messages_outbound_Game_js__["a" /* default */]();
+            console.log(parts[0]);
+            console.log(parts[1]);
+
+            var controller = new this.classMap[parts[0]]();
             return controller[parts[1]]();
         }
     }]);
@@ -10715,70 +10495,78 @@ var OutboundRouter = function () {
 /* harmony default export */ __webpack_exports__["a"] = (OutboundRouter);
 
 /***/ }),
-/* 17 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+__webpack_require__(4);
+module.exports = __webpack_require__(14);
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Game = function () {
-    function Game() {
-        _classCallCheck(this, Game);
-    }
-
-    _createClass(Game, [{
-        key: 'default',
-        value: function _default() {
-            if (typeof window.cookies.get('guid') === 'undefined') {
-                return {
-                    route: "/user/get-name-form/",
-                    data: {}
-                };
-            }
-            return {
-                route: "/user/refresh-page/",
-                data: {
-                    guid: window.cookies.get('guid')
-                },
-                setGuid: true
-            };
-        }
-    }, {
-        key: 'joinGame',
-        value: function joinGame() {
-            if (typeof window.cookies.get('guid') === 'undefined') {
-                return {
-                    route: "/user/get-name-form/",
-                    data: {}
-                };
-            }
-            return {
-                route: "/user/join-game/",
-                data: {
-                    guid: window.cookies.get('guid'),
-                    gameHash: window.dominion.gameHash
-                },
-                setGuid: true
-            };
-        }
-    }]);
-
-    return Game;
-}();
-
-/* harmony default export */ __webpack_exports__["a"] = (Game);
 
 /***/ }),
-/* 18 */
+/* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__messages_inbound_Game_js__ = __webpack_require__(19);
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__websocket_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_browser_cookies__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_browser_cookies___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_browser_cookies__);
+
+
+
+// define a global cookies object to keep track of cookies
+window.cookies = __WEBPACK_IMPORTED_MODULE_1_browser_cookies___default.a;
+
+// setup the websocket connection and scaffold code to handle outgoing and incoming messages
+Object(__WEBPACK_IMPORTED_MODULE_0__websocket_js__["a" /* default */])();
+
+/***/ }),
+/* 5 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = setupWebSocketConnection;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__routers_InboundRouter_js__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__ = __webpack_require__(2);
+// On page load, set up a connection to the websocket server
+
+
+
+
+function setupWebSocketConnection() {
+    window.WebSocket = window.WebSocket || window.MozWebSocket;
+
+    var connection = new WebSocket('ws://127.0.0.1:1337');
+    window.dominion.connection = connection;
+
+    connection.onopen = function () {
+        new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */](window.dominion.route).message();
+    };
+
+    connection.onmessage = function (message) {
+        try {
+            message = JSON.parse(message.data);
+            var controller = new __WEBPACK_IMPORTED_MODULE_0__routers_InboundRouter_js__["a" /* default */](message.action, message);
+            controller.respond();
+        } catch (e) {
+            console.log(e);
+        }
+    };
+}
+
+/***/ }),
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__messages_inbound_Game_js__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__messages_inbound_Home_js__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__messages_inbound_User_js__ = __webpack_require__(12);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
 
 
 
@@ -10790,7 +10578,14 @@ var InboundRouter = function () {
         this.message = message;
         this.routes = {
             'home': 'Game@default',
-            'refreshView': 'Game@refreshView'
+            'refreshView': 'Home@refresh',
+            'setGuid': 'User@setGuid',
+            'joinGameAfterSettingName': 'User@joinGameAfterSettingName'
+        };
+        this.classMap = {
+            'Home': __WEBPACK_IMPORTED_MODULE_1__messages_inbound_Home_js__["a" /* default */],
+            'Game': __WEBPACK_IMPORTED_MODULE_0__messages_inbound_Game_js__["a" /* default */],
+            'User': __WEBPACK_IMPORTED_MODULE_2__messages_inbound_User_js__["a" /* default */]
         };
     }
 
@@ -10804,7 +10599,10 @@ var InboundRouter = function () {
 
             var parts = method.split('@');
 
-            var controller = new __WEBPACK_IMPORTED_MODULE_0__messages_inbound_Game_js__["a" /* default */](this.message);
+            console.log(parts[0]);
+            console.log(parts[1]);
+
+            var controller = new this.classMap[parts[0]](this.message);
             return controller[parts[1]]();
         }
     }]);
@@ -10815,16 +10613,13 @@ var InboundRouter = function () {
 /* harmony default export */ __webpack_exports__["a"] = (InboundRouter);
 
 /***/ }),
-/* 19 */
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game__ = __webpack_require__(5);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-
 
 var Game = function () {
     function Game(message) {
@@ -10834,17 +10629,6 @@ var Game = function () {
     }
 
     _createClass(Game, [{
-        key: 'refreshView',
-        value: function refreshView() {
-            document.getElementById('root').innerHTML = this.message.view;
-            Object(__WEBPACK_IMPORTED_MODULE_0__game__["a" /* default */])();
-        }
-    }, {
-        key: 'setGuid',
-        value: function setGuid() {
-            window.cookies.set('guid', this.message.guid);
-        }
-    }, {
         key: 'joinedGame',
         value: function joinedGame() {
             window.cookies.set('guid', this.message.guid);
@@ -10867,6 +10651,459 @@ var Game = function () {
 }();
 
 /* harmony default export */ __webpack_exports__["a"] = (Game);
+
+/***/ }),
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Home = function () {
+    function Home() {
+        _classCallCheck(this, Home);
+    }
+
+    _createClass(Home, [{
+        key: "refresh",
+        value: function refresh() {
+            var message = {};
+            if (window.cookies.get('guid') === null) {
+                message = {
+                    route: "/user/get-name-form/",
+                    data: {}
+                };
+            } else {
+                message = {
+                    route: "/user/refresh-page/",
+                    data: {
+                        guid: window.cookies.get('guid')
+                    },
+                    setGuid: true
+                };
+            }
+            window.dominion.connection.send(JSON.stringify(message));
+        }
+
+        // joinGame() {
+        //     if (typeof window.cookies.get('guid') === 'undefined') {
+        //         return {
+        //             route: "/user/get-name-form/",
+        //             data: {},
+        //         };
+        //     }
+        //     return {
+        //         route: "/user/join-game/",
+        //         data: {
+        //             guid: window.cookies.get('guid'),
+        //             gameHash: window.dominion.gameHash
+        //         },
+        //         setGuid: true
+        //     };
+        // }
+
+    }]);
+
+    return Home;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (Home);
+
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+var Game = function () {
+    function Game() {
+        _classCallCheck(this, Game);
+    }
+
+    _createClass(Game, [{
+        key: "create",
+        value: function create() {
+            var message = {
+                route: "/game/create/",
+                data: {
+                    guid: window.cookies.get('guid')
+                }
+            };
+            window.dominion.connection.send(JSON.stringify(message));
+        }
+    }, {
+        key: "joinIfPossible",
+        value: function joinIfPossible() {
+            if (window.cookies.get('guid') === null) {
+                var message = {
+                    route: "/user/get-name-form/",
+                    data: {}
+                };
+                window.dominion.connection.send(JSON.stringify(message));
+            } else {
+                this.join();
+            };
+        }
+    }, {
+        key: "join",
+        value: function join() {
+            console.log('joining');
+            var message = {
+                route: "/user/join-game/",
+                data: {
+                    guid: window.cookies.get('guid'),
+                    gameHash: window.dominion.gameHash
+                },
+                setGuid: true
+            };
+            window.dominion.connection.send(JSON.stringify(message));
+        }
+    }, {
+        key: "submitNameThenJoin",
+        value: function submitNameThenJoin() {
+            var message = {
+                route: "/user/set-name/",
+                data: {
+                    name: __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#submit-name--name').val(),
+                    responseAction: 'joinGameAfterSettingName'
+                }
+            };
+            window.dominion.connection.send(JSON.stringify(message));
+        }
+    }]);
+
+    return Game;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (Game);
+
+/***/ }),
+/* 10 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+var User = function () {
+    function User() {
+        _classCallCheck(this, User);
+    }
+
+    _createClass(User, [{
+        key: "submitName",
+        value: function submitName() {
+            var message = {
+                route: "/user/set-name/",
+                data: {
+                    name: __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#submit-name--name').val(),
+                    responseAction: 'setGuid'
+                }
+            };
+            window.dominion.connection.send(JSON.stringify(message));
+        }
+    }, {
+        key: "submitNameThenJoin",
+        value: function submitNameThenJoin() {
+            var message = {
+                route: "/user/set-name/",
+                data: {
+                    name: __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#submit-name--name').val(),
+                    responseAction: 'joinGameAfterSettingName'
+                }
+            };
+            window.dominion.connection.send(JSON.stringify(message));
+        }
+    }]);
+
+    return User;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (User);
+
+/***/ }),
+/* 11 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game_bindings_index_js__ = __webpack_require__(20);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+var Home = function () {
+    function Home(message) {
+        _classCallCheck(this, Home);
+
+        this.message = message;
+    }
+
+    _createClass(Home, [{
+        key: "refresh",
+        value: function refresh() {
+            document.getElementById('root').innerHTML = this.message.view;
+            Object(__WEBPACK_IMPORTED_MODULE_0__game_bindings_index_js__["a" /* default */])();
+        }
+    }]);
+
+    return Home;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (Home);
+
+/***/ }),
+/* 12 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game_bindings_index_js__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__ = __webpack_require__(2);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+
+var User = function () {
+    function User(message) {
+        _classCallCheck(this, User);
+
+        this.message = message;
+    }
+
+    _createClass(User, [{
+        key: 'setGuid',
+        value: function setGuid() {
+            document.getElementById('root').innerHTML = this.message.view;
+            Object(__WEBPACK_IMPORTED_MODULE_0__game_bindings_index_js__["a" /* default */])();
+            window.cookies.set('guid', this.message.guid);
+        }
+    }, {
+        key: 'joinGameAfterSettingName',
+        value: function joinGameAfterSettingName() {
+            window.cookies.set('guid', this.message.guid);
+
+            new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('joinGame');
+        }
+    }]);
+
+    return User;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (User);
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports) {
+
+exports.defaults = {};
+
+exports.set = function(name, value, options) {
+  // Retrieve options and defaults
+  var opts = options || {};
+  var defaults = exports.defaults;
+
+  // Apply default value for unspecified options
+  var expires  = opts.expires  || defaults.expires;
+  var domain   = opts.domain   || defaults.domain;
+  var path     = opts.path     !== undefined ? opts.path     : (defaults.path !== undefined ? defaults.path : '/');
+  var secure   = opts.secure   !== undefined ? opts.secure   : defaults.secure;
+  var httponly = opts.httponly !== undefined ? opts.httponly : defaults.httponly;
+  var samesite = opts.samesite !== undefined ? opts.samesite : defaults.samesite;
+
+  // Determine cookie expiration date
+  // If succesful the result will be a valid Date, otherwise it will be an invalid Date or false(ish)
+  var expDate = expires ? new Date(
+      // in case expires is an integer, it should specify the number of days till the cookie expires
+      typeof expires === 'number' ? new Date().getTime() + (expires * 864e5) :
+      // else expires should be either a Date object or in a format recognized by Date.parse()
+      expires
+  ) : 0;
+
+  // Set cookie
+  document.cookie = name.replace(/[^+#$&^`|]/g, encodeURIComponent)                // Encode cookie name
+  .replace('(', '%28')
+  .replace(')', '%29') +
+  '=' + value.replace(/[^+#$&/:<-\[\]-}]/g, encodeURIComponent) +                  // Encode cookie value (RFC6265)
+  (expDate && expDate.getTime() >= 0 ? ';expires=' + expDate.toUTCString() : '') + // Add expiration date
+  (domain   ? ';domain=' + domain     : '') +                                      // Add domain
+  (path     ? ';path='   + path       : '') +                                      // Add path
+  (secure   ? ';secure'               : '') +                                      // Add secure option
+  (httponly ? ';httponly'             : '') +                                      // Add httponly option
+  (samesite ? ';samesite=' + samesite : '');                                       // Add samesite option
+};
+
+exports.get = function(name) {
+  var cookies = document.cookie.split(';');
+  
+  // Iterate all cookies
+  while(cookies.length) {
+    var cookie = cookies.pop();
+
+    // Determine separator index ("name=value")
+    var separatorIndex = cookie.indexOf('=');
+
+    // IE<11 emits the equal sign when the cookie value is empty
+    separatorIndex = separatorIndex < 0 ? cookie.length : separatorIndex;
+
+    var cookie_name = decodeURIComponent(cookie.slice(0, separatorIndex).replace(/^\s+/, ''));
+
+    // Return cookie value if the name matches
+    if (cookie_name === name) {
+      return decodeURIComponent(cookie.slice(separatorIndex + 1));
+    }
+  }
+
+  // Return `null` as the cookie was not found
+  return null;
+};
+
+exports.erase = function(name, options) {
+  exports.set(name, '', {
+    expires:  -1,
+    domain:   options && options.domain,
+    path:     options && options.path,
+    secure:   0,
+    httponly: 0}
+  );
+};
+
+exports.all = function() {
+  var all = {};
+  var cookies = document.cookie.split(';');
+
+  // Iterate all cookies
+  while(cookies.length) {
+    var cookie = cookies.pop();
+
+    // Determine separator index ("name=value")
+    var separatorIndex = cookie.indexOf('=');
+
+    // IE<11 emits the equal sign when the cookie value is empty
+    separatorIndex = separatorIndex < 0 ? cookie.length : separatorIndex;
+
+    // add the cookie name and value to the `all` object
+    var cookie_name = decodeURIComponent(cookie.slice(0, separatorIndex).replace(/^\s+/, ''));
+    all[cookie_name] = decodeURIComponent(cookie.slice(separatorIndex + 1));
+  }
+
+  return all;
+};
+
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 15 */,
+/* 16 */,
+/* 17 */,
+/* 18 */,
+/* 19 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = refreshBindings;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__ = __webpack_require__(2);
+
+
+
+function refreshBindings() {
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()(document).ready(function () {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.card').hover(function () {
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).mousemove(function (event) {
+                __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).find('.card__description').css({
+                    top: event.pageY + 3,
+                    left: event.pageX + 3
+                });
+            });
+        });
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.card').mouseenter(function () {
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).find('.card__description').show();
+        });
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.card').mouseleave(function () {
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).find('.card__description').hide();
+        });
+    });
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.home-root').find('.submit-name').click(function () {
+        new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('submitName').message();
+    });
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.home-root').find('.start-game').click(function () {
+        new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('createGame').message();
+    });
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.home-root').find('.submit-card').click(function () {
+        var message = {
+            route: "/game/update/",
+            data: {
+                guid: Cookies.get('guid'),
+                action: 'play-treasure',
+                input: 'copper'
+            }
+        };
+        window.dominion.connection.send(JSON.stringify(message));
+    });
+}
+
+/***/ }),
+/* 20 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = refreshBindings;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_js__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__join_js__ = __webpack_require__(21);
+
+
+
+function refreshBindings() {
+    Object(__WEBPACK_IMPORTED_MODULE_0__home_js__["a" /* default */])();
+    Object(__WEBPACK_IMPORTED_MODULE_1__join_js__["a" /* default */])();
+}
+
+/***/ }),
+/* 21 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = refreshBindings;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__ = __webpack_require__(2);
+
+
+
+function refreshBindings() {
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.join-root').find('.submit-name').click(function () {
+        new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('submitNameThenJoin').message();
+    });
+}
 
 /***/ })
 /******/ ]);

@@ -4,7 +4,7 @@ let Request = require('request');
 process.title = 'node-chat';
 
 // Server port
-let port = 8080;
+let port = 1337;
 
 // record of currently connected clients (users)
 let clients = [];
@@ -32,8 +32,6 @@ webSocketServer.on('request', function(request) {
     connection.id = Math.random().toString(36).substring(7);
     clients.push(connection);
 
-    console.log('user connected...');
-
     connection.on('message', function(message) {
         message = JSON.parse(message.utf8Data);
 
@@ -47,7 +45,19 @@ webSocketServer.on('request', function(request) {
                 form: message.data
             },
             function (error, response, body) {
-                body = JSON.parse(body);
+                try {
+                    body = JSON.parse(body);
+                } catch(e) {
+                    const fs = require('fs');
+                    fs.writeFile('server/error.log', body, function(err) {
+                        if (err) {
+                            return console.log(err);
+                        }
+
+                        console.log('Something went wrong, saving error to file');
+                    })
+                    return;
+                }
 
                 if (message.route === '/user/set-name/') {
                     connection.guid = body.guid;

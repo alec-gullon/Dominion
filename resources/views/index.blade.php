@@ -8,7 +8,7 @@
 </head>
 
 <body>
-<div id="root">
+<div id="root" class="home-root">
     Connecting to Dominion...
 </div>
 <script>

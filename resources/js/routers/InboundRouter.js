@@ -1,4 +1,6 @@
 import Game from '../messages/inbound/Game.js';
+import Home from '../messages/inbound/Home.js';
+import User from '../messages/inbound/User.js';
 
 export default class InboundRouter {
 
@@ -7,7 +9,14 @@ export default class InboundRouter {
         this.message = message;
         this.routes = {
             'home': 'Game@default',
-            'refreshView': 'Game@refreshView'
+            'refreshView': 'Home@refresh',
+            'setGuid': 'User@setGuid',
+            'joinGameAfterSettingName': 'User@joinGameAfterSettingName'
+        }
+        this.classMap = {
+            'Home': Home,
+            'Game': Game,
+            'User': User
         }
     }
 
@@ -19,7 +28,10 @@ export default class InboundRouter {
 
         let parts = method.split('@');
 
-        let controller = new Game(this.message);
+        console.log(parts[0]);
+        console.log(parts[1]);
+
+        let controller = new this.classMap[parts[0]](this.message);
         return controller[parts[1]]();
     }
 

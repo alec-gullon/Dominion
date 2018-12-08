@@ -1,18 +1,7 @@
-import refreshBindings from "../../game";
-
 export default class Game {
 
     constructor(message) {
         this.message = message;
-    }
-
-    refreshView() {
-        document.getElementById('root').innerHTML = this.message.view;
-        refreshBindings();
-    }
-
-    setGuid() {
-        window.cookies.set('guid', this.message.guid);
     }
 
     joinedGame() {

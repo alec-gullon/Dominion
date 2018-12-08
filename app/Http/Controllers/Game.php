@@ -42,7 +42,10 @@ class Game extends Controller {
             'name' => $user->name,
             'gameId' => $game->guid
         ])->render();
-        return response()->json(['view' => $view]);
+        return response()->json([
+            'view' => $view,
+            'action' => 'refreshView'
+        ]);
     }
 
     /**

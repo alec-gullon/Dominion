@@ -39,7 +39,8 @@ class User extends Controller {
         $view = view('player.lobby')->with(['name' => $user->name])->render();
         return response()->json([
             'view' => $view,
-            'guid' => $guid
+            'guid' => $guid,
+            'action' => $request->input('responseAction')
         ]);
     }
 
@@ -53,7 +54,10 @@ class User extends Controller {
 
         if ($user->game_id === '0') {
             $view = view('player.lobby')->with(['name' => $user->name])->render();
-            return response()->json(['view' => $view]);
+            return response()->json([
+                'view' => $view,
+                'action' => 'refreshView'
+            ]);
         }
 
         $game = $user->game;
@@ -62,7 +66,10 @@ class User extends Controller {
                 'name' => $user->name,
                 'gameId' => $game->guid
             ])->render();
-            return response()->json(['view' => $view]);
+            return response()->json([
+                'view' => $view,
+                'action' => 'refreshView'
+            ]);
         }
 
         $state = unserialize($game->object);
@@ -85,7 +92,10 @@ class User extends Controller {
      */
     public function getNameForm() {
         $view = view('player.name')->render();
-        return response()->json(['view' => $view]);
+        return response()->json([
+            'view' => $view,
+            'action' => 'refreshView'
+        ]);
     }
 
     /**

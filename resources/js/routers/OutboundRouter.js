@@ -1,12 +1,23 @@
+import Home from '../messages/outbound/Home.js';
 import Game from '../messages/outbound/Game.js';
+import User from '../messages/outbound/User.js';
 
 export default class OutboundRouter {
 
     constructor(route) {
         this.route = route;
         this.routes = {
-            'refreshView': 'Game@default',
-            'publicGameJoin': 'Game@publicGameJoin'
+            'home': 'Home@refresh',
+            'submitName': 'User@submitName',
+            'createGame': 'Game@create',
+            'joinGameIfPossible': 'Game@joinIfPossible',
+            'submitNameThenJoin': 'Game@submitNameThenJoin',
+            'joinGame': 'Game@join'
+        }
+        this.classMap = {
+            'Home': Home,
+            'Game': Game,
+            'User': User
         }
     }
 
@@ -18,7 +29,10 @@ export default class OutboundRouter {
 
         let parts = method.split('@');
 
-        let controller = new Game();
+        console.log(parts[0]);
+        console.log(parts[1]);
+
+        let controller = new this.classMap[parts[0]]();
         return controller[parts[1]]();
     }
 
