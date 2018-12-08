@@ -1,0 +1,12 @@
+.key-stats {
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid $grey-mid;
+
+  &__stat {
+    width: 15%;
+    text-align: center;
+    padding: 20px;
+    font-size: 20px;
+  }
+}

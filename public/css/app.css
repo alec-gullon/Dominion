@@ -1,0 +1,246 @@
+* {
+  padding: 0;
+  margin: 0;
+  border-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+#root {
+  height: 100%;
+}
+
+.game {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  height: 100%;
+  width: 100%;
+}
+
+.game-board {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  position: relative;
+}
+
+.card {
+  border: 2px solid #ccc;
+  padding: 10px;
+  margin-top: 20px;
+  width: 18.5%;
+  margin-right: 1.5%;
+  text-align: center;
+  background: url("https://www.toptal.com/designers/subtlepatterns/patterns/rockywall.png");
+  cursor: pointer;
+}
+
+.card--active {
+  border: 3px solid #007bff;
+}
+
+.card__description {
+  background: #222;
+  color: #eee;
+  padding: 10px;
+  position: fixed;
+  top: 30px;
+  left: 0;
+  z-index: 10;
+  display: none;
+  width: 200px;
+}
+
+.card__standard-effects {
+  text-align: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.card__standard-effects:last-child {
+  border-bottom: 0px;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+}
+
+.card.card--treasure {
+  background: url("https://www.toptal.com/designers/subtlepatterns/patterns/halftone-yellow.png");
+}
+
+.card.card--victory {
+  background: url("https://www.toptal.com/designers/subtlepatterns/patterns/green_dust_scratch.png");
+}
+
+.card.card--curse {
+  background: url("https://png.pngtree.com/thumb_back/fw800/back_pic/03/84/70/0657cb78f0016be.jpg");
+  color: white;
+}
+
+.kingdom {
+  padding-top: 30px;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  position: relative;
+  width: 100%;
+}
+
+.kingdom__divider {
+  height: 40px;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.kingdom__divider::before {
+  content: "";
+  border-top: 2px solid #ccc;
+  position: absolute;
+  top: 19px;
+  left: 0;
+  width: 100%;
+}
+
+.kingdom__coin-wrapper {
+  width: 40px;
+  height: 40px;
+  background: white;
+  z-index: 5;
+  position: relative;
+}
+
+.kingdom__coin {
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(45deg, #f2d70c 0%, white 56%, #fceb00 96%);
+  border-radius: 50%;
+  color: #7a5f32;
+  text-align: center;
+  line-height: 40px;
+  font-size: 20px;
+  font-weight: 500;
+  border: 1px solid rgba(242, 215, 12, 0.3);
+}
+
+.kingdom__card-group {
+  padding: 0 20px 20px 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.game-main {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.key-stats {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-top: 1px solid #ccc;
+}
+
+.key-stats__stat {
+  width: 15%;
+  text-align: center;
+  padding: 20px;
+  font-size: 20px;
+}
+
+.standard-cards {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 75px;
+  border-top: 1px solid #222;
+  background: url("https://www.toptal.com/designers/subtlepatterns/patterns/rockywall.png");
+}
+
+.standard-cards__list {
+  width: 25%;
+  margin-right: 2.5%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.standard-cards .card {
+  width: auto;
+}
+
+.game-sidebar {
+  width: 500px;
+  border-left: 1px solid #222;
+}
+
+.game-sidebar__prompt {
+  font-size: 18px;
+  border-bottom: 1px solid #222;
+  padding: 60px 20px 20px 20px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.game-sidebar .card {
+  width: auto;
+  margin: 10px 40px;
+}
+
