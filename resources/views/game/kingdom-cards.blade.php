@@ -20,7 +20,7 @@
         @foreach ($cards as $stub => $amount)
             <?php $card = $cardBuilder->build($stub); ?>
             @if ($card->getValue() === $i)
-                @if ($gameObserver->canBuy($stub))
+                @if ($gameObserver->canBuy($stub, $playerKey))
                     <div class="card card--active">
                         {{ $card->getName() }}: {{ $amount }}
                         @include('game.cards.descriptions.' . $stub, ['amount' => $amount, 'active' => true])

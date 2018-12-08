@@ -24,23 +24,27 @@ class GameObserver {
         return $nextStep;
     }
 
-    public function isHandCardActive($state, $card, $playerKey) {
-        if ($state->getActivePlayerKey() !== $playerKey) {
+    public function isHandCardActive($card, $playerKey) {
+        if ($this->state->getActivePlayerKey() !== $playerKey) {
             return false;
         }
         if ($card->hasType('victory')) {
             return false;
         }
-        if ($state->getActions() === 0 && $card->hasType('action')) {
+        if ($this->state->getActions() === 0 && $card->hasType('action')) {
             return false;
         }
-        if ($state->getPhase() !== 'action' && $card->hasType('action')) {
+        if ($this->state->getPhase() !== 'action' && $card->hasType('action')) {
             return false;
         }
         return true;
     }
 
-    public function canBuy($stub) {
+    public function canBuy($stub, $playerKey) {
+        if ($this->state->getActivePlayerKey() !== $playerKey) {
+            return false;
+        }
+
         $cardBuilder = new CardBuilder();
         $card = $cardBuilder->build($stub);
 

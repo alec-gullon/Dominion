@@ -12,7 +12,8 @@ export default class OutboundRouter {
             'createGame': 'Game@create',
             'joinGameIfPossible': 'Game@joinIfPossible',
             'submitNameThenJoin': 'Game@submitNameThenJoin',
-            'joinGame': 'Game@join'
+            'joinGame': 'Game@join',
+            'playTreasure': 'Game@playTreasure'
         }
         this.classMap = {
             'Home': Home,
@@ -21,7 +22,7 @@ export default class OutboundRouter {
         }
     }
 
-    message() {
+    message(data) {
         let method = 'Game@default';
         if (this.routes[this.route]) {
             method = this.routes[this.route];
@@ -29,11 +30,8 @@ export default class OutboundRouter {
 
         let parts = method.split('@');
 
-        console.log(parts[0]);
-        console.log(parts[1]);
-
         let controller = new this.classMap[parts[0]]();
-        return controller[parts[1]]();
+        return controller[parts[1]](data);
     }
 
 }

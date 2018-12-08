@@ -77,7 +77,8 @@ class Game extends Controller {
 
             $responses[] = [
                 'response' => [
-                    'view' => $view
+                    'view' => $view,
+                    'action' => 'refreshView'
                 ],
                 'guid' => $user->guid
             ];

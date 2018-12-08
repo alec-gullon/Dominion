@@ -1,4 +1,4 @@
-<div class="game">
+<div class="game game-root">
     <div class="game-board">
         @include('game.kingdom-cards')
         <div class="game-main">

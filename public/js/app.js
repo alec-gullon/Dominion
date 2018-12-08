@@ -10462,7 +10462,8 @@ var OutboundRouter = function () {
             'createGame': 'Game@create',
             'joinGameIfPossible': 'Game@joinIfPossible',
             'submitNameThenJoin': 'Game@submitNameThenJoin',
-            'joinGame': 'Game@join'
+            'joinGame': 'Game@join',
+            'playTreasure': 'Game@playTreasure'
         };
         this.classMap = {
             'Home': __WEBPACK_IMPORTED_MODULE_0__messages_outbound_Home_js__["a" /* default */],
@@ -10473,7 +10474,7 @@ var OutboundRouter = function () {
 
     _createClass(OutboundRouter, [{
         key: 'message',
-        value: function message() {
+        value: function message(data) {
             var method = 'Game@default';
             if (this.routes[this.route]) {
                 method = this.routes[this.route];
@@ -10481,11 +10482,8 @@ var OutboundRouter = function () {
 
             var parts = method.split('@');
 
-            console.log(parts[0]);
-            console.log(parts[1]);
-
             var controller = new this.classMap[parts[0]]();
-            return controller[parts[1]]();
+            return controller[parts[1]](data);
         }
     }]);
 
@@ -10598,9 +10596,6 @@ var InboundRouter = function () {
             }
 
             var parts = method.split('@');
-
-            console.log(parts[0]);
-            console.log(parts[1]);
 
             var controller = new this.classMap[parts[0]](this.message);
             return controller[parts[1]]();
@@ -10756,7 +10751,6 @@ var Game = function () {
     }, {
         key: "join",
         value: function join() {
-            console.log('joining');
             var message = {
                 route: "/user/join-game/",
                 data: {
@@ -10775,6 +10769,19 @@ var Game = function () {
                 data: {
                     name: __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#submit-name--name').val(),
                     responseAction: 'joinGameAfterSettingName'
+                }
+            };
+            window.dominion.connection.send(JSON.stringify(message));
+        }
+    }, {
+        key: "playTreasure",
+        value: function playTreasure(treasureStub) {
+            var message = {
+                route: "/game/update/",
+                data: {
+                    action: 'play-treasure',
+                    input: treasureStub,
+                    guid: window.cookies.get('guid')
                 }
             };
             window.dominion.connection.send(JSON.stringify(message));
@@ -10901,6 +10908,9 @@ var User = function () {
             window.cookies.set('guid', this.message.guid);
 
             new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('joinGame').message();
+            setTimeout(function () {
+                window.location.path = 'http://localhost:8000';
+            }, 1000);
         }
     }]);
 
@@ -11079,12 +11089,15 @@ function refreshBindings() {
 /* harmony export (immutable) */ __webpack_exports__["a"] = refreshBindings;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_js__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__join_js__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__game_js__ = __webpack_require__(22);
+
 
 
 
 function refreshBindings() {
     Object(__WEBPACK_IMPORTED_MODULE_0__home_js__["a" /* default */])();
     Object(__WEBPACK_IMPORTED_MODULE_1__join_js__["a" /* default */])();
+    Object(__WEBPACK_IMPORTED_MODULE_2__game_js__["a" /* default */])();
 }
 
 /***/ }),
@@ -11102,7 +11115,27 @@ function refreshBindings() {
 function refreshBindings() {
 
     __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.join-root').find('.submit-name').click(function () {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).addClass('is-loading');
         new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('submitNameThenJoin').message();
+    });
+}
+
+/***/ }),
+/* 22 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = refreshBindings;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__ = __webpack_require__(2);
+
+
+
+function refreshBindings() {
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.game-root').find('[data-action="play-treasure"]').click(function () {
+        new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('playTreasure').message(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).data('stub'));
     });
 }
 

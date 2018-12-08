@@ -28,9 +28,6 @@ export default class InboundRouter {
 
         let parts = method.split('@');
 
-        console.log(parts[0]);
-        console.log(parts[1]);
-
         let controller = new this.classMap[parts[0]](this.message);
         return controller[parts[1]]();
     }

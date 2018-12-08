@@ -25,7 +25,6 @@ export default class Game {
     }
 
     join() {
-        console.log('joining');
         let message = {
             route: "/user/join-game/",
             data: {
@@ -45,6 +44,18 @@ export default class Game {
                 responseAction: 'joinGameAfterSettingName'
             }
         }
+        window.dominion.connection.send(JSON.stringify(message));
+    }
+
+    playTreasure(treasureStub) {
+        let message = {
+            route: "/game/update/",
+            data: {
+                action: 'play-treasure',
+                input: treasureStub,
+                guid: window.cookies.get('guid')
+            }
+        };
         window.dominion.connection.send(JSON.stringify(message));
     }
 

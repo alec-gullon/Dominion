@@ -5,7 +5,7 @@
             <?php
                 $card = $cardBuilder->build($stub);
                 $class = 'card card--victory';
-                if ($gameObserver->canBuy($stub)) {
+                if ($gameObserver->canBuy($stub, $playerKey)) {
                     $class = 'card card--victory card--active';
                 }
             ?>
@@ -20,7 +20,7 @@
             <?php
                 $card = $cardBuilder->build($stub);
                 $class = 'card card--treasure';
-                if ($gameObserver->canBuy($stub)) {
+                if ($gameObserver->canBuy($stub, $playerKey)) {
                     $class = 'card card--treasure card--active';
                 }
             ?>
@@ -33,7 +33,7 @@
         <?php
             $card = $cardBuilder->build('curse');
             $class = 'card card--curse';
-            if ($gameObserver->canBuy($stub)) {
+            if ($gameObserver->canBuy($stub, $playerKey)) {
                 $class = 'card card--curse card--active';
             }
         ?>

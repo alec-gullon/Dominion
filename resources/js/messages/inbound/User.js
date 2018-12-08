@@ -17,5 +17,8 @@ export default class User {
         window.cookies.set('guid', this.message.guid);
 
         new OutboundRouter('joinGame').message();
+        setTimeout(function() {
+            window.location.path = 'http://localhost:8000'
+        }, 1000);
     }
 }

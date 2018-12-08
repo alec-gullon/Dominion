@@ -7,8 +7,8 @@
 </h1>
 
 @foreach ($player->getHand() as $card)
-    @if ($gameObserver->isHandCardActive($state, $card, $playerKey))
-        <div class="card card--active submit-card">
+    @if ($gameObserver->isHandCardActive($card, $playerKey))
+        <div class="card card--active" data-action="play-treasure" data-stub="<?= $card->getStub() ?>">
             <?= $card->getName() ?>
         </div>
     @else
