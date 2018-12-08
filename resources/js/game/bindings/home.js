@@ -21,10 +21,11 @@ export default function refreshBindings() {
     });
 
     $('.home-root').find('.submit-name').click(function() {
+        $(this).addClass('is-loading');
         new OutboundRouter('submitName').message();
     });
 
-    $('.home-root').find('.start-game').click(function() {
+    $('.home-root').find('[data-action="start-game"]').click(function() {
         new OutboundRouter('createGame').message();
     })
 

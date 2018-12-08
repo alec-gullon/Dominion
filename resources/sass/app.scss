@@ -1,5 +1,9 @@
+@import '~bulma';
+
 // Variables
 @import 'global';
 @import 'variables';
 
-@import 'organisms/game';
+@import 'atoms/all';
+@import 'molecules/all';
+@import 'organisms/all';

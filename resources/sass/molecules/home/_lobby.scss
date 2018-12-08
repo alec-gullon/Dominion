@@ -1,0 +1,12 @@
+.lobby {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80%;
+
+  &__heading {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+}

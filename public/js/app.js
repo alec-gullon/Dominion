@@ -11050,10 +11050,11 @@ function refreshBindings() {
     });
 
     __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.home-root').find('.submit-name').click(function () {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).addClass('is-loading');
         new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('submitName').message();
     });
 
-    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.home-root').find('.start-game').click(function () {
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.home-root').find('[data-action="start-game"]').click(function () {
         new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('createGame').message();
     });
 
