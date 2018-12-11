@@ -4,7 +4,7 @@ namespace Tests\Feature\Game\Cards;
 
 class WoodcutterTest extends CardTestBase
 {
-    public function testFestival()
+    public function testWoodcutter()
     {
         $this->buildGame();
         $this->setHand(['woodcutter', 'copper@4']);

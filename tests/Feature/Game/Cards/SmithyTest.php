@@ -4,7 +4,7 @@ namespace Tests\Feature\Game\Cards;
 
 class SmithyTest extends CardTestBase
 {
-    public function testFestival()
+    public function testSmithy()
     {
         $this->buildGame();
         $this->setHand(['smithy', 'copper@4']);

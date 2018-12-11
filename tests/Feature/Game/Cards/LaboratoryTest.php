@@ -4,7 +4,7 @@ namespace Tests\Feature\Game\Cards;
 
 class LaboratoryTest extends CardTestBase
 {
-    public function testFestival()
+    public function testLaboratory()
     {
         $this->buildGame();
         $this->setHand(['laboratory', 'copper@4']);

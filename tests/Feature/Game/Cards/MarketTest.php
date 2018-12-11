@@ -4,7 +4,7 @@ namespace Tests\Feature\Game\Cards;
 
 class MarketTest extends CardTestBase
 {
-    public function testFestival()
+    public function testMarket()
     {
         $this->buildGame();
         $this->setHand(['market', 'copper@4']);
