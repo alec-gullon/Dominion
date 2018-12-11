@@ -6,12 +6,19 @@ use App\Models\User as ModelUser;
 use App\Models\Game;
 use App\Models\Game\Player;
 use App\Services\CardBuilder;
+use App\Services\GameRenderer;
 
 use Illuminate\Http\Request;
 
 use View;
 
 class User extends Controller {
+
+    private $gameRenderer;
+
+    public function __construct(GameRenderer $gameRenderer) {
+        $this->gameRenderer = $gameRenderer;
+    }
 
     /**
      * Take the given id and check that a user corresponding to that guid exists in the database.
@@ -123,32 +130,7 @@ class User extends Controller {
         $game->object = serialize($state);
         $game->save();
 
-        $game = Game::first();
-        $state = unserialize($game->object);
-
-        $responses = [];
-
-        foreach ($game->users as $user) {
-            $view = view('game.index', [
-                'cardBuilder' => new \App\Services\CardBuilder(),
-                'state' => $state,
-                'gameObserver' => new \App\Services\GameObserver($state),
-                'playerKey' => $user->guid
-            ])->render();
-
-            $responses[] = [
-                'response' => [
-                    'view' => $view
-                ],
-                'guid' => $user->guid
-            ];
-        }
-
-        return response()->json([
-            'joinedGame' => true,
-            'distributedResponse' => true,
-            'responses' => $responses
-        ]);
+        return $this->gameRenderer->render($game);
     }
 
 }

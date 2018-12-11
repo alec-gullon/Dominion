@@ -8,6 +8,7 @@ use App\Models\Game\State;
 use App\Models\Game as GameModel;
 
 use App\Services\CardBuilder;
+use App\Services\GameRenderer;
 use App\Services\Updater;
 
 class Game extends Controller {
@@ -16,9 +17,12 @@ class Game extends Controller {
 
     private $cardBuilder;
 
-    public function __construct(State $state, CardBuilder $cardBuilder) {
+    private $gameRenderer;
+
+    public function __construct(State $state, CardBuilder $cardBuilder, GameRenderer $gameRenderer) {
         $this->state = $state;
         $this->cardBuilder = $cardBuilder;
+        $this->gameRenderer = $gameRenderer;
     }
 
     /**
@@ -56,39 +60,13 @@ class Game extends Controller {
         $game = $user->game;
 
         $updater = new Updater(unserialize($game->object), $this->cardBuilder);
-
         $updater->update($request->input('action'), $request->input('input'));
         $updater->resolve();
 
         $game->object = serialize($updater->getState());
         $game->save();
 
-        $state = unserialize($game->object);
-
-        $responses = [];
-
-        foreach ($game->users as $user) {
-            $view = view('game.index', [
-                'cardBuilder' => new \App\Services\CardBuilder(),
-                'state' => $state,
-                'gameObserver' => new \App\Services\GameObserver($state),
-                'playerKey' => $user->guid
-            ])->render();
-
-            $responses[] = [
-                'response' => [
-                    'view' => $view,
-                    'action' => 'refreshView'
-                ],
-                'guid' => $user->guid
-            ];
-        }
-
-        return response()->json([
-            'joinedGame' => true,
-            'distributedResponse' => true,
-            'responses' => $responses
-        ]);
+        return $this->gameRenderer->render($game);
     }
 
 }
