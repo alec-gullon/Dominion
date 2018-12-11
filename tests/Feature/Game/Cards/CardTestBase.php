@@ -18,6 +18,15 @@ class CardTestBase extends TestCase
         $this->game = \App\Models\Game::all()->first();
     }
 
+    protected function provideInput($input) {
+        $this->post('/game/update/', [
+            'guid' => 'alec',
+            'action' => 'provide-input',
+            'input' => $input
+        ]);
+        $this->game = \App\Models\Game::all()->first();
+    }
+
     protected function buildGame()
     {
         $game = new \App\Models\Game();
@@ -136,6 +145,11 @@ class CardTestBase extends TestCase
         $this->assertEquals(count($player->getDeck()), $size);
     }
 
+    protected function assertDiscardSize($size) {
+        $player = unserialize($this->game->object)->getActivePlayer();
+        $this->assertEquals(count($player->getDiscard()), $size);
+    }
+
     protected function assertActions($actions) {
         $state = unserialize($this->game->object);
         $this->assertEquals($state->getActions(), $actions);
@@ -154,5 +168,25 @@ class CardTestBase extends TestCase
     protected function assertNumberOfCoins($coins) {
         $state = unserialize($this->game->object);
         $this->assertEquals($state->getCoins(), $coins);
+    }
+
+    protected function assertTrashSize($size) {
+        $state = unserialize($this->game->object);
+        $this->assertEquals(count($state->getTrash()), $size);
+    }
+
+    protected function assertAllCardsResolved() {
+        $state = unserialize($this->game->object);
+        $this->assertEquals($state->getActivePlayer()->hasUnresolvedCard(), false);
+    }
+
+    protected function assertNumberOfRemainingCards($stub, $number) {
+        $state = unserialize($this->game->object);
+        $this->assertEquals($state->getKingdomCards()[$stub], $number);
+    }
+
+    protected function assertNumberOfSetAside($number) {
+        $state = unserialize($this->game->object);
+        $this->assertEquals(count($state->getActivePlayer()->getSetAside()), $number);
     }
 }
