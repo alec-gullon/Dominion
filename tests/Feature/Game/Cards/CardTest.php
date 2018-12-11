@@ -83,7 +83,23 @@ class CardTest extends TestCase
     }
 
     protected function setHand($shorthand) {
-        $hand = [];
+        $hand = $this->buildCardStackFromShorthand($shorthand);
+        $state = unserialize($this->game->object);
+        $state->getActivePlayer()->setHand($hand);
+        $this->game->object = serialize($state);
+        $this->game->save();
+    }
+
+    protected function setDeck($shorthand) {
+        $deck = $this->buildCardStackFromShorthand($shorthand);
+        $state = unserialize($this->game->object);
+        $state->getActivePlayer()->setDeck($deck);
+        $this->game->object = serialize($state);
+        $this->game->save();
+    }
+
+    private function buildCardStackFromShorthand($shorthand) {
+        $stack = [];
         $cardBuilder = new \App\Services\CardBuilder();
         foreach($shorthand as $stub) {
             $parts = explode('@', $stub);
@@ -94,14 +110,10 @@ class CardTest extends TestCase
             }
 
             for ($i = 1; $i <= $parts[1]; $i++) {
-                $hand[] = $cardBuilder->build($parts[0]);
+                $stack[] = $cardBuilder->build($parts[0]);
             }
         }
-
-        $state = unserialize($this->game->object);
-        $state->getActivePlayer()->setHand($hand);
-        $this->game->object = serialize($state);
-        $this->game->save();
+        return $stack;
     }
 
     protected function assertHasCard($stub) {
@@ -127,5 +139,10 @@ class CardTest extends TestCase
     protected function assertActions($actions) {
         $state = unserialize($this->game->object);
         $this->assertEquals($state->getActions(), $actions);
+    }
+
+    protected function assertNumberOfPlayed($number) {
+        $state = unserialize($this->game->object);
+        $this->assertEquals(count($state->getActivePlayer()->getPlayed()), $number);
     }
 }
