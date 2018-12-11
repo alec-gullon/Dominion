@@ -5,7 +5,7 @@ namespace Tests\Feature\Game\Cards;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class CardTest extends TestCase
+class CardTestBase extends TestCase
 {
     use RefreshDatabase;
 
@@ -144,5 +144,15 @@ class CardTest extends TestCase
     protected function assertNumberOfPlayed($number) {
         $state = unserialize($this->game->object);
         $this->assertEquals(count($state->getActivePlayer()->getPlayed()), $number);
+    }
+
+    protected function assertNumberOfBuys($number) {
+        $state = unserialize($this->game->object);
+        $this->assertEquals($state->getBuys(), $number);
+    }
+
+    protected function assertNumberOfCoins($coins) {
+        $state = unserialize($this->game->object);
+        $this->assertEquals($state->getCoins(), $coins);
     }
 }

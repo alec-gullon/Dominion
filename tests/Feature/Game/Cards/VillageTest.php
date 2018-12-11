@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Game\Cards;
 
-class VillageTest extends CardTest
+class VillageTest extends CardTestBase
 {
     public function testVillage()
     {
