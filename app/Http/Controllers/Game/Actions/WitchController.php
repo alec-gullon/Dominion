@@ -23,7 +23,7 @@ class WitchController extends ActionController {
     }
 
     public function resolveAttack() {
-        $this->state->moveCardToPlayer('curse', $this->state->getSecondaryPlayerKey());
+        $this->state->moveCardToPlayer('curse', 'discard', $this->state->getSecondaryPlayerKey());
         $this->resolveCard();
     }
 

@@ -64,6 +64,7 @@ class Game extends Controller {
         $updater->resolve();
 
         $game->object = serialize($updater->getState());
+
         $game->save();
 
         return $this->gameRenderer->render($game);
