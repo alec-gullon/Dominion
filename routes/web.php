@@ -22,6 +22,6 @@ Route::post('/user/join-game/', 'User@joinGame')->name('user-join-game')->middle
 Route::post('/game/create/', 'Game@create')->name('game-create')->middleware('player');
 Route::post('/game/update/', 'Game@update')->name('game-update')->middleware('player');
 
-Route::post('/stub/', 'Home@stub');
+Route::get('/stub/', 'Home@stub');
 
 Route::get('/public/game/join/{guid}/', 'Home@join')->name('public-game-join');

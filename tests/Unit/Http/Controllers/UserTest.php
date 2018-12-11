@@ -20,7 +20,6 @@ class UserTest extends TestCase
         ])->getContent();
 
         $this->assertContains('Coins: 0', $response);
-
     }
 
     protected function buildGame()
