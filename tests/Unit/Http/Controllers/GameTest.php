@@ -22,7 +22,21 @@ class GameTest extends TestCase
         ])->getContent();
 
         $this->assertContains('Coins: 1', $response);
+    }
 
+    public function testItCreatesAGame()
+    {
+        $user = new \App\Models\User();
+        $user->name = 'Alec';
+        $user->game_id = 0;
+        $user->guid = 'alec';
+        $user->save();
+
+        $response = $this->post('/game/create/', [
+            'guid' => 'alec'
+        ])->getContent();
+
+        $this->assertContains('A new game has been set up for you', $response);
     }
 
     protected function buildGame()
