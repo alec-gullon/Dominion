@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Renderers\GameRenderer;
-use App\Models\User as ModelUser;
+use App\Models\User as UserModel;
 use App\Models\Game;
-use App\Models\Game\Player;
-use App\Services\CardBuilder;
 use App\Services\Game\SetsUpNewPlayers;
 
 use Illuminate\Http\Request;
@@ -26,7 +24,7 @@ class User extends Controller {
      */
     public function validateId(Request $request) {
         $guid = $request->input('guid');
-        $user = ModelUser::where('guid', $guid);
+        $user = UserModel::where('guid', $guid);
         $userExists = (count($user) === 0);
         return response()->json(['userExists' => $userExists]);
     }
@@ -36,7 +34,7 @@ class User extends Controller {
      * front end so that the client has an identity.
      */
     public function setName(Request $request) {
-        $user = new ModelUser();
+        $user = new UserModel();
         $guid = uniqid();
 
         $user->name = $request->input('name');
@@ -53,18 +51,17 @@ class User extends Controller {
     public function refreshPage(Request $request) {
         $guid = $request->input('guid');
 
-        $user = ModelUser::where('guid', $guid)->first();
+        $user = UserModel::where('guid', $guid)->first();
 
         if ($user->game_id === '0') {
             return $this->gameRenderer->renderLobby($user);
         }
 
-        $game = $user->game;
-        if (count($game->users) === 1) {
-            return $this->gameRenderer->renderWaitingRoom($game, $user);
+        if (count($user->game->users) === 1) {
+            return $this->gameRenderer->renderWaitingRoom($user->game, $user);
         }
 
-        return $this->gameRenderer->renderGameForPlayer($game, $user);
+        return $this->gameRenderer->renderGameForPlayer($user->game, $user);
     }
 
     /**
