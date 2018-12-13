@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Services;
+namespace App\Game\Services;
 
 use App\Models\Game\State;
+use App\Services\CardBuilder;
 
-class Cartographer {
+class Router {
 
     private $state;
 
@@ -23,24 +24,6 @@ class Cartographer {
     public function __construct(State $state, CardBuilder $cardBuilder) {
         $this->state = $state;
         $this->cardBuilder = $cardBuilder;
-    }
-
-    public function updateActions() {
-        $actions = array();
-        $activePlayer = $this->state->getActivePlayer();
-
-        if ($activePlayer->hasTreasureCards()) {
-            $actions[] = 'play-treasure';
-        }
-
-        if (0 < $this->state->getBuys()) {
-            $actions[] = 'buy';
-        }
-
-        $actions[] = 'end-turn';
-
-        $this->actions = $actions;
-        $this->playerInputNeeded = true;
     }
 
     public function getController($action) {

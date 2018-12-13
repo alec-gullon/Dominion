@@ -1,5 +1,5 @@
 <?php
-    $player = $this->state->getActivePlayer();
+    $player = $state->getActivePlayer();
     $cards = $player->getHand();
 ?>
 

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Renderers\GameRenderer;
 use App\Models\User as UserModel;
 use App\Models\Game;
-use App\Services\Game\SetsUpNewPlayers;
+use App\Game\Services\SetsUpNewPlayers;
 
 use Illuminate\Http\Request;
 

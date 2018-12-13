@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Game;
+namespace App\Game\Services;
 
 use App\Models\Game\Player;
 use App\Services\CardBuilder;

@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Game\Services\Updater;
+
 use App\Models\Game\State;
 use App\Models\Game as GameModel;
 
 use App\Services\CardBuilder;
 use App\Http\Renderers\GameRenderer;
-use App\Http\Renderers\WaitingRoomRenderer;
-use App\Services\Updater;
 
 use View;
 

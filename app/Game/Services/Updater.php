@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Game\Services;
 
 class Updater {
 
@@ -9,7 +9,7 @@ class Updater {
     private $state;
 
     public function __construct($state, $cardBuilder) {
-        $this->cartographer = new Cartographer($state, $cardBuilder);
+        $this->cartographer = new Router($state, $cardBuilder);
         $this->state = $state;
     }
 

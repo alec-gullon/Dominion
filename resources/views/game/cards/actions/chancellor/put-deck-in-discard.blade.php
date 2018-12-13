@@ -1,5 +1,5 @@
 <?php
-$player = $this->state->getActivePlayer();
+$player = $state->getActivePlayer();
 ?>
 
 <?php if ($playerKey === $player->getId()): ?>
