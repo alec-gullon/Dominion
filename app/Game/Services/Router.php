@@ -11,14 +11,10 @@ class Router {
 
     private $cardBuilder;
 
-    private $actions = array();
-
-    private $playerInputNeeded = true;
-
     private $routes = array(
-        'play-treasure' => '\App\Game\Controllers\HandController@playTreasure',
-        'end-turn' => '\App\Game\Controllers\TurnController@endTurn',
-        'buy' => '\App\Game\Controllers\BuyController@buy'
+        'play-treasure' => 'HandController@playTreasure',
+        'end-turn' => 'TurnController@endTurn',
+        'buy' => 'BuyController@buy'
     );
 
     public function __construct(State $state, CardBuilder $cardBuilder) {
@@ -26,53 +22,64 @@ class Router {
         $this->cardBuilder = $cardBuilder;
     }
 
-    public function getController($action) {
+    public function controller($action) {
         if (isset($this->routes[$action])) {
-            $route = $this->routes[$action];
-            $parts = explode('@', $route);
-            $controllerString = $parts[0];
+            return $this->getControllerFromRoutes($action);
         } else {
-            $parts = explode('/', $action);
-            $cardParts = explode('-', $parts[0]);
-            $cardString = '';
-            foreach ($cardParts as $part) {
-                $cardString .= ucfirst($part);
-            }
-            $controllerString = '\App\Game\Controllers\Actions\\' . $cardString . 'Controller';
+            return $this->getCardControllerFromAction($action);
         }
-
-        $controller = new $controllerString($this->state, $this->cardBuilder);
-        return $controller;
     }
 
-    public function getMethod($action) {
+    public function method($action) {
         if (isset($this->routes[$action])) {
-            $route = $this->routes[$action];
-            $parts = explode('@', $route);
-            $methodString = $parts[1];
+            return $this->getMethodFromRoutes($action);
         } else {
-            $parts = explode('/', $action);
-            $methodParts = explode('-', $parts[1]);
-            $methodString = '';
-            foreach ($methodParts as $part) {
-                $methodString .= $part;
-            }
+            return $this->getCardMethodFromAction($action);
+        }
+    }
+
+    public function nextController() {
+        $action = $this->state->getActivePlayer()->getNextStep();
+        return $this->controller($action);
+    }
+
+    public function nextMethod() {
+        $action = $this->state->getActivePlayer()->getNextStep();
+        return $this->method($action);
+    }
+
+    private function getMethodFromRoutes($action) {
+        $route = $this->routes[$action];
+        $parts = explode('@', $route);
+        return $parts[1];
+    }
+
+    private function getCardMethodFromAction($action) {
+        $parts = explode('/', $action);
+        $methodParts = explode('-', $parts[1]);
+        $methodString = '';
+        foreach ($methodParts as $part) {
+            $methodString .= $part;
         }
         return $methodString;
     }
 
-    public function getNextController() {
-        $action = $this->state->getActivePlayer()->getNextStep();
-        return $this->getController($action);
+    private function getCardControllerFromAction($action) {
+        $parts = explode('/', $action);
+        $cardParts = explode('-', $parts[0]);
+        $cardString = '';
+        foreach($cardParts as $part) {
+            $cardString .= ucfirst($part);
+        }
+        $controllerString = 'App\Game\Controllers\Actions\\' . $cardString . 'Controller';
+        return new $controllerString($this->state, $this->cardBuilder);
     }
 
-    public function getNextMethod() {
-        $action = $this->state->getActivePlayer()->getNextStep();
-        return $this->getMethod($action);
-    }
-
-    public function playerInputNeeded() {
-        return $this->playerInputNeeded;
+    private function getControllerFromRoutes($action) {
+        $route = $this->routes[$action];
+        $parts = explode('@', $route);
+        $controllerString = '\App\Game\Controllers\\' . $parts[0];
+        return new $controllerString($this->state, $this->cardBuilder);
     }
 
 }

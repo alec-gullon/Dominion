@@ -24,11 +24,11 @@ class Updater {
         }
 
         if ($action === 'provide-input') {
-            $controller = $this->cartographer->getNextController($action);
-            $method = $this->cartographer->getNextMethod($action);
+            $controller = $this->cartographer->nextController($action);
+            $method = $this->cartographer->nextMethod($action);
         } else {
-            $controller = $this->cartographer->getController($action);
-            $method = $this->cartographer->getMethod($action);
+            $controller = $this->cartographer->controller($action);
+            $method = $this->cartographer->method($action);
         }
 
         $controller->{$method}($input);
@@ -36,8 +36,8 @@ class Updater {
 
     public function resolve() {
         while (!$this->state->needPlayerInput() && $this->state->getActivePlayer()->hasUnresolvedCard()) {
-            $controller = $this->cartographer->getNextController();
-            $method = $this->cartographer->getNextMethod();
+            $controller = $this->cartographer->nextController();
+            $method = $this->cartographer->nextMethod();
 
             $controller->{$method}();
         }
