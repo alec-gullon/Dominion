@@ -7,6 +7,7 @@ use App\Models\User as ModelUser;
 use App\Models\Game;
 use App\Models\Game\Player;
 use App\Services\CardBuilder;
+use App\Services\SetsUpNewPlayers;
 
 use Illuminate\Http\Request;
 
@@ -85,26 +86,14 @@ class User extends Controller {
     /**
      * Joins the game
      */
-    public function joinGame(Request $request) {
+    public function joinGame(SetsUpNewPlayers $setsUpNewPlayers, Request $request) {
         $user = $request->user;
         $game = Game::where('guid', $request->input('gameHash'))->first();
 
         $user->game_id = $game->id;
         $user->save();
 
-        $state = unserialize($game->object);
-
-        $players = $game->users;
-
-        $player1 = new Player($players[0]->guid, new CardBuilder());
-        $player1->buildDefaultDeck();
-        $player2 = new Player($players[1]->guid, new CardBuilder());
-        $player2->buildDefaultDeck();
-
-        $state->setPlayers([$player1, $player2]);
-        $state->setActivePlayerKey($player1->getId());
-
-        $game->object = serialize($state);
+        $game = $setsUpNewPlayers->setup($game);
         $game->save();
 
         return $this->gameRenderer->renderGameForBothPlayers($game);
