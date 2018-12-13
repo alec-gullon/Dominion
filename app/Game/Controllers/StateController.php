@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Game;
+namespace App\Game\Controllers;
 
 use App\Models\Game\State;
 use App\Services\CardBuilder;

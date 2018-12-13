@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Game\Actions;
+namespace App\Game\Controllers\Actions;
 
 class CouncilRoomController extends ActionController {
 

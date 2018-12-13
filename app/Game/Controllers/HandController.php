@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Game;
+namespace App\Game\Controllers;
 
 class HandController extends StateController {
 

@@ -15,9 +15,9 @@ class Cartographer {
     private $playerInputNeeded = true;
 
     private $routes = array(
-        'play-treasure' => '\App\Http\Controllers\Game\HandController@playTreasure',
-        'end-turn' => '\App\Http\Controllers\Game\TurnController@endTurn',
-        'buy' => '\App\Http\Controllers\Game\BuyController@buy'
+        'play-treasure' => '\App\Game\Controllers\HandController@playTreasure',
+        'end-turn' => '\App\Game\Controllers\TurnController@endTurn',
+        'buy' => '\App\Game\Controllers\BuyController@buy'
     );
 
     public function __construct(State $state, CardBuilder $cardBuilder) {
@@ -55,7 +55,7 @@ class Cartographer {
             foreach ($cardParts as $part) {
                 $cardString .= ucfirst($part);
             }
-            $controllerString = '\App\Http\Controllers\Game\Actions\\' . $cardString . 'Controller';
+            $controllerString = '\App\Game\Controllers\Actions\\' . $cardString . 'Controller';
         }
 
         $controller = new $controllerString($this->state, $this->cardBuilder);

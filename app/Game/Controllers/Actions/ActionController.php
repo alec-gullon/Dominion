@@ -1,23 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Game\Actions;
+namespace App\Game\Controllers\Actions;
 
-use App\Http\Controllers\Controller;
+use App\Game\Controllers\StateController;
 
-use App\Models\Game\State;
-
-use App\Services\CardBuilder;
-
-class ActionController extends Controller {
-
-    protected $state;
-
-    protected $cardBuilder;
-
-    public function __construct(State $state, CardBuilder $cardBuilder) {
-        $this->state = $state;
-        $this->cardBuilder = $cardBuilder;
-    }
+class ActionController extends StateController {
 
     protected function inputOn() {
         $this->state->togglePlayerInput(true);
