@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Game;
 
 use App\Models\Game\Player;
+use App\Services\CardBuilder;
+
 
 class SetsUpNewPlayers {
 

@@ -10,8 +10,15 @@ class UserTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testUserJoinsGameCorrectly()
-    {
+    public function testSetsNameCorrectly() {
+        $response = $this->post('/user/set-name/', [
+            'name' => 'Alec'
+        ])->getContent();
+
+        $this->assertContains('Hello Alec, welcome to Dominion.', $response);
+    }
+
+    public function testUserJoinsGameCorrectly() {
         $this->buildGame();
 
         $response = $this->post('/user/join-game/', [
@@ -19,6 +26,9 @@ class UserTest extends TestCase
             'gameHash' => 'game-hash'
         ])->getContent();
 
+        $game = \App\Models\Game::all()->first();
+
+        $this->assertEquals(count($game->users), 2);
         $this->assertContains('Coins: 0', $response);
     }
 

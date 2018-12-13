@@ -7,7 +7,7 @@ use App\Models\User as ModelUser;
 use App\Models\Game;
 use App\Models\Game\Player;
 use App\Services\CardBuilder;
-use App\Services\SetsUpNewPlayers;
+use App\Services\Game\SetsUpNewPlayers;
 
 use Illuminate\Http\Request;
 
@@ -44,12 +44,7 @@ class User extends Controller {
         $user->game_id = 0;
         $user->save();
 
-        $view = view('player.lobby')->with(['name' => $user->name])->render();
-        return response()->json([
-            'view' => $view,
-            'guid' => $guid,
-            'action' => $request->input('responseAction')
-        ]);
+        return $this->gameRenderer->renderLobby($user);
     }
 
     /**
