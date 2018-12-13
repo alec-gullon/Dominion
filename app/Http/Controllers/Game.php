@@ -39,7 +39,7 @@ class Game extends Controller {
         $user->game_id = $game->id;
         $user->save();
 
-        return $this->gameRenderer->renderWaitingRoom($user, $game);
+        return $this->gameRenderer->renderWaitingRoom($game, $user);
     }
 
     public function update(Request $request) {
@@ -54,7 +54,7 @@ class Game extends Controller {
 
         $game->save();
 
-        return $this->gameRenderer->renderGame($game);
+        return $this->gameRenderer->renderGameForBothPlayers($game);
     }
 
 }

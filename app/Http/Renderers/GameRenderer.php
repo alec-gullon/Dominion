@@ -7,7 +7,23 @@ use App\Services\GameObserver;
 
 class GameRenderer {
 
-    public function renderGame($game) {
+    public function renderGameForPlayer($game, $user) {
+        $state = unserialize($game->object);
+
+        $view = view('game.index', [
+            'cardBuilder' => new \App\Services\CardBuilder(),
+            'state' => $state,
+            'gameObserver' => new \App\Services\GameObserver($state),
+            'playerKey' => $user->guid
+        ])->render();
+
+        return response()->json([
+            'view' => $view,
+            'action' => 'refreshView'
+        ]);
+    }
+
+    public function renderGameForBothPlayers($game) {
         $state = unserialize($game->object);
 
         $responses = [];
@@ -36,11 +52,19 @@ class GameRenderer {
         ]);
     }
 
-    public function renderWaitingRoom($user, $game) {
+    public function renderWaitingRoom($game, $user) {
         $view = view('player.waiting-room', [
             'name' => $user->name,
             'gameId' => $game->guid
         ])->render();
+        return response()->json([
+            'view' => $view,
+            'action' => 'refreshView'
+        ]);
+    }
+
+    public function renderLobby($user) {
+        $view = view('player.lobby')->with(['name' => $user->name])->render();
         return response()->json([
             'view' => $view,
             'action' => 'refreshView'

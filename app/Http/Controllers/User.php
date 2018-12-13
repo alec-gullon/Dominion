@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Renderers\GameRenderer;
 use App\Models\User as ModelUser;
 use App\Models\Game;
 use App\Models\Game\Player;
 use App\Services\CardBuilder;
-use App\Services\GameRenderer;
 
 use Illuminate\Http\Request;
 
@@ -60,38 +60,15 @@ class User extends Controller {
         $user = ModelUser::where('guid', $guid)->first();
 
         if ($user->game_id === '0') {
-            $view = view('player.lobby')->with(['name' => $user->name])->render();
-            return response()->json([
-                'view' => $view,
-                'action' => 'refreshView'
-            ]);
+            return $this->gameRenderer->renderLobby($user);
         }
 
         $game = $user->game;
         if (count($game->users) === 1) {
-            $view = view('player.waiting-room', [
-                'name' => $user->name,
-                'gameId' => $game->guid
-            ])->render();
-            return response()->json([
-                'view' => $view,
-                'action' => 'refreshView'
-            ]);
+            return $this->gameRenderer->renderWaitingRoom($game, $user);
         }
 
-        $state = unserialize($game->object);
-
-        $view = view('game.index', [
-            'cardBuilder' => new \App\Services\CardBuilder(),
-            'state' => $state,
-            'gameObserver' => new \App\Services\GameObserver($state),
-            'playerKey' => $user->guid
-        ])->render();
-
-        return response()->json([
-            'view' => $view,
-            'action' => 'refreshView'
-        ]);
+        return $this->gameRenderer->renderGameForPlayer($game, $user);
     }
 
     /**
@@ -130,7 +107,7 @@ class User extends Controller {
         $game->object = serialize($state);
         $game->save();
 
-        return $this->gameRenderer->render($game);
+        return $this->gameRenderer->renderGameForBothPlayers($game);
     }
 
 }
