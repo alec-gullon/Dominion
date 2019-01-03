@@ -239,6 +239,7 @@ class CardTestBase extends TestCase
     protected function assertLogContains($lines) {
         $log = unserialize($this->game->object)->getLog();
         $entries = $log->flattenedEntries();
-        $this->assertArraySubset($lines, $entries);
+        $intersect = array_intersect($lines, $entries);
+        $this->assertEquals(count($lines), count($intersect));
     }
 }

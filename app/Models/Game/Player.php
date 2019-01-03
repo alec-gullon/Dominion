@@ -325,4 +325,8 @@ class Player {
         }
     }
 
+    public function numberOfDrawableCards() {
+        return count($this->deck) + count($this->discard);
+    }
+
 }

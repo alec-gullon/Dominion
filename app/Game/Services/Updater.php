@@ -17,6 +17,7 @@ class Updater {
 
         // if the player has just played a card, decrease actions by 1 and move card to played
         if ($action === 'play-card') {
+            $this->state->getLog()->addEntry($this->state->getActivePlayer()->getName() . ' plays a ' . $input);
             $this->state->deductActions(1);
             $this->state->getActivePlayer()->playCard($input);
             $this->state->togglePlayerInput(false);
