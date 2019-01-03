@@ -31,7 +31,7 @@ class CardTestBase extends TestCase
     protected function buildGame()
     {
         $game = new \App\Models\Game();
-        $state = new \App\Models\Game\State();
+        $state = new \App\Models\Game\State(new \App\Models\Game\Log);
 
         $game->object = serialize($state);
         $game->guid = uniqid();
@@ -232,5 +232,11 @@ class CardTestBase extends TestCase
     protected function assertNumberOfSetAside($number) {
         $state = unserialize($this->game->object);
         $this->assertEquals(count($state->getActivePlayer()->getSetAside()), $number);
+    }
+
+    protected function assertLogContains($lines) {
+        $log = unserialize($this->game->object)->getLog();
+        $entries = $log->flattenedEntries();
+        $this->assertArraySubset($lines, $entries);
     }
 }

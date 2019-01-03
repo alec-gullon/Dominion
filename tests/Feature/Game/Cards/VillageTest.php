@@ -13,6 +13,12 @@ class VillageTest extends CardTestBase
         $this->assertActions(2);
         $this->assertDeckSize(4);
         $this->assertNumberOfPlayed(1);
+
+        $this->assertLogContains([
+            'Alec plays a village',
+            '.. Alec draws a card',
+            '.. Alec gains two actions'
+        ]);
     }
 
     public function testVillageWithNoCardsInDeck() {

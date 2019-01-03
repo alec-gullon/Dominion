@@ -35,6 +35,16 @@ class State {
 
     private $phase = 'action';
 
+    private $log;
+
+    public function __construct(Log $log) {
+        $this->log = $log;
+    }
+
+    public function getLog() {
+        return $this->log;
+    }
+
     public function setPlayers($players) {
         $this->players = $players;
     }

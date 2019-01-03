@@ -32,7 +32,9 @@ class Game extends Controller {
         $user = $request->input('user');
         $game = new GameModel();
 
-        $game->object = serialize(new State());
+        $state = resolve('\App\Models\Game\State');
+
+        $game->object = serialize($state);
         $game->guid = uniqid();
         $game->save();
 
