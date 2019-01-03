@@ -15,7 +15,7 @@ class VillageTest extends CardTestBase
         $this->assertNumberOfPlayed(1);
 
         $this->assertLogContains([
-            'Alec plays a village',
+            'Alec plays a Village',
             '.. Alec draws a card',
             '.. Alec gains 2 actions'
         ]);

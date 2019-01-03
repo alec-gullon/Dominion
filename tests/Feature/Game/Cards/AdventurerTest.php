@@ -13,5 +13,12 @@ class AdventurerTest extends CardTestBase
         $this->assertHandSize(6);
         $this->assertDiscardSize(1);
         $this->assertNumberOfPlayed(1);
+
+        $this->assertLogContains([
+            'Alec plays an Adventurer',
+            '.. Alec reveals a Copper, an Estate and a Silver',
+            '.. Alec puts a Copper and a Silver into their hand',
+            '.. Alec puts an Estate into their discard'
+        ]);
     }
 }

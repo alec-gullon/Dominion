@@ -6,6 +6,7 @@ class AdventurerController extends ActionController {
 
     public function play() {
         $revealedTreasure = 0;
+
         while ($this->activePlayer()->canDrawCard() && $revealedTreasure < 2) {
             $card = $this->activePlayer()->getTopCard();
             if ($card->hasType('treasure')) {
@@ -14,8 +15,9 @@ class AdventurerController extends ActionController {
             $this->activePlayer()->revealTopCard();
         }
 
-        $this->activePlayer()->moveCardsOfType('revealed', 'hand', 'treasure');
-        $this->activePlayer()->moveCards('revealed', 'discard');
+        $this->describeRevealedCards();
+        $this->moveCardsOfType('revealed', 'hand', 'treasure');
+        $this->moveCards('revealed', 'discard');
 
         $this->resolveCard();
     }

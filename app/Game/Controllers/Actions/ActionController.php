@@ -56,4 +56,43 @@ class ActionController extends StateController {
         $this->state->getLog()->addEntry($entry);
     }
 
+    protected function describeRevealedCards() {
+        $entry = '.. ' . $this->state->getActivePlayer()->getName() . ' reveals';
+
+        $revealedCards = $this->state->getActivePlayer()->getRevealed();
+        for ($i = 0; $i < count($revealedCards); $i++) {
+            if ($i === count($revealedCards) - 1) {
+                $entry .= ' and';
+            }
+            $entry .= ' ' . $revealedCards[$i]->nameWithArticlePrefix();
+            if ($i < count($revealedCards) - 2) {
+                $entry .= ',';
+            }
+        }
+        $this->state->getLog()->addEntry($entry);
+    }
+
+    protected function moveCardsOfType($from, $where, $type) {
+        $cardsToMove = $this->state->getActivePlayer()->getCardsOfType($from, $type);
+
+        $entry = '.. ' . $this->state->getActivePlayer()->getName() . ' puts';
+        for ($i = 0; $i < count($cardsToMove); $i++) {
+            if ($i === count($cardsToMove) - 1 && $i !== 0) {
+                $entry .= ' and';
+            }
+            $entry .= ' ' . $cardsToMove[$i]->nameWithArticlePrefix();
+            if ($i < count($cardsToMove) - 2) {
+                $entry .= ',';
+            }
+        }
+        $entry .= ' into their ' . $where;
+        $this->state->getLog()->addEntry($entry);
+
+        $this->activePlayer()->moveCardsOfType($from, $where, $type);
+    }
+
+    protected function moveCards($from, $where) {
+        $this->moveCardsOfType($from, $where, 'all');
+    }
+
 }

@@ -69,7 +69,7 @@ class Player {
         return $this->setAside;
     }
 
-    public function getRevealed() { var_dump('getRevealed');
+    public function getRevealed() {
         return $this->revealed;
     }
 
@@ -231,6 +231,16 @@ class Player {
 
     public function moveCards($from, $to) {
         $this->moveCardsOfType($from, $to, 'all');
+    }
+
+    public function getCardsOfType($from, $type) {
+        $cards = [];
+        foreach ($this->$from as $key => $card) {
+            if ($card->hasType($type) || $type === 'all') {
+                $cards[] = $card;
+            }
+        }
+        return $cards;
     }
 
     public function moveCardsOfType($from, $to, $type) {

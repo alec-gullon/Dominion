@@ -76,4 +76,13 @@ class Card {
         return $this->name;
     }
 
+    public function nameWithArticlePrefix() {
+        $firstCharacter = substr($this->name, 0, 1);
+        if (in_array($firstCharacter, ['A', 'E', 'I', 'O', 'U'])) {
+            return 'an ' . $this->name;
+        } else {
+            return 'a ' . $this->name;
+        }
+    }
+
 }

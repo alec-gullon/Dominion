@@ -4,11 +4,14 @@ namespace App\Game\Services;
 
 class Updater {
 
+    private $cardBuilder;
+
     private $cartographer;
 
     private $state;
 
     public function __construct($state, $cardBuilder) {
+        $this->cardBuilder = $cardBuilder;
         $this->cartographer = new Router($state, $cardBuilder);
         $this->state = $state;
     }
@@ -17,7 +20,8 @@ class Updater {
 
         // if the player has just played a card, decrease actions by 1 and move card to played
         if ($action === 'play-card') {
-            $this->state->getLog()->addEntry($this->state->getActivePlayer()->getName() . ' plays a ' . $input);
+            $card = $this->cardBuilder->build($input);
+            $this->state->getLog()->addEntry($this->state->getActivePlayer()->getName() . ' plays ' . $card->nameWithArticlePrefix());
             $this->state->deductActions(1);
             $this->state->getActivePlayer()->playCard($input);
             $this->state->togglePlayerInput(false);
