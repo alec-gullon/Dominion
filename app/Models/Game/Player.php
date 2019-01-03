@@ -20,11 +20,21 @@ class Player {
 
     private $id;
 
+    private $name;
+
     private $cardBuilder;
 
     public function __construct($id, CardBuilder $cardBuilder) {
         $this->id = $id;
         $this->cardBuilder = $cardBuilder;
+    }
+
+    public function setName($name) {
+        $this->name = $name;
+    }
+
+    public function getName() {
+        return $this->name;
     }
 
     public function getId() {

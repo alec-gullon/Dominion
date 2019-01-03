@@ -55,6 +55,7 @@ class CardTestBase extends TestCase
             $cardBuilder->build('copper'),
             $cardBuilder->build('copper')
         ]);
+        $player1->setName('Alec');
 
         $player2 = new \App\Models\Game\Player('lucy', $cardBuilder);
 
@@ -72,6 +73,7 @@ class CardTestBase extends TestCase
             $cardBuilder->build('copper'),
             $cardBuilder->build('copper')
         ]);
+        $player2->setName('Lucy');
 
         $state->setPlayers([$player1, $player2]);
         $game->object = serialize($state);
