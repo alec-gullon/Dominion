@@ -36,4 +36,8 @@ class BureaucratTest extends CardTestBase
         $this->assertOpponentHandSize(5);
         $this->assertOpponentHandSize(5);
     }
+
+    public function testNoSilversInKingdom() {
+
+    }
 }

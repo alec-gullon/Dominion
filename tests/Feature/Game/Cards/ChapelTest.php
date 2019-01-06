@@ -27,4 +27,8 @@ class ChapelTest extends CardTestBase
         $this->assertActions(0);
         $this->assertAllCardsResolved();
     }
+
+    public function testUserSelectsNothing() {
+
+    }
 }

@@ -38,4 +38,8 @@ class MilitiaTest extends CardTestBase
         $this->assertOpponentHandSize(3);
         $this->assertAllCardsResolved();
     }
+
+    public function testWithMoreThanFiveCards() {
+
+    }
 }

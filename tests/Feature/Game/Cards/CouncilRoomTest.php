@@ -13,4 +13,8 @@ class CouncilRoomTest extends CardTestBase
         $this->assertNumberOfPlayed(1);
         $this->assertOpponentHandSize(6);
     }
+
+    public function testOpponentCanDrawNothing() {
+
+    }
 }

@@ -17,4 +17,10 @@ class FeastTest extends CardTestBase
         $this->assertDiscardSize(1);
         $this->assertNumberOfRemainingCards('duchy', 7);
     }
+
+    public function testVirtualCardNotTrashed() {
+
+    }
+
+
 }

@@ -24,4 +24,12 @@ class RemodelTest extends CardTestBase
         $this->assertDiscardSize(1);
         $this->assertNumberOfRemainingCards('silver', 19);
     }
+
+    public function testEmptyHand() {
+
+    }
+
+    public function testTrashCurseNoCardsWorthLessThanTwoKingdom() {
+
+    }
 }

@@ -24,4 +24,16 @@ class LibraryTest extends CardTestBase
         $this->assertNumberOfSetAside(0);
         $this->assertDiscardSize(1);
     }
+
+    public function testNothingToDraw() {
+
+    }
+
+    public function testThreeCardsInHand() {
+
+    }
+
+    public function testDeckAndDiscardRunsOutBeforeReachingSevenCards() {
+
+    }
 }

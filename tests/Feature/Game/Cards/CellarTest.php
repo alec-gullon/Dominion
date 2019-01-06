@@ -14,4 +14,20 @@ class CellarTest extends CardTestBase
         $this->provideInput(true);
         $this->assertDiscardSize(5);
     }
+
+    public function testCellarLastCardInHand() {
+
+    }
+
+    public function testEmptyDeck() {
+
+    }
+
+    public function testEmptyDeckAndDiscard() {
+
+    }
+
+    public function testDiscardMoreCardsInDeckAndDiscard() {
+
+    }
 }

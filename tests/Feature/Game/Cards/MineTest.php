@@ -19,4 +19,8 @@ class MineTest extends CardTestBase
         $this->assertHandSize(4);
         $this->assertNumberOfRemainingCards('silver', 19);
     }
+
+    public function testTrashCopperWithNoCopperAndSilverInKingdom() {
+
+    }
 }

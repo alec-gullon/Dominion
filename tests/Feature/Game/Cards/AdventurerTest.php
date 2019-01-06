@@ -21,4 +21,20 @@ class AdventurerTest extends CardTestBase
             '.. Alec puts an Estate into their discard'
         ]);
     }
+
+    public function testAdventurerWithNoCardsInDeck() {
+
+    }
+
+    public function testAdventurerWhenDeckIsOnlyVictoryCards() {
+
+    }
+
+    public function testAdventurerWhenDeckContainsOneTreasureCard() {
+
+    }
+
+    public function testAdventurerWhenRevealingRequiresShuffle() {
+
+    }
 }

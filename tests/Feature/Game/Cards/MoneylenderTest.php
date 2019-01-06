@@ -15,4 +15,12 @@ class MoneylenderTest extends CardTestBase
         $this->assertTrashSize(1);
         $this->assertNumberOfCoins(3);
     }
+
+    public function testNoCoppersInHand() {
+
+    }
+
+    public function testDoesNotTrash() {
+
+    }
 }

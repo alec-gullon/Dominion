@@ -19,4 +19,12 @@ class ChancellorTest extends CardTestBase
         $this->assertHandSize(4);
         $this->assertDeckSize(3);
     }
+
+    public function testNotPutDeckInDiscard() {
+
+    }
+
+    public function testDiscardNonEmpty() {
+
+    }
 }

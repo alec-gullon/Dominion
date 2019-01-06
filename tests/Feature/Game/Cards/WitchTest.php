@@ -31,4 +31,8 @@ class WitchTest extends CardTestBase
         $this->assertNumberOfRemainingCards('curse', 10);
         $this->assertOpponentDiscardSize(0);
     }
+
+    public function testEmptyCursePile() {
+
+    }
 }
