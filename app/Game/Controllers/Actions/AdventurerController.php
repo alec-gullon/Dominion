@@ -5,8 +5,13 @@ namespace App\Game\Controllers\Actions;
 class AdventurerController extends ActionController {
 
     public function play() {
-        $revealedTreasure = 0;
+        if (!$this->activePlayer()->canDrawCard()) {
+            $this->addToLog( '.. ' . $this->activePlayer()->getName() . ' has nothing to draw');
+            $this->resolveCard();
+            return;
+        }
 
+        $revealedTreasure = 0;
         while ($this->activePlayer()->canDrawCard() && $revealedTreasure < 2) {
             $card = $this->activePlayer()->getTopCard();
             if ($card->hasType('treasure')) {

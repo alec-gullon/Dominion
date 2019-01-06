@@ -75,7 +75,12 @@ class ActionController extends StateController {
     protected function moveCardsOfType($from, $where, $type) {
         $cardsToMove = $this->state->getActivePlayer()->getCardsOfType($from, $type);
 
-        $entry = '.. ' . $this->state->getActivePlayer()->getName() . ' puts';
+        $entry = '.. ' . $this->state->getActivePlayer()->getName();
+        if (count($cardsToMove) === 0) {
+            $entry .= ' does not put anything';
+        } else {
+            $entry .= ' puts';
+        }
         for ($i = 0; $i < count($cardsToMove); $i++) {
             if ($i === count($cardsToMove) - 1 && $i !== 0) {
                 $entry .= ' and';
@@ -93,6 +98,10 @@ class ActionController extends StateController {
 
     protected function moveCards($from, $where) {
         $this->moveCardsOfType($from, $where, 'all');
+    }
+
+    public function addToLog($entry) {
+        $this->state->getLog()->addEntry($entry);
     }
 
 }
