@@ -4,7 +4,7 @@ namespace Tests\Feature\Game\Cards;
 
 class BureaucratTest extends CardTestBase
 {
-    public function testBureaucratWithNoVictoryCardsInHand() {
+    public function testWithNoVictoryCardsInHand() {
         $this->buildGame();
         $this->setHand(['bureaucrat', 'copper@4']);
         $this->setOpponentHand(['copper@5']);
@@ -14,7 +14,7 @@ class BureaucratTest extends CardTestBase
         $this->assertAllCardsResolved();
     }
 
-    public function testBureaucratWithEstateInHand() {
+    public function testWithEstateInHand() {
         $this->buildGame();
         $this->setHand(['bureaucrat', 'copper@4']);
         $this->playCard('bureaucrat');
@@ -25,7 +25,7 @@ class BureaucratTest extends CardTestBase
         $this->assertOpponentDeckSize(6);
     }
 
-    public function testBureaucratWithMoat() {
+    public function testWithMoat() {
         $this->buildGameWithMoat();
         $this->setHand(['bureaucrat', 'copper@4']);
         $this->setOpponentHand(['moat', 'copper@4']);
@@ -38,6 +38,14 @@ class BureaucratTest extends CardTestBase
     }
 
     public function testNoSilversInKingdom() {
+        $this->buildGameWithMoat();
+        $this->setNumberOfCardsRemaining('silver', 0);
 
+        $this->setHand(['bureaucrat', 'copper@4']);
+        $this->playCard('bureaucrat');
+        $this->provideInput('estate');
+
+        $this->assertNumberOfRemainingCards('silver', 0);
+        $this->assertDeckSize(5);
     }
 }

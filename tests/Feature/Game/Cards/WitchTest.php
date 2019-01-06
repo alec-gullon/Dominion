@@ -33,6 +33,12 @@ class WitchTest extends CardTestBase
     }
 
     public function testEmptyCursePile() {
+        $this->buildGameWithMoat();
+        $this->setHand(['witch', 'copper@4']);
+        $this->setNumberOfCardsRemaining('curse', 0);
+        $this->playCard('witch');
 
+        $this->assertOpponentHandSize(5);
+        $this->assertNumberOfRemainingCards('curse', 0);
     }
 }

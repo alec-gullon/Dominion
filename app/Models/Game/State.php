@@ -2,6 +2,8 @@
 
 namespace App\Models\Game;
 
+use App\Services\CardBuilder;
+
 class State {
 
     private $players = array();
@@ -37,8 +39,11 @@ class State {
 
     private $log;
 
-    public function __construct(Log $log) {
+    private $cardBuilder;
+
+    public function __construct(Log $log, CardBuilder $cardBuilder) {
         $this->log = $log;
+        $this->cardBuilder = $cardBuilder;
     }
 
     public function getLog() {
@@ -166,6 +171,9 @@ class State {
     }
 
     public function moveCardOntoDeck($card, $playerKey = null) {
+        if ($this->kingdom[$card] <= 0) {
+            return;
+        }
         if (null === $playerKey) {
             $playerKey = $this->getActivePlayerKey();
         }
@@ -231,6 +239,17 @@ class State {
 
     public function getTurn() {
         return $this->turn;
+    }
+
+    public function cheapestCardAmount() {
+        $cheapest = 8;
+        foreach ($this->kingdom as $stub => $amount) {
+            if ($amount > 0) {
+                $card = $this->cardBuilder->build($stub);
+                $cheapest = min($cheapest, $card->getValue());
+            }
+        }
+        return $cheapest;
     }
 
 }

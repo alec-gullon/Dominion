@@ -42,7 +42,7 @@ class GameTest extends TestCase
     protected function buildGame()
     {
         $game = new \App\Models\Game();
-        $state = new \App\Models\Game\State(new \App\Models\Game\Log);
+        $state = new \App\Models\Game\State(new \App\Models\Game\Log, new \App\Services\CardBuilder);
 
         $game->object = serialize($state);
         $game->guid = uniqid();

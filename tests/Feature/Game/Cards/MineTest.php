@@ -21,6 +21,13 @@ class MineTest extends CardTestBase
     }
 
     public function testTrashCopperWithNoCopperAndSilverInKingdom() {
+        $this->buildGame();
+        $this->setHand(['mine', 'copper@4']);
+        $this->setNumberOfCardsRemaining('copper', 0);
+        $this->setNumberOfCardsRemaining('silver', 0);
+        $this->playCard('mine');
+        $this->provideInput('copper');
 
+        $this->assertAllCardsResolved();
     }
 }

@@ -15,6 +15,11 @@ class CouncilRoomTest extends CardTestBase
     }
 
     public function testOpponentCanDrawNothing() {
+        $this->buildGame();
+        $this->setHand(['council-room', 'copper@4']);
+        $this->setOpponentDeck([]);
+        $this->playCard('council-room');
 
+        $this->assertOpponentHandSize(5);
     }
 }

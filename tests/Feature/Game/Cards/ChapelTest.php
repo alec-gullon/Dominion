@@ -17,7 +17,7 @@ class ChapelTest extends CardTestBase
         $this->assertTrashSize(2);
     }
 
-    public function testChapelWithEmptyHand() {
+    public function testWithEmptyHand() {
         $this->buildGame();
         $this->setHand(['chapel']);
         $this->playCard('chapel');
@@ -29,6 +29,11 @@ class ChapelTest extends CardTestBase
     }
 
     public function testUserSelectsNothing() {
-
+        $this->buildGame();
+        $this->setHand(['chapel', 'copper@2', 'estate@2']);
+        $this->playCard('chapel');
+        $this->provideInput(array());
+        $this->assertHandSize(4);
+        $this->assertTrashSize(0);
     }
 }

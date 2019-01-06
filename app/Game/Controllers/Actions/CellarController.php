@@ -6,6 +6,11 @@ class CellarController extends ActionController {
 
     public function play() {
         $this->state->addActions(1);
+
+        if (count($this->activePlayer()->getHand()) === 0) {
+            $this->resolveCard();
+            return;
+        }
         $this->nextStep('discard-cards');
         $this->inputOn();
     }

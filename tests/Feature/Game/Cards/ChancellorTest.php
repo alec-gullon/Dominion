@@ -7,24 +7,33 @@ class ChancellorTest extends CardTestBase
     public function testChancellor()
     {
         $this->buildGame();
-        $this->setHand(['cellar', 'copper@2', 'estate@2']);
-        $this->playCard('cellar');
+        $this->setHand(['chancellor', 'copper@4']);
+        $this->playCard('chancellor');
+        $this->assertNumberOfCoins(2);
 
-        $this->assertHandSize(4);
-        $this->assertNumberOfPlayed(1);
-        $this->assertActions(1);
-
-        $this->provideInput(array('estate', 'estate'));
-
-        $this->assertHandSize(4);
-        $this->assertDeckSize(3);
+        $this->provideInput(true);
+        $this->assertDiscardSize(5);
     }
 
     public function testNotPutDeckInDiscard() {
+        $this->buildGame();
+        $this->setHand(['chancellor', 'copper@4']);
+        $this->playCard('chancellor');
 
+        $this->provideInput(false);
+        $this->assertDiscardSize(0);
+        $this->assertDeckSize(5);
     }
 
     public function testDiscardNonEmpty() {
+        $this->buildGame();
+        $this->setHand(['chancellor', 'copper@4']);
+        $this->setDiscard(['copper@3']);
+        $this->playCard('chancellor');
+        $this->assertNumberOfCoins(2);
 
+        $this->provideInput(true);
+        $this->assertDiscardSize(8);
+        $this->assertDeckSize(0);
     }
 }

@@ -15,7 +15,7 @@ class MilitiaTest extends CardTestBase
         $this->assertOpponentDiscardSize(2);
     }
 
-    public function testMilitiaWithMoat() {
+    public function testWithMoat() {
         $this->buildGameWithMoat();
         $this->setHand(['militia', 'copper@4']);
         $this->setOpponentHand(['moat', 'copper@4']);
@@ -28,7 +28,7 @@ class MilitiaTest extends CardTestBase
         $this->assertAllCardsResolved();
     }
 
-    public function testMilitiaWithLessThanThreeCards() {
+    public function testWithLessThanThreeCards() {
         $this->buildGame();
         $this->setHand(['militia', 'copper@4']);
         $this->setOpponentHand(['copper@3']);
@@ -40,6 +40,12 @@ class MilitiaTest extends CardTestBase
     }
 
     public function testWithMoreThanFiveCards() {
+        $this->buildGame();
+        $this->setHand(['militia', 'copper@4']);
+        $this->setOpponentHand(['copper@6']);
+        $this->playCard('militia');
 
+        $this->provideInput(['copper', 'copper', 'copper']);
+        $this->assertOpponentHandSize(3);
     }
 }

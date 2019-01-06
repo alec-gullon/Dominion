@@ -2,12 +2,22 @@
 
 namespace Tests\Feature\Game\Cards;
 
+use App\Game\Services\Updater;
+use App\Services\CardBuilder;
+
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CardTestBase extends TestCase
 {
     use RefreshDatabase;
+
+    protected function updateGame() {
+        $updater = new Updater(unserialize($this->game->object), new CardBuilder);
+        $updater->resolve();
+        $this->game->object = serialize($updater->getState());
+        $this->game->save();
+    }
 
     protected function playCard($stub) {
         $this->post('/game/update/', [
@@ -31,7 +41,7 @@ class CardTestBase extends TestCase
     protected function buildGame()
     {
         $game = new \App\Models\Game();
-        $state = new \App\Models\Game\State(new \App\Models\Game\Log);
+        $state = new \App\Models\Game\State(new \App\Models\Game\Log, new \App\Services\CardBuilder);
 
         $game->object = serialize($state);
         $game->guid = uniqid();
@@ -94,6 +104,26 @@ class CardTestBase extends TestCase
         $this->game = $game;
     }
 
+    protected function playVirtualCard($card) {
+        $state = unserialize($this->game->object);
+        $player = $state->getActivePlayer();
+        $player->playCard($card, true);
+        $state->togglePlayerInput(false);
+        $this->game->object = serialize($state);
+        $this->game->save();
+        $this->updateGame();
+    }
+
+    protected function setNumberOfCardsRemaining($stub, $amount) {
+        $state = unserialize($this->game->object);
+        $cards = $state->getKingdomCards();
+        $cards[$stub] = $amount;
+
+        $state->setKingdom($cards);
+        $this->game->object = serialize($state);
+        $this->game->save();
+    }
+
     protected function buildGameWithMoat() {
         $this->buildGame();
         $state = unserialize($this->game->object);
@@ -126,6 +156,14 @@ class CardTestBase extends TestCase
         $deck = $this->buildCardStackFromShorthand($shorthand);
         $state = unserialize($this->game->object);
         $state->getActivePlayer()->setDeck($deck);
+        $this->game->object = serialize($state);
+        $this->game->save();
+    }
+
+    protected function setDiscard($shorthand) {
+        $discard = $this->buildCardStackFromShorthand($shorthand);
+        $state = unserialize($this->game->object);
+        $state->getActivePlayer()->setDiscard($discard);
         $this->game->object = serialize($state);
         $this->game->save();
     }

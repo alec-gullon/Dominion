@@ -10,8 +10,10 @@ class ChancellorController extends ActionController {
         $this->inputOn();
     }
 
-    public function putDeckInDiscard() {
-        $this->activePlayer()->moveCards('deck', 'discard');
+    public function putDeckInDiscard($choice) {
+        if ($choice) {
+            $this->activePlayer()->moveCards('deck', 'discard');
+        }
         $this->resolveCard();
     }
 

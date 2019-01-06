@@ -22,19 +22,44 @@ class AdventurerTest extends CardTestBase
         ]);
     }
 
-    public function testAdventurerWithNoCardsInDeck() {
+    public function testWithNoCardsInDeck() {
+        $this->buildGame();
+        $this->setDeck([]);
+        $this->setHand(['adventurer', 'copper@4']);
+        $this->playCard('adventurer');
 
+        $this->assertHandSize(4);
+        $this->assertDiscardSize(0);
     }
 
-    public function testAdventurerWhenDeckIsOnlyVictoryCards() {
+    public function testWhenDeckIsOnlyVictoryCards() {
+        $this->buildGame();
+        $this->setDeck(['estate@3', 'duchy']);
+        $this->setHand(['adventurer', 'copper@4']);
+        $this->playCard('adventurer');
 
+        $this->assertHandSize(4);
+        $this->assertDiscardSize(4);
     }
 
-    public function testAdventurerWhenDeckContainsOneTreasureCard() {
+    public function testWhenDeckContainsOneTreasureCard() {
+        $this->buildGame();
+        $this->setDeck(['estate@3', 'copper']);
+        $this->setHand(['adventurer', 'copper@4']);
+        $this->playCard('adventurer');
 
+        $this->assertHandSize(5);
+        $this->assertDiscardSize(3);
     }
 
-    public function testAdventurerWhenRevealingRequiresShuffle() {
+    public function testWhenRevealingRequiresShuffle() {
+        $this->buildGame();
+        $this->setDeck(['estate@3', 'copper']);
+        $this->setHand(['adventurer', 'copper@4']);
+        $this->setDiscard(['village@2']);
+        $this->playCard('adventurer');
 
+        $this->assertHandSize(5);
+        $this->assertDiscardSize(5);
     }
 }

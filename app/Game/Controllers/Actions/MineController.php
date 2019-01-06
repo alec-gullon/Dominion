@@ -16,8 +16,24 @@ class MineController extends ActionController {
         $this->state->trashCard($stub);
         $mineCard->treasureValue = $trashedCard->getValue() + 3;
 
-        $this->nextStep('gain-treasure');
-        $this->inputOn();
+        $userCanSelectCard = false;
+
+        $cards = $this->state->getKingdomCards();
+        foreach ($cards as $stub => $amount) {
+            $card = $this->cardBuilder->build($stub);
+
+            if ($card->hasType('treasure') && $card->getValue() <= $mineCard->treasureValue && $amount > 0) {
+                $userCanSelectCard = true;
+                break;
+            }
+        }
+
+        if ($userCanSelectCard) {
+            $this->nextStep('gain-treasure');
+            $this->inputOn();
+        } else {
+            $this->resolveCard();
+        }
     }
 
     public function gainTreasure($stub) {

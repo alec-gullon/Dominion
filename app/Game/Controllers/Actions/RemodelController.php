@@ -21,6 +21,11 @@ class RemodelController extends ActionController {
         $this->state->trashCard($stub);
         $remodelCard->gainValue = $trashedCard->getValue() + 2;
 
+        if ($this->state->cheapestCardAmount() > $remodelCard->gainValue) {
+            $remodelCard->gainValue = 0;
+            $this->resolveCard();
+            return;
+        }
         $this->nextStep('gain-card');
         $this->inputOn();
     }

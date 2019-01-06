@@ -26,10 +26,23 @@ class RemodelTest extends CardTestBase
     }
 
     public function testEmptyHand() {
+        $this->buildGame();
+        $this->setHand(['remodel']);
+        $this->playCard('remodel');
 
+        $this->assertAllCardsResolved();
     }
 
     public function testTrashCurseNoCardsWorthLessThanTwoKingdom() {
+        $this->buildGame();
+        $this->setNumberOfCardsRemaining('estate', 0);
+        $this->setNumberOfCardsRemaining('curse', 0);
+        $this->setNumberOfCardsRemaining('copper', 0);
+        $this->setHand(['remodel', 'copper@2', 'estate@2']);
+        $this->playCard('remodel');
 
+        $this->provideInput('copper');
+
+        $this->assertAllCardsResolved();
     }
 }

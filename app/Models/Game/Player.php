@@ -57,6 +57,10 @@ class Player {
         $this->hand = $hand;
     }
 
+    public function setDiscard($discard) {
+        $this->discard = $discard;
+    }
+
     public function getDiscard() {
         return $this->discard;
     }
