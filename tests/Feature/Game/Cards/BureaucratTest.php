@@ -12,6 +12,11 @@ class BureaucratTest extends CardTestBase
 
         $this->assertDeckSize(6);
         $this->assertAllCardsResolved();
+
+        $this->assertLogContains([
+            '.. Alec places a Silver onto their deck',
+            '.. Lucy reveals a hand of five Coppers'
+        ]);
     }
 
     public function testWithEstateInHand() {
@@ -23,6 +28,10 @@ class BureaucratTest extends CardTestBase
         $this->assertDeckSize(6);
         $this->assertOpponentHandSize(4);
         $this->assertOpponentDeckSize(6);
+
+        $this->assertLogContains([
+            '.. Lucy places an Estate onto their deck from their hand'
+        ]);
     }
 
     public function testWithMoat() {
@@ -35,6 +44,10 @@ class BureaucratTest extends CardTestBase
         $this->assertDeckSize(6);
         $this->assertOpponentHandSize(5);
         $this->assertOpponentHandSize(5);
+
+        $this->assertLogContains([
+            '.. Lucy reveals a moat'
+        ]);
     }
 
     public function testNoSilversInKingdom() {
@@ -47,5 +60,9 @@ class BureaucratTest extends CardTestBase
 
         $this->assertNumberOfRemainingCards('silver', 0);
         $this->assertDeckSize(5);
+
+        $this->assertLogContains([
+            '.. Alec places nothing on their deck'
+        ]);
     }
 }

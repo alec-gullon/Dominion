@@ -280,4 +280,8 @@ class CardTestBase extends TestCase
         $intersect = array_intersect($lines, $entries);
         $this->assertEquals(count($lines), count($intersect));
     }
+
+    protected function getLog() {
+        return unserialize($this->game->object)->getLog();
+    }
 }

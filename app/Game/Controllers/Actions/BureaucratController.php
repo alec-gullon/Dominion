@@ -5,7 +5,7 @@ namespace App\Game\Controllers\Actions;
 class BureaucratController extends ActionController {
 
     public function play() {
-        $this->state->moveCardOntoDeck('silver');
+        $this->moveCardOntoDeckFromKingdom('silver', $this->activePlayer());
 
         if ($this->state->hasMoat()) {
             $this->nextStep('resolve-moat');
@@ -17,13 +17,14 @@ class BureaucratController extends ActionController {
 
     public function resolveMoat($revealed) {
         if ($revealed) {
+            $this->revealMoat();
             return $this->resolveCard();
         }
         return $this->resolveAttackIfNecessary();
     }
 
     public function resolveAttack($stub) {
-        $this->secondaryPlayer()->moveCardOntoDeck('hand', $stub);
+        $this->moveCardOntoDeck('hand', $stub, $this->secondaryPlayer());
         $this->resolveCard();
     }
 
@@ -31,9 +32,10 @@ class BureaucratController extends ActionController {
         if ($this->secondaryPlayer()->hasCardsOfType('victory')) {
             $this->nextStep('resolve-attack');
             $this->inputOn();
-            return;
+        } else {
+            $this->describeHand(true);
+            $this->resolveCard();
         }
-        $this->resolveCard();
     }
 
 }

@@ -60,7 +60,41 @@ class ActionController extends StateController {
         $entry = '.. ' . $this->state->getActivePlayer()->getName() . ' reveals';
         $revealedCards = $this->state->getActivePlayer()->getRevealed();
         $entry .= $this->describeCardList($revealedCards);
-        $this->state->getLog()->addEntry($entry);
+        $this->addToLog($entry);
+    }
+
+    protected function describeHand($opponentHand = false) {
+        if ($opponentHand) {
+            $player = $this->state->getSecondaryPlayer();
+        } else {
+            $player = $this->state->getActivePlayer();
+        }
+        $cards = $player->getHand();
+        $entry = '.. ' . $player->getName() . ' reveals a hand of';
+        $entry .= $this->describeCardlist($cards);
+        $this->addToLog($entry);
+    }
+
+    protected function moveCardOntoDeckFromKingdom($card, $player) {
+        $this->state->moveCardOntoDeck($card, $player->getId());
+
+        $entry = '.. ' . $player->getName() . ' places';
+
+        $kingdomCards = $this->state->getKingdomCards();
+        if ($kingdomCards[$card] === 0) {
+            $entry .= ' nothing on their deck';
+        } else {
+            $card = $this->cardBuilder->build($card);
+            $entry .= ' ' . $card->nameWithArticlePrefix() . ' onto their deck';
+        }
+        $this->addToLog($entry);
+    }
+
+    protected function moveCardOntoDeck($from, $card, $player) {
+        $player->moveCardOntoDeck($from, $card);
+        $card = $this->cardBuilder->build($card);
+        $entry = '.. ' . $player->getName() . ' places ' . $card->nameWithArticlePrefix() . ' onto their deck from their ' . $from;
+        $this->addToLog($entry);
     }
 
     protected function moveCardsOfType($from, $where, $type) {
@@ -85,6 +119,10 @@ class ActionController extends StateController {
 
     protected function addToLog($entry) {
         $this->state->getLog()->addEntry($entry);
+    }
+
+    protected function revealMoat() {
+        $this->addToLog('.. ' . $this->secondaryPlayer()->getName() . ' reveals a moat');
     }
 
     private function describeCardList($cards) {
