@@ -58,17 +58,8 @@ class ActionController extends StateController {
 
     protected function describeRevealedCards() {
         $entry = '.. ' . $this->state->getActivePlayer()->getName() . ' reveals';
-
         $revealedCards = $this->state->getActivePlayer()->getRevealed();
-        for ($i = 0; $i < count($revealedCards); $i++) {
-            if ($i === count($revealedCards) - 1) {
-                $entry .= ' and';
-            }
-            $entry .= ' ' . $revealedCards[$i]->nameWithArticlePrefix();
-            if ($i < count($revealedCards) - 2) {
-                $entry .= ',';
-            }
-        }
+        $entry .= $this->describeCardList($revealedCards);
         $this->state->getLog()->addEntry($entry);
     }
 
@@ -81,15 +72,7 @@ class ActionController extends StateController {
         } else {
             $entry .= ' puts';
         }
-        for ($i = 0; $i < count($cardsToMove); $i++) {
-            if ($i === count($cardsToMove) - 1 && $i !== 0) {
-                $entry .= ' and';
-            }
-            $entry .= ' ' . $cardsToMove[$i]->nameWithArticlePrefix();
-            if ($i < count($cardsToMove) - 2) {
-                $entry .= ',';
-            }
-        }
+        $entry .= $this->describeCardList($cardsToMove);
         $entry .= ' into their ' . $where;
         $this->state->getLog()->addEntry($entry);
 
@@ -100,8 +83,52 @@ class ActionController extends StateController {
         $this->moveCardsOfType($from, $where, 'all');
     }
 
-    public function addToLog($entry) {
+    protected function addToLog($entry) {
         $this->state->getLog()->addEntry($entry);
+    }
+
+    private function describeCardList($cards) {
+        usort($cards, function($a, $b) {
+             if ($a->getName() < $b->getName()) {
+                 return -1;
+             }
+             return 1;
+        });
+
+        $cardAmounts = [];
+        foreach ($cards as $card) {
+            $name = $card->getName();
+            if (!isset($cardAmounts[$name])) {
+                $cardAmounts[$name] = [
+                    'amount' => 0,
+                    'card' => $card
+                ];
+            }
+            $cardAmounts[$name]['amount']++;
+        }
+
+        $descriptor = '';
+        $numberMappings = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+
+        $i = 1;
+        foreach ($cardAmounts as $name => $details) {
+            $amount = $details['amount'];
+            $card = $details['card'];
+            if ($amount === 1) {
+                $descriptor .= ' ' . $card->nameWithArticlePrefix();
+            } else {
+                $descriptor  .= ' ' . $numberMappings[$amount] . ' ' . $card->pluralFormOfName();
+            }
+
+            if ($i === count($cardAmounts) - 1) {
+                $descriptor .= ' and';
+            } else if ($i < count($cardAmounts) - 1) {
+                $descriptor .= ',';
+            }
+
+            $i++;
+        }
+        return $descriptor;
     }
 
 }

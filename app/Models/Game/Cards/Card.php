@@ -85,4 +85,8 @@ class Card {
         }
     }
 
+    public function pluralFormOfName() {
+        return $this->name . 's';
+    }
+
 }

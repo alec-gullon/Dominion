@@ -47,9 +47,9 @@ class AdventurerTest extends CardTestBase
         $this->assertDiscardSize(4);
 
         $this->assertLogContains([
-            '.. Alec reveals an Estate, an Estate, an Estate and a Duchy',
+            '.. Alec reveals a Duchy and three Estates',
             '.. Alec does not put anything into their hand',
-            '.. Alec puts an Estate, an Estate, an Estate and a Duchy into their discard'
+            '.. Alec puts a Duchy and three Estates into their discard'
         ]);
     }
 
@@ -63,9 +63,9 @@ class AdventurerTest extends CardTestBase
         $this->assertDiscardSize(3);
 
         $this->assertLogContains([
-            '.. Alec reveals an Estate, an Estate, an Estate and a Copper',
+            '.. Alec reveals a Copper and three Estates',
             '.. Alec puts a Copper into their hand',
-            '.. Alec puts an Estate, an Estate and an Estate into their discard'
+            '.. Alec puts three Estates into their discard'
         ]);
     }
 
