@@ -6,6 +6,8 @@ use App\Game\Controllers\StateController;
 
 class ActionController extends StateController {
 
+    private $numberMappings = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+
     protected function inputOn() {
         $this->state->togglePlayerInput(true);
     }
@@ -51,9 +53,21 @@ class ActionController extends StateController {
         } else if ($remainingCards === 1 || $amount === 1) {
             $entry = '.. ' . $this->state->getActivePlayer()->getName() . ' draws a card';
         } else {
-            $entry = '.. ' . $this->state->getActivePlayer()->getName() . ' draws ' . $amount . ' cards';
+            $entry = '.. ' . $this->state->getActivePlayer()->getName() . ' draws ' . $this->numberMappings[$amount] . ' cards';
         }
         $this->state->getLog()->addEntry($entry);
+    }
+
+    protected function discardCards($cards) {
+        $this->activePlayer()->discardCards($cards);
+
+        $cardStack = [];
+        foreach ($cards as $stub) {
+            $cardStack[] = $this->cardBuilder->build($stub);
+        }
+        $entry = '.. ' . $this->state->getActivePlayer()->getName() . ' discards';
+        $entry .= $this->describeCardList($cardStack);
+        $this->addToLog($entry);
     }
 
     protected function describeRevealedCards() {
@@ -146,7 +160,6 @@ class ActionController extends StateController {
         }
 
         $descriptor = '';
-        $numberMappings = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
 
         $i = 1;
         foreach ($cardAmounts as $name => $details) {
@@ -155,7 +168,7 @@ class ActionController extends StateController {
             if ($amount === 1) {
                 $descriptor .= ' ' . $card->nameWithArticlePrefix();
             } else {
-                $descriptor  .= ' ' . $numberMappings[$amount] . ' ' . $card->pluralFormOfName();
+                $descriptor  .= ' ' . $this->numberMappings[$amount] . ' ' . $card->pluralFormOfName();
             }
 
             if ($i === count($cardAmounts) - 1) {

@@ -16,7 +16,7 @@ class Cellar extends Card {
 
     protected $steps = array(
         'play',
-        'discard-cards'
+        'discard-selected-cards'
     );
 
 }

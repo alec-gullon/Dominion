@@ -18,6 +18,11 @@ class CellarTest extends CardTestBase
 
         $this->assertHandSize(4);
         $this->assertDeckSize(3);
+
+        $this->assertLogContains([
+            '.. Alec discards two Estates',
+            '.. Alec draws two cards'
+        ]);
     }
 
     public function testWhenCellarIsLastCardInHand() {
@@ -26,6 +31,10 @@ class CellarTest extends CardTestBase
         $this->playCard('cellar');
 
         $this->assertAllCardsResolved();
+
+        $this->assertLogContains([
+            '.. Alec has nothing to discard'
+        ]);
     }
 
     public function testEmptyDeckWithCardsInDiscard() {
@@ -39,6 +48,11 @@ class CellarTest extends CardTestBase
 
         $this->assertHandSize(4);
         $this->assertDeckSize(1);
+
+        $this->assertLogContains([
+            '.. Alec discards two Estates',
+            '.. Alec draws two cards'
+        ]);
     }
 
     public function testEmptyDeckAndDiscard() {
@@ -51,5 +65,10 @@ class CellarTest extends CardTestBase
 
         $this->assertHandSize(4);
         $this->assertDeckSize(0);
+
+        $this->assertLogContains([
+            '.. Alec discards two Estates',
+            '.. Alec draws two cards'
+        ]);
     }
 }
