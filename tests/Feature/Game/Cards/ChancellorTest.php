@@ -13,6 +13,11 @@ class ChancellorTest extends CardTestBase
 
         $this->provideInput(true);
         $this->assertDiscardSize(5);
+
+        $this->assertLogContains([
+            '.. Alec gains two coins',
+            '.. Alec puts their deck into their discard'
+        ]);
     }
 
     public function testNotPutDeckInDiscard() {
@@ -23,6 +28,10 @@ class ChancellorTest extends CardTestBase
         $this->provideInput(false);
         $this->assertDiscardSize(0);
         $this->assertDeckSize(5);
+
+        $this->assertLogContains([
+            '.. Alec does not put their deck into their discard'
+        ]);
     }
 
     public function testDiscardNonEmpty() {

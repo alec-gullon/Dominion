@@ -17,8 +17,12 @@ class CellarController extends ActionController {
     }
 
     public function discardSelectedCards($cards) {
-        $this->discardCards($cards);
-        $this->drawCards(count($cards));
+        if (count($cards) === 0) {
+            $this->addToLog('.. ' . $this->activePlayer()->getName() . ' discards nothing');
+        } else {
+            $this->discardCards($cards);
+            $this->drawCards(count($cards));
+        }
         $this->resolveCard();
     }
 

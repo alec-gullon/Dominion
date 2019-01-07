@@ -15,6 +15,10 @@ class ChapelTest extends CardTestBase
         $this->provideInput(array('estate', 'estate'));
         $this->assertHandSize(2);
         $this->assertTrashSize(2);
+
+        $this->assertLogContains([
+            '.. Alec trashes two Estates'
+        ]);
     }
 
     public function testWithEmptyHand() {
@@ -26,6 +30,10 @@ class ChapelTest extends CardTestBase
         $this->assertNumberOfPlayed(1);
         $this->assertActions(0);
         $this->assertAllCardsResolved();
+
+        $this->assertLogContains([
+            '.. Alec has nothing to trash'
+        ]);
     }
 
     public function testUserSelectsNothing() {
@@ -35,5 +43,9 @@ class ChapelTest extends CardTestBase
         $this->provideInput(array());
         $this->assertHandSize(4);
         $this->assertTrashSize(0);
+
+        $this->assertLogContains([
+            '.. Alec trashes nothing'
+        ]);
     }
 }

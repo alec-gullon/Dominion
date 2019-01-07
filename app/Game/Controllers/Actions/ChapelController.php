@@ -6,6 +6,7 @@ class ChapelController extends ActionController {
 
     public function play() {
         if ($this->activePlayer()->countHand() === 0) {
+            $this->addToLog('.. ' . $this->activePlayer()->getName() . ' has nothing to trash');
             $this->resolveCard();
             return;
         }
@@ -15,6 +16,7 @@ class ChapelController extends ActionController {
 
     public function trashCards($stubs) {
         $this->state->trashCards($stubs);
+        $this->trashCardsDescription($stubs);
         $this->resolveCard();
     }
 

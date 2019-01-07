@@ -65,8 +65,24 @@ class ActionController extends StateController {
         foreach ($cards as $stub) {
             $cardStack[] = $this->cardBuilder->build($stub);
         }
-        $entry = '.. ' . $this->state->getActivePlayer()->getName() . ' discards';
+        $entry = '.. ' . $this->activePlayer()->getName() . ' discards';
         $entry .= $this->describeCardList($cardStack);
+        $this->addToLog($entry);
+    }
+
+    protected function trashCardsDescription($cards) {
+        $entry = '.. ' . $this->activePlayer()->getName() . ' trashes';
+
+        if (count($cards) === 0) {
+            $entry .= ' nothing';
+        } else {
+            $cardStack = [];
+            foreach ($cards as $stub) {
+                $cardStack[] = $this->cardBuilder->build($stub);
+            }
+            $entry = '.. ' . $this->activePlayer()->getName() . ' trashes';
+            $entry .= $this->describeCardlist($cardStack);
+        }
         $this->addToLog($entry);
     }
 
@@ -137,6 +153,11 @@ class ActionController extends StateController {
 
     protected function revealMoat() {
         $this->addToLog('.. ' . $this->secondaryPlayer()->getName() . ' reveals a moat');
+    }
+
+    protected function gainCoins($amount) {
+        $this->state->addCoins($amount);
+        $this->addToLog('.. ' . $this->activePlayer()->getName() . ' gains ' . $this->numberMappings[$amount] . ' coins');
     }
 
     private function describeCardList($cards) {
