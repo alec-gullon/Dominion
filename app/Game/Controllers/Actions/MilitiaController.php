@@ -5,7 +5,7 @@ namespace App\Game\Controllers\Actions;
 class MilitiaController extends ActionController {
 
     public function play() {
-        $this->state->addCoins(2);
+        $this->gainCoins(2);
 
         if ($this->state->hasMoat()) {
             $this->nextStep('resolve-moat');
@@ -17,14 +17,14 @@ class MilitiaController extends ActionController {
 
     public function resolveMoat($revealed) {
         if ($revealed) {
-            $this->resolveCard();
-            return;
+            $this->revealMoat();
+            return $this->resolveCard();
         }
         $this->resolveAttackIfNecessary();
     }
 
     public function resolveAttack($cards) {
-        $this->secondaryPlayer()->discardCards($cards);
+        $this->discardCards($cards, $this->secondaryPlayer()->getId());
         $this->resolveCard();
     }
 
@@ -34,6 +34,14 @@ class MilitiaController extends ActionController {
             $this->inputOn();
             return;
         }
+
+        $cardsInHand = count($this->secondaryPlayer()->getHand());
+        $this->addToLog('.. '
+            . $this->secondaryPlayer()->getName()
+            . ' is unaffected since they have '
+            . $this->numberMappings[$cardsInHand]
+            . ' cards in hand'
+        );
         $this->resolveCard();
     }
 

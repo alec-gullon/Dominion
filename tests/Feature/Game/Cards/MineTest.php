@@ -18,6 +18,11 @@ class MineTest extends CardTestBase
 
         $this->assertHandSize(4);
         $this->assertNumberOfRemainingCards('silver', 19);
+
+        $this->assertLogContains([
+            '.. Alec trashes a Copper',
+            '.. Alec gains a Silver, putting it in his hand'
+        ]);
     }
 
     public function testTrashCopperWithNoCopperAndSilverInKingdom() {
@@ -29,5 +34,22 @@ class MineTest extends CardTestBase
         $this->provideInput('copper');
 
         $this->assertAllCardsResolved();
+
+        $this->assertLogContains([
+            '.. Alec trashes a Copper',
+            '.. Alec has no cards which he can gain'
+        ]);
+    }
+
+    public function testNoTreasureCardInHand() {
+        $this->buildGame();
+        $this->setHand(['mine', 'village@4']);
+        $this->playCard('mine');
+
+        $this->assertAllCardsResolved();
+
+        $this->assertLogContains([
+            '.. Alec has nothing to trash'
+        ]);
     }
 }

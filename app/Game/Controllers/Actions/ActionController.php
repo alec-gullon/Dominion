@@ -6,7 +6,7 @@ use App\Game\Controllers\StateController;
 
 class ActionController extends StateController {
 
-    private $numberMappings = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+    protected $numberMappings = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
 
     protected function inputOn() {
         $this->state->togglePlayerInput(true);
@@ -82,18 +82,24 @@ class ActionController extends StateController {
         return $entry;
     }
 
-    protected function discardCards($cards) {
-        $this->activePlayer()->discardCards($cards);
-        $entry = $this->discardCardsDescription($cards);
+    protected function discardCards($cards, $playerKey = null) {
+        if ($playerKey === null) {
+            $player = $this->activePlayer();
+        } else {
+            $player = $this->state->getPlayerByKey($playerKey);
+        }
+
+        $player->discardCards($cards);
+        $entry = $this->discardCardsDescription($cards, $player);
         $this->addToLog($entry);
     }
 
-    protected function discardCardsDescription($cards) {
+    protected function discardCardsDescription($cards, $player) {
         $cardStack = [];
         foreach ($cards as $stub) {
             $cardStack[] = $this->cardBuilder->build($stub);
         }
-        $entry = '.. ' . $this->activePlayer()->getName() . ' discards';
+        $entry = '.. ' . $player->getName() . ' discards';
         $entry .= $this->describeCardList($cardStack);
         return $entry;
     }

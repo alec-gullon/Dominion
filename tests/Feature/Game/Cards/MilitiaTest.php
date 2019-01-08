@@ -13,6 +13,11 @@ class MilitiaTest extends CardTestBase
         $this->assertNumberOfCoins(2);
         $this->assertOpponentHandSize(3);
         $this->assertOpponentDiscardSize(2);
+
+        $this->assertLogContains([
+            '.. Alec gains two coins',
+            '.. Lucy discards a Copper and an Estate'
+        ]);
     }
 
     public function testWithMoat() {
@@ -26,6 +31,11 @@ class MilitiaTest extends CardTestBase
         $this->assertOpponentHandSize(5);
         $this->assertOpponentDiscardSize(0);
         $this->assertAllCardsResolved();
+
+        $this->assertLogContains([
+            '.. Lucy reveals a moat'
+        ]);
+        $this->assertLogCountEquals(3);
     }
 
     public function testWithLessThanThreeCards() {
@@ -37,6 +47,11 @@ class MilitiaTest extends CardTestBase
         $this->assertNumberOfCoins(2);
         $this->assertOpponentHandSize(3);
         $this->assertAllCardsResolved();
+
+        $this->assertLogContains([
+            '.. Lucy is unaffected since they have three cards in hand'
+        ]);
+        $this->assertLogCountEquals(3);
     }
 
     public function testWithMoreThanFiveCards() {
@@ -47,5 +62,9 @@ class MilitiaTest extends CardTestBase
 
         $this->provideInput(['copper', 'copper', 'copper']);
         $this->assertOpponentHandSize(3);
+
+        $this->assertLogContains([
+            '.. Lucy discards three Coppers'
+        ]);
     }
 }
