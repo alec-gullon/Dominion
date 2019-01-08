@@ -14,6 +14,11 @@ class WitchTest extends CardTestBase
         $this->assertActions(0);
         $this->assertNumberOfRemainingCards('curse', 9);
         $this->assertOpponentDiscardSize(1);
+
+        $this->assertLogContains([
+            '.. Alec draws two cards',
+            '.. Lucy gains a Curse'
+        ]);
     }
 
     public function testWitchWithMoat() {
@@ -30,15 +35,26 @@ class WitchTest extends CardTestBase
 
         $this->assertNumberOfRemainingCards('curse', 10);
         $this->assertOpponentDiscardSize(0);
+
+//        dd($this->getLog());
+
+        $this->assertLogContains([
+            '.. Alec draws two cards',
+            '.. Lucy reveals a Moat'
+        ]);
     }
 
     public function testEmptyCursePile() {
-        $this->buildGameWithMoat();
+        $this->buildGame();
         $this->setHand(['witch', 'copper@4']);
         $this->setNumberOfCardsRemaining('curse', 0);
         $this->playCard('witch');
 
         $this->assertOpponentHandSize(5);
         $this->assertNumberOfRemainingCards('curse', 0);
+
+        $this->assertLogContains([
+            '.. Lucy gains nothing since Curse pile is empty'
+        ]);
     }
 }

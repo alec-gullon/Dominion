@@ -61,7 +61,7 @@ class SpyTest extends CardTestBase
             '.. Lucy discards a Copper'
         ]);
     }
-//
+
     public function testActivePlayerCannotDrawAnything() {
         $this->buildGame();
         $this->setDeck(['copper']);

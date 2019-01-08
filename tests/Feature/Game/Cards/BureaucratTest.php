@@ -46,7 +46,7 @@ class BureaucratTest extends CardTestBase
         $this->assertOpponentHandSize(5);
 
         $this->assertLogContains([
-            '.. Lucy reveals a moat'
+            '.. Lucy reveals a Moat'
         ]);
     }
 

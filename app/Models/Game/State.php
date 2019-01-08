@@ -159,6 +159,9 @@ class State {
     }
 
     public function moveCardToPlayer($card, $where = 'discard', $playerKey = null) {
+        if ($this->kingdom[$card] <= 0) {
+            return;
+        }
         if (null === $playerKey) {
             $playerKey = $this->getActivePlayerKey();
         }

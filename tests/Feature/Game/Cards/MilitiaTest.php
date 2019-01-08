@@ -33,7 +33,7 @@ class MilitiaTest extends CardTestBase
         $this->assertAllCardsResolved();
 
         $this->assertLogContains([
-            '.. Lucy reveals a moat'
+            '.. Lucy reveals a Moat'
         ]);
         $this->assertLogCountEquals(3);
     }

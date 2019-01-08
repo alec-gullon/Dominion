@@ -38,7 +38,7 @@ class RemodelController extends ActionController {
         $remodelCard->gainValue = 0;
 
         $this->state->moveCardToPlayer($stub);
-        $this->gainCardDescription($stub);
+        $this->gainCardDescription($stub, $this->activePlayer());
         $this->resolveCard();
     }
 

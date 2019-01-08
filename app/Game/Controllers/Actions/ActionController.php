@@ -120,9 +120,9 @@ class ActionController extends StateController {
         $this->addToLog($entry);
     }
 
-    protected function gainCardDescription($stub) {
+    protected function gainCardDescription($stub, $player) {
         $card = $this->cardBuilder->build($stub);
-        $entry = '.. ' . $this->activePlayer()->getName() . ' gains ' . $card->nameWithArticlePrefix();
+        $entry = '.. ' . $player->getName() . ' gains ' . $card->nameWithArticlePrefix();
         $this->addToLog($entry);
     }
 
@@ -195,7 +195,7 @@ class ActionController extends StateController {
     }
 
     protected function revealMoat() {
-        $this->addToLog('.. ' . $this->secondaryPlayer()->getName() . ' reveals a moat');
+        $this->addToLog('.. ' . $this->secondaryPlayer()->getName() . ' reveals a Moat');
     }
 
     protected function gainCoins($amount) {

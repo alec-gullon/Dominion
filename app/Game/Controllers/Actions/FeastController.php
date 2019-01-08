@@ -17,7 +17,7 @@ class FeastController extends ActionController {
 
     public function gainCard($stub) {
         $this->state->moveCardToPlayer($stub);
-        $this->gainCardDescription($stub);
+        $this->gainCardDescription($stub, $this->activePlayer());
         $this->resolveCard();
     }
 
