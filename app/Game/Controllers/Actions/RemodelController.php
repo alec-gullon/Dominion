@@ -11,6 +11,7 @@ class RemodelController extends ActionController {
             $this->inputOn();
             return;
         }
+        $this->addToLog('.. ' . $this->activePlayer()->getName() . ' has nothing to trash');
         $this->resolveCard();
     }
 
@@ -19,10 +20,12 @@ class RemodelController extends ActionController {
         $trashedCard = $this->cardBuilder->build($stub);
 
         $this->state->trashCard($stub);
+        $this->trashCardsDescription([$stub]);
         $remodelCard->gainValue = $trashedCard->getValue() + 2;
 
         if ($this->state->cheapestCardAmount() > $remodelCard->gainValue) {
             $remodelCard->gainValue = 0;
+            $this->addToLog('.. ' . $this->activePlayer()->getName() . ' cannot gain anything');
             $this->resolveCard();
             return;
         }
@@ -35,6 +38,7 @@ class RemodelController extends ActionController {
         $remodelCard->gainValue = 0;
 
         $this->state->moveCardToPlayer($stub);
+        $this->gainCardDescription($stub);
         $this->resolveCard();
     }
 

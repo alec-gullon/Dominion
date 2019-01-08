@@ -23,6 +23,11 @@ class RemodelTest extends CardTestBase
 
         $this->assertDiscardSize(1);
         $this->assertNumberOfRemainingCards('silver', 19);
+
+        $this->assertLogContains([
+            '.. Alec trashes an Estate',
+            '.. Alec gains a Silver'
+        ]);
     }
 
     public function testEmptyHand() {
@@ -31,6 +36,10 @@ class RemodelTest extends CardTestBase
         $this->playCard('remodel');
 
         $this->assertAllCardsResolved();
+
+        $this->assertLogContains([
+           '.. Alec has nothing to trash'
+        ]);
     }
 
     public function testTrashCurseNoCardsWorthLessThanTwoKingdom() {
@@ -44,5 +53,9 @@ class RemodelTest extends CardTestBase
         $this->provideInput('copper');
 
         $this->assertAllCardsResolved();
+
+        $this->assertLogContains([
+            '.. Alec cannot gain anything'
+        ]);
     }
 }
