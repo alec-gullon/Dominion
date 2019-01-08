@@ -275,14 +275,14 @@ class CardTestBase extends TestCase
     }
 
     protected function assertLogContains($lines) {
-        $log = unserialize($this->game->object)->getLog();
+        $log = $this->getLog();
         $entries = $log->flattenedEntries();
         $intersect = array_intersect($lines, $entries);
         $this->assertEquals(count($lines), count($intersect));
     }
 
     protected function assertLogDoesNotContain($lines) {
-        $log = unserialize($this->game->object)->getLog();
+        $log = $this->getLog();
         $entries = $log->flattenedEntries();
         $intersect = array_intersect($lines, $entries);
         $this->assertEquals(0, count($intersect));
@@ -290,5 +290,11 @@ class CardTestBase extends TestCase
 
     protected function getLog() {
         return unserialize($this->game->object)->getLog();
+    }
+
+    protected function assertLogCountEquals($count) {
+        $log = $this->getLog();
+        $entries = $log->flattenedEntries();
+        $this->assertEquals($count, count($entries));
     }
 }

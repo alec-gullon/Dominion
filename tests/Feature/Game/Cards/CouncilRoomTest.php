@@ -27,6 +27,7 @@ class CouncilRoomTest extends CardTestBase
         $this->playCard('council-room');
 
         $this->assertOpponentHandSize(5);
+        $this->assertHandSize(8);
 
         $this->assertLogContains([
             '.. Lucy draws nothing'

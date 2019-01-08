@@ -23,6 +23,14 @@ class LibraryTest extends CardTestBase
         $this->assertHandSize(7);
         $this->assertNumberOfSetAside(0);
         $this->assertDiscardSize(1);
+
+        $this->assertLogContains([
+            '.. Alec draws a card',
+            '.. Alec sets aside a Village',
+            '.. Alec draws two cards',
+            '.. Alec discards a Village'
+        ]);
+        $this->assertLogCountEquals(5);
     }
 
     public function testNothingToDraw() {
@@ -34,6 +42,11 @@ class LibraryTest extends CardTestBase
 
         $this->assertHandSize(4);
         $this->assertAllCardsResolved();
+
+        $this->assertLogContains([
+            '.. Alec has nothing left to draw'
+        ]);
+        $this->assertLogCountEquals(2);
     }
 
     public function testThreeCardsInHand() {
@@ -49,6 +62,11 @@ class LibraryTest extends CardTestBase
         $this->assertDeckSize(1);
         $this->assertDiscardSize(0);
         $this->assertAllCardsResolved();
+
+        $this->assertLogContains([
+            '.. Alec draws five cards',
+        ]);
+        $this->assertLogCountEquals(2);
     }
 
     public function testDeckAndDiscardRunsOutBeforeReachingSevenCards() {
@@ -63,6 +81,12 @@ class LibraryTest extends CardTestBase
         $this->assertHandSize(5);
         $this->assertDeckSize(0);
         $this->assertAllCardsResolved();
+
+        $this->assertLogContains([
+            '.. Alec draws three cards',
+            '.. Alec has nothing left to draw'
+        ]);
+        $this->assertLogCountEquals(3);
 
     }
 }

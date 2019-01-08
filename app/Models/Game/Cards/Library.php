@@ -20,4 +20,6 @@ class Library extends Card {
         'set-aside-card'
     );
 
+    public $numberOfCardsDrawn = 0;
+
 }

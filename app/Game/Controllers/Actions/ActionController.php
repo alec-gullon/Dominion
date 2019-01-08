@@ -64,26 +64,38 @@ class ActionController extends StateController {
         $remainingCards = $player->numberOfDrawableCards();
         $player->drawCards($amount);
 
-        if ($remainingCards === 0) {
+        if ($remainingCards < $amount) {
+            $amount = $remainingCards;
+        }
+        $entry = $this->drawcardDescription($amount, $player);
+        $this->addToLog($entry);
+    }
+
+    protected function drawCardDescription($amount, $player) {
+        if ($amount === 0) {
             $entry = '.. ' . $player->getName() . ' draws nothing';
-        } else if ($remainingCards === 1 || $amount === 1) {
+        } else if ($amount === 1) {
             $entry = '.. ' . $player->getName() . ' draws a card';
         } else {
             $entry = '.. ' . $player->getName() . ' draws ' . $this->numberMappings[$amount] . ' cards';
         }
-        $this->state->getLog()->addEntry($entry);
+        return $entry;
     }
 
     protected function discardCards($cards) {
         $this->activePlayer()->discardCards($cards);
+        $entry = $this->discardCardsDescription($cards);
+        $this->addToLog($entry);
+    }
 
+    protected function discardCardsDescription($cards) {
         $cardStack = [];
         foreach ($cards as $stub) {
             $cardStack[] = $this->cardBuilder->build($stub);
         }
         $entry = '.. ' . $this->activePlayer()->getName() . ' discards';
         $entry .= $this->describeCardList($cardStack);
-        $this->addToLog($entry);
+        return $entry;
     }
 
     protected function trashCardsDescription($cards) {
