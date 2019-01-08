@@ -126,9 +126,12 @@ class ActionController extends StateController {
         $this->addToLog($entry);
     }
 
-    protected function describeRevealedCards() {
-        $entry = '.. ' . $this->state->getActivePlayer()->getName() . ' reveals';
-        $revealedCards = $this->state->getActivePlayer()->getRevealed();
+    protected function describeRevealedCards($player = null) {
+        if ($player === null) {
+            $player = $this->activePlayer();
+        }
+        $entry = '.. ' . $player->getName() . ' reveals';
+        $revealedCards = $player->getRevealed();
         $entry .= $this->describeCardList($revealedCards);
         $this->addToLog($entry);
     }
