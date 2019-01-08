@@ -18,5 +18,9 @@ class WorkshopTest extends CardTestBase
 
         $this->assertDiscardSize(1);
         $this->assertNumberOfRemainingCards('silver', 19);
+
+        $this->assertLogContains([
+            '.. Alec gains a Silver'
+        ]);
     }
 }
