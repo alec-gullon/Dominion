@@ -14,14 +14,10 @@ class MoneylenderTest extends CardTestBase
         $this->assertHandSize(3);
         $this->assertTrashSize(1);
         $this->assertNumberOfCoins(3);
-    }
 
-    public function testNoCoppersInHand() {
-        $this->buildGame();
-        $this->setHand(['moneylender', 'village@4']);
-        $this->playCard('moneylender');
-
-        $this->assertAllCardsResolved();
+        $this->assertLogContains([
+            '.. Alec trashes a Copper and gains three coins'
+        ]);
     }
 
     public function testDoesNotTrash() {
@@ -32,5 +28,9 @@ class MoneylenderTest extends CardTestBase
 
         $this->assertHandSize(4);
         $this->assertTrashSize(0);
+
+        $this->assertLogContains([
+            '.. Alec does not trash anything'
+        ]);
     }
 }

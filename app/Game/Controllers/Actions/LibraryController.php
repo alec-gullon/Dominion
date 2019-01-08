@@ -35,7 +35,7 @@ class LibraryController extends ActionController {
             foreach ($cards as $card) {
                 $stubs[] = $card->getStub();
             }
-            $this->addToLog($this->discardCardsDescription($stubs));
+            $this->addToLog($this->discardCardsDescription($stubs, $activePlayer));
         }
 
         $this->activePlayer()->moveCards('setAside', 'discard');
