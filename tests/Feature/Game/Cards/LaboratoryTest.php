@@ -11,5 +11,10 @@ class LaboratoryTest extends CardTestBase
         $this->playCard('laboratory');
         $this->assertHandSize(6);
         $this->assertActions(1);
+
+        $this->assertLogContains([
+            '.. Alec draws two cards',
+            '.. Alec gains an action'
+        ]);
     }
 }

@@ -5,9 +5,9 @@ namespace App\Game\Controllers\Actions;
 class CouncilRoomController extends ActionController {
 
     public function play() {
-        $this->activePlayer()->drawCards(4);
-        $this->state->gainBuys(1);
-        $this->secondaryPlayer()->drawCards(1);
+        $this->drawCards(4);
+        $this->addBuys(1);
+        $this->drawCards(1, $this->state->getSecondaryPlayerKey());
         $this->resolveCard();
     }
 

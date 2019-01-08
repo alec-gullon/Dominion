@@ -12,5 +12,9 @@ class SmithyTest extends CardTestBase
         $this->assertHandSize(7);
         $this->assertActions(0);
         $this->assertDeckSize(2);
+
+        $this->assertLogContains([
+            '.. Alec draws three cards'
+        ]);
     }
 }

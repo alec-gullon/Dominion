@@ -12,5 +12,9 @@ class MoatTest extends CardTestBase
         $this->assertHandSize(6);
         $this->assertNumberOfPlayed(1);
         $this->assertActions(0);
+
+        $this->assertLogContains([
+            '.. Alec draws two cards'
+        ]);
     }
 }

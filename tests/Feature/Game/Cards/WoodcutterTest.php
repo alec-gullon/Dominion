@@ -12,5 +12,10 @@ class WoodcutterTest extends CardTestBase
         $this->assertHandSize(4);
         $this->assertNumberOfCoins(2);
         $this->assertNumberOfBuys(2);
+
+        $this->assertLogContains([
+            '.. Alec gains two coins',
+            '.. Alec gains a buy'
+        ]);
     }
 }

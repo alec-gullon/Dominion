@@ -15,6 +15,11 @@ class FeastTest extends CardTestBase
 
         $this->assertDiscardSize(1);
         $this->assertNumberOfRemainingCards('duchy', 7);
+
+        $this->assertLogContains([
+            '.. Alec trashes a Feast',
+            '.. Alec gains a Duchy'
+        ]);
     }
 
     public function testVirtualCardNotTrashed() {
@@ -30,6 +35,13 @@ class FeastTest extends CardTestBase
         $this->assertNumberOfPlayed(1);
         $this->assertAllCardsResolved();
         $this->assertNumberOfRemainingCards('duchy', 7);
+
+        $this->assertLogContains([
+            '.. Alec gains a Duchy'
+        ]);
+        $this->assertLogDoesNotContain([
+            '.. Alec trashes a Feast'
+        ]);
     }
 
 

@@ -13,5 +13,11 @@ class FestivalTest extends CardTestBase
         $this->assertActions(2);
         $this->assertNumberOfBuys(2);
         $this->assertNumberOfCoins(2);
+
+        $this->assertLogContains([
+            '.. Alec gains two coins',
+            '.. Alec gains a buy',
+            '.. Alec gains two actions'
+        ]);
     }
 }

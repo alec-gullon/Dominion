@@ -17,7 +17,7 @@ class VillageTest extends CardTestBase
         $this->assertLogContains([
             'Alec plays a Village',
             '.. Alec draws a card',
-            '.. Alec gains 2 actions'
+            '.. Alec gains two actions'
         ]);
     }
 
@@ -30,5 +30,10 @@ class VillageTest extends CardTestBase
         $this->assertActions(2);
         $this->assertDeckSize(0);
         $this->assertNumberOfPlayed(1);
+
+        $this->assertLogContains([
+            '.. Alec draws nothing',
+            '.. Alec gains two actions'
+        ]);
     }
 }

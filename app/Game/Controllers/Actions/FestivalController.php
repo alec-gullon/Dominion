@@ -5,9 +5,9 @@ namespace App\Game\Controllers\Actions;
 class FestivalController extends ActionController {
 
     public function play() {
-        $this->state->addActions(2);
-        $this->state->addCoins(2);
-        $this->state->gainBuys(1);
+        $this->addActions(2);
+        $this->gainCoins(2);
+        $this->addBuys(1);
         $this->resolveCard();
     }
 

@@ -39,21 +39,37 @@ class ActionController extends StateController {
         if ($amount === 1) {
             $entry = '.. ' . $this->state->getActivePlayer()->getName() . ' gains an action';
         } else {
-            $entry = '.. ' . $this->state->getActivePlayer()->getName() . ' gains ' . $amount . ' actions';
+            $entry = '.. ' . $this->state->getActivePlayer()->getName() . ' gains ' . $this->numberMappings[$amount] . ' actions';
         }
         $this->state->getLog()->addEntry($entry);
     }
 
-    protected function drawCards($amount) {
-        $remainingCards = $this->activePlayer()->numberOfDrawableCards();
-        $this->activePlayer()->drawCards($amount);
+    protected function addBuys($amount) {
+        $this->state->gainBuys($amount);
+
+        if ($amount === 1) {
+            $entry = '.. ' . $this->activePlayer()->getName() . ' gains a buy';
+        } else {
+            $entry = '.. ' . $this->activePlayer()->getName() . ' gains ' . $this->numberMappings[$amount] . ' buys';
+        }
+        $this->state->getLog()->addEntry($entry);
+    }
+
+    protected function drawCards($amount, $playerKey = null) {
+        if ($playerKey === null) {
+            $player = $this->activePlayer();
+        } else {
+            $player = $this->state->getPlayerByKey($playerKey);
+        }
+        $remainingCards = $player->numberOfDrawableCards();
+        $player->drawCards($amount);
 
         if ($remainingCards === 0) {
-            $entry = '.. ' . $this->state->getActivePlayer()->getName() . ' draws nothing';
+            $entry = '.. ' . $player->getName() . ' draws nothing';
         } else if ($remainingCards === 1 || $amount === 1) {
-            $entry = '.. ' . $this->state->getActivePlayer()->getName() . ' draws a card';
+            $entry = '.. ' . $player->getName() . ' draws a card';
         } else {
-            $entry = '.. ' . $this->state->getActivePlayer()->getName() . ' draws ' . $this->numberMappings[$amount] . ' cards';
+            $entry = '.. ' . $player->getName() . ' draws ' . $this->numberMappings[$amount] . ' cards';
         }
         $this->state->getLog()->addEntry($entry);
     }
@@ -83,6 +99,12 @@ class ActionController extends StateController {
             $entry = '.. ' . $this->activePlayer()->getName() . ' trashes';
             $entry .= $this->describeCardlist($cardStack);
         }
+        $this->addToLog($entry);
+    }
+
+    protected function gainCardDescription($stub) {
+        $card = $this->cardBuilder->build($stub);
+        $entry = '.. ' . $this->activePlayer()->getName() . ' gains ' . $card->nameWithArticlePrefix();
         $this->addToLog($entry);
     }
 
@@ -157,7 +179,13 @@ class ActionController extends StateController {
 
     protected function gainCoins($amount) {
         $this->state->addCoins($amount);
-        $this->addToLog('.. ' . $this->activePlayer()->getName() . ' gains ' . $this->numberMappings[$amount] . ' coins');
+
+        if ($amount === 1) {
+            $entry = '.. ' . $this->activePlayer()->getName() . ' gains a coin';
+        } else {
+            $entry = '.. ' . $this->activePlayer()->getName() . ' gains ' . $this->numberMappings[$amount] . ' coins';
+        }
+        $this->addToLog($entry);
     }
 
     private function describeCardList($cards) {
