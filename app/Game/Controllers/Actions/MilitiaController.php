@@ -5,7 +5,7 @@ namespace App\Game\Controllers\Actions;
 class MilitiaController extends ActionController {
 
     public function play() {
-        $this->gainCoins(2);
+        $this->addCoins(2);
 
         if ($this->state->hasMoat()) {
             $this->nextStep('resolve-moat');
@@ -24,7 +24,7 @@ class MilitiaController extends ActionController {
     }
 
     public function resolveAttack($cards) {
-        $this->discardCards($cards, $this->secondaryPlayer()->getId());
+        $this->discardCards($cards, $this->secondaryPlayer());
         $this->resolveCard();
     }
 

@@ -20,7 +20,7 @@ class CellarTest extends CardTestBase
         $this->assertDeckSize(3);
 
         $this->assertLogContains([
-            '.. Alec discards two Estates',
+            '.. Alec discards two Estates from their hand',
             '.. Alec draws two cards'
         ]);
     }
@@ -50,7 +50,7 @@ class CellarTest extends CardTestBase
         $this->assertDeckSize(1);
 
         $this->assertLogContains([
-            '.. Alec discards two Estates',
+            '.. Alec discards two Estates from their hand',
             '.. Alec draws two cards'
         ]);
     }
@@ -67,7 +67,7 @@ class CellarTest extends CardTestBase
         $this->assertDeckSize(0);
 
         $this->assertLogContains([
-            '.. Alec discards two Estates',
+            '.. Alec discards two Estates from their hand',
             '.. Alec draws two cards'
         ]);
     }

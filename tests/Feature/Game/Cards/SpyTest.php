@@ -35,7 +35,7 @@ class SpyTest extends CardTestBase
         ]);
     }
 
-    public function testActiveKeepsOffendingDiscards() {
+    public function testActiveKeepsSecondaryDiscards() {
         $this->buildGame();
         $this->setDeck(['copper@4', 'estate@1']);
         $this->setHand(['spy', 'copper@4']);

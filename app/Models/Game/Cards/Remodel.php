@@ -15,7 +15,7 @@ class Remodel extends Card {
     protected $steps = array(
         'play',
         'trash-card',
-        'gain-card'
+        'gain-selected-card'
     );
 
     public $gainValue = 0;

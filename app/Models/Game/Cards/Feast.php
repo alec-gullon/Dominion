@@ -16,7 +16,7 @@ class Feast extends Card {
 
     protected $steps = array(
         'play',
-        'gain-card'
+        'gain-selected-card'
     );
 
 }

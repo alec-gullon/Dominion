@@ -21,7 +21,7 @@ class MineTest extends CardTestBase
 
         $this->assertLogContains([
             '.. Alec trashes a Copper',
-            '.. Alec gains a Silver, putting it in his hand'
+            '.. Alec gains a Silver, putting it in their hand'
         ]);
     }
 
@@ -37,7 +37,7 @@ class MineTest extends CardTestBase
 
         $this->assertLogContains([
             '.. Alec trashes a Copper',
-            '.. Alec has no cards which he can gain'
+            '.. Alec has no cards which they can gain'
         ]);
     }
 

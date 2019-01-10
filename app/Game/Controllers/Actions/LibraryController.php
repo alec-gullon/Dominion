@@ -28,17 +28,7 @@ class LibraryController extends ActionController {
         }
 
         $this->resetNumberOfCardsDrawn();
-
-        $cards = $this->activePlayer()->getSetAside();
-        if (count($cards) > 0) {
-            $stubs = [];
-            foreach ($cards as $card) {
-                $stubs[] = $card->getStub();
-            }
-            $this->addToLog($this->discardCardsDescription($stubs, $activePlayer));
-        }
-
-        $this->activePlayer()->moveCards('setAside', 'discard');
+        $this->discardSetAsideCards();
         $this->resolveCard();
     }
 
@@ -61,7 +51,7 @@ class LibraryController extends ActionController {
     private function resetNumberOfCardsDrawn() {
         $libraryCard = $this->activePlayer()->getUnresolvedCard();
         if ($libraryCard->numberOfCardsDrawn > 0) {
-            $this->addToLog($this->drawCardDescription($libraryCard->numberOfCardsDrawn, $this->activePlayer()));
+            $this->drawCardsDescription($libraryCard->numberOfCardsDrawn);
             $libraryCard->numberOfCardsDrawn = 0;
         }
     }

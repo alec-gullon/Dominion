@@ -16,7 +16,7 @@ class MilitiaTest extends CardTestBase
 
         $this->assertLogContains([
             '.. Alec gains two coins',
-            '.. Lucy discards a Copper and an Estate'
+            '.. Lucy discards a Copper and an Estate from their hand'
         ]);
     }
 
@@ -64,7 +64,7 @@ class MilitiaTest extends CardTestBase
         $this->assertOpponentHandSize(3);
 
         $this->assertLogContains([
-            '.. Lucy discards three Coppers'
+            '.. Lucy discards three Coppers from their hand'
         ]);
     }
 }

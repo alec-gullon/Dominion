@@ -33,223 +33,90 @@ class ActionController extends StateController {
         $this->activePlayer()->resolveCard();
     }
 
-    protected function addActions($amount) {
-        $this->state->addActions($amount);
-
-        if ($amount === 1) {
-            $entry = '.. ' . $this->state->getActivePlayer()->getName() . ' gains an action';
-        } else {
-            $entry = '.. ' . $this->state->getActivePlayer()->getName() . ' gains ' . $this->numberMappings[$amount] . ' actions';
-        }
-        $this->state->getLog()->addEntry($entry);
-    }
-
-    protected function addBuys($amount) {
-        $this->state->gainBuys($amount);
-
-        if ($amount === 1) {
-            $entry = '.. ' . $this->activePlayer()->getName() . ' gains a buy';
-        } else {
-            $entry = '.. ' . $this->activePlayer()->getName() . ' gains ' . $this->numberMappings[$amount] . ' buys';
-        }
-        $this->state->getLog()->addEntry($entry);
-    }
-
-    protected function drawCards($amount, $playerKey = null) {
-        if ($playerKey === null) {
-            $player = $this->activePlayer();
-        } else {
-            $player = $this->state->getPlayerByKey($playerKey);
-        }
-        $remainingCards = $player->numberOfDrawableCards();
-        $player->drawCards($amount);
-
-        if ($remainingCards < $amount) {
-            $amount = $remainingCards;
-        }
-        $entry = $this->drawcardDescription($amount, $player);
-        $this->addToLog($entry);
-    }
-
-    protected function drawCardDescription($amount, $player) {
-        if ($amount === 0) {
-            $entry = '.. ' . $player->getName() . ' draws nothing';
-        } else if ($amount === 1) {
-            $entry = '.. ' . $player->getName() . ' draws a card';
-        } else {
-            $entry = '.. ' . $player->getName() . ' draws ' . $this->numberMappings[$amount] . ' cards';
-        }
-        return $entry;
-    }
-
-    protected function discardCards($cards, $playerKey = null) {
-        if ($playerKey === null) {
-            $player = $this->activePlayer();
-        } else {
-            $player = $this->state->getPlayerByKey($playerKey);
-        }
-
-        $player->discardCards($cards);
-        $entry = $this->discardCardsDescription($cards, $player);
-        $this->addToLog($entry);
-    }
-
-    protected function discardCardsDescription($cards, $player) {
-        $cardStack = [];
-        foreach ($cards as $stub) {
-            $cardStack[] = $this->cardBuilder->build($stub);
-        }
-        $entry = '.. ' . $player->getName() . ' discards';
-        $entry .= $this->describeCardList($cardStack);
-        return $entry;
-    }
-
-    protected function trashCardsDescription($cards) {
-        $entry = '.. ' . $this->activePlayer()->getName() . ' trashes';
-
-        if (count($cards) === 0) {
-            $entry .= ' nothing';
-        } else {
-            $cardStack = [];
-            foreach ($cards as $stub) {
-                $cardStack[] = $this->cardBuilder->build($stub);
-            }
-            $entry = '.. ' . $this->activePlayer()->getName() . ' trashes';
-            $entry .= $this->describeCardlist($cardStack);
-        }
-        $this->addToLog($entry);
-    }
-
-    protected function gainCardDescription($stub, $player) {
-        $card = $this->cardBuilder->build($stub);
-        $entry = '.. ' . $player->getName() . ' gains ' . $card->nameWithArticlePrefix();
-        $this->addToLog($entry);
-    }
-
-    protected function describeRevealedCards($player = null) {
-        if ($player === null) {
-            $player = $this->activePlayer();
-        }
-        $entry = '.. ' . $player->getName() . ' reveals';
-        $revealedCards = $player->getRevealed();
-        $entry .= $this->describeCardList($revealedCards);
-        $this->addToLog($entry);
-    }
-
-    protected function describeHand($opponentHand = false) {
-        if ($opponentHand) {
-            $player = $this->state->getSecondaryPlayer();
-        } else {
-            $player = $this->state->getActivePlayer();
-        }
-        $cards = $player->getHand();
-        $entry = '.. ' . $player->getName() . ' reveals a hand of';
-        $entry .= $this->describeCardlist($cards);
-        $this->addToLog($entry);
-    }
-
-    protected function moveCardOntoDeckFromKingdom($card, $player) {
-        $this->state->moveCardOntoDeck($card, $player->getId());
-
-        $entry = '.. ' . $player->getName() . ' places';
-
-        $kingdomCards = $this->state->getKingdomCards();
-        if ($kingdomCards[$card] === 0) {
-            $entry .= ' nothing on their deck';
-        } else {
-            $card = $this->cardBuilder->build($card);
-            $entry .= ' ' . $card->nameWithArticlePrefix() . ' onto their deck';
-        }
-        $this->addToLog($entry);
-    }
-
-    protected function moveCardOntoDeck($from, $card, $player) {
-        $player->moveCardOntoDeck($from, $card);
-        $card = $this->cardBuilder->build($card);
-        $entry = '.. ' . $player->getName() . ' places ' . $card->nameWithArticlePrefix() . ' onto their deck from their ' . $from;
-        $this->addToLog($entry);
-    }
-
-    protected function moveCardsOfType($from, $where, $type) {
-        $cardsToMove = $this->state->getActivePlayer()->getCardsOfType($from, $type);
-
-        $entry = '.. ' . $this->state->getActivePlayer()->getName();
-        if (count($cardsToMove) === 0) {
-            $entry .= ' does not put anything';
-        } else {
-            $entry .= ' puts';
-        }
-        $entry .= $this->describeCardList($cardsToMove);
-        $entry .= ' into their ' . $where;
-        $this->state->getLog()->addEntry($entry);
-
-        $this->activePlayer()->moveCardsOfType($from, $where, $type);
-    }
-
-    protected function moveCards($from, $where) {
-        $this->moveCardsOfType($from, $where, 'all');
-    }
-
     protected function addToLog($entry) {
         $this->state->getLog()->addEntry($entry);
+    }
+
+    protected function effect($effectClass, $params = array()) {
+        if (array_key_exists('player', $params) && $params['player'] === null) {
+            $params['player'] = $this->activePlayer();
+        }
+        $effectClass = '\App\Game\Services\Effects\\' . $effectClass;
+        $effectClass = new $effectClass($this->state, $this->cardBuilder, $params);
+        $effectClass->effect();
+    }
+
+    protected function description($effectClass, $params = array()) {
+        if (array_key_exists('player', $params) && $params['player'] === null) {
+            $params['player'] = $this->activePlayer();
+        }
+        $effectClass = '\App\Game\Services\Effects\\' . $effectClass;
+        $effectClass = new $effectClass($this->state, $this->cardBuilder, $params);
+        $effectClass->description();
     }
 
     protected function revealMoat() {
         $this->addToLog('.. ' . $this->secondaryPlayer()->getName() . ' reveals a Moat');
     }
 
-    protected function gainCoins($amount) {
-        $this->state->addCoins($amount);
-
-        if ($amount === 1) {
-            $entry = '.. ' . $this->activePlayer()->getName() . ' gains a coin';
-        } else {
-            $entry = '.. ' . $this->activePlayer()->getName() . ' gains ' . $this->numberMappings[$amount] . ' coins';
-        }
-        $this->addToLog($entry);
+    protected function addActions($amount) {
+        $this->effect('AddActions', compact('amount'));
     }
 
-    private function describeCardList($cards) {
-        usort($cards, function($a, $b) {
-             if ($a->getName() < $b->getName()) {
-                 return -1;
-             }
-             return 1;
-        });
+    protected function addBuys($amount) {
+        $this->effect('AddBuys', compact('amount'));
+    }
 
-        $cardAmounts = [];
-        foreach ($cards as $card) {
-            $name = $card->getName();
-            if (!isset($cardAmounts[$name])) {
-                $cardAmounts[$name] = [
-                    'amount' => 0,
-                    'card' => $card
-                ];
-            }
-            $cardAmounts[$name]['amount']++;
-        }
+    protected function addCoins($amount) {
+        $this->effect('AddCoins', compact('amount'));
+    }
 
-        $descriptor = '';
+    protected function drawCards($amount, $player = null) {
+        $this->effect('DrawCards', compact('player','amount'));
+    }
 
-        $i = 1;
-        foreach ($cardAmounts as $name => $details) {
-            $amount = $details['amount'];
-            $card = $details['card'];
-            if ($amount === 1) {
-                $descriptor .= ' ' . $card->nameWithArticlePrefix();
-            } else {
-                $descriptor  .= ' ' . $this->numberMappings[$amount] . ' ' . $card->pluralFormOfName();
-            }
+    protected function drawCardsDescription($amount, $player = null) {
+        $this->description('DrawCards', compact('player', 'amount'));
+    }
 
-            if ($i === count($cardAmounts) - 1) {
-                $descriptor .= ' and';
-            } else if ($i < count($cardAmounts) - 1) {
-                $descriptor .= ',';
-            }
+    protected function discardCards($cards, $player = null) {
+        $this->effect('DiscardCards', compact('player', 'cards'));
+    }
 
-            $i++;
-        }
-        return $descriptor;
+    protected function discardRevealedCards($player = null) {
+        $this->effect('DiscardRevealedCards', compact('player'));
+    }
+
+    protected function discardSetAsideCards() {
+        $this->effect('DiscardSetAsideCards');
+    }
+
+    protected function trashCards($cards) {
+        $this->effect('TrashCards', compact('cards'));
+    }
+
+    protected function trashCardsDescription($cards) {
+        $this->description('TrashCards', compact('cards'));
+    }
+
+    protected function gainCard($card, $player = null, $location = 'discard') {
+        $this->effect('GainCard', compact('card', 'player', 'location'));
+    }
+
+    protected function describeRevealedCards($player = null) {
+        $this->description('DescribeRevealedCards', compact('player'));
+    }
+
+    protected function describeHand($player = null) {
+        $this->description('DescribeHand', compact('player'));
+    }
+
+    protected function moveCards($from, $where, $type = 'all') {
+        $this->effect('MoveCards', compact('from', 'where', 'type'));
+    }
+
+    protected function moveCardOntoDeck($from, $card, $player) {
+        $this->effect('MoveCardOntoDeck', compact('from', 'card', 'player'));
     }
 
 }

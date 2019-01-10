@@ -21,7 +21,7 @@ class AdventurerController extends ActionController {
         }
 
         $this->describeRevealedCards();
-        $this->moveCardsOfType('revealed', 'hand', 'treasure');
+        $this->moveCards('revealed', 'hand', 'treasure');
         $this->moveCards('revealed', 'discard');
 
         $this->resolveCard();

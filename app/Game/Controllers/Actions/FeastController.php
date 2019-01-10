@@ -7,7 +7,7 @@ class FeastController extends ActionController {
     public function play() {
         $feastCard = $this->activePlayer()->getUnresolvedCard();
 
-        $this->nextStep('gain-card');
+        $this->nextStep('gain-selected-card');
         if (!$feastCard->isVirtual()) {
             $this->state->trashCard('feast', 'played');
             $this->trashCardsDescription(['feast']);
@@ -15,9 +15,8 @@ class FeastController extends ActionController {
         $this->inputOn();
     }
 
-    public function gainCard($stub) {
-        $this->state->moveCardToPlayer($stub);
-        $this->gainCardDescription($stub, $this->activePlayer());
+    public function gainSelectedCard($stub) {
+        $this->gainCard($stub);
         $this->resolveCard();
     }
 

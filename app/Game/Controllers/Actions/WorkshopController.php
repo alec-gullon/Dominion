@@ -5,13 +5,12 @@ namespace App\Game\Controllers\Actions;
 class WorkshopController extends ActionController {
 
     public function play() {
-        $this->nextStep('gain-card');
+        $this->nextStep('gain-selected-card');
         $this->inputOn();
     }
 
-    public function gainCard($stub) {
-        $this->state->moveCardToPlayer($stub);
-        $this->gainCardDescription($stub, $this->activePlayer());
+    public function gainSelectedCard($stub) {
+        $this->gainCard($stub);
         $this->resolveCard();
     }
 

@@ -16,7 +16,7 @@ class Chapel extends Card {
 
     protected $steps = array(
         'play',
-        'trash-cards'
+        'trash-selected-cards'
     );
 
 }

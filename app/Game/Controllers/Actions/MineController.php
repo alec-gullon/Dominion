@@ -19,8 +19,7 @@ class MineController extends ActionController {
         $mineCard = $this->activePlayer()->getUnresolvedCard();
         $trashedCard = $this->cardBuilder->build($stub);
 
-        $this->state->trashCard($stub);
-        $this->trashCardsDescription([$stub]);
+        $this->trashCards([$stub]);
         $mineCard->treasureValue = $trashedCard->getValue() + 3;
 
         $userCanSelectCard = false;
@@ -39,7 +38,7 @@ class MineController extends ActionController {
             $this->nextStep('gain-treasure');
             $this->inputOn();
         } else {
-            $this->addToLog('.. Alec has no cards which he can gain');
+            $this->addToLog('.. Alec has no cards which they can gain');
             $this->resolveCard();
         }
     }
@@ -47,10 +46,10 @@ class MineController extends ActionController {
     public function gainTreasure($stub) {
         $mineCard = $this->activePlayer()->getUnresolvedCard();
 
-        $this->state->moveCardToPlayer($stub, 'hand');
+        $this->gainCard($stub, $this->activePlayer(), 'hand');
 
         $gainedCard = $this->cardBuilder->build($stub);
-        $this->addToLog('.. Alec gains ' . $gainedCard->nameWithArticlePrefix() . ', putting it in his hand');
+        $this->addToLog('.. Alec gains ' . $gainedCard->nameWithArticlePrefix() . ', putting it in their hand');
         $mineCard->treasureValue = 0;
         $this->resolveCard();
     }

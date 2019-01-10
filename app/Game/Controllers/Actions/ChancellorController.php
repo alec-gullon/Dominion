@@ -6,7 +6,7 @@ class ChancellorController extends ActionController {
 
     public function play() {
         $this->nextStep('put-deck-in-discard');
-        $this->gainCoins(2);
+        $this->addCoins(2);
         $this->inputOn();
     }
 

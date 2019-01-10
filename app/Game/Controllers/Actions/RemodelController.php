@@ -19,8 +19,7 @@ class RemodelController extends ActionController {
         $remodelCard = $this->activePlayer()->getUnresolvedCard();
         $trashedCard = $this->cardBuilder->build($stub);
 
-        $this->state->trashCard($stub);
-        $this->trashCardsDescription([$stub]);
+        $this->trashCards([$stub]);
         $remodelCard->gainValue = $trashedCard->getValue() + 2;
 
         if ($this->state->cheapestCardAmount() > $remodelCard->gainValue) {
@@ -29,16 +28,15 @@ class RemodelController extends ActionController {
             $this->resolveCard();
             return;
         }
-        $this->nextStep('gain-card');
+        $this->nextStep('gain-selected-card');
         $this->inputOn();
     }
 
-    public function gainCard($stub) {
+    public function gainSelectedCard($stub) {
         $remodelCard = $this->activePlayer()->getUnresolvedCard();
         $remodelCard->gainValue = 0;
 
-        $this->state->moveCardToPlayer($stub);
-        $this->gainCardDescription($stub, $this->activePlayer());
+        $this->gainCard($stub);
         $this->resolveCard();
     }
 

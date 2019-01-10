@@ -5,7 +5,7 @@ namespace App\Game\Controllers\Actions;
 class BureaucratController extends ActionController {
 
     public function play() {
-        $this->moveCardOntoDeckFromKingdom('silver', $this->activePlayer());
+        $this->gainCard('silver', $this->activePlayer(), 'deck');
 
         if ($this->state->hasMoat()) {
             $this->nextStep('resolve-moat');
@@ -33,7 +33,7 @@ class BureaucratController extends ActionController {
             $this->nextStep('resolve-attack');
             $this->inputOn();
         } else {
-            $this->describeHand(true);
+            $this->describeHand($this->secondaryPlayer());
             $this->resolveCard();
         }
     }

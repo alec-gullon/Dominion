@@ -14,7 +14,7 @@ class BureaucratTest extends CardTestBase
         $this->assertAllCardsResolved();
 
         $this->assertLogContains([
-            '.. Alec places a Silver onto their deck',
+            '.. Alec gains a Silver, putting it on top of their deck',
             '.. Lucy reveals a hand of five Coppers'
         ]);
     }

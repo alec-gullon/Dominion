@@ -28,7 +28,7 @@ class LibraryTest extends CardTestBase
             '.. Alec draws a card',
             '.. Alec sets aside a Village',
             '.. Alec draws two cards',
-            '.. Alec discards a Village'
+            '.. Alec discards a Village that they set aside'
         ]);
         $this->assertLogCountEquals(5);
     }

@@ -10,13 +10,12 @@ class ChapelController extends ActionController {
             $this->resolveCard();
             return;
         }
-        $this->nextStep('trash-cards');
+        $this->nextStep('trash-selected-cards');
         $this->inputOn();
     }
 
-    public function trashCards($stubs) {
-        $this->state->trashCards($stubs);
-        $this->trashCardsDescription($stubs);
+    public function trashSelectedCards($stubs) {
+        $this->trashCards($stubs);
         $this->resolveCard();
     }
 
