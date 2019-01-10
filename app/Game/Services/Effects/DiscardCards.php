@@ -22,7 +22,12 @@ class DiscardCards extends Base {
             $cardStack[] = $this->cardBuilder->build($stub);
         }
         $entry = '.. ' . $player->getName() . ' discards';
-        $entry .= $this->describeCardList($cardStack);
+
+        if (count($cardStack) === 0) {
+            $entry .= ' nothing';
+        } else {
+            $entry .= $this->describeCardList($cardStack);
+        }
         $entry .= ' from their hand';
         $this->addToLog($entry);
     }

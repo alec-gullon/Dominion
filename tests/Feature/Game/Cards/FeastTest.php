@@ -17,7 +17,7 @@ class FeastTest extends CardTestBase
         $this->assertNumberOfRemainingCards('duchy', 7);
 
         $this->assertLogContains([
-            '.. Alec trashes a Feast',
+            '.. Alec trashes the Feast',
             '.. Alec gains a Duchy'
         ]);
     }

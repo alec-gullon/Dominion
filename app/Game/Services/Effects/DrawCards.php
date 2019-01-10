@@ -2,8 +2,6 @@
 
 namespace App\Game\Services\Effects;
 
-use App\Models\Game\Player;
-
 class DrawCards extends Base {
 
     public function effect() {

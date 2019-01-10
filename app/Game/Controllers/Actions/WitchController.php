@@ -11,23 +11,22 @@ class WitchController extends ActionController {
             $this->nextStep('resolve-moat');
             return $this->inputOn();
         }
-        return $this->nextStep('resolve-attack');
+        $this->nextStep('resolve-attack');
     }
 
     public function resolveMoat($revealed) {
         if ($revealed) {
-            $this->revealMoat();
-            return $this->resolveCard();
+            return $this->revealMoat();
         }
         $this->nextStep('resolve-attack');
-        return $this->inputOff();
+        $this->inputOff();
     }
 
     public function resolveAttack() {
         if ($this->state->getKingdomCards()['curse'] > 0) {
             $this->gainCard('curse', $this->secondaryPlayer());
         } else {
-            $this->addToLog('.. ' . $this->secondaryPlayer()->getName() . ' gains nothing since Curse pile is empty');
+            $this->addPlayerActionToLog('gains nothing since Curse pile is empty', $this->secondaryPlayer());
         }
         $this->resolveCard();
     }

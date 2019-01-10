@@ -5,26 +5,26 @@ namespace App\Game\Controllers\Actions;
 class AdventurerController extends ActionController {
 
     public function play() {
-        if (!$this->activePlayer()->canDrawCard()) {
-            $this->addToLog( '.. ' . $this->activePlayer()->getName() . ' has nothing to draw');
-            $this->resolveCard();
-            return;
+        $activePlayer = $this->activePlayer();
+
+        if (!$activePlayer->canDrawCard()) {
+            $this->addPlayerActionToLog('has nothing to draw');
+            return $this->resolveCard();
         }
 
         $revealedTreasure = 0;
-        while ($this->activePlayer()->canDrawCard() && $revealedTreasure < 2) {
-            $card = $this->activePlayer()->getTopCard();
-            if ($card->hasType('treasure')) {
+        while ($activePlayer->canDrawCard() && $revealedTreasure < 2) {
+            if ($activePlayer->getTopCard()->hasType('treasure')) {
                 $revealedTreasure++;
             }
-            $this->activePlayer()->revealTopCard();
+            $activePlayer->revealTopCard();
         }
 
         $this->describeRevealedCards();
         $this->moveCards('revealed', 'hand', 'treasure');
         $this->moveCards('revealed', 'discard');
 
-        $this->resolveCard();
+        return $this->resolveCard();
     }
 
 }

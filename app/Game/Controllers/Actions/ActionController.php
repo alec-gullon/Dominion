@@ -37,6 +37,13 @@ class ActionController extends StateController {
         $this->state->getLog()->addEntry($entry);
     }
 
+    protected function addPlayerActionToLog($log, $player = null) {
+        if ($player === null) {
+            $player = $this->activePlayer();
+        }
+        $this->addToLog('.. ' . $player->getName() . ' ' . $log);
+    }
+
     protected function effect($effectClass, $params = array()) {
         if (array_key_exists('player', $params) && $params['player'] === null) {
             $params['player'] = $this->activePlayer();
@@ -56,7 +63,8 @@ class ActionController extends StateController {
     }
 
     protected function revealMoat() {
-        $this->addToLog('.. ' . $this->secondaryPlayer()->getName() . ' reveals a Moat');
+        $this->addPlayerActionToLog('reveals a Moat', $this->secondaryPlayer());
+        $this->resolveCard();
     }
 
     protected function addActions($amount) {
@@ -115,8 +123,20 @@ class ActionController extends StateController {
         $this->effect('MoveCards', compact('from', 'where', 'type'));
     }
 
-    protected function moveCardOntoDeck($from, $card, $player) {
+    protected function moveCardOntoDeck($from, $card, $player = null) {
         $this->effect('MoveCardOntoDeck', compact('from', 'card', 'player'));
+    }
+
+    protected function combinePiles($from, $to) {
+        $this->effect('CombinePiles', compact('from', 'to'));
+    }
+
+    protected function setAsideTopCard() {
+        $this->effect('SetAsideTopCard');
+    }
+
+    protected function revealTopCard($player = null) {
+        $this->effect('RevealTopCard', compact('player'));
     }
 
 }

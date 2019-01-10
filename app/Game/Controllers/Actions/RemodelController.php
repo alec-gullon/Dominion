@@ -5,13 +5,11 @@ namespace App\Game\Controllers\Actions;
 class RemodelController extends ActionController {
 
     public function play() {
-        // if player has another card in hand, let them trash something
-        if ($this->activePlayer()->countHand() !== 0) {
+        if (!$this->activePlayer()->hasEmptyHand()) {
             $this->nextStep('trash-card');
-            $this->inputOn();
-            return;
+            return $this->inputOn();
         }
-        $this->addToLog('.. ' . $this->activePlayer()->getName() . ' has nothing to trash');
+        $this->addPlayerActionToLog('has nothing to trash');
         $this->resolveCard();
     }
 
@@ -20,24 +18,26 @@ class RemodelController extends ActionController {
         $trashedCard = $this->cardBuilder->build($stub);
 
         $this->trashCards([$stub]);
-        $remodelCard->gainValue = $trashedCard->getValue() + 2;
+        $gainValue = $trashedCard->getValue() + 2;
 
-        if ($this->state->cheapestCardAmount() > $remodelCard->gainValue) {
-            $remodelCard->gainValue = 0;
-            $this->addToLog('.. ' . $this->activePlayer()->getName() . ' cannot gain anything');
-            $this->resolveCard();
-            return;
+        if ($this->state->cheapestCardAmount() > $gainValue) {
+            $this->addPlayerActionToLog('cannot gain anything');
+            return $this->resolveCard();
         }
+        $remodelCard->gainValue = $gainValue;
         $this->nextStep('gain-selected-card');
         $this->inputOn();
     }
 
     public function gainSelectedCard($stub) {
-        $remodelCard = $this->activePlayer()->getUnresolvedCard();
-        $remodelCard->gainValue = 0;
-
         $this->gainCard($stub);
         $this->resolveCard();
+    }
+
+    protected function resolveCard() {
+        $card = $this->activePlayer()->getUnresolvedCard();
+        $card->gainValue = 0;
+        parent::resolveCard();
     }
 
 }

@@ -5,10 +5,9 @@ namespace App\Game\Controllers\Actions;
 class ChapelController extends ActionController {
 
     public function play() {
-        if ($this->activePlayer()->countHand() === 0) {
-            $this->addToLog('.. ' . $this->activePlayer()->getName() . ' has nothing to trash');
-            $this->resolveCard();
-            return;
+        if ($this->activePlayer()->hasEmptyHand()) {
+            $this->addPlayerActionToLog('has nothing to trash');
+            return $this->resolveCard();
         }
         $this->nextStep('trash-selected-cards');
         $this->inputOn();

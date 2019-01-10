@@ -9,16 +9,14 @@ class MilitiaController extends ActionController {
 
         if ($this->state->hasMoat()) {
             $this->nextStep('resolve-moat');
-            $this->inputOn();
-            return;
+            return $this->inputOn();
         }
         $this->resolveAttackIfNecessary();
     }
 
     public function resolveMoat($revealed) {
         if ($revealed) {
-            $this->revealMoat();
-            return $this->resolveCard();
+            return $this->revealMoat();
         }
         $this->resolveAttackIfNecessary();
     }
@@ -29,19 +27,15 @@ class MilitiaController extends ActionController {
     }
 
     private function resolveAttackIfNecessary() {
-        if (count($this->secondaryPlayer()->getHand()) > 3) {
+        $cardsInHand = $this->secondaryPlayer()->numberOfCards();
+
+        if ($cardsInHand > 3) {
             $this->nextStep('resolve-attack');
-            $this->inputOn();
-            return;
+            return $this->inputOn();
         }
 
-        $cardsInHand = count($this->secondaryPlayer()->getHand());
-        $this->addToLog('.. '
-            . $this->secondaryPlayer()->getName()
-            . ' is unaffected since they have '
-            . $this->numberMappings[$cardsInHand]
-            . ' cards in hand'
-        );
+        $message = 'is unaffected since they have ' . $this->numberMappings[$cardsInHand] . ' cards in hand';
+        $this->addPlayerActionToLog($message, $this->secondaryPlayer());
         $this->resolveCard();
     }
 

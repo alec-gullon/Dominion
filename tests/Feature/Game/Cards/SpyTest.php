@@ -28,9 +28,9 @@ class SpyTest extends CardTestBase
         $this->assertLogContains([
             '.. Alec gains an action',
             '.. Alec draws a card',
-            '.. Alec reveals a Copper',
+            '.. Alec reveals a Copper from the top of their deck',
             '.. Alec discards a Copper',
-            '.. Lucy reveals a Copper',
+            '.. Lucy reveals a Copper from the top of their deck',
             '.. Lucy places the Copper on top of their deck'
         ]);
     }
@@ -50,14 +50,13 @@ class SpyTest extends CardTestBase
         $this->assertActions(1);
         $this->assertDeckSize(4);
         $this->assertOpponentDeckSize(4);
-        $this->assertAllCardsResolved();
 
         $this->assertLogContains([
             '.. Alec gains an action',
             '.. Alec draws a card',
-            '.. Alec reveals a Copper',
+            '.. Alec reveals a Copper from the top of their deck',
             '.. Alec places the Copper on top of their deck',
-            '.. Lucy reveals a Copper',
+            '.. Lucy reveals a Copper from the top of their deck',
             '.. Lucy discards a Copper'
         ]);
     }
@@ -75,7 +74,7 @@ class SpyTest extends CardTestBase
         $this->assertAllCardsResolved();
 
         $this->assertLogContains([
-            '.. Alec has no cards to reveal'
+            '.. Alec has nothing to reveal'
         ]);
         $this->assertLogCountEquals(6);
     }
@@ -93,7 +92,7 @@ class SpyTest extends CardTestBase
         $this->assertAllCardsResolved();
 
         $this->assertLogContains([
-            '.. Lucy has no cards to reveal'
+            '.. Lucy has nothing to reveal'
         ]);
         $this->assertLogCountEquals(6);
     }

@@ -343,4 +343,12 @@ class Player {
         return count($this->deck) + count($this->discard);
     }
 
+    public function hasEmptyHand() {
+        return (count($this->hand) === 0);
+    }
+
+    public function numberOfCards() {
+        return count($this->hand);
+    }
+
 }

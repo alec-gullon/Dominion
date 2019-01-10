@@ -209,9 +209,9 @@ class State {
         return false;
     }
 
-    public function trashCards($stubs) {
+    public function trashCards($stubs, $where = 'hand') {
         foreach($stubs as $stub) {
-            $this->trashCard($stub);
+            $this->trashCard($stub, $where);
         }
     }
 
@@ -244,13 +244,18 @@ class State {
         return $this->turn;
     }
 
-    public function cheapestCardAmount() {
-        $cheapest = 8;
+    public function cheapestCardAmount($type = 'all') {
+        $cheapest = 1000;
         foreach ($this->kingdom as $stub => $amount) {
-            if ($amount > 0) {
-                $card = $this->cardBuilder->build($stub);
+            $card = $this->cardBuilder->build($stub);
+            if (    $amount > 0
+                && ($type === 'all' || $card->hasType($type))
+            ) {
                 $cheapest = min($cheapest, $card->getValue());
             }
+        }
+        if ($cheapest === 1000) {
+            $cheapest = null;
         }
         return $cheapest;
     }

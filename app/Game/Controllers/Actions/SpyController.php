@@ -10,8 +10,7 @@ class SpyController extends ActionController {
 
         if ($this->state->hasMoat()) {
             $this->nextStep('resolve-moat');
-            $this->inputOn();
-            return;
+            return $this->inputOn();
         }
         $this->nextStep('reveal-card');
     }
@@ -19,6 +18,7 @@ class SpyController extends ActionController {
     public function resolveMoat($revealed) {
         $card = $this->activePlayer()->getUnresolvedCard();
         if ($revealed) {
+            $this->addPlayerActionToLog('reveals a Moat', $this->secondaryPlayer());
             $card->moatRevealed = true;
         }
         $this->nextStep('reveal-card');
@@ -27,35 +27,29 @@ class SpyController extends ActionController {
     public function revealCard() {
         $activePlayer = $this->activePlayer();
         $card = $activePlayer->getUnresolvedCard();
+
         if (!$activePlayer->canDrawCard() && $card->moatRevealed) {
-            $this->addToLog('.. ' . $this->activePlayer()->getName() . ' has no cards to reveal');
+            $this->revealTopCard();
             return $this->resolveCard();
         }
         if (!$activePlayer->canDrawCard()) {
-            $this->addToLog('.. ' . $this->activePlayer()->getName() . ' has no cards to reveal');
+            $this->revealTopCard();
             return $this->nextStep('reveal-opponent-card');
         }
 
-        $activePlayer->revealTopCard();
-        $this->describeRevealedCards();
+        $this->revealTopCard();
         $this->nextStep('discard-card');
-        return $this->inputOn();
+        $this->inputOn();
     }
 
     public function discardCard($choice) {
         $card = $this->activePlayer()->getUnresolvedCard();
-        $revealedCard = $this->activePlayer()->getRevealed()[0];
+        $revealedCard = $this->activePlayer()->getRevealed()[0]->getStub();
 
         if ($choice) {
             $this->discardRevealedCards();
         } else {
-            $this->activePlayer()->moveCardsOntoDeck('revealed');
-            $this->addToLog('.. '
-                . $this->activePlayer()->getName()
-                . ' places the '
-                . $revealedCard->getName()
-                . ' on top of their deck'
-            );
+            $this->moveCardOntoDeck('revealed', $revealedCard);
         }
 
         if ($card->moatRevealed) {
@@ -66,31 +60,33 @@ class SpyController extends ActionController {
     }
 
     public function revealOpponentCard() {
-        if (!$this->secondaryPlayer()->canDrawCard()) {
-            $this->addToLog('.. ' . $this->secondaryPlayer()->getName() . ' has no cards to reveal');
+        $player = $this->secondaryPlayer();
+        if (!$player->canDrawCard()) {
+            $this->revealTopCard($player);
             return $this->resolveCard();
         }
 
-        $this->secondaryPlayer()->revealTopCard();
-        $this->describeRevealedCards($this->secondaryPlayer());
+        $this->revealTopCard($player);
         $this->nextStep('discard-opponent-card');
         return $this->inputOn();
     }
 
     public function discardOpponentCard($choice) {
-        $revealedCard = $this->secondaryPlayer()->getRevealed()[0];
+        $player = $this->secondaryPlayer();
+        $revealedCard = $player->getRevealed()[0]->getStub();
+
         if ($choice) {
-            $this->discardRevealedCards($this->secondaryPlayer());
+            $this->discardRevealedCards($player);
         } else {
-            $this->secondaryPlayer()->moveCardsOntoDeck('revealed');
-            $this->addToLog('.. '
-                . $this->secondaryPlayer()->getName()
-                . ' places the '
-                . $revealedCard->getName()
-                . ' on top of their deck'
-            );
+            $this->moveCardOntoDeck('revealed', $revealedCard, $player);
         }
         $this->resolveCard();
+    }
+
+    protected function resolveCard() {
+        $card = $this->activePlayer()->getUnresolvedCard();
+        $card->moatRevealed = false;
+        parent::resolveCard();
     }
 
 }

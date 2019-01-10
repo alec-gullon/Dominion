@@ -17,8 +17,7 @@ class BureaucratController extends ActionController {
 
     public function resolveMoat($revealed) {
         if ($revealed) {
-            $this->revealMoat();
-            return $this->resolveCard();
+            return $this->revealMoat();
         }
         return $this->resolveAttackIfNecessary();
     }
@@ -29,13 +28,12 @@ class BureaucratController extends ActionController {
     }
 
     private function resolveAttackIfNecessary() {
-        if ($this->secondaryPlayer()->hasCardsOfType('victory')) {
-            $this->nextStep('resolve-attack');
-            $this->inputOn();
-        } else {
+        if(!$this->secondaryPlayer()->hasCardsOfType('victory')) {
             $this->describeHand($this->secondaryPlayer());
-            $this->resolveCard();
+            return $this->resolveCard();
         }
+        $this->nextStep('resolve-attack');
+        $this->inputOn();
     }
 
 }

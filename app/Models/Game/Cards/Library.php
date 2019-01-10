@@ -16,7 +16,7 @@ class Library extends Card {
 
     protected $steps = array(
         'play',
-        'reveal-cards',
+        'draw-until-action-card',
         'set-aside-card'
     );
 

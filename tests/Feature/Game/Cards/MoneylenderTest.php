@@ -16,7 +16,8 @@ class MoneylenderTest extends CardTestBase
         $this->assertNumberOfCoins(3);
 
         $this->assertLogContains([
-            '.. Alec trashes a Copper and gains three coins'
+            '.. Alec trashes a Copper',
+            '.. Alec gains three coins'
         ]);
     }
 

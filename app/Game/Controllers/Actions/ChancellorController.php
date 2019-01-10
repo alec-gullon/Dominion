@@ -11,14 +11,11 @@ class ChancellorController extends ActionController {
     }
 
     public function putDeckInDiscard($choice) {
-        $entry = '.. ' . $this->activePlayer()->getName();
         if ($choice) {
-            $entry .= ' puts their deck into their discard';
-            $this->activePlayer()->moveCards('deck', 'discard');
-        } else {
-            $entry .= ' does not put their deck into their discard';
+            $this->combinePiles('deck', 'discard');
+            return $this->resolveCard();
         }
-        $this->addToLog($entry);
+        $this->addPlayerActionToLog('does not put their deck into their discard');
         $this->resolveCard();
     }
 

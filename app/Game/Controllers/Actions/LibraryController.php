@@ -5,26 +5,25 @@ namespace App\Game\Controllers\Actions;
 class LibraryController extends ActionController {
 
     public function play() {
-        $this->nextStep('reveal-cards');
+        $this->nextStep('draw-until-action-card');
     }
 
-    public function revealCards() {
-        $libraryCard = $this->activePlayer()->getUnresolvedCard();
-
+    public function drawUntilActionCard() {
         $activePlayer = $this->activePlayer();
-        while ($activePlayer->countHand() < 7 && $activePlayer->canDrawCard()) {
+        $libraryCard = $activePlayer->getUnresolvedCard();
+
+        while ($this->canDrawCard()) {
             $card = $activePlayer->getTopCard();
             if ($card->hasType('action')) {
                 $this->nextStep('set-aside-card');
-                $this->inputOn();
-                return;
+                return $this->inputOn();
             }
             $libraryCard->numberOfCardsDrawn++;
             $activePlayer->drawCards(1);
         }
 
-        if ($activePlayer->countHand() < 7 && !$activePlayer->canDrawCard()) {
-            $this->addToLog('.. ' . $this->activePlayer()->getName() . ' has nothing left to draw');
+        if ($this->nothingLeftToDraw()) {
+            $this->addPlayerActionToLog('has nothing left to draw');
         }
 
         $this->resetNumberOfCardsDrawn();
@@ -36,15 +35,13 @@ class LibraryController extends ActionController {
         $libraryCard = $this->activePlayer()->getUnresolvedCard();
 
         if ($choice) {
-            $card = $this->activePlayer()->getTopCard();
             $this->resetNumberOfCardsDrawn();
-            $this->addToLog('.. Alec sets aside ' . $card->nameWithArticlePrefix());
-            $this->activePlayer()->setAsideTopCard();
+            $this->setAsideTopCard();
         } else {
             $libraryCard->numberOfCardsDrawn++;
             $this->activePlayer()->drawCards(1);
         }
-        $this->nextStep('reveal-cards');
+        $this->nextStep('draw-until-action-card');
         $this->inputOff();
     }
 
@@ -54,6 +51,22 @@ class LibraryController extends ActionController {
             $this->drawCardsDescription($libraryCard->numberOfCardsDrawn);
             $libraryCard->numberOfCardsDrawn = 0;
         }
+    }
+
+    private function canDrawCard() {
+        $activePlayer = $this->activePlayer();
+        return ($activePlayer->countHand() < 7 && $activePlayer->canDrawCard());
+    }
+
+    private function nothingLeftToDraw() {
+        $activePlayer = $this->activePlayer();
+        return ($activePlayer->countHand() < 7 && !$activePlayer->canDrawCard());
+    }
+
+    protected function resolveCard() {
+        $card = $this->activePlayer()->getUnresolvedCard();
+        $card->numberOfCardsDrawn = 0;
+        parent::resolveCard();
     }
 
 }

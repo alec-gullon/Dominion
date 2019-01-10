@@ -20,6 +20,7 @@ class CellarTest extends CardTestBase
         $this->assertDeckSize(3);
 
         $this->assertLogContains([
+            '.. Alec gains an action',
             '.. Alec discards two Estates from their hand',
             '.. Alec draws two cards'
         ]);
@@ -87,7 +88,7 @@ class CellarTest extends CardTestBase
         $this->assertDeckSize(5);
 
         $this->assertLogContains([
-            '.. Alec discards nothing'
+            '.. Alec discards nothing from their hand'
         ]);
     }
 }

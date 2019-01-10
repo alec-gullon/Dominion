@@ -5,8 +5,8 @@ namespace App\Game\Services\Effects;
 class MoveCardOntoDeck extends Base {
 
     public function effect() {
-        $this->params['player']->moveCardOntoDeck($this->params['from'], $this->params['card']);
         $this->description();
+        $this->params['player']->moveCardOntoDeck($this->params['from'], $this->params['card']);
     }
 
     public function description() {
@@ -15,7 +15,13 @@ class MoveCardOntoDeck extends Base {
         $card = $this->params['card'];
 
         $card = $this->cardBuilder->build($card);
-        $entry = '.. ' . $player->getName() . ' places ' . $card->nameWithArticlePrefix() . ' onto their deck from their ' . $from;
+
+        $entry = '.. ' . $player->getName();
+        if ($from === 'revealed') {
+            $entry .= ' places the ' . $card->getName() . ' on top of their deck';
+        } else {
+            $entry .= ' places ' . $card->nameWithArticlePrefix() . ' onto their deck from their ' . $from;
+        }
         $this->addToLog($entry);
     }
 
