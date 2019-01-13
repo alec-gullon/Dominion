@@ -13,7 +13,7 @@ class TurnController extends StateController {
         $this->state->setBuys(1);
         $this->state->advanceTurn();
 
-        $this->state->setActivePlayerKey($this->state->getSecondaryPlayerKey());
+        $this->state->setActivePlayerId($this->state->secondaryPlayer()->getId());
 
         if ($this->state->isGameOver()) {
             $this->state->resolveGame();

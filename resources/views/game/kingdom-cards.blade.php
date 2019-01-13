@@ -1,5 +1,5 @@
 <?php
-    $cards = $state->getKingdomCards();
+    $cards = $state->kingdomCards();
 ?>
 
 <div class="kingdom">

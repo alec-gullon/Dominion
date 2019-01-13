@@ -12,7 +12,7 @@ class TrashCards extends Base {
     public function description() {
         $cards = $this->params['cards'];
 
-        $entry = '.. ' . $this->state->getActivePlayer()->getName() . ' trashes';
+        $entry = '.. ' . $this->state->activePlayer()->getName() . ' trashes';
 
         if (count($cards) === 0) {
             $entry .= ' nothing';

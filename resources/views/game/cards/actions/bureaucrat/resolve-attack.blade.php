@@ -1,6 +1,6 @@
 <?php
-    $player = $state->getSecondaryPlayer();
-    $secondaryPlayerKey = $state->getSecondaryPlayerKey();
+    $player = $state->secondaryPlayer();
+    $secondaryPlayerKey = $state->secondaryPlayer()->getId();
     $cards = $player->getHand();
 ?>
 

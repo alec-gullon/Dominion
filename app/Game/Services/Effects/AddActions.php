@@ -9,9 +9,9 @@ class AddActions extends Base {
         $this->state->addActions($amount);
 
         if ($amount === 1) {
-            $entry = '.. ' . $this->state->getActivePlayer()->getName() . ' gains an action';
+            $entry = '.. ' . $this->state->activePlayer()->getName() . ' gains an action';
         } else {
-            $entry = '.. ' . $this->state->getActivePlayer()->getName() . ' gains ' . $this->numberMappings[$amount] . ' actions';
+            $entry = '.. ' . $this->state->activePlayer()->getName() . ' gains ' . $this->numberMappings[$amount] . ' actions';
         }
         $this->addToLog($entry);
     }

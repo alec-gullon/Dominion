@@ -1,6 +1,6 @@
 <?php
-    $player = $state->getActivePlayer();
-    $cards = $state->getKingdomCards();
+    $player = $state->activePlayer();
+    $cards = $state->kingdomCards();
 ?>
 
 <?php if ($playerKey !== $playerKey): ?>

@@ -23,7 +23,7 @@ class SetsUpNewPlayers {
         $player1->drawCards(5);
 
         $state->setPlayers([$player1, $player2]);
-        $state->setActivePlayerKey($player1->getId());
+        $state->setActivePlayerId($player1->getId());
 
         $game->object = serialize($state);
         return $game;

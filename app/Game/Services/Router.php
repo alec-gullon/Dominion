@@ -39,12 +39,12 @@ class Router {
     }
 
     public function nextController() {
-        $action = $this->state->getActivePlayer()->getNextStep();
+        $action = $this->state->activePlayer()->getNextStep();
         return $this->controller($action);
     }
 
     public function nextMethod() {
-        $action = $this->state->getActivePlayer()->getNextStep();
+        $action = $this->state->activePlayer()->getNextStep();
         return $this->method($action);
     }
 

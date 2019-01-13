@@ -7,7 +7,7 @@ use App\Models\Game\Player;
 class DiscardSetAsideCards extends Base {
 
     public function effect() {
-        $player = $this->state->getActivePlayer();
+        $player = $this->state->activePlayer();
         $cards = $player->getSetAside();
         if (count($cards) === 0) {
             return;

@@ -9,9 +9,9 @@ class AddCoins extends Base {
         $this->state->addCoins($amount);
 
         if ($amount === 1) {
-            $entry = '.. ' . $this->state->getActivePlayer()->getName() . ' gains a coin';
+            $entry = '.. ' . $this->state->activePlayer()->getName() . ' gains a coin';
         } else {
-            $entry = '.. ' . $this->state->getActivePlayer()->getName() . ' gains ' . $this->numberMappings[$amount] . ' coins';
+            $entry = '.. ' . $this->state->activePlayer()->getName() . ' gains ' . $this->numberMappings[$amount] . ' coins';
         }
         $this->addToLog($entry);
     }

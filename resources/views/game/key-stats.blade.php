@@ -1,14 +1,14 @@
 <div class="key-stats">
     <div class="key-stats__stat">
-        Actions: <?= $state->getActions() ?>
+        Actions: <?= $state->actions() ?>
     </div>
     <div class="key-stats__stat">
-        Buys: <?= $state->getBuys() ?>
+        Buys: <?= $state->buys() ?>
     </div>
     <div class="key-stats__stat">
-        Coins: <?= $state->getCoins() ?>
+        Coins: <?= $state->coins() ?>
     </div>
     <div class="key-stats__stat">
-        Turn: <?= $state->getTurn() ?>
+        Turn: <?= $state->turn() ?>
     </div>
 </div>

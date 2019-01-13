@@ -22,7 +22,7 @@ class Base {
     }
 
     protected function addToLog($entry) {
-        $this->state->getLog()->addEntry($entry);
+        $this->state->log()->addEntry($entry);
     }
 
     protected function describeCardList($cards) {

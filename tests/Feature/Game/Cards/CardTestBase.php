@@ -106,7 +106,7 @@ class CardTestBase extends TestCase
 
     protected function playVirtualCard($card) {
         $state = unserialize($this->game->object);
-        $player = $state->getActivePlayer();
+        $player = $state->activePlayer();
         $player->playVirtualCard($card);
         $state->togglePlayerInput(false);
         $this->game->object = serialize($state);
@@ -116,7 +116,7 @@ class CardTestBase extends TestCase
 
     protected function setNumberOfCardsRemaining($stub, $amount) {
         $state = unserialize($this->game->object);
-        $cards = $state->getKingdomCards();
+        $cards = $state->kingdomCards();
         $cards[$stub] = $amount;
 
         $state->setKingdom($cards);
@@ -128,7 +128,7 @@ class CardTestBase extends TestCase
         $this->buildGame();
         $state = unserialize($this->game->object);
 
-        $kingdomCards = $state->getKingdomCards();
+        $kingdomCards = $state->kingdomCards();
         $kingdomCards['moat'] = 10;
 
         $state->setKingdom($kingdomCards);
@@ -139,7 +139,7 @@ class CardTestBase extends TestCase
     protected function setHand($shorthand) {
         $hand = $this->buildCardStackFromShorthand($shorthand);
         $state = unserialize($this->game->object);
-        $state->getActivePlayer()->setHand($hand);
+        $state->activePlayer()->setHand($hand);
         $this->game->object = serialize($state);
         $this->game->save();
     }
@@ -147,7 +147,7 @@ class CardTestBase extends TestCase
     protected function setOpponentHand($shorthand) {
         $hand = $this->buildCardStackFromShorthand($shorthand);
         $state = unserialize($this->game->object);
-        $state->getSecondaryPlayer()->setHand($hand);
+        $state->secondaryPlayer()->setHand($hand);
         $this->game->object = serialize($state);
         $this->game->save();
     }
@@ -155,7 +155,7 @@ class CardTestBase extends TestCase
     protected function setDeck($shorthand) {
         $deck = $this->buildCardStackFromShorthand($shorthand);
         $state = unserialize($this->game->object);
-        $state->getActivePlayer()->setDeck($deck);
+        $state->activePlayer()->setDeck($deck);
         $this->game->object = serialize($state);
         $this->game->save();
     }
@@ -163,7 +163,7 @@ class CardTestBase extends TestCase
     protected function setDiscard($shorthand) {
         $discard = $this->buildCardStackFromShorthand($shorthand);
         $state = unserialize($this->game->object);
-        $state->getActivePlayer()->setDiscard($discard);
+        $state->activePlayer()->setDiscard($discard);
         $this->game->object = serialize($state);
         $this->game->save();
     }
@@ -171,7 +171,7 @@ class CardTestBase extends TestCase
     protected function setOpponentDeck($shorthand) {
         $deck = $this->buildCardStackFromShorthand($shorthand);
         $state = unserialize($this->game->object);
-        $state->getSecondaryPlayer()->setDeck($deck);
+        $state->secondaryPlayer()->setDeck($deck);
         $this->game->object = serialize($state);
         $this->game->save();
     }
@@ -195,7 +195,7 @@ class CardTestBase extends TestCase
     }
 
     protected function assertHasCard($stub) {
-        $player = unserialize($this->game->object)->getActivePlayer();
+        $player = unserialize($this->game->object)->activePlayer();
 
         $existingStubs = [];
         foreach ($player->getHand() as $card) {
@@ -205,99 +205,99 @@ class CardTestBase extends TestCase
     }
 
     protected function assertHandSize($size) {
-        $player = unserialize($this->game->object)->getActivePlayer();
+        $player = unserialize($this->game->object)->activePlayer();
         $this->assertEquals(count($player->getHand()), $size);
     }
 
     protected function assertOpponentHandSize($size) {
-        $player = unserialize($this->game->object)->getSecondaryPlayer();
+        $player = unserialize($this->game->object)->secondaryPlayer();
         $this->assertEquals(count($player->getHand()), $size);
     }
 
     protected function assertDeckSize($size) {
-        $player = unserialize($this->game->object)->getActivePlayer();
+        $player = unserialize($this->game->object)->activePlayer();
         $this->assertEquals(count($player->getDeck()), $size);
     }
 
     protected function assertOpponentDeckSize($size) {
-        $player = unserialize($this->game->object)->getSecondaryPlayer();
+        $player = unserialize($this->game->object)->secondaryPlayer();
         $this->assertEquals(count($player->getDeck()), $size);
     }
 
     protected function assertDiscardSize($size) {
-        $player = unserialize($this->game->object)->getActivePlayer();
+        $player = unserialize($this->game->object)->activePlayer();
         $this->assertEquals(count($player->getDiscard()), $size);
     }
 
     protected function assertOpponentDiscardSize($size) {
-        $player = unserialize($this->game->object)->getSecondaryPlayer();
+        $player = unserialize($this->game->object)->secondaryPlayer();
         $this->assertEquals(count($player->getDiscard()), $size);
     }
 
     protected function assertActions($actions) {
         $state = unserialize($this->game->object);
-        $this->assertEquals($state->getActions(), $actions);
+        $this->assertEquals($state->actions(), $actions);
     }
 
     protected function assertNumberOfPlayed($number) {
         $state = unserialize($this->game->object);
-        $this->assertEquals(count($state->getActivePlayer()->getPlayed()), $number);
+        $this->assertEquals(count($state->activePlayer()->getPlayed()), $number);
     }
 
     protected function assertNumberOfBuys($number) {
         $state = unserialize($this->game->object);
-        $this->assertEquals($state->getBuys(), $number);
+        $this->assertEquals($state->buys(), $number);
     }
 
     protected function assertNumberOfCoins($coins) {
         $state = unserialize($this->game->object);
-        $this->assertEquals($state->getCoins(), $coins);
+        $this->assertEquals($state->coins(), $coins);
     }
 
     protected function assertTrashSize($size) {
         $state = unserialize($this->game->object);
-        $this->assertEquals(count($state->getTrash()), $size);
+        $this->assertEquals(count($state->trash()), $size);
     }
 
     protected function assertAllCardsResolved() {
         $state = unserialize($this->game->object);
-        $this->assertEquals($state->getActivePlayer()->hasUnresolvedCard(), false);
+        $this->assertEquals($state->activePlayer()->hasUnresolvedCard(), false);
     }
 
     protected function assertNumberOfRemainingCards($stub, $number) {
         $state = unserialize($this->game->object);
-        $this->assertEquals($state->getKingdomCards()[$stub], $number);
+        $this->assertEquals($state->kingdomCards()[$stub], $number);
     }
 
     protected function assertNumberOfSetAside($number) {
         $state = unserialize($this->game->object);
-        $this->assertEquals(count($state->getActivePlayer()->getSetAside()), $number);
+        $this->assertEquals(count($state->activePlayer()->getSetAside()), $number);
     }
 
     protected function assertLogContains($lines) {
-        $log = $this->getLog();
+        $log = $this->log();
         $entries = $log->flattenedEntries();
         $intersect = array_intersect($lines, $entries);
         $this->assertEquals(count($lines), count($intersect));
     }
 
     protected function assertLogDoesNotContain($lines) {
-        $log = $this->getLog();
+        $log = $this->log();
         $entries = $log->flattenedEntries();
         $intersect = array_intersect($lines, $entries);
         $this->assertEquals(0, count($intersect));
     }
 
-    protected function getLog() {
-        return unserialize($this->game->object)->getLog();
+    protected function log() {
+        return unserialize($this->game->object)->log();
     }
 
     protected function getPlayer() {
-        return unserialize($this->game->object)->getActivePlayer();
+        return unserialize($this->game->object)->activePlayer();
     }
 
     protected function assertLogCountEquals($count) {
-        $log = $this->getLog();
+        $log = $this->log();
         $entries = $log->flattenedEntries();
         $this->assertEquals($count, count($entries));
     }

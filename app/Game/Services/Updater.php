@@ -21,9 +21,9 @@ class Updater {
         // if the player has just played a card, decrease actions by 1 and move card to played
         if ($action === 'play-card') {
             $card = $this->cardBuilder->build($input);
-            $this->state->getLog()->addEntry($this->state->getActivePlayer()->getName() . ' plays ' . $card->nameWithArticlePrefix());
+            $this->state->log()->addEntry($this->state->activePlayer()->getName() . ' plays ' . $card->nameWithArticlePrefix());
             $this->state->deductActions(1);
-            $this->state->getActivePlayer()->playCard($input);
+            $this->state->activePlayer()->playCard($input);
             $this->state->togglePlayerInput(false);
             return;
         }
@@ -40,7 +40,7 @@ class Updater {
     }
 
     public function resolve() {
-        while (!$this->state->needPlayerInput() && $this->state->getActivePlayer()->hasUnresolvedCard()) {
+        while (!$this->state->needPlayerInput() && $this->state->activePlayer()->hasUnresolvedCard()) {
             $controller = $this->cartographer->nextController();
             $method = $this->cartographer->nextMethod();
 

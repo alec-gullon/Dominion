@@ -19,7 +19,7 @@ class GainCard extends Base {
         $location = $this->params['location'];
 
         $entry = '.. ' . $player->getName();
-        if ($this->state->getKingdomCards()[$card] === 0) {
+        if ($this->state->kingdomCards()[$card] === 0) {
             if ($location === 'deck') {
                 $entry .= ' places nothing on their deck';
             } else {

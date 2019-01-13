@@ -6,7 +6,7 @@ class CombinePiles extends Base {
 
     public function effect() {
         $this->description();
-        $this->state->getActivePlayer()->moveCards(
+        $this->state->activePlayer()->moveCards(
             $this->params['from'],
             $this->params['to']
         );
@@ -17,7 +17,7 @@ class CombinePiles extends Base {
         $where = $this->params['to'];
 
         $entry = '.. '
-            . $this->state->getActivePlayer()->getName()
+            . $this->state->activePlayer()->getName()
             . ' puts their '
             . $from
             . ' into their '

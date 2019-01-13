@@ -23,7 +23,7 @@ class State {
 
     private $coins = 0;
 
-    private $activePlayerKey = 'alec';
+    private $activePlayerId = 'alec';
 
     private $actions = 1;
 
@@ -46,8 +46,48 @@ class State {
         $this->cardBuilder = $cardBuilder;
     }
 
-    public function getLog() {
+    /**
+     * GETTERS AND SETTERS
+     */
+
+    public function log() {
         return $this->log;
+    }
+
+    public function buys() {
+        return $this->buys;
+    }
+
+    public function phase() {
+        return $this->phase;
+    }
+
+    public function kingdomCards() {
+        return $this->kingdom;
+    }
+
+    public function actions() {
+        return $this->actions;
+    }
+
+    public function coins() {
+        return $this->coins;
+    }
+
+    public function trash() {
+        return $this->trash;
+    }
+
+    public function turn() {
+        return $this->turn;
+    }
+
+    public function isResolved() {
+        return $this->isResolved;
+    }
+
+    public function activePlayerId() {
+        return $this->activePlayerId;
     }
 
     public function setPlayers($players) {
@@ -58,73 +98,78 @@ class State {
         $this->phase = $phase;
     }
 
-    public function getPhase() {
-        return $this->phase;
-    }
-
-    public function getBuys() {
-        return $this->buys;
-    }
-
-    public function getKingdomCards() {
-        return $this->kingdom;
-    }
-
     public function setKingdom($kingdom) {
         $this->kingdom = $kingdom;
     }
 
-    public function getActions() {
-        return $this->actions;
+    public function setActivePlayerId($id) {
+        $this->activePlayerId = $id;
     }
 
-    public function getPlayerByKey($key) {
+    /**
+     * QUERY METHODS
+     */
+
+    public function getPlayerById($id) {
         foreach ($this->players as $player) {
-            if ($key === $player->getId()) {
+            if ($id === $player->getId()) {
                 return $player;
             }
         }
     }
 
-    public function getActivePlayer() {
+    public function activePlayer() {
+        return $this->getPlayerById($this->activePlayerId);
+    }
+
+    public function secondaryPlayer() {
         foreach($this->players as $player) {
-            if ($this->activePlayerKey === $player->getId()) {
+            if ($this->activePlayerId !== $player->getId()) {
                 return $player;
             }
         }
     }
 
-    public function getActivePlayerKey() {
-        return $this->activePlayerKey;
-    }
-
-    public function getSecondaryPlayer() {
-        foreach($this->players as $player) {
-            if ($this->activePlayerKey !== $player->getId()) {
-                return $player;
+    public function isGameOver() {
+        if ($this->kingdom['province'] === 0) {
+            return true;
+        }
+        $emptyPiles = 0;
+        foreach ($this->kingdom as $count) {
+            if ($count === 0) {
+                $emptyPiles++;
             }
         }
+        return ($emptyPiles >= 3);
     }
 
-    public function getSecondaryPlayerKey() {
-        foreach($this->players as $player) {
-            if ($this->activePlayerKey !== $player->getId()) {
-                return $player->getId();
+    public function hasMoat() {
+        return isset($this->kingdom['moat']);
+    }
+
+    public function needPlayerInput() {
+        return $this->needPlayerInput;
+    }
+
+    public function cheapestCardAmount($type = 'all') {
+        $cheapest = 1000;
+        foreach ($this->kingdom as $stub => $amount) {
+            $card = $this->cardBuilder->build($stub);
+            if (    $amount > 0
+                && ($type === 'all' || $card->hasType($type))
+            ) {
+                $cheapest = min($cheapest, $card->getValue());
             }
         }
+        if ($cheapest === 1000) {
+            $cheapest = null;
+        }
+        return $cheapest;
     }
 
-    public function setActivePlayerKey($key) {
-        $this->activePlayerKey = $key;
-    }
-
-    public function getCoins() {
-        return $this->coins;
-    }
-
-    public function setCoins($coins) {
-        $this->coins = $coins;
-    }
+    /**
+     * ACTIVE METHODS
+     */
 
     public function addCoins($coins) {
         $this->coins = $this->coins + $coins;
@@ -142,71 +187,29 @@ class State {
         $this->actions -= $actions;
     }
 
-    public function setBuys($buys) {
-        $this->buys = $buys;
+    public function addBuys($amount) {
+        $this->buys = $this->buys + $amount;
     }
 
     public function deductBuys($amount) {
         $this->buys = $this->buys - $amount;
     }
 
-    public function gainBuys($amount) {
-        $this->buys = $this->buys + $amount;
-    }
-
-    public function getTrash() {
-        return $this->trash;
-    }
-
-    public function moveCardToPlayer($card, $where = 'discard', $playerKey = null) {
+    public function moveCardToPlayer($card, $where = 'discard', $playerId = null) {
         if ($this->kingdom[$card] <= 0) {
             return;
         }
-        if (null === $playerKey) {
-            $playerKey = $this->getActivePlayerKey();
+        if (null === $playerId) {
+            $playerId = $this->activePlayerId();
         }
-        foreach ($this->players as $player) {
-            if ($playerKey === $player->getId()) {
-                $player->gainCard($card, $where);
-            }
-        }
-        $this->kingdom[$card] = $this->kingdom[$card] - 1;
-    }
-
-    public function moveCardOntoDeck($card, $playerKey = null) {
-        if ($this->kingdom[$card] <= 0) {
-            return;
-        }
-        if (null === $playerKey) {
-            $playerKey = $this->getActivePlayerKey();
-        }
-        foreach ($this->players as $player) {
-            if ($playerKey === $player->getid()) {
-                $player->placeCardOnDeck($card);
-            }
-        }
+        $player = $this->getPlayerById($playerId);
+        $player->gainCard($card, $where);
         $this->kingdom[$card] = $this->kingdom[$card] - 1;
     }
 
     public function advanceTurn() {
         $this->phase = 'action';
         $this->turn++;
-    }
-
-    public function isGameOver() {
-        if ($this->kingdom['province'] === 0) {
-            return true;
-        }
-        $emptyPiles = 0;
-        foreach ($this->kingdom as $count) {
-            if ($count === 0) {
-                $emptyPiles++;
-            }
-        }
-        if ($emptyPiles >= 3) {
-            return true;
-        }
-        return false;
     }
 
     public function trashCards($stubs, $where = 'hand') {
@@ -217,47 +220,15 @@ class State {
 
     public function trashCard($stub, $where = 'hand') {
         $this->trash[] = $stub;
-        $this->getActivePlayer()->trashCard($stub, $where);
-    }
-
-    public function hasMoat() {
-        return isset($this->kingdom['moat']);
+        $this->activePlayer()->trashCard($stub, $where);
     }
 
     public function togglePlayerInput($bool) {
         $this->needPlayerInput = $bool;
     }
 
-    public function needPlayerInput() {
-        return $this->needPlayerInput;
-    }
-
     public function resolveGame() {
         $this->isResolved = true;
-    }
-
-    public function isResolved() {
-        return $this->isResolved;
-    }
-
-    public function getTurn() {
-        return $this->turn;
-    }
-
-    public function cheapestCardAmount($type = 'all') {
-        $cheapest = 1000;
-        foreach ($this->kingdom as $stub => $amount) {
-            $card = $this->cardBuilder->build($stub);
-            if (    $amount > 0
-                && ($type === 'all' || $card->hasType($type))
-            ) {
-                $cheapest = min($cheapest, $card->getValue());
-            }
-        }
-        if ($cheapest === 1000) {
-            $cheapest = null;
-        }
-        return $cheapest;
     }
 
 }

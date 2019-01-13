@@ -17,11 +17,11 @@ class ActionController extends StateController {
     }
 
     protected function activePlayer() {
-        return $this->state->getActivePlayer();
+        return $this->state->activePlayer();
     }
 
     protected function secondaryPlayer() {
-        return $this->state->getSecondaryPlayer();
+        return $this->state->secondaryPlayer();
     }
 
     protected function nextStep($step) {
@@ -34,7 +34,7 @@ class ActionController extends StateController {
     }
 
     protected function addToLog($entry) {
-        $this->state->getLog()->addEntry($entry);
+        $this->state->log()->addEntry($entry);
     }
 
     protected function addPlayerActionToLog($log, $player = null) {

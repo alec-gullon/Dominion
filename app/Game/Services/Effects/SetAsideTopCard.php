@@ -6,14 +6,14 @@ class SetAsideTopCard extends Base {
 
     public function effect() {
         $this->description();
-        $this->state->getActivePlayer()->setAsideTopCard();
+        $this->state->activePlayer()->setAsideTopCard();
     }
 
     public function description() {
-        $card = $this->state->getActivePlayer()->topCard();
+        $card = $this->state->activePlayer()->topCard();
 
         $entry = '.. '
-            . $this->state->getActivePlayer()->getName()
+            . $this->state->activePlayer()->getName()
             . ' sets aside '
             . $card->nameWithArticlePrefix();
         $this->addToLog($entry);

@@ -17,7 +17,7 @@ class StateController {
     }
 
     protected function activePlayer() {
-        return $this->state->getActivePlayer();
+        return $this->state->activePlayer();
     }
 
 }

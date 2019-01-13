@@ -6,7 +6,7 @@ class MoveCards extends Base {
 
     public function effect() {
         $this->description();
-        $this->state->getActivePlayer()->moveCardsOfType(
+        $this->state->activePlayer()->moveCardsOfType(
             $this->params['from'],
             $this->params['where'],
             $this->params['type']
@@ -18,9 +18,9 @@ class MoveCards extends Base {
         $where = $this->params['where'];
         $type = $this->params['type'];
 
-        $cardsToMove = $this->state->getActivePlayer()->getCardsOfType($from, $type);
+        $cardsToMove = $this->state->activePlayer()->getCardsOfType($from, $type);
 
-        $entry = '.. ' . $this->state->getActivePlayer()->getName();
+        $entry = '.. ' . $this->state->activePlayer()->getName();
         if (count($cardsToMove) === 0) {
             $entry .= ' does not put anything';
         } else {

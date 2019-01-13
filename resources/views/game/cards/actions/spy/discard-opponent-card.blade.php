@@ -1,5 +1,5 @@
 <?php
-    $player = $state->getSecondaryPlayer();
+    $player = $state->secondaryPlayer();
     $card = $player->getTopCard();
 ?>
 

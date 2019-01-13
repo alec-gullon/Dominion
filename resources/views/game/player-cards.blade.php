@@ -1,5 +1,5 @@
 <?php
-    $player = $state->getPlayerByKey($playerKey);
+    $player = $state->getPlayerById($playerKey);
 ?>
 
 <h1 class="game-sidebar__prompt">
@@ -25,7 +25,7 @@
     @endif
 @endforeach
 
-@if ($playerKey === $state->getActivePlayerKey())
+@if ($playerKey === $state->activePlayerId())
     <div class="card card--active" data-action="end-turn">
         End Turn
     </div>

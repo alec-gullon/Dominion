@@ -13,7 +13,7 @@ class GameObserver {
     }
 
     public function playerAreaView($state, $playerKey) {
-        $nextStep = $state->getActivePlayer()->getNextStep();
+        $nextStep = $state->activePlayer()->getNextStep();
 
         if (null === $nextStep) {
             return 'hand';
@@ -25,33 +25,33 @@ class GameObserver {
     }
 
     public function isHandCardActive($card, $playerKey) {
-        if ($this->state->getActivePlayerKey() !== $playerKey) {
+        if ($this->state->activePlayerId() !== $playerKey) {
             return false;
         }
         if ($card->hasType('victory')) {
             return false;
         }
-        if ($this->state->getActions() === 0 && $card->hasType('action')) {
+        if ($this->state->actions() === 0 && $card->hasType('action')) {
             return false;
         }
-        if ($this->state->getPhase() !== 'action' && $card->hasType('action')) {
+        if ($this->state->phase() !== 'action' && $card->hasType('action')) {
             return false;
         }
         return true;
     }
 
     public function canBuy($stub, $playerKey) {
-        if ($this->state->getActivePlayerKey() !== $playerKey) {
+        if ($this->state->activePlayerId() !== $playerKey) {
             return false;
         }
 
         $cardBuilder = new CardBuilder();
         $card = $cardBuilder->build($stub);
 
-        if ($this->state->getPhase() !== 'buy') {
+        if ($this->state->phase() !== 'buy') {
             return false;
         }
-        if ($card->getValue() > $this->state->getCoins() || $this->state->getBuys() === 0) {
+        if ($card->getValue() > $this->state->coins() || $this->state->buys() === 0) {
             return false;
         }
         return true;
