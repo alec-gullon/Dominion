@@ -15,7 +15,7 @@ class TurnController extends StateController {
 
         $this->state->setActivePlayerId($this->state->secondaryPlayer()->getId());
 
-        if ($this->state->isGameOver()) {
+        if ($this->state->checkGameOver()) {
             $this->state->resolveGame();
         }
     }

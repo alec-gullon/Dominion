@@ -4,13 +4,17 @@ namespace App\Game\Controllers;
 
 class BuyController extends StateController {
 
-    public function buy($card) {
-        $selectedCard = $this->cardBuilder->build($card);
+    public function advanceToBuy() {
+        $this->state->setPhase('buy');
+    }
+
+    public function buy($stub) {
+        $selectedCard = $this->cardBuilder->build($stub);
 
         $this->state->deductCoins($selectedCard->getValue());
         $this->state->deductBuys(1);
 
-        $this->state->moveCardToPlayer($card);
+        $this->buyCard($stub);
     }
 
 }

@@ -102,6 +102,14 @@ class State {
         $this->activePlayerId = $id;
     }
 
+    public function setCoins($coins) {
+        $this->coins = $coins;
+    }
+
+    public function setBuys($buys) {
+        $this->buys = $buys;
+    }
+
     public function getPlayerById($id) {
         foreach ($this->players as $player) {
             if ($id === $player->getId()) {
@@ -122,7 +130,7 @@ class State {
         }
     }
 
-    public function isGameOver() {
+    public function checkGameOver() {
         if ($this->kingdom['province'] === 0) {
             return true;
         }

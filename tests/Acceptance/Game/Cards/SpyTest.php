@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Game\Cards;
+namespace Tests\Acceptance\Game\Cards;
 
 class SpyTest extends CardTestBase
 {

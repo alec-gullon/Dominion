@@ -12,9 +12,10 @@ class Router {
     private $cardBuilder;
 
     private $routes = array(
-        'play-treasure' => 'HandController@playTreasure',
+        'play-treasure' => 'TreasureController@playTreasure',
         'end-turn' => 'TurnController@endTurn',
-        'buy' => 'BuyController@buy'
+        'buy' => 'BuyController@buy',
+        'advance-to-buy' => 'BuyController@advanceToBuy',
     );
 
     public function __construct(State $state, CardBuilder $cardBuilder) {

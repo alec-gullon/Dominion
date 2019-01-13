@@ -1,17 +1,14 @@
 <?php
 
-namespace Tests\Feature\Game\Cards;
+namespace Tests\Acceptance\Game\Cards;
 
 use App\Game\Services\Updater;
 use App\Services\CardBuilder;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\Acceptance\Game\GameTestBase;
 
-class CardTestBase extends TestCase
+class CardTestBase extends GameTestBase
 {
-    use RefreshDatabase;
-
     protected function updateGame() {
         $updater = new Updater(unserialize($this->game->object), new CardBuilder);
         $updater->resolve();

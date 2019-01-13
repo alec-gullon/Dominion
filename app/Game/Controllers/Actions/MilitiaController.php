@@ -4,6 +4,8 @@ namespace App\Game\Controllers\Actions;
 
 class MilitiaController extends ActionController {
 
+    private $numberMappings = ['no', 'one', 'two', 'three'];
+
     public function play() {
         $this->addCoins(2);
 
