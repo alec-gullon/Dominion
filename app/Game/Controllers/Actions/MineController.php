@@ -14,7 +14,7 @@ class MineController extends ActionController {
     }
 
     public function trashTreasure($stub) {
-        $mineCard = $this->activePlayer()->getUnresolvedCard();
+        $mineCard = $this->activePlayer()->unresolvedCard();
         $trashedCard = $this->cardBuilder->build($stub);
 
         $this->trashCards([$stub]);
@@ -36,7 +36,7 @@ class MineController extends ActionController {
     }
 
     protected function resolveCard() {
-        $card = $this->activePlayer()->getUnresolvedCard();
+        $card = $this->activePlayer()->unresolvedCard();
         $card->treasureValue = 0;
         parent::resolveCard();
     }

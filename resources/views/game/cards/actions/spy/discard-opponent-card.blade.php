@@ -3,6 +3,8 @@
     $card = $player->getTopCard();
 ?>
 
+@if (false)
+
 <?php if ($playerKey === $player->getId()): ?>
     You reveal a <?= $card->getName(); ?> from the top of their deck. Do you want to discard it?
     <div data-test-active>
@@ -14,3 +16,5 @@
 <?php else: ?>
     Player is resolving their spy card...
 <?php endif; ?>
+
+@endif

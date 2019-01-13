@@ -18,7 +18,7 @@ class RevealTopCard extends Base {
         if (!$player->canDrawCard()) {
             $entry .= ' has nothing to reveal';
         } else {
-            $card = $player->getTopCard();
+            $card = $player->topCard();
             $entry .= ' reveals ' . $card->nameWithArticlePrefix() . ' from the top of their deck';
         }
         $this->addToLog($entry);

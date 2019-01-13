@@ -10,10 +10,10 @@ class LibraryController extends ActionController {
 
     public function drawUntilActionCard() {
         $activePlayer = $this->activePlayer();
-        $libraryCard = $activePlayer->getUnresolvedCard();
+        $libraryCard = $activePlayer->unresolvedCard();
 
         while ($this->canDrawCard()) {
-            $card = $activePlayer->getTopCard();
+            $card = $activePlayer->topCard();
             if ($card->hasType('action')) {
                 $this->nextStep('set-aside-card');
                 return $this->inputOn();
@@ -32,7 +32,7 @@ class LibraryController extends ActionController {
     }
 
     public function setAsideCard($choice) {
-        $libraryCard = $this->activePlayer()->getUnresolvedCard();
+        $libraryCard = $this->activePlayer()->unresolvedCard();
 
         if ($choice) {
             $this->resetNumberOfCardsDrawn();
@@ -46,7 +46,7 @@ class LibraryController extends ActionController {
     }
 
     private function resetNumberOfCardsDrawn() {
-        $libraryCard = $this->activePlayer()->getUnresolvedCard();
+        $libraryCard = $this->activePlayer()->unresolvedCard();
         if ($libraryCard->numberOfCardsDrawn > 0) {
             $this->drawCardsDescription($libraryCard->numberOfCardsDrawn);
             $libraryCard->numberOfCardsDrawn = 0;
@@ -55,16 +55,16 @@ class LibraryController extends ActionController {
 
     private function canDrawCard() {
         $activePlayer = $this->activePlayer();
-        return ($activePlayer->countHand() < 7 && $activePlayer->canDrawCard());
+        return ($activePlayer->numberOfCards() < 7 && $activePlayer->canDrawCard());
     }
 
     private function nothingLeftToDraw() {
         $activePlayer = $this->activePlayer();
-        return ($activePlayer->countHand() < 7 && !$activePlayer->canDrawCard());
+        return ($activePlayer->numberOfCards() < 7 && !$activePlayer->canDrawCard());
     }
 
     protected function resolveCard() {
-        $card = $this->activePlayer()->getUnresolvedCard();
+        $card = $this->activePlayer()->unresolvedCard();
         $card->numberOfCardsDrawn = 0;
         parent::resolveCard();
     }

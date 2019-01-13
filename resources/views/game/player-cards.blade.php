@@ -15,7 +15,7 @@
                 $action = 'play-treasure';
             }
         ?>
-        <div class="card card--active" data-action="<?= $action ?>" data-stub="<?= $card->getStub() ?>">
+        <div class="card card--active" data-action="<?= $action ?>" data-stub="<?= $card->stub() ?>">
             <?= $card->getName() ?>
         </div>
     @else

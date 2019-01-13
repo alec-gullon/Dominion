@@ -107,7 +107,7 @@ class CardTestBase extends TestCase
     protected function playVirtualCard($card) {
         $state = unserialize($this->game->object);
         $player = $state->getActivePlayer();
-        $player->playCard($card, true);
+        $player->playVirtualCard($card);
         $state->togglePlayerInput(false);
         $this->game->object = serialize($state);
         $this->game->save();
@@ -290,6 +290,10 @@ class CardTestBase extends TestCase
 
     protected function getLog() {
         return unserialize($this->game->object)->getLog();
+    }
+
+    protected function getPlayer() {
+        return unserialize($this->game->object)->getActivePlayer();
     }
 
     protected function assertLogCountEquals($count) {

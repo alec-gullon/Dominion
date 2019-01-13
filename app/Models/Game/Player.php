@@ -73,168 +73,42 @@ class Player {
         return $this->setAside;
     }
 
-    public function getRevealed() {
+    public function revealed() {
         return $this->revealed;
     }
 
+    public function numberOfDrawableCards() {
+        return count($this->deck) + count($this->discard);
+    }
+
+    public function hasEmptyHand() {
+        return ($this->numberOfCards() === 0);
+    }
+
+    public function numberOfCards() {
+        return count($this->hand);
+    }
+
     public function canDrawCard() {
-        if (count($this->deck) + count($this->discard) > 0) {
-            return true;
-        }
-        return false;
-    }
-
-    public function buildDefaultDeck() {
-        $deck = [];
-        for ($i = 1; $i <= 3; $i++) {
-            $deck[] = $this->cardBuilder->build('estate');
-        }
-        for ($i = 1; $i <= 7; $i++) {
-            $deck[] = $this->cardBuilder->build('copper');
-        }
-        $this->deck = $deck;
-        $this->shuffleDeck();
-        $this->drawCards(5);
-    }
-
-    public function hasCardsOfType($type) {
-        foreach ($this->hand as $card) {
-            if ($card->hasType($type)) {
-                return true;
-            }
-        }
+        return ($this->numberOfDrawableCards() > 0);
     }
 
     public function hasCard($stub, $where = 'hand') {
         foreach($this->$where as $card) {
-            if ($card->getStub() === $stub) {
+            if ($card->stub() === $stub) {
                 return true;
             }
         }
         return false;
     }
 
-    public function hasUnresolvedCard() {
-        foreach ($this->played as $card) {
-            if (!$card->isResolved()) {
-                return true;
-            }
-        }
-        return false;
+    public function hasCardsOfType($type) {
+        $cards = $this->getCardsOfType('hand', $type);
+        return (count($cards) > 0);
     }
 
-    public function getNextStep() {
-        foreach ($this->played as $card) {
-            if (!$card->isResolved()) {
-                return $card->getNextStep();
-            }
-        }
-    }
-
-    public function getUnresolvedCard() {
-        foreach ($this->played as $key => $card) {
-            if (!$card->isResolved()) {
-                return $card;
-            }
-        }
-    }
-
-    public function countHand() {
-        return count($this->hand);
-    }
-
-    public function getTopCard() {
-        $this->createNewDeckIfNecessary();
-        return $this->deck[0];
-    }
-
-    public function score() {
-        $this->moveCards('hand', 'deck');
-        $this->moveCards('discard', 'deck');
-
-        $score = 0;
-        foreach($this->deck as $card) {
-            $score += $card->getPoints();
-        }
-        return $score;
-    }
-
-    public function shuffleDeck() {
-        shuffle($this->deck);
-    }
-
-    public function drawCards($number) {
-        for ($i = 1; $i <= $number; $i++) {
-            $this->drawCard();
-        }
-    }
-
-    public function playCard($cardStub, $isVirtual = false) {
-        $position = $this->getFirstUnresolvedCardKey();
-
-        if ($isVirtual) {
-            $card = $this->cardBuilder->build($cardStub);
-            $card->markAsVirtual();
-        } else {
-            foreach ($this->hand as $key => $card) {
-                if ($card->getStub() === $cardStub) {
-                    unset($this->hand[$key]);
-                    $this->hand = array_values($this->hand);
-                    break;
-                }
-            }
-        }
-        array_splice($this->played, $position+1, 0, array($card));
-    }
-
-    public function gainCard($card, $where = 'discard') {
-        $whereCopy = $this->$where;
-        $whereCopy[] = $this->cardBuilder->build($card);
-        $this->$where = $whereCopy;
-    }
-
-    public function gainCardOnDeck($stub) {
-        array_unshift($this->deck, $this->cardBuilder->build($stub));
-    }
-
-    public function trashCard($stub) {
-        $location = $this->hand;
-        foreach ($location as $key => $card) {
-            if ($card->getStub() === $stub) {
-                unset($location[$key]);
-                $this->hand = array_values($location);
-                return;
-            }
-        }
-    }
-
-    public function discardCards($stubs) {
-        foreach($stubs as $stub) {
-            $this->discardCard($stub);
-        }
-    }
-
-    public function discardCard($stub) {
-        $location = $this->hand;
-        foreach ($location as $key => $card) {
-            if ($card->getStub() === $stub) {
-                $this->discard[] = $card;
-                unset($this->hand[$key]);
-                $this->hand = array_values($this->hand);
-                return;
-            }
-        }
-    }
-
-    public function revealTopCard() {
-        $this->createNewDeckIfNecessary();
-        $this->revealed[] = $this->deck[0];
-        unset($this->deck[0]);
-        $this->deck = array_values($this->deck);
-    }
-
-    public function moveCards($from, $to) {
-        $this->moveCardsOfType($from, $to, 'all');
+    public function getCards($from) {
+        return $this->getCardsOfType($from, 'all');
     }
 
     public function getCardsOfType($from, $type) {
@@ -247,56 +121,134 @@ class Player {
         return $cards;
     }
 
-    public function moveCardsOfType($from, $to, $type) {
-        $toCopy = $this->$to;
-        $fromCopy = $this->$from;
-        foreach($this->$from as $key => $card) {
-            if ($card->hasType($type) || $type === 'all') {
-                $toCopy[] = $card;
-                unset($fromCopy[$key]);
-            }
-        }
-        $this->$to = $toCopy;
-        $this->$from = $fromCopy;
+    public function hasUnresolvedCard() {
+        return ($this->unresolvedCard() !== null);
     }
 
-    public function moveCardsOntoDeck($from) {
-        foreach ($this->$from as $card) {
-            $this->moveCardOntoDeck($from, $card->getStub());
+    public function unresolvedCard() {
+        foreach ($this->played as $key => $card) {
+            if (!$card->isResolved()) {
+                return $card;
+            }
+        }
+        return null;
+    }
+
+    private function unresolvedCardIndex() {
+        foreach ($this->played as $index => $card) {
+            if (!$card->isResolved()) {
+                return $index;
+            }
+        }
+    }
+
+    public function getNextStep() {
+        if (!$this->hasUnresolvedCard()) {
+            return null;
+        }
+        $card = $this->unresolvedCard();
+        return $card->getNextStep();
+    }
+
+    public function topCard() {
+        $this->createNewDeckIfNecessary();
+        if (count($this->deck) === 0) {
+            return null;
+        }
+        return $this->deck[0];
+    }
+
+    public function score() {
+        $cards = array_merge($this->hand, $this->played, $this->discard);
+
+        $score = 0;
+        foreach ($cards as $card) {
+            $score += $card->getPoints();
+        }
+        return $score;
+    }
+
+    public function shuffleDeck() {
+        shuffle($this->deck);
+    }
+
+    public function placeCardOnDeck($stub) {
+        array_unshift($this->deck, $this->cardBuilder->build($stub));
+    }
+
+    public function revealTopCard() {
+        $this->moveCardFromTopOfDeck('revealed');
+    }
+
+    public function setAsideTopCard() {
+        $this->moveCardFromTopOfDeck('setAside');
+    }
+
+    public function drawCards($number) {
+        for ($i = 1; $i <= $number; $i++) {
+            $this->drawCard();
+        }
+    }
+
+    public function drawCard() {
+        $this->moveCardFromTopOfDeck('hand');
+    }
+
+    public function discardCards($stubs) {
+        foreach($stubs as $stub) {
+            $this->discardCard($stub);
+        }
+    }
+
+    public function discardCard($stub) {
+        $this->moveCard('hand', 'discard', $stub);
+    }
+
+    public function playCard($stub) {
+        $this->removeCardFrom($stub, 'hand');
+
+        $card = $this->cardBuilder->build($stub);
+        $position = $this->unresolvedCardIndex();
+        array_splice($this->played, $position+1, 0, array($card));
+    }
+
+    public function playVirtualCard($stub) {
+        $card = $this->cardBuilder->build($stub);
+        $card->markAsVirtual();
+
+        $position = $this->unresolvedCardIndex();
+        array_splice($this->played, $position+1, 0, array($card));
+    }
+
+    public function trashCard($stub, $location) {
+        $this->removeCardFrom($stub, $location);
+    }
+
+    public function gainCard($card, $where = 'discard') {
+        $this->addCardTo($card, $where);
+    }
+
+    public function moveCards($from, $to) {
+        $this->moveCardsOfType($from, $to, 'all');
+    }
+
+    public function moveCardsOfType($from, $to, $type) {
+        foreach($this->$from as $index => $card) {
+            if ($card->hasType($type) || $type === 'all') {
+                $this->$to[] = $card;
+                unset($this->$from[$index]);
+            }
         }
     }
 
     public function moveCardOntoDeck($from, $stub) {
-        $fromCopy = $this->$from;
-        foreach ($this->$from as $key => $card) {
-            if ($card->getStub() === $stub) {
-                $this->gainCardOnDeck($stub);
-                unset($fromCopy[$key]);
-                break;
-            }
-        }
-        $this->$from = $fromCopy;
-    }
-
-    public function setAsideTopCard() {
-        if(count($this->deck) + count($this->discard) === 0) {
-            return;
-        } else if (count($this->deck) === 0) {
-            $this->moveCards('discard', 'deck');
-            $this->shuffleDeck();
-        }
-        $this->setAside[] = $this->deck[0];
-        unset($this->deck[0]);
-        $this->deck = array_values($this->deck);
+        $this->placeCardOnDeck($stub);
+        $this->removeCardFrom($stub, $from);
     }
 
     public function resolveCard() {
-        foreach ($this->played as $card) {
-            if (!$card->isResolved()) {
-                $card->resolve();
-                return;
-            }
-        }
+        $this->unresolvedCard()->resolve();
+
     }
 
     public function resolveAll() {
@@ -321,34 +273,31 @@ class Player {
         }
     }
 
-    private function drawCard() {
-        if(count($this->deck) + count($this->discard) === 0) {
-            return;
-        }
+    private function moveCardFromTopOfDeck($to) {
         $this->createNewDeckIfNecessary();
-        $this->hand[] = $this->deck[0];
-        unset($this->deck[0]);
-        $this->deck = array_values($this->deck);
+        if (count($this->deck) === 0) {
+            return null;
+        }
+        $this->moveCard('deck', $to, $this->topCard()->stub());
     }
 
-    private function getFirstUnresolvedCardKey() {
-        foreach ($this->played as $key => $card) {
-            if (!$card->isResolved()) {
-                return $key;
+    private function moveCard($from, $to, $stub) {
+        $this->addCardTo($stub, $to);
+        $this->removeCardFrom($stub, $from);
+    }
+
+    private function addCardTo($stub, $location) {
+        $this->$location[] = $this->cardBuilder->build($stub);
+    }
+
+    private function removeCardFrom($stub, $from) {
+        foreach ($this->$from as $key => $card) {
+            if ($card->stub() === $stub) {
+                unset($this->$from[$key]);
+                $this->$from  = array_values($this->$from);
+                return;
             }
         }
-    }
-
-    public function numberOfDrawableCards() {
-        return count($this->deck) + count($this->discard);
-    }
-
-    public function hasEmptyHand() {
-        return (count($this->hand) === 0);
-    }
-
-    public function numberOfCards() {
-        return count($this->hand);
     }
 
 }

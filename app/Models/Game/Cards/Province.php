@@ -8,7 +8,11 @@ class Province extends Card {
 
     protected $points = 6;
 
-    protected $type = 'province';
+    protected $types = [
+        'victory'
+    ];
+
+    protected $stub = 'province';
 
     protected $name = 'Province';
 

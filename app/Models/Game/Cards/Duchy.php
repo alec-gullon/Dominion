@@ -8,7 +8,11 @@ class Duchy extends Card {
 
     protected $points = 3;
 
-    protected $type = 'duchy';
+    protected $types = [
+        'victory'
+    ];
+
+    protected $stub = 'duchy';
 
     protected $name = 'Duchy';
 

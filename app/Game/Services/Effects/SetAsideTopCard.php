@@ -10,7 +10,7 @@ class SetAsideTopCard extends Base {
     }
 
     public function description() {
-        $card = $this->state->getActivePlayer()->getTopCard();
+        $card = $this->state->getActivePlayer()->topCard();
 
         $entry = '.. '
             . $this->state->getActivePlayer()->getName()

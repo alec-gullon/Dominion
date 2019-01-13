@@ -14,7 +14,7 @@ class AdventurerController extends ActionController {
 
         $revealedTreasure = 0;
         while ($activePlayer->canDrawCard() && $revealedTreasure < 2) {
-            if ($activePlayer->getTopCard()->hasType('treasure')) {
+            if ($activePlayer->topCard()->hasType('treasure')) {
                 $revealedTreasure++;
             }
             $activePlayer->revealTopCard();

@@ -182,7 +182,7 @@ class State {
         }
         foreach ($this->players as $player) {
             if ($playerKey === $player->getid()) {
-                $player->gainCardOnDeck($card);
+                $player->placeCardOnDeck($card);
             }
         }
         $this->kingdom[$card] = $this->kingdom[$card] - 1;

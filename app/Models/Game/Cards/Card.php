@@ -44,7 +44,7 @@ class Card {
         return $this->stub . '/' . $this->nextStep;
     }
 
-    public function getStub() {
+    public function stub() {
         return $this->stub;
     }
 

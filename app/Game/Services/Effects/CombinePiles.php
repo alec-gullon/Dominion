@@ -6,10 +6,9 @@ class CombinePiles extends Base {
 
     public function effect() {
         $this->description();
-        $this->state->getActivePlayer()->moveCardsOfType(
+        $this->state->getActivePlayer()->moveCards(
             $this->params['from'],
-            $this->params['to'],
-            'all'
+            $this->params['to']
         );
     }
 

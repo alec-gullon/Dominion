@@ -9,10 +9,9 @@ class FeastTest extends CardTestBase
         $this->setHand(['feast', 'copper@4']);
         $this->playCard('feast');
 
-        $this->assertTrashSize(1);
-
         $this->provideInput('duchy');
 
+        $this->assertTrashSize(1);
         $this->assertDiscardSize(1);
         $this->assertNumberOfRemainingCards('duchy', 7);
 
@@ -33,6 +32,7 @@ class FeastTest extends CardTestBase
 
         $this->assertDiscardSize(1);
         $this->assertNumberOfPlayed(1);
+
         $this->assertAllCardsResolved();
         $this->assertNumberOfRemainingCards('duchy', 7);
 

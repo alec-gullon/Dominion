@@ -17,7 +17,7 @@ class ThroneRoomController extends ActionController {
 
     public function duplicateCard($card) {
         $this->activePlayer()->playCard($card);
-        $this->activePlayer()->playCard($card, true);
+        $this->activePlayer()->playVirtualCard($card);
         $this->resolveCard();
         $this->inputOff();
     }

@@ -5,10 +5,9 @@ namespace App\Game\Controllers\Actions;
 class FeastController extends ActionController {
 
     public function play() {
-        $feastCard = $this->activePlayer()->getUnresolvedCard();
+        $feastCard = $this->activePlayer()->unresolvedCard();
 
         if (!$feastCard->isVirtual()) {
-            $this->state->trashCard('feast', 'played');
             $this->addPlayerActionToLog('trashes the Feast');
         }
 
@@ -17,8 +16,14 @@ class FeastController extends ActionController {
     }
 
     public function gainSelectedCard($stub) {
+        $feastCard = $this->activePlayer()->unresolvedCard();
+
         $this->gainCard($stub);
-        $this->resolveCard();
+        if (!$feastCard->isVirtual()) {
+            $this->state->trashCard('feast', 'played');
+        } else {
+            $this->resolveCard();
+        }
     }
 
 }

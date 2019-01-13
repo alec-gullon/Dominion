@@ -14,7 +14,7 @@ class RemodelController extends ActionController {
     }
 
     public function trashCard($stub) {
-        $remodelCard = $this->activePlayer()->getUnresolvedCard();
+        $remodelCard = $this->activePlayer()->unresolvedCard();
         $trashedCard = $this->cardBuilder->build($stub);
 
         $this->trashCards([$stub]);
@@ -35,7 +35,7 @@ class RemodelController extends ActionController {
     }
 
     protected function resolveCard() {
-        $card = $this->activePlayer()->getUnresolvedCard();
+        $card = $this->activePlayer()->unresolvedCard();
         $card->gainValue = 0;
         parent::resolveCard();
     }
