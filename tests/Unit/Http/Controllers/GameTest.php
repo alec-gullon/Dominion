@@ -85,6 +85,7 @@ class GameTest extends TestCase
         ]);
 
         $state->setPlayers([$player1, $player2]);
+        $state->setActivePlayerId('alec');
         $game->object = serialize($state);
         $game->save();
 

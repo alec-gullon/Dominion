@@ -86,6 +86,7 @@ class CardTestBase extends TestCase
         $player2->setName('Lucy');
 
         $state->setPlayers([$player1, $player2]);
+        $state->setActivePlayerId('alec');
         $game->object = serialize($state);
         $game->save();
 

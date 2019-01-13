@@ -6,8 +6,6 @@ use App\Services\CardBuilder;
 
 class State {
 
-    private $players = array();
-
     private $kingdom = array(
         'copper' => 30,
         'silver' => 20,
@@ -21,9 +19,13 @@ class State {
 
     private $trash = array();
 
-    private $coins = 0;
+    private $players = array();
 
-    private $activePlayerId = 'alec';
+    private $activePlayerId;
+
+    private $needPlayerInput = true;
+
+    private $coins = 0;
 
     private $actions = 1;
 
@@ -31,11 +33,9 @@ class State {
 
     private $turn = 1;
 
-    private $needPlayerInput = true;
+    private $phase = 'action';
 
     private $isResolved = false;
-
-    private $phase = 'action';
 
     private $log;
 
@@ -45,10 +45,6 @@ class State {
         $this->log = $log;
         $this->cardBuilder = $cardBuilder;
     }
-
-    /**
-     * GETTERS AND SETTERS
-     */
 
     public function log() {
         return $this->log;
@@ -106,10 +102,6 @@ class State {
         $this->activePlayerId = $id;
     }
 
-    /**
-     * QUERY METHODS
-     */
-
     public function getPlayerById($id) {
         foreach ($this->players as $player) {
             if ($id === $player->getId()) {
@@ -166,10 +158,6 @@ class State {
         }
         return $cheapest;
     }
-
-    /**
-     * ACTIVE METHODS
-     */
 
     public function addCoins($coins) {
         $this->coins = $this->coins + $coins;
