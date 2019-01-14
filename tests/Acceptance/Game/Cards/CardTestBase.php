@@ -222,6 +222,11 @@ class CardTestBase extends GameTestBase
         $this->assertEquals(count($player->getDeck()), $size);
     }
 
+    protected function assertOpponentRevealedSize($size) {
+        $player = unserialize($this->game->object)->secondaryPlayer();
+        $this->assertEquals(count($player->revealed()), $size);
+    }
+
     protected function assertDiscardSize($size) {
         $player = unserialize($this->game->object)->activePlayer();
         $this->assertEquals(count($player->getDiscard()), $size);

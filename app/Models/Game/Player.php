@@ -102,8 +102,8 @@ class Player {
         return false;
     }
 
-    public function hasCardsOfType($type) {
-        $cards = $this->getCardsOfType('hand', $type);
+    public function hasCardsOfType($type, $from = 'hand') {
+        $cards = $this->getCardsOfType($from, $type);
         return (count($cards) > 0);
     }
 
@@ -290,7 +290,7 @@ class Player {
         $this->$location[] = $this->cardBuilder->build($stub);
     }
 
-    private function removeCardFrom($stub, $from) {
+    public function removeCardFrom($stub, $from) {
         foreach ($this->$from as $key => $card) {
             if ($card->stub() === $stub) {
                 unset($this->$from[$key]);

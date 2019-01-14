@@ -10,6 +10,8 @@ class Thief extends Card {
 
     protected $name = 'Thief';
 
+    public $moatRevealed = false;
+
     protected $types = array(
         'action', 'attack'
     );
@@ -17,7 +19,8 @@ class Thief extends Card {
     protected $steps = array(
         'play',
         'resolve-moat',
-        'resolve-attack'
+        'resolve-attack',
+        'gain-trashed-card'
     );
 
 }

@@ -16,6 +16,10 @@ class TurnTest extends GameTestBase
         $this->assertOpponentDeckSize(0);
         $this->assertOpponentHandSize(5);
         $this->assertOpponentDiscardSize(6);
+
+        $this->assertLogContains([
+            '.. Alec ends their turn'
+        ]);
     }
 
     public function testGameEnds() {

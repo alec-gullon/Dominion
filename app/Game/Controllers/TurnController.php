@@ -12,6 +12,7 @@ class TurnController extends StateController {
         $this->state->setCoins(0);
         $this->state->setBuys(1);
         $this->state->advanceTurn();
+        $this->addPlayerActionToLog('ends their turn');
 
         $this->state->setActivePlayerId($this->state->secondaryPlayer()->getId());
 

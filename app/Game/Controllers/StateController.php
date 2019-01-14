@@ -106,16 +106,16 @@ class StateController {
         $this->description('DescribeHand', compact('player'));
     }
 
-    protected function moveCards($from, $where, $type = 'all') {
-        $this->effect('MoveCards', compact('from', 'where', 'type'));
+    protected function moveCards($from, $where, $type = 'all', $player = null) {
+        $this->effect('MoveCards', compact('from', 'where', 'type', 'player'));
     }
 
     protected function moveCardOntoDeck($from, $card, $player = null) {
         $this->effect('MoveCardOntoDeck', compact('from', 'card', 'player'));
     }
 
-    protected function combinePiles($from, $to) {
-        $this->effect('CombinePiles', compact('from', 'to'));
+    protected function combinePiles($from, $to, $player = null) {
+        $this->effect('CombinePiles', compact('from', 'to', 'player'));
     }
 
     protected function setAsideTopCard() {

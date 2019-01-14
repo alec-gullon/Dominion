@@ -214,9 +214,12 @@ class State {
         }
     }
 
-    public function trashCard($stub, $where = 'hand') {
+    public function trashCard($stub, $where = 'hand', $player = null) {
+        if ($player === null) {
+            $player = $this->activePlayer();
+        }
         $this->trash[] = $stub;
-        $this->activePlayer()->trashCard($stub, $where);
+        $player->trashCard($stub, $where);
     }
 
     public function togglePlayerInput($bool) {

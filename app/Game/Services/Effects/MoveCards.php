@@ -5,8 +5,10 @@ namespace App\Game\Services\Effects;
 class MoveCards extends Base {
 
     public function effect() {
+        $player = $this->params['player'];
+
         $this->description();
-        $this->state->activePlayer()->moveCardsOfType(
+        $player->moveCardsOfType(
             $this->params['from'],
             $this->params['where'],
             $this->params['type']
@@ -14,13 +16,14 @@ class MoveCards extends Base {
     }
 
     public function description() {
+        $player = $this->params['player'];
         $from = $this->params['from'];
         $where = $this->params['where'];
         $type = $this->params['type'];
 
-        $cardsToMove = $this->state->activePlayer()->getCardsOfType($from, $type);
+        $cardsToMove = $player->getCardsOfType($from, $type);
 
-        $entry = '.. ' . $this->state->activePlayer()->getName();
+        $entry = '.. ' . $player->getName();
         if (count($cardsToMove) === 0) {
             $entry .= ' does not put anything';
         } else {
