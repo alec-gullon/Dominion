@@ -44,6 +44,7 @@ class ThiefController extends ActionController {
         $card->trashedCard = $stub;
 
         $this->nextStep('gain-trashed-card');
+        $this->inputOn();
     }
 
     public function gainTrashedCard($choice) {

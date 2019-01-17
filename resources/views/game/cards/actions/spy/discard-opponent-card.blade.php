@@ -1,6 +1,6 @@
 <?php
     $player = $state->secondaryPlayer();
-    $card = $player->getTopCard();
+    $card = $player->topCard();
 ?>
 
 @if (false)

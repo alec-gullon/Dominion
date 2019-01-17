@@ -29,7 +29,7 @@ class SpyTest extends CardTestBase
             '.. Alec gains an action',
             '.. Alec draws a card',
             '.. Alec reveals a Copper from the top of their deck',
-            '.. Alec discards a Copper',
+            '.. Alec discards a Copper from their revealed',
             '.. Lucy reveals a Copper from the top of their deck',
             '.. Lucy places the Copper on top of their deck'
         ]);
@@ -57,7 +57,7 @@ class SpyTest extends CardTestBase
             '.. Alec reveals a Copper from the top of their deck',
             '.. Alec places the Copper on top of their deck',
             '.. Lucy reveals a Copper from the top of their deck',
-            '.. Lucy discards a Copper'
+            '.. Lucy discards a Copper from their revealed'
         ]);
     }
 

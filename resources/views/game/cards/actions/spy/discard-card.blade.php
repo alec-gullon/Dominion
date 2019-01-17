@@ -1,6 +1,6 @@
 <?php
     $player = $state->activePlayer();
-    $card = $player->getTopCard();
+    $card = $player->topCard();
 ?>
 
 <?php if ($playerKey === $player->getId()): ?>

@@ -2,6 +2,9 @@
 
 namespace App\Game\Services;
 
+use App\Models\Game\State;
+use App\Services\CardBuilder;
+
 class Updater {
 
     private $cardBuilder;
@@ -10,7 +13,7 @@ class Updater {
 
     private $state;
 
-    public function __construct($state, $cardBuilder) {
+    public function __construct(State $state, CardBuilder $cardBuilder) {
         $this->cardBuilder = $cardBuilder;
         $this->cartographer = new Router($state, $cardBuilder);
         $this->state = $state;
@@ -29,14 +32,17 @@ class Updater {
         }
 
         if ($action === 'provide-input') {
-            $controller = $this->cartographer->nextController($action);
-            $method = $this->cartographer->nextMethod($action);
+            $controller = $this->cartographer->nextController();
+            $method = $this->cartographer->nextMethod();
         } else {
             $controller = $this->cartographer->controller($action);
             $method = $this->cartographer->method($action);
         }
 
-        $controller->{$method}($input);
+        $validate = $this->validate($action, $input);
+        if ($validate) {
+            $controller->{$method}($input);
+        }
     }
 
     public function resolve() {
@@ -50,6 +56,21 @@ class Updater {
 
     public function getState() {
         return $this->state;
+    }
+
+    private function validate($action, $input) {
+        $validator = null;
+        $method = '';
+        if ($action === 'provide-input') {
+            $validator = $this->cartographer->nextValidator();
+            $method = $this->cartographer->nextMethod();
+        }
+        if ($validator !== null) {
+            if (method_exists($validator, $method)) {
+                return $validator->{$method}($input);
+            }
+        }
+        return true;
     }
 
 }
