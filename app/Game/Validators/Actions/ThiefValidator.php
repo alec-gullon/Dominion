@@ -2,15 +2,7 @@
 
 namespace App\Game\Validators\Actions;
 
-use App\Models\Game\State;
-
-class ThiefValidator {
-
-    private $state;
-
-    public function __construct(State $state) {
-        $this->state = $state;
-    }
+class ThiefValidator extends ActionValidator {
 
     public function resolveMoat($input) {
         return is_bool($input);
