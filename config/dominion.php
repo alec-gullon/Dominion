@@ -27,5 +27,8 @@ return [
         'witch',
         'woodcutter',
         'workshop'
+    ],
+    'card-aliases' => [
+        'workshop' => 'Workshop'
     ]
 ];

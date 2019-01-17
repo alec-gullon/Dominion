@@ -89,4 +89,9 @@ class Card {
         return $this->name . 's';
     }
 
+    public function alias() {
+        $aliases = config('dominion.card-aliases');
+        return $aliases[$this->stub()];
+    }
+
 }

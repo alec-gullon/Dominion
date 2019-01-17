@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Game\Services\Updater;
+use App\Game\Services\SetsUpAIGame;
 
 use App\Models\Game\State;
 use App\Models\Game as GameModel;
@@ -42,6 +43,15 @@ class Game extends Controller {
         $user->save();
 
         return $this->gameRenderer->renderWaitingRoom($game, $user);
+    }
+
+    public function createWithAIOpponent(Request $request, SetsUpAIGame $setsUpAIGame) {
+        $user = $request->input('user');
+        $game = new GameModel();
+
+        $state = resolve('\App\Models\Game\State');
+
+        $game->object = serialize($state);
     }
 
     public function update(Request $request) {

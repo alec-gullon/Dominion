@@ -147,6 +147,10 @@ class State {
         return isset($this->kingdom['moat']);
     }
 
+    public function hasCard($stub) {
+        return ($this->kingdom[$stub] > 0);
+    }
+
     public function needPlayerInput() {
         return $this->needPlayerInput;
     }

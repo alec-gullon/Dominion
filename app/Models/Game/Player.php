@@ -24,9 +24,12 @@ class Player {
 
     private $cardBuilder;
 
-    public function __construct($id, CardBuilder $cardBuilder) {
+    private $isAi;
+
+    public function __construct($id, CardBuilder $cardBuilder, $isAi = false) {
         $this->id = $id;
         $this->cardBuilder = $cardBuilder;
+        $this->isAi = $isAi;
     }
 
     public function setName($name) {
@@ -47,6 +50,10 @@ class Player {
 
     public function getHand() {
         return $this->hand;
+    }
+
+    public function isAi() {
+        return $this->isAi;
     }
 
     public function setDeck($deck) {
