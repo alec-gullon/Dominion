@@ -5,11 +5,11 @@ namespace App\Game\Validators\Actions;
 class BureaucratValidator extends ActionValidator {
 
     public function resolveMoat($input){
-        return true;
+        return is_bool($input);
     }
 
     public function resolveAttack($input) {
-        return true;
+        return $this->state->secondaryPlayer()->hasCard($input);
     }
 
 }

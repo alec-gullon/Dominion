@@ -5,11 +5,16 @@ namespace App\Game\Validators\Actions;
 class MilitiaValidator extends ActionValidator {
 
     public function resolveMoat($input) {
-        return true;
+        return is_bool($input);
     }
 
     public function resolveAttack($input) {
-        return true;
+        $hand = $this->state->secondaryPlayer()->getHand();
+
+        if (count($input) !== count($hand) - 3) {
+            return false;
+        }
+        return $this->checkInputSubsetOfCardStack($input, $hand);
     }
 
 }

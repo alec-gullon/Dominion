@@ -5,7 +5,7 @@ namespace App\Game\Validators\Actions;
 class MoneylenderValidator extends ActionValidator {
 
     public function trashCopper($input) {
-        return true;
+        return is_bool($input);
     }
 
 }

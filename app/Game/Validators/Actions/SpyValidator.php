@@ -5,15 +5,15 @@ namespace App\Game\Validators\Actions;
 class SpyValidator extends ActionValidator {
 
     public function resolveMoat($input) {
-        return true;
+        return is_bool($input);
     }
 
     public function discardCard($input) {
-        return true;
+        return is_bool($input);
     }
 
     public function discardOpponentCard($input) {
-        return true;
+        return is_bool($input);
     }
 
 }

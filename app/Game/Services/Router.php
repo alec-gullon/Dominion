@@ -101,7 +101,7 @@ class Router {
         $parts = explode('@', $route);
         $validatorString = '\App\Game\Validators\\' . $parts[0] . 'Validator';
         if (class_exists($validatorString)) {
-            return new $validatorString($this->state);
+            return new $validatorString($this->state, $this->cardBuilder);
         }
         return null;
     }
@@ -115,7 +115,7 @@ class Router {
         }
         $validatorString = 'App\Game\Validators\Actions\\' . $cardString . 'Validator';
         if (class_exists($validatorString)) {
-            return new $validatorString($this->state);
+            return new $validatorString($this->state, $this->cardBuilder);
         }
         return null;
     }

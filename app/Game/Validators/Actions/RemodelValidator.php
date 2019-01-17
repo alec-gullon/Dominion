@@ -5,11 +5,17 @@ namespace App\Game\Validators\Actions;
 class RemodelValidator extends ActionValidator {
 
     public function trashCard($input) {
-        return true;
+        return $this->state->activePlayer()->hasCard($input);
     }
 
     public function gainSelectedCard($input) {
-        return true;
+        $remodelCard = $this->state->activePlayer()->unresolvedCard();
+
+        $card = $this->cardBuilder->build($input);
+        if ($card->getValue() > $remodelCard->gainValue) {
+            return false;
+        }
+        return $this->state->hasCard($input);
     }
 
 }

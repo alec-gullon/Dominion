@@ -5,11 +5,20 @@ namespace App\Game\Validators\Actions;
 class MineValidator extends ActionValidator {
 
     public function trashTreasure($input) {
-        return true;
+        return $this->state->activePlayer()->hasCard($input);
     }
 
     public function gainTreasure($input) {
-        return true;
+        $mineCard = $this->state->activePlayer()->unresolvedCard();
+
+        $card = $this->cardBuilder->build($input);
+        if ($card->getValue() > $mineCard->treasureValue) {
+            return false;
+        }
+        if (!$card->hasType('treasure')) {
+            return false;
+        }
+        return $this->state->hasCard($input);
     }
 
 }

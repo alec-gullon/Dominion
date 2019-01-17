@@ -5,7 +5,8 @@ namespace App\Game\Validators\Actions;
 class ChapelValidator extends ActionValidator {
 
     public function trashSelectedCards($input) {
-        return true;
+        $hand = $this->state->activePlayer()->getHand();
+        return $this->checkInputSubsetOfCardStack($input, $hand);
     }
 
 }
