@@ -84,4 +84,14 @@ class AITestBase extends TestCase {
         $this->assertEquals($game->turn(), $turn);
     }
 
+    protected function assertOpponentDeckSize($size) {
+        $player = unserialize($this->game->object)->secondaryPlayer();
+        $this->assertEquals(count($player->getDeck()), $size);
+    }
+
+    protected function assertOpponentDiscardSize($size) {
+        $player = unserialize($this->game->object)->secondaryPlayer();
+        $this->assertEquals(count($player->getDiscard()), $size);
+    }
+
 }
