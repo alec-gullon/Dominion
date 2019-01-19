@@ -44,5 +44,17 @@ class FeastTest extends CardTestBase
         ]);
     }
 
+    public function testCannotAcquireProvince() {
+        $this->buildGame();
+        $this->setHand(['feast', 'copper@4']);
+        $this->playCard('feast');
+
+        $this->provideInput('gold');
+
+        $this->assertTrashSize(0);
+        $this->assertDiscardSize(0);
+        $this->assertNumberOfRemainingCards('gold', 10);
+    }
+
 
 }

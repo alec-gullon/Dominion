@@ -23,4 +23,13 @@ class WorkshopTest extends CardTestBase
             '.. Alec gains a Silver'
         ]);
     }
+
+    public function testCannotAcquireExpensiveCard() {
+        $this->buildGame();
+        $this->setHand(['workshop', 'copper@4']);
+        $this->playCard('workshop');
+        $this->provideInput('province');
+
+        $this->assertNextStep('gain-selected-card');
+    }
 }

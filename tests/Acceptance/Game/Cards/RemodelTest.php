@@ -58,4 +58,27 @@ class RemodelTest extends CardTestBase
             '.. Alec cannot gain anything'
         ]);
     }
+
+    public function testCannotTrashSomethingNotInHand() {
+        $this->buildGame();
+        $this->setHand(['remodel', 'copper@2', 'estate@2']);
+        $this->playCard('remodel');
+        $this->provideInput('province');
+
+        $this->assertHandSize(4);
+        $this->assertTrashSize(0);
+    }
+
+    public function testCannotGainSomethingTooExpensive() {
+        $this->buildGame();
+        $this->setHand(['remodel', 'copper@2', 'estate@2']);
+        $this->playCard('remodel');
+        $this->provideInput('estate');
+        $this->provideInput('province');
+
+        $this->assertDiscardSize(0);
+        $this->assertTrashSize(1);
+        $this->assertHandSize(3);
+        $this->assertNumberOfRemainingCards('province', 8);
+    }
 }

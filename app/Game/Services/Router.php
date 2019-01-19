@@ -11,40 +11,25 @@ class Router {
 
     private $cardBuilder;
 
-    private $routes = array(
-        'play-treasure' => 'Treasure@playTreasure',
-        'end-turn' => 'Turn@endTurn',
-        'buy' => 'Buy@buy',
-        'advance-to-buy' => 'Buy@advanceToBuy',
-    );
-
     public function __construct(State $state, CardBuilder $cardBuilder) {
         $this->state = $state;
         $this->cardBuilder = $cardBuilder;
     }
 
     public function controller($action) {
-        if (isset($this->routes[$action])) {
-            return $this->getControllerFromRoutes($action);
-        } else {
-            return $this->getCardControllerFromAction($action);
-        }
+        return $this->buildClassFromAction('Controller', $action);
     }
 
     public function validator($action) {
-        if (isset($this->routes[$action])) {
-            return $this->getValidatorFromRoutes($action);
-        } else {
-            return $this->getValidatorFromAction($action);
-        }
+        return $this->buildClassFromAction('Validator', $action);
     }
 
     public function method($action) {
-        if (isset($this->routes[$action])) {
+        $routes = config('dominion.game-routes');
+        if (isset($routes[$action])) {
             return $this->getMethodFromRoutes($action);
-        } else {
-            return $this->getCardMethodFromAction($action);
         }
+        return $this->getMethodAssociatedToAction($action);
     }
 
     public function nextController() {
@@ -62,62 +47,50 @@ class Router {
         return $this->method($action);
     }
 
-    private function getMethodFromRoutes($action) {
-        $route = $this->routes[$action];
-        $parts = explode('@', $route);
-        return $parts[1];
+    private function getCardAssociatedToAction($action) {
+        $parts = explode('/', $action);
+        $cardParts = explode('-', $parts[0]);
+        $cardString = '';
+        foreach($cardParts as $part) {
+            $cardString .= ucfirst($part);
+        }
+        return $cardString;
     }
 
-    private function getCardMethodFromAction($action) {
+    private function getMethodAssociatedToAction($action) {
         $parts = explode('/', $action);
         $methodParts = explode('-', $parts[1]);
         $methodString = '';
         foreach ($methodParts as $part) {
-            $methodString .= $part;
+            $methodString .= ucfirst($part);
         }
         return $methodString;
     }
 
-    private function getCardControllerFromAction($action) {
-        $parts = explode('/', $action);
-        $cardParts = explode('-', $parts[0]);
-        $cardString = '';
-        foreach($cardParts as $part) {
-            $cardString .= ucfirst($part);
+    private function buildClassFromAction($group, $action) {
+        $routes = config('dominion.game-routes');
+        if (isset($routes[$action])) {
+            $classString = $this->getClassFromRoutes($action);
+            $classString = 'App\Game\\' . $group . 's\\' . $classString . $group;
+        } else {
+            $classString = $this->getCardAssociatedToAction($action);
+            $classString = 'App\Game\\' . $group . 's\Actions\\' . $classString . $group;
         }
-        $controllerString = 'App\Game\Controllers\Actions\\' . $cardString . 'Controller';
-        return new $controllerString($this->state, $this->cardBuilder);
+        return new $classString($this->state, $this->cardBuilder);
     }
 
-    private function getControllerFromRoutes($action) {
-        $route = $this->routes[$action];
+    private function getClassFromRoutes($action) {
+        $routes = config('dominion.game-routes');
+        $route = $routes[$action];
         $parts = explode('@', $route);
-        $controllerString = '\App\Game\Controllers\\' . $parts[0] . 'Controller';
-        return new $controllerString($this->state, $this->cardBuilder);
+        return $parts[0];
     }
 
-    private function getValidatorFromRoutes($action) {
-        $route = $this->routes[$action];
+    private function getMethodFromRoutes($action) {
+        $routes = config('dominion.game-routes');
+        $route = $routes[$action];
         $parts = explode('@', $route);
-        $validatorString = '\App\Game\Validators\\' . $parts[0] . 'Validator';
-        if (class_exists($validatorString)) {
-            return new $validatorString($this->state, $this->cardBuilder);
-        }
-        return null;
-    }
-
-    private function getValidatorFromAction($action) {
-        $parts = explode('/', $action);
-        $cardParts = explode('-', $parts[0]);
-        $cardString = '';
-        foreach($cardParts as $part) {
-            $cardString .= ucfirst($part);
-        }
-        $validatorString = 'App\Game\Validators\Actions\\' . $cardString . 'Validator';
-        if (class_exists($validatorString)) {
-            return new $validatorString($this->state, $this->cardBuilder);
-        }
-        return null;
+        return $parts[1];
     }
 
 }

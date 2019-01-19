@@ -91,4 +91,20 @@ class CellarTest extends CardTestBase
             '.. Alec discards nothing from their hand'
         ]);
     }
+
+    public function testValidatesSelectedCards() {
+        $this->buildGame();
+        $this->setHand(['cellar', 'copper@2', 'estate@2']);
+        $this->playCard('cellar');
+
+        $this->assertHandSize(4);
+        $this->assertNumberOfPlayed(1);
+        $this->assertActions(1);
+
+        $this->provideInput(array('estate', 'estate', 'estate'));
+
+        $this->assertHandSize(4);
+        $this->assertDeckSize(5);
+        $this->assertDiscardSize(0);
+    }
 }

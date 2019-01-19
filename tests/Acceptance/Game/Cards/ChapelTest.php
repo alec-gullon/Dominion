@@ -48,4 +48,17 @@ class ChapelTest extends CardTestBase
             '.. Alec trashes nothing'
         ]);
     }
+
+    public function testValidatesSelectedCards() {
+        $this->buildGame();
+        $this->setHand(['chapel', 'copper@2', 'estate@2']);
+        $this->playCard('chapel');
+        $this->assertHandSize(4);
+        $this->assertNumberOfPlayed(1);
+        $this->assertActions(0);
+
+        $this->provideInput(array('estate', 'estate', 'estate'));
+        $this->assertHandSize(4);
+        $this->assertTrashSize(0);
+    }
 }

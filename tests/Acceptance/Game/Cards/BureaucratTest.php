@@ -65,4 +65,15 @@ class BureaucratTest extends CardTestBase
             '.. Alec places nothing on their deck'
         ]);
     }
+
+    public function testValidatesSelectedCard() {
+        $this->buildGame();
+        $this->setHand(['bureaucrat', 'copper@4']);
+        $this->playCard('bureaucrat');
+        $this->provideInput('duchy');
+
+        $this->assertDeckSize(6);
+        $this->assertOpponentHandSize(5);
+        $this->assertOpponentDeckSize(5);
+    }
 }

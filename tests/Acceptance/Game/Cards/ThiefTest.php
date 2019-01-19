@@ -76,4 +76,15 @@ class ThiefTest extends CardTestBase
             '.. Lucy puts two Estates into their discard'
         ]);
     }
+
+    public function testCannotTrashSomethingTheyShouldNot() {
+        $this->buildGame();
+        $this->setHand(['thief', 'copper@4']);
+        $this->setOpponentDeck(['silver', 'copper@4']);
+        $this->playCard('thief');
+
+        $this->provideInput('estate');
+
+        $this->assertNextStep('resolve-attack');
+    }
 }

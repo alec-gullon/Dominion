@@ -295,6 +295,10 @@ class CardTestBase extends GameTestBase
         return unserialize($this->game->object)->log();
     }
 
+    protected function state() {
+        return unserialize($this->game->object);
+    }
+
     protected function getPlayer() {
         return unserialize($this->game->object)->activePlayer();
     }
@@ -303,5 +307,11 @@ class CardTestBase extends GameTestBase
         $log = $this->log();
         $entries = $log->flattenedEntries();
         $this->assertEquals($count, count($entries));
+    }
+
+    protected function assertNextStep($step) {
+        $nextStep = $this->state()->activePlayer()->unresolvedCard()->getNextStep();
+        $nextStep = explode('/', $nextStep)[1];
+        $this->assertEquals($nextStep, $step);
     }
 }

@@ -9,13 +9,11 @@ class ThiefValidator extends ActionValidator {
     }
 
     public function resolveAttack($input) {
-        $revealedCards = $this->state->secondaryPlayer()->revealed();
-        foreach ($revealedCards as $card) {
-            if ($card->stub() === $input) {
-                return true;
-            }
+        $card = $this->cardBuilder->build($input);
+        if (!$card->hasType('treasure')) {
+            return false;
         }
-        return false;
+        return $this->state->secondaryPlayer()->hasCard($input, 'revealed');
     }
 
     public function gainTrashedCard($input) {

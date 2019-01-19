@@ -67,4 +67,15 @@ class MilitiaTest extends CardTestBase
             '.. Lucy discards three Coppers from their hand'
         ]);
     }
+
+    public function testCannotDiscardLessThanRequiredCards() {
+        $this->buildGame();
+        $this->setHand(['militia', 'copper@4']);
+        $this->playCard('militia');
+        $this->provideInput(['estate']);
+
+        $this->assertNumberOfCoins(2);
+        $this->assertOpponentHandSize(5);
+        $this->assertOpponentDiscardSize(0);
+    }
 }

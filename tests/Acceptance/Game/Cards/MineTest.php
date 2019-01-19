@@ -52,4 +52,16 @@ class MineTest extends CardTestBase
             '.. Alec has nothing to trash'
         ]);
     }
+
+    public function testCannotAcquireNonTreasureCard() {
+        $this->buildGame();
+        $this->setHand(['mine', 'copper@4']);
+        $this->playCard('mine');
+        $this->provideInput('copper');
+        $this->provideInput('estate');
+
+        $this->assertHandSize(3);
+        $this->assertDiscardSize(0);
+        $this->assertNumberOfRemainingCards('estate', 8);
+    }
 }
