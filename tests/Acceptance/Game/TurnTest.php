@@ -2,7 +2,9 @@
 
 namespace Tests\Acceptance\Game;
 
-class TurnTest extends GameTestBase
+use Tests\Acceptance\AcceptanceTestBase;
+
+class TurnTest extends AcceptanceTestBase
 {
     public function testTurnEnds()
     {

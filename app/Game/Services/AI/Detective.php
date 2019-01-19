@@ -34,7 +34,32 @@ class Detective {
 
         // if we aren't resolving a card, start by playing an action card if possible
         if ($this->gameAnalyser->canPlayActionCard()) {
-            return;
+            // play anything that gives actions first
+            $handCards = $this->state->activePlayer()->getCardsOfType('hand', 'action');
+            foreach ($handCards as $card) {
+                if ($card->hasFeature('increasesActions')) {
+                    return [
+                        'action' => 'play-card',
+                        'input' => $card->stub()
+                    ];
+                }
+            }
+
+            // play anything that assaults the other player
+            foreach ($handCards as $card) {
+                if ($card->hasType('attack')) {
+                    return [
+                        'action' => 'play-card',
+                        'input' => $card->stub()
+                    ];
+                }
+            }
+
+            // play anything else
+            return [
+                'action' => 'play-card',
+                'input' => $handCards[0]->stub()
+            ];
         }
 
         // if we've got this far, time to play a treasure card if we have one

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Acceptance\Game;
+namespace Tests\Acceptance;
 
 use App\Game\Services\Updater;
 use App\Services\CardBuilder;
@@ -8,50 +8,33 @@ use App\Services\CardBuilder;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class GameTestBase extends TestCase
+class AcceptanceTestBase extends TestCase
 {
     use RefreshDatabase;
 
     protected function updateGame() {
-        $updater = new Updater(unserialize($this->game->object), new CardBuilder);
+        $updater = new Updater($this->state(), new CardBuilder);
         $updater->resolve();
         $this->game->object = serialize($updater->getState());
         $this->game->save();
     }
 
     protected function playCard($stub) {
-        $this->post('/game/update/', [
-            'guid' => 'alec',
-            'action' => 'play-card',
-            'input' => $stub
-        ]);
-
-        $this->game = \App\Models\Game::all()->first();
+        $this->postUpdate('play-card', $stub);
     }
 
     protected function playTreasure($stub) {
-        $this->post('/game/update/', [
-            'guid' => 'alec',
-            'action' => 'play-treasure',
-            'input' => $stub
-        ]);
+        $this->postUpdate('play-treasure', $stub);
+    }
 
-        $this->game = \App\Models\Game::all()->first();
+    protected function provideInput($input) {
+        $this->postUpdate('provide-input', $input);
     }
 
     protected function postUpdate($action, $input = null) {
         $this->post('/game/update/', [
             'guid' => 'alec',
             'action' => $action,
-            'input' => $input
-        ]);
-        $this->game = \App\Models\Game::all()->first();
-    }
-
-    protected function provideInput($input) {
-        $this->post('/game/update/', [
-            'guid' => 'alec',
-            'action' => 'provide-input',
             'input' => $input
         ]);
         $this->game = \App\Models\Game::all()->first();
@@ -124,8 +107,69 @@ class GameTestBase extends TestCase
         $this->game = $game;
     }
 
+    protected function buildGameWithAI()
+    {
+        $game = new \App\Models\Game();
+        $state = new \App\Models\Game\State(new \App\Models\Game\Log, new \App\Services\CardBuilder);
+
+        $game->object = serialize($state);
+        $game->guid = uniqid();
+        $game->save();
+
+        $cardBuilder = new \App\Services\CardBuilder();
+
+        $player1 = new \App\Models\Game\Player('alec', $cardBuilder);
+
+        $player1->setDeck([
+            $cardBuilder->build('estate'),
+            $cardBuilder->build('estate'),
+            $cardBuilder->build('copper'),
+            $cardBuilder->build('copper'),
+            $cardBuilder->build('copper')
+        ]);
+        $player1->setHand([
+            $cardBuilder->build('estate'),
+            $cardBuilder->build('copper'),
+            $cardBuilder->build('copper'),
+            $cardBuilder->build('copper'),
+            $cardBuilder->build('copper')
+        ]);
+        $player1->setName('Alec');
+
+        $player2 = new \App\Models\Game\Player('marvin', $cardBuilder, true);
+
+        $player2->setDeck([
+            $cardBuilder->build('estate'),
+            $cardBuilder->build('estate'),
+            $cardBuilder->build('copper'),
+            $cardBuilder->build('copper'),
+            $cardBuilder->build('copper')
+        ]);
+        $player2->setHand([
+            $cardBuilder->build('estate'),
+            $cardBuilder->build('copper'),
+            $cardBuilder->build('copper'),
+            $cardBuilder->build('copper'),
+            $cardBuilder->build('copper')
+        ]);
+        $player2->setName('Marvin');
+
+        $state->setPlayers([$player1, $player2]);
+        $state->setActivePlayerId('alec');
+        $game->object = serialize($state);
+        $game->save();
+
+        $user = new \App\Models\User();
+        $user->name = 'Alec';
+        $user->game_id = $game->id;
+        $user->guid = 'alec';
+        $user->save();
+
+        $this->game = $game;
+    }
+
     protected function playVirtualCard($card) {
-        $state = unserialize($this->game->object);
+        $state = $this->state();
         $player = $state->activePlayer();
         $player->playVirtualCard($card);
         $state->togglePlayerInput(false);
@@ -135,7 +179,7 @@ class GameTestBase extends TestCase
     }
 
     protected function setNumberOfCardsRemaining($stub, $amount) {
-        $state = unserialize($this->game->object);
+        $state = $this->state();
         $cards = $state->kingdomCards();
         $cards[$stub] = $amount;
 
@@ -146,7 +190,7 @@ class GameTestBase extends TestCase
 
     protected function buildGameWithMoat() {
         $this->buildGame();
-        $state = unserialize($this->game->object);
+        $state = $this->state();
 
         $kingdomCards = $state->kingdomCards();
         $kingdomCards['moat'] = 10;
@@ -158,7 +202,7 @@ class GameTestBase extends TestCase
 
     protected function setHand($shorthand) {
         $hand = $this->buildCardStackFromShorthand($shorthand);
-        $state = unserialize($this->game->object);
+        $state = $this->state();
         $state->activePlayer()->setHand($hand);
         $this->game->object = serialize($state);
         $this->game->save();
@@ -166,7 +210,7 @@ class GameTestBase extends TestCase
 
     protected function setOpponentHand($shorthand) {
         $hand = $this->buildCardStackFromShorthand($shorthand);
-        $state = unserialize($this->game->object);
+        $state = $this->state();
         $state->secondaryPlayer()->setHand($hand);
         $this->game->object = serialize($state);
         $this->game->save();
@@ -174,7 +218,7 @@ class GameTestBase extends TestCase
 
     protected function setDeck($shorthand) {
         $deck = $this->buildCardStackFromShorthand($shorthand);
-        $state = unserialize($this->game->object);
+        $state = $this->state();
         $state->activePlayer()->setDeck($deck);
         $this->game->object = serialize($state);
         $this->game->save();
@@ -182,7 +226,7 @@ class GameTestBase extends TestCase
 
     protected function setDiscard($shorthand) {
         $discard = $this->buildCardStackFromShorthand($shorthand);
-        $state = unserialize($this->game->object);
+        $state = $this->state();
         $state->activePlayer()->setDiscard($discard);
         $this->game->object = serialize($state);
         $this->game->save();
@@ -190,7 +234,7 @@ class GameTestBase extends TestCase
 
     protected function setOpponentDeck($shorthand) {
         $deck = $this->buildCardStackFromShorthand($shorthand);
-        $state = unserialize($this->game->object);
+        $state = $this->state();
         $state->secondaryPlayer()->setDeck($deck);
         $this->game->object = serialize($state);
         $this->game->save();
@@ -215,7 +259,7 @@ class GameTestBase extends TestCase
     }
 
     protected function assertHasCard($stub) {
-        $player = unserialize($this->game->object)->activePlayer();
+        $player = $this->state()->activePlayer();
 
         $existingStubs = [];
         foreach ($player->getHand() as $card) {
@@ -225,72 +269,72 @@ class GameTestBase extends TestCase
     }
 
     protected function assertHandSize($size) {
-        $player = unserialize($this->game->object)->activePlayer();
+        $player = $this->state()->activePlayer();
         $this->assertEquals(count($player->getHand()), $size);
     }
 
     protected function assertOpponentHandSize($size) {
-        $player = unserialize($this->game->object)->secondaryPlayer();
+        $player = $this->state()->secondaryPlayer();
         $this->assertEquals(count($player->getHand()), $size);
     }
 
     protected function assertDeckSize($size) {
-        $player = unserialize($this->game->object)->activePlayer();
+        $player = $this->state()->activePlayer();
         $this->assertEquals(count($player->getDeck()), $size);
     }
 
     protected function assertOpponentDeckSize($size) {
-        $player = unserialize($this->game->object)->secondaryPlayer();
+        $player = $this->state()->secondaryPlayer();
         $this->assertEquals(count($player->getDeck()), $size);
     }
 
     protected function assertDiscardSize($size) {
-        $player = unserialize($this->game->object)->activePlayer();
+        $player = $this->state()->activePlayer();
         $this->assertEquals(count($player->getDiscard()), $size);
     }
 
     protected function assertOpponentDiscardSize($size) {
-        $player = unserialize($this->game->object)->secondaryPlayer();
+        $player = $this->state()->secondaryPlayer();
         $this->assertEquals(count($player->getDiscard()), $size);
     }
 
     protected function assertActions($actions) {
-        $state = unserialize($this->game->object);
+        $state = $this->state();
         $this->assertEquals($state->actions(), $actions);
     }
 
     protected function assertNumberOfPlayed($number) {
-        $state = unserialize($this->game->object);
+        $state = $this->state();
         $this->assertEquals(count($state->activePlayer()->getPlayed()), $number);
     }
 
     protected function assertNumberOfBuys($number) {
-        $state = unserialize($this->game->object);
+        $state = $this->state();
         $this->assertEquals($state->buys(), $number);
     }
 
     protected function assertNumberOfCoins($coins) {
-        $state = unserialize($this->game->object);
+        $state = $this->state();
         $this->assertEquals($state->coins(), $coins);
     }
 
     protected function assertTrashSize($size) {
-        $state = unserialize($this->game->object);
+        $state = $this->state();
         $this->assertEquals(count($state->trash()), $size);
     }
 
     protected function assertAllCardsResolved() {
-        $state = unserialize($this->game->object);
+        $state = $this->state();
         $this->assertEquals($state->activePlayer()->hasUnresolvedCard(), false);
     }
 
     protected function assertNumberOfRemainingCards($stub, $number) {
-        $state = unserialize($this->game->object);
+        $state = $this->state();
         $this->assertEquals($state->kingdomCards()[$stub], $number);
     }
 
     protected function assertNumberOfSetAside($number) {
-        $state = unserialize($this->game->object);
+        $state = $this->state();
         $this->assertEquals(count($state->activePlayer()->getSetAside()), $number);
     }
 
@@ -309,16 +353,16 @@ class GameTestBase extends TestCase
     }
 
     protected function assertPhase($phase) {
-        $state = unserialize($this->game->object);
+        $state = $this->state();
         $this->assertEquals($state->phase(), $phase);
     }
 
     protected function log() {
-        return unserialize($this->game->object)->log();
+        return $this->state()->log();
     }
 
     protected function getPlayer() {
-        return unserialize($this->game->object)->activePlayer();
+        return $this->state()->activePlayer();
     }
 
     protected function assertLogCountEquals($count) {
@@ -328,12 +372,16 @@ class GameTestBase extends TestCase
     }
 
     protected function assertTurnNumber($turn) {
-        $game = unserialize($this->game->object);
+        $game = $this->state();
         $this->assertEquals($game->turn(), $turn);
     }
 
     protected function assertGameOver() {
-        $game = unserialize($this->game->object);
+        $game = $this->state();
         $this->assertEquals($game->isResolved(), true);
+    }
+
+    protected function state() {
+        return unserialize($this->game->object);
     }
 }

@@ -2,7 +2,9 @@
 
 namespace Tests\Acceptance\Game;
 
-class BuyTest extends GameTestBase
+use Tests\Acceptance\AcceptanceTestBase;
+
+class BuyTest extends AcceptanceTestBase
 {
     public function testBuy()
     {

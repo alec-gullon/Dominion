@@ -18,4 +18,8 @@ class Village extends Card {
         'play'
     );
 
+    protected $features = array(
+        'increasesActions'
+    );
+
 }

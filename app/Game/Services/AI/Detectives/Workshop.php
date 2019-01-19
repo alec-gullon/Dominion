@@ -8,8 +8,11 @@ class Workshop {
 
     private $state;
 
+    private $cardBuilder;
+
     public function __construct(State $state) {
         $this->state = $state;
+        $this->cardBuilder = resolve('\App\Services\CardBuilder');
     }
 
     public function decide() {
@@ -20,6 +23,26 @@ class Workshop {
                 'input' => 'estate'
             ];
         }
+
+        $kingdomCards = $this->state->kingdomCards();
+        foreach ($kingdomCards as $stub => $remaining) {
+            if ($remaining === 0) {
+                continue;
+            }
+            $card = $this->cardBuilder->build($stub);
+            if ($card->getValue() === 4) {
+                return [
+                    'action' => 'provide-input',
+                    'input' => $stub
+                ];
+            }
+        }
+
+        // gain a silver as a sensible default
+        return [
+            'action' => 'provide-input',
+            'input' => 'silver'
+        ];
     }
 
 }

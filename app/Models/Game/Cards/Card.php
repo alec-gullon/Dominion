@@ -24,6 +24,8 @@ class Card {
 
     protected $isVirtual = false;
 
+    protected $features = array();
+
     public function getValue() {
         return $this->value;
     }
@@ -92,6 +94,10 @@ class Card {
     public function alias() {
         $aliases = config('dominion.card-aliases');
         return $aliases[$this->stub()];
+    }
+
+    public function hasFeature($feature) {
+        return in_array($feature, $this->features);
     }
 
 }

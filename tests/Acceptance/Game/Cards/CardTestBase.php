@@ -5,9 +5,9 @@ namespace Tests\Acceptance\Game\Cards;
 use App\Game\Services\Updater;
 use App\Services\CardBuilder;
 
-use Tests\Acceptance\Game\GameTestBase;
+use Tests\Acceptance\AcceptanceTestBase;
 
-class CardTestBase extends GameTestBase
+class CardTestBase extends AcceptanceTestBase
 {
     protected function updateGame() {
         $updater = new Updater(unserialize($this->game->object), new CardBuilder);

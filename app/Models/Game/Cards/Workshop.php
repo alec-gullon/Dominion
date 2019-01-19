@@ -10,7 +10,7 @@ class Workshop extends Card {
 
     protected $name = 'Workshop';
 
-    protected $type = 'action';
+    protected $types = ['action'];
 
     protected $steps = array(
         'play',

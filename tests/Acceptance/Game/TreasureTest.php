@@ -2,7 +2,9 @@
 
 namespace Tests\Acceptance\Game;
 
-class TreasureTest extends GameTestBase
+use Tests\Acceptance\AcceptanceTestBase;
+
+class TreasureTest extends AcceptanceTestBase
 {
     public function testPlayTreasure()
     {
