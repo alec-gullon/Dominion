@@ -234,4 +234,9 @@ class State {
         $this->isResolved = true;
     }
 
+    public function aiPlaying() {
+        $player = $this->activePlayer();
+        return $player->isAi();
+    }
+
 }

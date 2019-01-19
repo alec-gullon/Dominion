@@ -19,7 +19,7 @@ class Updater {
         $this->state = $state;
     }
 
-    public function update($action, $input) {
+    public function update($action, $input = null) {
 
         // if the player has just played a card, decrease actions by 1 and move card to played
         if ($action === 'play-card') {
@@ -52,6 +52,13 @@ class Updater {
 
             $controller->{$method}();
         }
+
+        if (!$this->state->aiPlaying()) {
+            return;
+        }
+
+        $this->update('end-turn');
+        $this->resolve();
     }
 
     public function getState() {
