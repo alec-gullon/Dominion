@@ -20,6 +20,7 @@ Route::post('/user/get-name-form/', 'User@getNameForm')->name('user-input-name-f
 Route::post('/user/join-game/', 'User@joinGame')->name('user-join-game')->middleware('player');
 
 Route::post('/game/create/', 'Game@create')->name('game-create')->middleware('player');
+Route::post('/game/create-ai-game/', 'Game@createAIGame')->name('game-create-ai-game')->middleware('player');
 Route::post('/game/update/', 'Game@update')->name('game-update')->middleware('player');
 
 Route::get('/stub/', 'Home@stub');

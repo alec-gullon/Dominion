@@ -1,18 +1,13 @@
 <?php
 
-namespace App\Game\Services;
+namespace App\Game\Services\Setup;
 
 use App\Models\Game\Player;
 use App\Services\CardBuilder;
 
+class SetsUpGame {
 
-class SetsUpAIGame {
-
-    public function setup($game) {
-
-    }
-
-    private function defaultDeck() {
+    protected function defaultDeck() {
         $cardBuilder = new CardBuilder();
 
         $deck = [];
@@ -23,6 +18,14 @@ class SetsUpAIGame {
             $deck[] = $cardBuilder->build('copper');
         }
         return $deck;
+    }
+
+    protected function setUpPlayer($guid, $isAi = false) {
+        $player = new Player($guid, new CardBuilder(), $isAi);
+        $player->setDeck($this->defaultDeck());
+        $player->shuffleDeck();
+        $player->drawCards(5);
+        return $player;
     }
 
 }

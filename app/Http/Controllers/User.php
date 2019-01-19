@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Renderers\GameRenderer;
 use App\Models\User as UserModel;
 use App\Models\Game;
-use App\Game\Services\SetsUpNewPlayers;
+use App\Game\Services\Setup\SetsUpTwoPlayerGame;
 
 use Illuminate\Http\Request;
 
@@ -78,7 +78,7 @@ class User extends Controller {
     /**
      * Joins the game
      */
-    public function joinGame(SetsUpNewPlayers $setsUpNewPlayers, Request $request) {
+    public function joinGame(SetsUpTwoPlayerGame $setsUpNewPlayers, Request $request) {
         $user = $request->user;
         $game = Game::where('guid', $request->input('gameHash'))->first();
 

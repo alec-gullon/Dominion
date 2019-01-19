@@ -39,6 +39,20 @@ class GameTest extends TestCase
         $this->assertContains('A new game has been set up for you', $response);
     }
 
+    public function testItCreatesAnAIGame() {
+        $user = new \App\Models\User();
+        $user->name = 'Alec';
+        $user->game_id = 0;
+        $user->guid = 'alec';
+        $user->save();
+
+        $response = $this->post('/game/create-ai-game/', [
+            'guid' => 'alec'
+        ])->getContent();
+
+        $this->assertContains('Coins: 0', $response);
+    }
+
     protected function buildGame()
     {
         $game = new \App\Models\Game();
