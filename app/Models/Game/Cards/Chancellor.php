@@ -10,7 +10,7 @@ class Chancellor extends Card {
 
     protected $name = 'Chancellor';
 
-    protected $type = array(
+    protected $types = array(
         'action'
     );
 
