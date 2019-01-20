@@ -6,7 +6,7 @@ use App\Game\Controllers\StateController;
 
 class ActionController extends StateController {
 
-    protected function inputOn($active = false) {
+    protected function inputOn($active = true) {
         $this->state->setAwaitingPlayerInput($active);
     }
 
