@@ -384,4 +384,47 @@ class AcceptanceTestBase extends TestCase
     protected function state() {
         return unserialize($this->game->object);
     }
+
+    protected function setKingdom($kingdom) {
+        $state = $this->state();
+        $state->setKingdom($kingdom);
+        $this->game->object = serialize($state);
+        $this->game->save();
+    }
+
+    protected function assertTotalNumberOfCardsForOpponent($amount) {
+        $player = $this->state()->secondaryPlayer();
+        $total = count($player->getHand())
+            + count($player->getDiscard())
+            + count($player->getDeck());
+        $this->assertEquals($amount, $total);
+    }
+
+    protected function assertOpponentsNumberOfRemainingCards($stub, $amount) {
+        $player = $this->state()->secondaryPlayer();
+
+        $amountInPlay = 0;
+        $hand = $player->getHand();
+        foreach ($hand as $card) {
+            if ($card->stub() === $stub) {
+                $amountInPlay++;
+            }
+        }
+
+        $deck = $player->getDeck();
+        foreach ($deck as $card) {
+            if ($card->stub() === $stub) {
+                $amountInPlay++;
+            }
+        }
+
+        $discard = $player->getDiscard();
+        foreach ($discard as $card) {
+            if ($card->stub() === $stub) {
+                $amountInPlay++;
+            }
+        }
+
+        $this->assertEquals($amount, $amountInPlay);
+    }
 }

@@ -11,7 +11,8 @@ class Militia extends Card {
     protected $name = 'Militia';
 
     protected $types = array(
-        'action', 'attack'
+        'action',
+        'attack'
     );
 
     protected $steps = array(

@@ -27,11 +27,4 @@ class WorkshopTest extends AcceptanceTestBase {
         $this->assertNumberOfRemainingCards('smithy', 9);
     }
 
-    private function setKingdom($kingdom) {
-        $state = $this->state();
-        $state->setKingdom($kingdom);
-        $this->game->object = serialize($state);
-        $this->game->save();
-    }
-
 }

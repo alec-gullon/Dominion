@@ -10,13 +10,13 @@ class Remodel extends Card {
 
     protected $name = 'Remodel';
 
-    protected $type = 'action';
+    protected $types = ['action'];
 
-    protected $steps = array(
+    protected $steps = [
         'play',
         'trash-card',
         'gain-selected-card'
-    );
+    ];
 
     public $gainValue = 0;
 

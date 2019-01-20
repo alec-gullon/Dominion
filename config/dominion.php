@@ -29,6 +29,7 @@ return [
         'workshop'
     ],
     'card-aliases' => [
+        'remodel' => 'Remodel',
         'workshop' => 'Workshop'
     ],
     'game-routes' => [
