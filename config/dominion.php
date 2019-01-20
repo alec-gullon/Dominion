@@ -29,6 +29,7 @@ return [
         'workshop'
     ],
     'card-aliases' => [
+        'bureaucrat' => 'Bureaucrat',
         'remodel' => 'Remodel',
         'workshop' => 'Workshop'
     ],

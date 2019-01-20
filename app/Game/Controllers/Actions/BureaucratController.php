@@ -9,7 +9,7 @@ class BureaucratController extends ActionController {
 
         if ($this->state->hasMoat()) {
             $this->nextStep('resolve-moat');
-            $this->inputOn();
+            $this->inputOn(false);
             return;
         }
         $this->resolveAttackIfNecessary();
@@ -33,7 +33,7 @@ class BureaucratController extends ActionController {
             return $this->resolveCard();
         }
         $this->nextStep('resolve-attack');
-        $this->inputOn();
+        $this->inputOn(false);
     }
 
 }

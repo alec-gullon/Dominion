@@ -106,7 +106,7 @@ class CardTestBase extends AcceptanceTestBase
         $state = unserialize($this->game->object);
         $player = $state->activePlayer();
         $player->playVirtualCard($card);
-        $state->togglePlayerInput(false);
+        $state->removePlayerInput();
         $this->game->object = serialize($state);
         $this->game->save();
         $this->updateGame();

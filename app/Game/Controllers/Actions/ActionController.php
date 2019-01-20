@@ -6,12 +6,12 @@ use App\Game\Controllers\StateController;
 
 class ActionController extends StateController {
 
-    protected function inputOn() {
-        $this->state->togglePlayerInput(true);
+    protected function inputOn($active = false) {
+        $this->state->setAwaitingPlayerInput($active);
     }
 
     protected function inputOff() {
-        $this->state->togglePlayerInput(false);
+        $this->state->removePlayerInput();
     }
 
     protected function activePlayer() {

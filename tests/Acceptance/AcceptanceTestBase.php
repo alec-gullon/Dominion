@@ -172,7 +172,7 @@ class AcceptanceTestBase extends TestCase
         $state = $this->state();
         $player = $state->activePlayer();
         $player->playVirtualCard($card);
-        $state->togglePlayerInput(false);
+        $state->togglePlayerInput();
         $this->game->object = serialize($state);
         $this->game->save();
         $this->updateGame();

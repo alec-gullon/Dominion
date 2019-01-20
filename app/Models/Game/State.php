@@ -23,7 +23,7 @@ class State {
 
     private $activePlayerId;
 
-    private $needPlayerInput = true;
+    private $awaitingPlayerInputId = null;
 
     private $coins = 0;
 
@@ -152,7 +152,7 @@ class State {
     }
 
     public function needPlayerInput() {
-        return $this->needPlayerInput;
+        return $this->awaitingPlayerInputId !== null;
     }
 
     public function cheapestCardAmount($type = 'all') {
@@ -226,8 +226,16 @@ class State {
         $player->trashCard($stub, $where);
     }
 
-    public function togglePlayerInput($bool) {
-        $this->needPlayerInput = $bool;
+    public function setAwaitingPlayerInput($active = true) {
+        if ($active) {
+            $this->awaitingPlayerInputId = $this->activePlayer()->getId();
+        } else {
+            $this->awaitingPlayerInputId = $this->secondaryPlayer()->getId();
+        }
+    }
+
+    public function removePlayerInput() {
+        $this->awaitingPlayerInputId = null;
     }
 
     public function resolveGame() {
@@ -235,7 +243,11 @@ class State {
     }
 
     public function aiPlaying() {
-        $player = $this->activePlayer();
+        if ($this->awaitingPlayerInputId) {
+            $player = $this->getPlayerById($this->awaitingPlayerInputId);
+        } else {
+            $player = $this->activePlayer();
+        }
         return $player->isAi();
     }
 
