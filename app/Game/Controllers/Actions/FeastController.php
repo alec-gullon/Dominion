@@ -21,6 +21,7 @@ class FeastController extends ActionController {
         $this->gainCard($stub);
         if (!$feastCard->isVirtual()) {
             $this->state->trashCard('feast', 'played');
+            $this->inputOff();
         } else {
             $this->resolveCard();
         }

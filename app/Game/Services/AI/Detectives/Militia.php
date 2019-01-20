@@ -4,8 +4,60 @@ namespace App\Game\Services\AI\Detectives;
 
 class Militia extends CardDetective {
 
-    public function decide() {
+    public function resolveMoat() {
+        return [
+            'action' => 'provide-input',
+            'input' => true
+        ];
+    }
 
+    public function resolveAttack() {
+        $cardsToDiscard = [];
+        $valuesInHand = [];
+        $handCards = $this->state->secondaryPlayer()->getHand();
+
+        $numberOfCardsToDiscard = count($handCards) - 3;
+        foreach ($handCards as $key => $card) {
+            if (count($cardsToDiscard) === $numberOfCardsToDiscard) {
+                break;
+            }
+            if ($card->hasType('victory')) {
+                $cardsToDiscard[] = $key;
+            }
+
+            if (!in_array($card->getValue(), $valuesInHand)) {
+                $valuesInHand[] = $card->getValue();
+            }
+        }
+
+        sort($valuesInHand);
+
+        foreach ($valuesInHand as $value) {
+            if (count($cardsToDiscard) === $numberOfCardsToDiscard) {
+                break;
+            }
+            foreach ($handCards as $key => $card) {
+                if (count($cardsToDiscard) === $numberOfCardsToDiscard) {
+                    break;
+                }
+                if (in_array($key, $cardsToDiscard)) {
+                    continue;
+                }
+                if ($card->getValue() === $value) {
+                    $cardsToDiscard[] = $key;
+                }
+            }
+        }
+
+        $stubsToDiscard = [];
+        foreach ($cardsToDiscard as $key) {
+            $stubsToDiscard[] = $handCards[$key]->stub();
+        }
+
+        return [
+            'action' => 'provide-input',
+            'input' => $stubsToDiscard
+        ];
     }
 
 }

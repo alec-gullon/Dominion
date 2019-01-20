@@ -22,7 +22,7 @@ class MineController extends ActionController {
 
         $cheapestTreasure = $this->state->cheapestCardAmount('treasure');
 
-        if ($cheapestTreasure !== null) {
+        if ($cheapestTreasure !== null && $cheapestTreasure < $mineCard->treasureValue) {
             $this->nextStep('gain-treasure');
             return $this->inputOn();
         }

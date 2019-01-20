@@ -10,7 +10,7 @@ class Feast extends Card {
 
     protected $name = 'Feast';
 
-    protected $type = array(
+    protected $types = array(
         'action'
     );
 

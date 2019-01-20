@@ -9,7 +9,7 @@ class WitchController extends ActionController {
 
         if ($this->state->hasMoat()) {
             $this->nextStep('resolve-moat');
-            return $this->inputOn();
+            return $this->inputOn(false);
         }
         $this->nextStep('resolve-attack');
     }

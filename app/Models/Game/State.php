@@ -152,7 +152,7 @@ class State {
     }
 
     public function needPlayerInput() {
-        return $this->awaitingPlayerInputId !== null;
+        return ($this->awaitingPlayerInputId !== null);
     }
 
     public function cheapestCardAmount($type = 'all') {

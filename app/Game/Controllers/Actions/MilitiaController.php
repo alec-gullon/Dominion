@@ -11,7 +11,7 @@ class MilitiaController extends ActionController {
 
         if ($this->state->hasMoat()) {
             $this->nextStep('resolve-moat');
-            return $this->inputOn();
+            return $this->inputOn(false);
         }
         $this->resolveAttackIfNecessary();
     }
@@ -33,7 +33,7 @@ class MilitiaController extends ActionController {
 
         if ($cardsInHand > 3) {
             $this->nextStep('resolve-attack');
-            return $this->inputOn();
+            return $this->inputOn(false);
         }
 
         $message = 'is unaffected since they have ' . $this->numberMappings[$cardsInHand] . ' cards in hand';

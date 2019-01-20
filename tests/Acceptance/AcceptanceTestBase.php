@@ -427,4 +427,17 @@ class AcceptanceTestBase extends TestCase
 
         $this->assertEquals($amount, $amountInPlay);
     }
+
+    protected function assertOpponentDiscardContains($stub) {
+        $discard = $this->state()->secondaryPlayer()->getDiscard();
+
+        $isTrue = false;
+        foreach ($discard as $card) {
+            if ($card->stub() === $stub) {
+                $isTrue = true;
+            }
+        }
+
+        $this->assertEquals($isTrue, true);
+    }
 }
