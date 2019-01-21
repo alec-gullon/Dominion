@@ -27,4 +27,40 @@ class StringHelper {
         return lcfirst($method);
     }
 
+    public static function describeCardStack($cardStack) {
+        $cardAmounts = [];
+        foreach ($cardStack as $card) {
+            $name = $card->getName();
+            if (!isset($cardAmounts[$name])) {
+                $cardAmounts[$name] = [
+                    'amount' => 0,
+                    'card' => $card
+                ];
+            }
+            $cardAmounts[$name]['amount']++;
+        }
+
+        $descriptor = '';
+
+        $i = 1;
+        foreach ($cardAmounts as $name => $details) {
+            $amount = $details['amount'];
+            $card = $details['card'];
+            if ($amount === 1) {
+                $descriptor .= ' ' . $card->nameWithArticlePrefix();
+            } else {
+                $descriptor  .= ' ' . config('dominion.number-mappings')[$amount] . ' ' . $card->pluralFormOfName();
+            }
+
+            if ($i === count($cardAmounts) - 1) {
+                $descriptor .= ' and';
+            } else if ($i < count($cardAmounts) - 1) {
+                $descriptor .= ',';
+            }
+
+            $i++;
+        }
+        return $descriptor;
+    }
+
 }

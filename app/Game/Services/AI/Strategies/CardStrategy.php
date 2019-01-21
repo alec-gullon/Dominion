@@ -15,7 +15,7 @@ class CardStrategy {
         $this->cardBuilder = resolve('\App\Services\CardBuilder');
     }
 
-    protected function resolveMoat() {
+    public function resolveMoat() {
         return true;
     }
 
