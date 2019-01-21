@@ -30,8 +30,8 @@ class TurnTest extends AcceptanceTestBase
         $this->setNumberOfCardsRemaining('curse', 0);
         $this->setNumberOfCardsRemaining('estate', 1);
 
-        $this->playCard('copper');
-        $this->playCard('copper');
+        $this->playTreasure('copper');
+        $this->playTreasure('copper');
         $this->postUpdate('buy', 'estate');
         $this->postUpdate('end-turn');
 

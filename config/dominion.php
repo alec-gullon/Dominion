@@ -45,6 +45,7 @@ return [
         'moneylender' => 'Moneylender',
         'remodel' => 'Remodel',
         'smithy' => 'Smithy',
+        'spy' => 'Spy',
         'thief' => 'Thief',
         'throne-room' => 'ThroneRoom',
         'village' => 'Village',
