@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Game\Services\AI\Detectives;
+namespace App\Game\Services\AI\Strategies;
 
-class Cellar extends CardDetective {
+class Cellar extends CardStrategy {
 
     public function discardSelectedCards() {
         $handCards = $this->state->activePlayer()->getHand();
@@ -14,10 +14,7 @@ class Cellar extends CardDetective {
             }
         }
 
-        return [
-            'action' => 'provide-input',
-            'input' => $cardsToDiscard
-        ];
+        return $cardsToDiscard;
     }
 
 }

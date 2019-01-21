@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Game\Services\AI\Detectives;
+namespace App\Game\Services\AI\Strategies;
 
 use App\Models\Game\State;
 
-class CardDetective {
+class CardStrategy {
 
     protected $state;
 
@@ -13,6 +13,10 @@ class CardDetective {
     public function __construct(State $state) {
         $this->state = $state;
         $this->cardBuilder = resolve('\App\Services\CardBuilder');
+    }
+
+    protected function resolveMoat() {
+        return true;
     }
 
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Game\Services\AI\Detectives;
+namespace App\Game\Services\AI\Strategies;
 
-class Chapel extends CardDetective {
+class Chapel extends CardStrategy {
 
     private $trashableCards = [
         'estate',
@@ -20,10 +20,7 @@ class Chapel extends CardDetective {
             }
         }
 
-        return [
-            'action' => 'provide-input',
-            'input' => $cardsToTrash
-        ];
+        return $cardsToTrash;
     }
 
 }

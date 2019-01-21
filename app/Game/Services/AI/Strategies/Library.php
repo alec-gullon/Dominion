@@ -1,21 +1,17 @@
 <?php
 
-namespace App\Game\Services\AI\Detectives;
+namespace App\Game\Services\AI\Strategies;
 
-class Library extends CardDetective {
+class Library extends CardStrategy {
 
     public function setAsideCard() {
         $actionCardsInHand = $this->state->activePlayer()->getCardsOfType('hand', 'action');
         $actionCardsInHand = count($actionCardsInHand);
 
-        $decision = false;
         if ($actionCardsInHand <= $this->state->actions()) {
-            $decision = true;
+            return true;
         }
-        return [
-            'action' => 'provide-input',
-            'input' => $decision
-        ];
+        return false;
 
     }
 

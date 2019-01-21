@@ -1,16 +1,13 @@
 <?php
 
-namespace App\Game\Services\AI\Detectives;
+namespace App\Game\Services\AI\Strategies;
 
-class Workshop extends CardDetective {
+class Workshop extends CardStrategy {
 
     public function gainSelectedCard() {
         // if it's a game ending situation, grab an estate, otherwise gain a random 4 cost card
         if ($this->state->checkGameOver() && $this->state->hasCard('estate')) {
-            return [
-                'action' => 'provide-input',
-                'input' => 'estate'
-            ];
+            return 'estate';
         }
 
         $kingdomCards = $this->state->kingdomCards();
@@ -20,18 +17,12 @@ class Workshop extends CardDetective {
             }
             $card = $this->cardBuilder->build($stub);
             if ($card->getValue() === 4) {
-                return [
-                    'action' => 'provide-input',
-                    'input' => $stub
-                ];
+                return $stub;
             }
         }
 
         // gain a silver as a sensible default
-        return [
-            'action' => 'provide-input',
-            'input' => 'silver'
-        ];
+        return 'silver';
     }
 
 }

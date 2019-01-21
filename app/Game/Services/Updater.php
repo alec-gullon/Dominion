@@ -13,14 +13,14 @@ class Updater {
 
     private $state;
 
-    private $detective;
+    private $ai;
 
     public function __construct(State $state, CardBuilder $cardBuilder) {
         $this->cardBuilder = $cardBuilder;
         $this->cartographer = new Router($state, $cardBuilder);
         $this->state = $state;
-        $this->detective = resolve('\App\Game\Services\AI\Detective');
-        $this->detective->setState($this->state);
+        $this->ai = resolve('\App\Game\Services\AI\AI');
+        $this->ai->setState($this->state);
     }
 
     public function update($action, $input = null) {
@@ -62,7 +62,7 @@ class Updater {
         }
 
         // let the ai make a decision about what to do, then pass that decision into the update method
-        $decision = $this->detective->decision();
+        $decision = $this->ai->decision();
 
         $this->update($decision['action'], $decision['input']);
         $this->resolve();

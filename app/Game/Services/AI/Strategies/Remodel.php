@@ -1,18 +1,15 @@
 <?php
 
-namespace App\Game\Services\AI\Detectives;
+namespace App\Game\Services\AI\Strategies;
 
-class Remodel extends CardDetective {
+class Remodel extends CardStrategy {
 
     public function trashCard() {
         // start by trashing an estate, if it is possible
         $handCards = $this->state->activePlayer()->getHand();
         foreach ($handCards as $handCard) {
             if ($handCard->stub() === 'estate') {
-                return [
-                    'action' => 'provide-input',
-                    'input' => 'estate'
-                ];
+                return 'estate';
             }
         }
     }
@@ -45,10 +42,7 @@ class Remodel extends CardDetective {
             }
         }
 
-        return [
-            'action' => 'provide-input',
-            'input' => $chosenStub
-        ];
+        return $chosenStub;
     }
 
 }

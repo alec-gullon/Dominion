@@ -1,15 +1,8 @@
 <?php
 
-namespace App\Game\Services\AI\Detectives;
+namespace App\Game\Services\AI\Strategies;
 
-class Militia extends CardDetective {
-
-    public function resolveMoat() {
-        return [
-            'action' => 'provide-input',
-            'input' => true
-        ];
-    }
+class Militia extends CardStrategy {
 
     public function resolveAttack() {
         $cardsToDiscard = [];
@@ -54,10 +47,7 @@ class Militia extends CardDetective {
             $stubsToDiscard[] = $handCards[$key]->stub();
         }
 
-        return [
-            'action' => 'provide-input',
-            'input' => $stubsToDiscard
-        ];
+        return $stubsToDiscard;
     }
 
 }

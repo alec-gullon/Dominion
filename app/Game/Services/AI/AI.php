@@ -4,10 +4,9 @@ namespace App\Game\Services\AI;
 
 use App\Game\Helpers\StringHelper;
 
-use App\Models\Game\State;
 use App\Services\CardBuilder;
 
-class Detective {
+class AI {
 
     private $state;
 
@@ -32,9 +31,12 @@ class Detective {
             $nextStep = $this->state->activePlayer()->unresolvedCard()->getNextStep();
             $method = StringHelper::methodFromCardAction($nextStep);
 
-            $detective = 'App\Game\Services\AI\Detectives\\' . $alias;
-            $detective = new $detective($this->state);
-            return $detective->$method();
+            $strategy = 'App\Game\Services\AI\Strategies\\' . $alias;
+            $strategy = new $strategy($this->state);
+            return [
+                'action' => 'provide-input',
+                'input' => $strategy->$method()
+            ];
         }
 
         // if we aren't resolving a card, start by playing an action card if possible
