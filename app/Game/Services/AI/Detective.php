@@ -2,6 +2,8 @@
 
 namespace App\Game\Services\AI;
 
+use App\Game\Helpers\StringHelper;
+
 use App\Models\Game\State;
 use App\Services\CardBuilder;
 
@@ -26,17 +28,13 @@ class Detective {
     public function decision() {
 
         if ($this->state->activePlayer()->hasUnresolvedCard()) {
-            $unresolvedCard = $this->state->activePlayer()->unresolvedCard()->alias();
+            $alias = $this->state->activePlayer()->unresolvedCard()->alias();
             $nextStep = $this->state->activePlayer()->unresolvedCard()->getNextStep();
-            $nextStep = explode('/', $nextStep)[1];
-            $nextStepParts = explode('-', $nextStep);
-            $nextStep = '';
-            foreach ($nextStepParts as $nextStepPart) {
-                $nextStep .= ucfirst($nextStepPart);
-            }
-            $detective = 'App\Game\Services\AI\Detectives\\' . $unresolvedCard;
+            $method = StringHelper::methodFromCardAction($nextStep);
+
+            $detective = 'App\Game\Services\AI\Detectives\\' . $alias;
             $detective = new $detective($this->state);
-            return $detective->$nextStep();
+            return $detective->$method();
         }
 
         // if we aren't resolving a card, start by playing an action card if possible

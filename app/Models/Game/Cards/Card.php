@@ -2,6 +2,8 @@
 
 namespace App\Models\Game\Cards;
 
+use App\Game\Helpers\StringHelper;
+
 class Card {
 
     protected $value;
@@ -92,8 +94,7 @@ class Card {
     }
 
     public function alias() {
-        $aliases = config('dominion.card-aliases');
-        return $aliases[$this->stub()];
+        return StringHelper::cardAliasFromStub($this->stub);
     }
 
     public function hasFeature($feature) {

@@ -28,32 +28,7 @@ return [
         'woodcutter',
         'workshop'
     ],
-    'card-aliases' => [
-        'bureaucrat' => 'Bureaucrat',
-        'cellar' => 'Cellar',
-        'chancellor' => 'Chancellor',
-        'chapel' => 'Chapel',
-        'council-room' => 'CouncilRoom',
-        'feast' => 'Feast',
-        'festival' => 'Festival',
-        'laboratory' => 'Laboratory',
-        'library' => 'Library',
-        'market' => 'Market',
-        'militia' => 'Militia',
-        'mine' => 'Mine',
-        'moat' => 'Moat',
-        'moneylender' => 'Moneylender',
-        'remodel' => 'Remodel',
-        'smithy' => 'Smithy',
-        'spy' => 'Spy',
-        'thief' => 'Thief',
-        'throne-room' => 'ThroneRoom',
-        'village' => 'Village',
-        'witch' => 'Witch',
-        'woodcutter' => 'Woodcutter',
-        'workshop' => 'Workshop'
-    ],
-    'game-routes' => [
+    'routes' => [
         'play-treasure' => 'Treasure@playTreasure',
         'end-turn' => 'Turn@endTurn',
         'buy' => 'Buy@buy',

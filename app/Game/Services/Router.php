@@ -25,7 +25,7 @@ class Router {
     }
 
     public function method($action) {
-        $routes = config('dominion.game-routes');
+        $routes = config('dominion.routes');
         if (isset($routes[$action])) {
             return $this->getMethodFromRoutes($action);
         }
@@ -68,7 +68,7 @@ class Router {
     }
 
     private function buildClassFromAction($group, $action) {
-        $routes = config('dominion.game-routes');
+        $routes = config('dominion.routes');
         if (isset($routes[$action])) {
             $classString = $this->getClassFromRoutes($action);
             $classString = 'App\Game\\' . $group . 's\\' . $classString . $group;
@@ -80,14 +80,14 @@ class Router {
     }
 
     private function getClassFromRoutes($action) {
-        $routes = config('dominion.game-routes');
+        $routes = config('dominion.routes');
         $route = $routes[$action];
         $parts = explode('@', $route);
         return $parts[0];
     }
 
     private function getMethodFromRoutes($action) {
-        $routes = config('dominion.game-routes');
+        $routes = config('dominion.routes');
         $route = $routes[$action];
         $parts = explode('@', $route);
         return $parts[1];
