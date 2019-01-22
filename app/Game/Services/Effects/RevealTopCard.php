@@ -21,6 +21,7 @@ class RevealTopCard extends Base {
             $card = $player->topCard();
             $entry .= ' reveals ' . $card->nameWithArticlePrefix() . ' from the top of their deck';
         }
+
         $this->addToLog($entry);
     }
 

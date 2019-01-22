@@ -16,6 +16,7 @@ class SetAsideTopCard extends Base {
             . $this->state->activePlayer()->getName()
             . ' sets aside '
             . $card->nameWithArticlePrefix();
+
         $this->addToLog($entry);
     }
 

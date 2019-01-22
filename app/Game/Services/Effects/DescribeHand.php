@@ -7,9 +7,9 @@ class DescribeHand extends Base {
     public function description() {
         $player = $this->params['player'];
 
-        $cards = $player->getHand();
         $entry = '.. ' . $player->getName() . ' reveals a hand of';
-        $entry .= $this->describeCardList($cards);
+        $entry .= $this->describeCardList($player->getHand());
+
         $this->addToLog($entry);
     }
 

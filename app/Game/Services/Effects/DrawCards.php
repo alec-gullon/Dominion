@@ -21,13 +21,15 @@ class DrawCards extends Base {
         $amount = $this->params['amount'];
         $player = $this->params['player'];
 
+        $entry = '.. ' . $player->getName();
         if ($amount === 0) {
-            $entry = '.. ' . $player->getName() . ' draws nothing';
+            $entry .= ' draws nothing';
         } else if ($amount === 1) {
-            $entry = '.. ' . $player->getName() . ' draws a card';
+            $entry .= ' draws a card';
         } else {
-            $entry = '.. ' . $player->getName() . ' draws ' . $this->numberMappings[$amount] . ' cards';
+            $entry .= ' draws ' . $this->numberMappings[$amount] . ' cards';
         }
+
         $this->addToLog($entry);
     }
 

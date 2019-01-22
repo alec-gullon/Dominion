@@ -33,4 +33,8 @@ class Base {
         return StringHelper::describeCardStack($cardStack);
     }
 
+    protected function activePlayerName() {
+        return $this->state->activePlayer()->getName();
+    }
+
 }

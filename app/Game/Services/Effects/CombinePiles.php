@@ -13,15 +13,13 @@ class CombinePiles extends Base {
     }
 
     public function description() {
-        $from = $this->params['from'];
-        $where = $this->params['to'];
-
         $entry = '.. '
             . $this->state->activePlayer()->getName()
             . ' puts their '
-            . $from
+            . $this->params['from']
             . ' into their '
-            . $where;
+            . $this->params['to'];
+
         $this->addToLog($entry);
     }
 

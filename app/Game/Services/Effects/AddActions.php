@@ -5,13 +5,18 @@ namespace App\Game\Services\Effects;
 class AddActions extends Base {
 
     public function effect() {
-        $amount = $this->params['amount'];
-        $this->state->addActions($amount);
+        $this->state->addActions($this->params['amount']);
+        $this->description();
+    }
 
+    public function description() {
+        $amount = $this->params['amount'];
+
+        $entry = '.. ' . $this->activePlayerName() . ' gains';
         if ($amount === 1) {
-            $entry = '.. ' . $this->state->activePlayer()->getName() . ' gains an action';
+            $entry .= ' an action';
         } else {
-            $entry = '.. ' . $this->state->activePlayer()->getName() . ' gains ' . $this->numberMappings[$amount] . ' actions';
+            $entry .= ' ' . $this->numberMappings[$amount] . ' actions';
         }
         $this->addToLog($entry);
     }

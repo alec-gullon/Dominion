@@ -2,6 +2,8 @@
 
 namespace App\Game\Services\Effects;
 
+use App\Services\CardBuilder;
+
 class TrashCards extends Base {
 
     public function effect() {
@@ -10,18 +12,14 @@ class TrashCards extends Base {
     }
 
     public function description() {
-        $cards = $this->params['cards'];
+        $cards = CardBuilder::buildMultiple($this->params['cards']);
 
-        $entry = '.. ' . $this->state->activePlayer()->getName() . ' trashes';
+        $entry = '.. ' . $this->activePlayerName() . ' trashes';
 
         if (count($cards) === 0) {
             $entry .= ' nothing';
         } else {
-            $cardStack = [];
-            foreach ($cards as $stub) {
-                $cardStack[] = $this->cardBuilder->build($stub);
-            }
-            $entry .= $this->describeCardlist($cardStack);
+            $entry .= $this->describeCardlist($cards);
         }
         $this->addToLog($entry);
     }

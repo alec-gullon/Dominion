@@ -7,9 +7,10 @@ class DescribeRevealedCards extends Base {
     public function description() {
         $player = $this->params['player'];
 
-        $entry = '.. ' . $player->getName() . ' reveals';
-        $revealedCards = $player->revealed();
-        $entry .= $this->describeCardList($revealedCards);
+        $entry = '.. ' . $player->getName()
+            . ' reveals'
+            . $this->describeCardList($player->revealed());
+
         $this->addToLog($entry);
     }
 

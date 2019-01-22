@@ -5,13 +5,18 @@ namespace App\Game\Services\Effects;
 class AddBuys extends Base {
 
     public function effect() {
-        $amount = $this->params['amount'];
-        $this->state->addBuys($amount);
+        $this->state->addBuys($this->params['amount']);
+        $this->description();
+    }
 
+    public function description() {
+        $amount = $this->params['amount'];
+
+        $entry = '.. ' . $this->activePlayerName() . ' gains';
         if ($amount === 1) {
-            $entry = '.. ' . $this->state->activePlayer()->getName() . ' gains a buy';
+            $entry .= ' a buy';
         } else {
-            $entry = '.. ' . $this->state->activePlayer()->getName() . ' gains ' . $this->numberMappings[$amount] . ' buys';
+            $entry .= ' ' . $this->numberMappings[$amount] . ' buys';
         }
         $this->addToLog($entry);
     }
