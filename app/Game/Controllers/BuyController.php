@@ -9,7 +9,7 @@ class BuyController extends StateController {
     }
 
     public function buy($stub) {
-        $selectedCard = $this->cardBuilder->build($stub);
+        $selectedCard = $this->buildCard($stub);
 
         $this->state->deductCoins($selectedCard->getValue());
         $this->state->deductBuys(1);

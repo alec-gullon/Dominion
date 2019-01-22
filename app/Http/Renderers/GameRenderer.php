@@ -2,7 +2,7 @@
 
 namespace App\Http\Renderers;
 
-use App\Services\CardBuilder;
+use App\Services\Factories\CardFactory;
 use App\Services\GameObserver;
 
 class GameRenderer {
@@ -11,9 +11,9 @@ class GameRenderer {
         $state = unserialize($game->object);
 
         $view = view('game.index', [
-            'cardBuilder' => new \App\Services\CardBuilder(),
+            'cardFactory' => new CardFactory(),
             'state' => $state,
-            'gameObserver' => new \App\Services\GameObserver($state),
+            'gameObserver' => new GameObserver($state),
             'playerKey' => $user->guid
         ])->render();
 
@@ -30,7 +30,7 @@ class GameRenderer {
 
         foreach ($game->users as $user) {
             $view = view('game.index', [
-                'cardBuilder' => new CardBuilder(),
+                'cardFactory' => new CardFactory(),
                 'state' => $state,
                 'gameObserver' => new GameObserver($state),
                 'playerKey' => $user->guid

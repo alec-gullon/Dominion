@@ -3,7 +3,7 @@
         <?php $stubs = ['estate', 'duchy', 'province']; ?>
         @foreach ($stubs as $stub)
             <?php
-                $card = $cardBuilder->build($stub);
+                $card = App\Services\Factories\CardFactory::build($stub);
                 $class = 'card card--victory';
                 if ($gameObserver->canBuy($stub, $playerKey)) {
                     $class = 'card card--victory card--active';
@@ -18,7 +18,7 @@
         <?php $stubs = ['copper', 'silver', 'gold']; ?>
         @foreach ($stubs as $stub)
             <?php
-                $card = $cardBuilder->build($stub);
+                $card = App\Services\Factories\CardFactory::build($stub);
                 $class = 'card card--treasure';
                 if ($gameObserver->canBuy($stub, $playerKey)) {
                     $class = 'card card--treasure card--active';
@@ -31,7 +31,7 @@
     </div>
     <div class="standard-cards__list">
         <?php
-            $card = $cardBuilder->build('curse');
+            $card = App\Services\Factories\CardFactory::build('curse');
             $class = 'card card--curse';
             if ($gameObserver->canBuy($stub, $playerKey)) {
                 $class = 'card card--curse card--active';

@@ -5,7 +5,7 @@
 <div class="kingdom">
 @for ($i = 6; $i >= 2; $i--)
     @foreach ($cards as $stub => $amount)
-        <?php $card = $cardBuilder->build($stub); ?>
+        <?php $card = App\Services\Factories\CardFactory::build($stub); ?>
         @if ($card->getValue() === $i)
             <div class="kingdom__divider">
                 <div class="kingdom__coin-wrapper">
@@ -18,7 +18,7 @@
 
     <div class="kingdom__card-group">
         @foreach ($cards as $stub => $amount)
-            <?php $card = $cardBuilder->build($stub); ?>
+            <?php $card = App\Services\Factories\CardFactory::build($stub); ?>
             @if ($card->getValue() === $i)
                 @if ($gameObserver->canBuy($stub, $playerKey))
                     <div class="card card--active" data-action="buy-card" data-stub="<?= $card->stub() ?>">

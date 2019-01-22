@@ -11,7 +11,7 @@ class MineValidator extends ActionValidator {
     public function gainTreasure($input) {
         $mineCard = $this->state->activePlayer()->unresolvedCard();
 
-        $card = $this->cardBuilder->build($input);
+        $card = $this->makeCard($input);
         if ($card->getValue() > $mineCard->treasureValue) {
             return false;
         }

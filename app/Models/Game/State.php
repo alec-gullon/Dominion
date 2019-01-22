@@ -2,7 +2,7 @@
 
 namespace App\Models\Game;
 
-use App\Services\CardBuilder;
+use App\Services\Factories\CardFactory;
 
 class State {
 
@@ -39,11 +39,8 @@ class State {
 
     private $log;
 
-    private $cardBuilder;
-
-    public function __construct(Log $log, CardBuilder $cardBuilder) {
+    public function __construct(Log $log) {
         $this->log = $log;
-        $this->cardBuilder = $cardBuilder;
     }
 
     public function log() {
@@ -158,7 +155,7 @@ class State {
     public function cheapestCardAmount($type = 'all') {
         $cheapest = 1000;
         foreach ($this->kingdom as $stub => $amount) {
-            $card = $this->cardBuilder->build($stub);
+            $card = CardFactory::build($stub);
             if (    $amount > 0
                 && ($type === 'all' || $card->hasType($type))
             ) {

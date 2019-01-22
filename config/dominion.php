@@ -1,32 +1,17 @@
 <?php
 
 return [
-    'kingdom-cards' => [
-        'adventurer',
-        'bureaucrat',
-        'cellar',
-        'chancellor',
-        'chapel',
-        'council-room',
-        'feast',
-        'festival',
-        'garden',
-        'laboratory',
-        'library',
-        'market',
-        'militia',
-        'mine',
-        'moat',
-        'moneylender',
-        'remodel',
-        'smithy',
-        'spy',
-        'thief',
-        'throne-room',
+    'approved-kingdom-cards' => [
         'village',
-        'witch',
+        'smithy',
         'woodcutter',
-        'workshop'
+        'witch',
+        'council-room',
+        'market',
+        'festival',
+        'adventurer',
+        'laboratory',
+        'gardens'
     ],
     'routes' => [
         'play-treasure' => 'Treasure@playTreasure',

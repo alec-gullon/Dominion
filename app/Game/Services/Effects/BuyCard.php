@@ -2,6 +2,8 @@
 
 namespace App\Game\Services\Effects;
 
+use App\Services\Factories\CardFactory;
+
 class BuyCard extends Base {
 
     public function effect() {
@@ -10,7 +12,7 @@ class BuyCard extends Base {
     }
 
     public function description() {
-        $card = $this->cardBuilder->build($this->params['card']);
+        $card = CardFactory::build($this->params['card']);
 
         $description = '.. '
             . $this->activePlayerName()

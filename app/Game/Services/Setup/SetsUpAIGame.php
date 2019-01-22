@@ -13,6 +13,7 @@ class SetsUpAIGame extends SetsUpGame {
 
         $state->setPlayers([$player1, $player2]);
         $state->setActivePlayerId($player1->getId());
+        $state->setKingdom($this->generatesRandomKingdom->generate());
 
         $game->object = serialize($state);
         return $game;

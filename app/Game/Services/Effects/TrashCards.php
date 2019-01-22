@@ -2,7 +2,7 @@
 
 namespace App\Game\Services\Effects;
 
-use App\Services\CardBuilder;
+use App\Services\Factories\CardFactory;
 
 class TrashCards extends Base {
 
@@ -12,7 +12,7 @@ class TrashCards extends Base {
     }
 
     public function description() {
-        $cards = CardBuilder::buildMultiple($this->params['cards']);
+        $cards = CardFactory::buildMultiple($this->params['cards']);
 
         $entry = '.. ' . $this->activePlayerName() . ' trashes';
 

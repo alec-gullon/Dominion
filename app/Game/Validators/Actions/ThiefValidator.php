@@ -9,7 +9,7 @@ class ThiefValidator extends ActionValidator {
     }
 
     public function resolveAttack($input) {
-        $card = $this->cardBuilder->build($input);
+        $card = $this->makeCard($input);
         if (!$card->hasType('treasure')) {
             return false;
         }

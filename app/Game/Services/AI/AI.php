@@ -4,7 +4,7 @@ namespace App\Game\Services\AI;
 
 use App\Game\Helpers\StringHelper;
 
-use App\Services\CardBuilder;
+use App\Services\Factories\CardFactory;
 
 class AI {
 
@@ -12,11 +12,8 @@ class AI {
 
     private $gameAnalyser;
 
-    private $cardBuilder;
-
-    public function __construct(GameAnalyser $gameAnalyser, CardBuilder $cardBuilder) {
+    public function __construct(GameAnalyser $gameAnalyser) {
         $this->gameAnalyser = $gameAnalyser;
-        $this->cardBuilder = $cardBuilder;
     }
 
     public function setState($state) {

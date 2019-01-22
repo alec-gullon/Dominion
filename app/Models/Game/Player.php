@@ -2,7 +2,7 @@
 
 namespace App\Models\Game;
 
-use App\Services\CardBuilder;
+use App\Services\Factories\CardFactory;
 
 class Player {
 
@@ -22,13 +22,10 @@ class Player {
 
     private $name;
 
-    private $cardBuilder;
-
     private $isAi;
 
-    public function __construct($id, CardBuilder $cardBuilder, $isAi = false) {
+    public function __construct($id, $isAi = false) {
         $this->id = $id;
-        $this->cardBuilder = $cardBuilder;
         $this->isAi = $isAi;
     }
 
@@ -180,7 +177,7 @@ class Player {
     }
 
     public function placeCardOnDeck($stub) {
-        array_unshift($this->deck, $this->cardBuilder->build($stub));
+        array_unshift($this->deck, CardFactory::build($stub));
     }
 
     public function revealTopCard() {
@@ -214,13 +211,13 @@ class Player {
     public function playCard($stub) {
         $this->removeCardFrom($stub, 'hand');
 
-        $card = $this->cardBuilder->build($stub);
+        $card = CardFactory::build($stub);
         $position = $this->unresolvedCardIndex();
         array_splice($this->played, $position+1, 0, array($card));
     }
 
     public function playVirtualCard($stub) {
-        $card = $this->cardBuilder->build($stub);
+        $card = CardFactory::build($stub);
         $card->markAsVirtual();
 
         $position = $this->unresolvedCardIndex();
@@ -294,7 +291,7 @@ class Player {
     }
 
     private function addCardTo($stub, $location) {
-        $this->$location[] = $this->cardBuilder->build($stub);
+        $this->$location[] = CardFactory::build($stub);
     }
 
     public function removeCardFrom($stub, $from) {

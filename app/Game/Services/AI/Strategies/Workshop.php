@@ -15,7 +15,7 @@ class Workshop extends CardStrategy {
             if ($remaining === 0) {
                 continue;
             }
-            $card = $this->cardBuilder->build($stub);
+            $card = $this->makeCard($stub);
             if ($card->getValue() === 4) {
                 return $stub;
             }

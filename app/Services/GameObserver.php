@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Game\State;
+use App\Services\Factories\CardFactory;
 
 class GameObserver {
 
@@ -12,7 +13,7 @@ class GameObserver {
         $this->state = $state;
     }
 
-    public function playerAreaView($state, $playerKey) {
+    public function playerAreaView($state) {
         $nextStep = $state->activePlayer()->getNextStep();
 
         if (null === $nextStep) {
@@ -45,8 +46,7 @@ class GameObserver {
             return false;
         }
 
-        $cardBuilder = new CardBuilder();
-        $card = $cardBuilder->build($stub);
+        $card = CardFactory::build($stub);
 
         if ($this->state->phase() !== 'buy') {
             return false;

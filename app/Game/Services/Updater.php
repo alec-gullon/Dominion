@@ -3,11 +3,9 @@
 namespace App\Game\Services;
 
 use App\Models\Game\State;
-use App\Services\CardBuilder;
+use App\Services\Factories\CardFactory;
 
 class Updater {
-
-    private $cardBuilder;
 
     private $cartographer;
 
@@ -15,9 +13,8 @@ class Updater {
 
     private $ai;
 
-    public function __construct(State $state, CardBuilder $cardBuilder) {
-        $this->cardBuilder = $cardBuilder;
-        $this->cartographer = new Router($state, $cardBuilder);
+    public function __construct(State $state) {
+        $this->cartographer = new Router($state);
         $this->state = $state;
         $this->ai = resolve('\App\Game\Services\AI\AI');
         $this->ai->setState($this->state);
@@ -27,7 +24,7 @@ class Updater {
 
         // if the player has just played a card, decrease actions by 1 and move card to played
         if ($action === 'play-card') {
-            $card = $this->cardBuilder->build($input);
+            $card = CardFactory::build($input);
             $this->state->log()->addEntry($this->state->activePlayer()->getName() . ' plays ' . $card->nameWithArticlePrefix());
             $this->state->deductActions(1);
             $this->state->activePlayer()->playCard($input);

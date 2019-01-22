@@ -3,17 +3,14 @@
 namespace App\Game\Controllers;
 
 use App\Models\Game\State;
-use App\Services\CardBuilder;
+use App\Services\Factories\CardFactory;
 
 class StateController {
 
     protected $state;
 
-    protected $cardBuilder;
-
-    public function __construct(State $state, CardBuilder $cardBuilder) {
+    public function __construct(State $state) {
         $this->state = $state;
-        $this->cardBuilder = $cardBuilder;
     }
 
     protected function activePlayer() {
@@ -36,7 +33,7 @@ class StateController {
             $params['player'] = $this->activePlayer();
         }
         $effectClass = '\App\Game\Services\Effects\\' . $effectClass;
-        $effectClass = new $effectClass($this->state, $this->cardBuilder, $params);
+        $effectClass = new $effectClass($this->state, $params);
         $effectClass->effect();
     }
 
@@ -45,7 +42,7 @@ class StateController {
             $params['player'] = $this->activePlayer();
         }
         $effectClass = '\App\Game\Services\Effects\\' . $effectClass;
-        $effectClass = new $effectClass($this->state, $this->cardBuilder, $params);
+        $effectClass = new $effectClass($this->state, $params);
         $effectClass->description();
     }
 
@@ -128,6 +125,10 @@ class StateController {
 
     protected function buyCard($card) {
         $this->effect('BuyCard', compact('card'));
+    }
+
+    protected function buildCard($stub) {
+        return CardFactory::build($stub);
     }
 
 }

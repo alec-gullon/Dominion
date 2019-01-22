@@ -11,7 +11,7 @@ class RemodelValidator extends ActionValidator {
     public function gainSelectedCard($input) {
         $remodelCard = $this->state->activePlayer()->unresolvedCard();
 
-        $card = $this->cardBuilder->build($input);
+        $card = $this->makeCard($input);
         if ($card->getValue() > $remodelCard->gainValue) {
             return false;
         }

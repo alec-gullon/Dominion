@@ -3,17 +3,14 @@
 namespace App\Game\Services;
 
 use App\Models\Game\State;
-use App\Services\CardBuilder;
+use App\Services\Factories\CardFactory;
 
 class Router {
 
     private $state;
 
-    private $cardBuilder;
-
-    public function __construct(State $state, CardBuilder $cardBuilder) {
+    public function __construct(State $state) {
         $this->state = $state;
-        $this->cardBuilder = $cardBuilder;
     }
 
     public function controller($action) {
@@ -76,7 +73,7 @@ class Router {
             $classString = $this->getCardAssociatedToAction($action);
             $classString = 'App\Game\\' . $group . 's\Actions\\' . $classString . $group;
         }
-        return new $classString($this->state, $this->cardBuilder);
+        return new $classString($this->state);
     }
 
     private function getClassFromRoutes($action) {

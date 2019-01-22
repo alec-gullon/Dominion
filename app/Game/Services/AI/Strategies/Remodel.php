@@ -31,7 +31,7 @@ class Remodel extends CardStrategy {
             if ($amount === 0) {
                 continue;
             }
-            $card = $this->cardBuilder->build($stub);
+            $card = $this->makeCard($stub);
             if ($card->getValue() > $gainAmount) {
                 continue;
             }

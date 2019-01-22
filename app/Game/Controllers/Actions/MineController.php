@@ -15,7 +15,7 @@ class MineController extends ActionController {
 
     public function trashTreasure($stub) {
         $mineCard = $this->activePlayer()->unresolvedCard();
-        $trashedCard = $this->cardBuilder->build($stub);
+        $trashedCard = $this->buildCard($stub);
 
         $this->trashCards([$stub]);
         $mineCard->treasureValue = $trashedCard->getValue() + 3;

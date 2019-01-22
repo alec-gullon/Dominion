@@ -3,14 +3,14 @@
 namespace Tests\Acceptance\Game\Cards;
 
 use App\Game\Services\Updater;
-use App\Services\CardBuilder;
+use App\Services\Factories\CardFactory;
 
 use Tests\Acceptance\AcceptanceTestBase;
 
 class CardTestBase extends AcceptanceTestBase
 {
     protected function updateGame() {
-        $updater = new Updater(unserialize($this->game->object), new CardBuilder);
+        $updater = new Updater(unserialize($this->game->object), new CardFactory);
         $updater->resolve();
         $this->game->object = serialize($updater->getState());
         $this->game->save();
@@ -38,47 +38,47 @@ class CardTestBase extends AcceptanceTestBase
     protected function buildGame()
     {
         $game = new \App\Models\Game();
-        $state = new \App\Models\Game\State(new \App\Models\Game\Log, new \App\Services\CardBuilder);
+        $state = new \App\Models\Game\State(new \App\Models\Game\Log, new \App\Services\Factories\CardFactory);
 
         $game->object = serialize($state);
         $game->guid = uniqid();
         $game->save();
 
-        $cardBuilder = new \App\Services\CardBuilder();
+        $cardFactory = new \App\Services\Factories\CardFactory();
 
-        $player1 = new \App\Models\Game\Player('alec', $cardBuilder);
+        $player1 = new \App\Models\Game\Player('alec');
 
         $player1->setDeck([
-            $cardBuilder->build('estate'),
-            $cardBuilder->build('estate'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper')
+            CardFactory::build('estate'),
+            CardFactory::build('estate'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper')
         ]);
         $player1->setHand([
-            $cardBuilder->build('estate'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper')
+            CardFactory::build('estate'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper')
         ]);
         $player1->setName('Alec');
 
-        $player2 = new \App\Models\Game\Player('lucy', $cardBuilder);
+        $player2 = new \App\Models\Game\Player('lucy');
 
         $player2->setDeck([
-            $cardBuilder->build('estate'),
-            $cardBuilder->build('estate'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper')
+            CardFactory::build('estate'),
+            CardFactory::build('estate'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper')
         ]);
         $player2->setHand([
-            $cardBuilder->build('estate'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper')
+            CardFactory::build('estate'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper')
         ]);
         $player2->setName('Lucy');
 
@@ -176,7 +176,7 @@ class CardTestBase extends AcceptanceTestBase
 
     private function buildCardStackFromShorthand($shorthand) {
         $stack = [];
-        $cardBuilder = new \App\Services\CardBuilder();
+        $cardFactory = new \App\Services\Factories\CardFactory();
         foreach($shorthand as $stub) {
             $parts = explode('@', $stub);
             if (empty($parts[1])) {
@@ -186,7 +186,7 @@ class CardTestBase extends AcceptanceTestBase
             }
 
             for ($i = 1; $i <= $parts[1]; $i++) {
-                $stack[] = $cardBuilder->build($parts[0]);
+                $stack[] = CardFactory::build($parts[0]);
             }
         }
         return $stack;

@@ -5,7 +5,6 @@ namespace App\Game\Services\Effects;
 use App\Game\Helpers\CardsHelper;
 use App\Game\Helpers\StringHelper;
 use App\Models\Game\State;
-use App\Services\CardBuilder;
 
 class Base {
 
@@ -13,13 +12,10 @@ class Base {
 
     protected $state;
 
-    protected $cardBuilder;
-
     protected $params;
 
-    public function __construct(State $state, CardBuilder $cardBuilder, $params) {
+    public function __construct(State $state, $params) {
         $this->state = $state;
-        $this->cardBuilder = $cardBuilder;
         $this->params = $params;
         $this->numberMappings = config('dominion.number-mappings');
     }

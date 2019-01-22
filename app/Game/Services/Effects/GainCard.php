@@ -2,6 +2,8 @@
 
 namespace App\Game\Services\Effects;
 
+use App\Services\Factories\CardFactory;
+
 class GainCard extends Base {
 
     public function effect() {
@@ -26,7 +28,7 @@ class GainCard extends Base {
                 $entry .= ' gains nothing';
             }
         } else {
-            $card = $this->cardBuilder->build($card);
+            $card = CardFactory::build($card);
             $entry .= ' gains ' . $card->nameWithArticlePrefix();
 
             if ($location === 'deck') {

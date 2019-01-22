@@ -3,7 +3,7 @@
 namespace Tests\Acceptance;
 
 use App\Game\Services\Updater;
-use App\Services\CardBuilder;
+use App\Services\Factories\CardFactory;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -13,7 +13,7 @@ class AcceptanceTestBase extends TestCase
     use RefreshDatabase;
 
     protected function updateGame() {
-        $updater = new Updater($this->state(), new CardBuilder);
+        $updater = new Updater($this->state(), new CardFactory);
         $updater->resolve();
         $this->game->object = serialize($updater->getState());
         $this->game->save();
@@ -43,47 +43,47 @@ class AcceptanceTestBase extends TestCase
     protected function buildGame()
     {
         $game = new \App\Models\Game();
-        $state = new \App\Models\Game\State(new \App\Models\Game\Log, new \App\Services\CardBuilder);
+        $state = new \App\Models\Game\State(new \App\Models\Game\Log, new \App\Services\Factories\CardFactory);
 
         $game->object = serialize($state);
         $game->guid = uniqid();
         $game->save();
 
-        $cardBuilder = new \App\Services\CardBuilder();
+        $cardFactory = new \App\Services\Factories\CardFactory();
 
-        $player1 = new \App\Models\Game\Player('alec', $cardBuilder);
+        $player1 = new \App\Models\Game\Player('alec');
 
         $player1->setDeck([
-            $cardBuilder->build('estate'),
-            $cardBuilder->build('estate'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper')
+            CardFactory::build('estate'),
+            CardFactory::build('estate'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper')
         ]);
         $player1->setHand([
-            $cardBuilder->build('estate'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper')
+            CardFactory::build('estate'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper')
         ]);
         $player1->setName('Alec');
 
-        $player2 = new \App\Models\Game\Player('lucy', $cardBuilder);
+        $player2 = new \App\Models\Game\Player('lucy');
 
         $player2->setDeck([
-            $cardBuilder->build('estate'),
-            $cardBuilder->build('estate'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper')
+            CardFactory::build('estate'),
+            CardFactory::build('estate'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper')
         ]);
         $player2->setHand([
-            $cardBuilder->build('estate'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper')
+            CardFactory::build('estate'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper')
         ]);
         $player2->setName('Lucy');
 
@@ -110,47 +110,47 @@ class AcceptanceTestBase extends TestCase
     protected function buildGameWithAI()
     {
         $game = new \App\Models\Game();
-        $state = new \App\Models\Game\State(new \App\Models\Game\Log, new \App\Services\CardBuilder);
+        $state = new \App\Models\Game\State(new \App\Models\Game\Log, new \App\Services\Factories\CardFactory);
 
         $game->object = serialize($state);
         $game->guid = uniqid();
         $game->save();
 
-        $cardBuilder = new \App\Services\CardBuilder();
+        $cardFactory = new \App\Services\Factories\CardFactory();
 
-        $player1 = new \App\Models\Game\Player('alec', $cardBuilder);
+        $player1 = new \App\Models\Game\Player('alec');
 
         $player1->setDeck([
-            $cardBuilder->build('estate'),
-            $cardBuilder->build('estate'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper')
+            CardFactory::build('estate'),
+            CardFactory::build('estate'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper')
         ]);
         $player1->setHand([
-            $cardBuilder->build('estate'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper')
+            CardFactory::build('estate'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper')
         ]);
         $player1->setName('Alec');
 
-        $player2 = new \App\Models\Game\Player('marvin', $cardBuilder, true);
+        $player2 = new \App\Models\Game\Player('marvin', true);
 
         $player2->setDeck([
-            $cardBuilder->build('estate'),
-            $cardBuilder->build('estate'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper')
+            CardFactory::build('estate'),
+            CardFactory::build('estate'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper')
         ]);
         $player2->setHand([
-            $cardBuilder->build('estate'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper')
+            CardFactory::build('estate'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper')
         ]);
         $player2->setName('Marvin');
 
@@ -242,7 +242,7 @@ class AcceptanceTestBase extends TestCase
 
     private function buildCardStackFromShorthand($shorthand) {
         $stack = [];
-        $cardBuilder = new \App\Services\CardBuilder();
+        $cardFactory = new \App\Services\Factories\CardFactory();
         foreach($shorthand as $stub) {
             $parts = explode('@', $stub);
             if (empty($parts[1])) {
@@ -252,7 +252,7 @@ class AcceptanceTestBase extends TestCase
             }
 
             for ($i = 1; $i <= $parts[1]; $i++) {
-                $stack[] = $cardBuilder->build($parts[0]);
+                $stack[] = CardFactory::build($parts[0]);
             }
         }
         return $stack;

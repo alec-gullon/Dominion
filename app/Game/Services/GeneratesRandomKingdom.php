@@ -2,18 +2,12 @@
 
 namespace App\Game\Services;
 
-use App\Services\CardBuilder;
+use App\Services\Factories\CardFactory;
 
 class GeneratesRandomKingdom {
 
-    private $cardBuilder;
-
-    public function __construct(CardBuilder $cardBuilder) {
-        $this->cardBuilder = $cardBuilder;
-    }
-
     public function generate() {
-        $cards = config('app.timezone');
+        $cards = config('dominion.approved-kingdom-cards');
 
         $kingdomCards = [];
         for ($i = 1; $i <= 10; $i++) {
@@ -31,8 +25,8 @@ class GeneratesRandomKingdom {
 
     private function determineStartingNumbers($kingdomCards) {
         foreach ($kingdomCards as $stub => $amount) {
-            $card = $this->cardBuilder->build($stub);
-            $kingdomCards[$card] = 10;
+            $card = CardFactory::build($stub);
+            $kingdomCards[$stub] = 10;
             if ($card->hasType('victory')) {
                 $kingdomCards[$stub] = 8;
             }

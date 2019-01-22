@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 use Tests\TestCase;
 
+use App\Services\Factories\CardFactory;
 
 class GameTest extends TestCase
 {
@@ -56,46 +57,44 @@ class GameTest extends TestCase
     protected function buildGame()
     {
         $game = new \App\Models\Game();
-        $state = new \App\Models\Game\State(new \App\Models\Game\Log, new \App\Services\CardBuilder);
+        $state = new \App\Models\Game\State(new \App\Models\Game\Log, new \App\Services\Factories\CardFactory);
 
         $game->object = serialize($state);
         $game->guid = uniqid();
         $game->save();
 
-        $cardBuilder = new \App\Services\CardBuilder();
-
-        $player1 = new \App\Models\Game\Player('alec', $cardBuilder);
+        $player1 = new \App\Models\Game\Player('alec');
 
         $player1->setDeck([
-            $cardBuilder->build('estate'),
-            $cardBuilder->build('estate'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper')
+            CardFactory::build('estate'),
+            CardFactory::build('estate'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper')
         ]);
         $player1->setHand([
-            $cardBuilder->build('estate'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper')
+            CardFactory::build('estate'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper')
         ]);
 
-        $player2 = new \App\Models\Game\Player('lucy', $cardBuilder);
+        $player2 = new \App\Models\Game\Player('lucy');
 
         $player2->setDeck([
-            $cardBuilder->build('estate'),
-            $cardBuilder->build('estate'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper')
+            CardFactory::build('estate'),
+            CardFactory::build('estate'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper')
         ]);
         $player2->setHand([
-            $cardBuilder->build('estate'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper'),
-            $cardBuilder->build('copper')
+            CardFactory::build('estate'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper')
         ]);
 
         $state->setPlayers([$player1, $player2]);

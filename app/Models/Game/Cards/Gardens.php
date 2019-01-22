@@ -12,6 +12,8 @@ class Gardens extends Card {
 
     protected $name = 'Gardens';
 
-    protected $type = 'victory';
+    protected $types = [
+        'victory'
+    ];
 
 }

@@ -2,7 +2,7 @@
 
 namespace App\Game\Services\Effects;
 
-use App\Services\CardBuilder;
+use App\Services\Factories\CardFactory;
 
 class MoveCardOntoDeck extends Base {
 
@@ -17,7 +17,7 @@ class MoveCardOntoDeck extends Base {
     public function description() {
         $player = $this->params['player'];
         $from = $this->params['from'];
-        $card = CardBuilder::buildStatic($this->params['card']);
+        $card = CardFactory::build($this->params['card']);
 
         $entry = '.. ' . $player->getName();
         if ($from === 'revealed') {

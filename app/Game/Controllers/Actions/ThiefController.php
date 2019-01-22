@@ -49,7 +49,7 @@ class ThiefController extends ActionController {
 
     public function gainTrashedCard($choice) {
         $card = $this->activePlayer()->unresolvedCard();
-        $trashedCard = $this->cardBuilder->build($card->trashedCard);
+        $trashedCard = $this->buildCard($card->trashedCard);
 
         if ($choice) {
             $this->activePlayer()->gainCard($card->trashedCard);

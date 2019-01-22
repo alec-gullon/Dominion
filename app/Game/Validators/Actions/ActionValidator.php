@@ -3,17 +3,14 @@
 namespace App\Game\Validators\Actions;
 
 use App\Models\Game\State;
-use App\Services\CardBuilder;
+use App\Services\Factories\CardFactory;
 
 class ActionValidator {
 
     protected $state;
 
-    protected $cardBuilder;
-
-    public function __construct(State $state, CardBuilder $cardBuilder) {
+    public function __construct(State $state) {
         $this->state = $state;
-        $this->cardBuilder = $cardBuilder;
     }
 
     protected function checkInputSubsetOfCardStack($input, $stack) {
@@ -33,6 +30,10 @@ class ActionValidator {
             }
         }
         return true;
+    }
+
+    protected function makeCard($stub) {
+        return CardFactory::build($stub);
     }
 
 }

@@ -5,7 +5,7 @@ namespace App\Game\Controllers;
 class TreasureController extends StateController {
 
     public function playTreasure($stub) {
-        $card = $this->cardBuilder->build($stub);
+        $card = $this->buildCard($stub);
 
         $this->activePlayer()->playCard($stub);
         $this->state->addCoins($card->getDenomination());

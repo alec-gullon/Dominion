@@ -2,7 +2,7 @@
 
 namespace App\Game\Services\Effects;
 
-use App\Services\CardBuilder;
+use App\Services\Factories\CardFactory;
 
 class DiscardCards extends Base {
 
@@ -15,7 +15,7 @@ class DiscardCards extends Base {
 
     public function description() {
         $player = $this->params['player'];
-        $cards = CardBuilder::buildMultiple($this->params['cards']);
+        $cards = CardFactory::buildMultiple($this->params['cards']);
 
         $entry = '.. ' . $player->getName() . ' discards';
         if (count($cards) === 0) {

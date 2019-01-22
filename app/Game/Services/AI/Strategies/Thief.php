@@ -16,7 +16,7 @@ class Thief extends CardStrategy {
     public function gainTrashedCard() {
         $thiefCard = $this->state->activePlayer()->unresolvedCard();
 
-        $card = $this->cardBuilder->build($thiefCard->trashedCard);
+        $card = $this->makeCard($thiefCard->trashedCard);
 
         if ($card->getValue() >= 3) {
             return true;

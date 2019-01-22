@@ -74,7 +74,7 @@ class UserTest extends TestCase
     protected function buildGame()
     {
         $game = new \App\Models\Game();
-        $state = new \App\Models\Game\State(new \App\Models\Game\Log, new \App\Services\CardBuilder);
+        $state = new \App\Models\Game\State(new \App\Models\Game\Log, new \App\Services\Factories\CardFactory);
 
         $game->object = serialize($state);
         $game->guid = 'game-hash';
