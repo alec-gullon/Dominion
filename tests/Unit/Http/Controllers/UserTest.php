@@ -69,6 +69,7 @@ class UserTest extends TestCase
         ])->getContent();
 
         $this->assertContains('Hello Alec, welcome to Dominion.', $response);
+        $this->assertContains("data-action='start-ai-game'", $response);
     }
 
     protected function buildGame()

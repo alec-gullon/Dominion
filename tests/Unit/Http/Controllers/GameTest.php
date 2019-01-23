@@ -51,7 +51,10 @@ class GameTest extends TestCase
             'guid' => 'alec'
         ])->getContent();
 
+        $games = \App\Models\Game::all();
+
         $this->assertContains('Coins: 0', $response);
+        $this->assertEquals(count($games), 1);
     }
 
     protected function buildGame()

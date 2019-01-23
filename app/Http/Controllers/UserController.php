@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 use View;
 
-class User extends Controller {
+class UserController extends Controller {
 
     private $gameRenderer;
 

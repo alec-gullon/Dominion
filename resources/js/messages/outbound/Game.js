@@ -95,4 +95,16 @@ export default class Game {
         window.dominion.connection.send(JSON.stringify(message));
     }
 
+    provideInput(input) {
+        let message = {
+            route: '/game/update/',
+            data: {
+                action: 'provide-input',
+                input: input,
+                guid: window.cookies.get('guid')
+            }
+        };
+        window.dominion.connection.send(JSON.stringify(message));
+    }
+
 }

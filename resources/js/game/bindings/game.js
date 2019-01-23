@@ -13,10 +13,14 @@ export default function refreshBindings() {
 
     $('.game-root').find('[data-action="end-turn"]').click(function() {
         new OutboundRouter('endTurn').message();
-    })
+    });
 
     $('.game-root').find('[data-action="play-card"]').click(function() {
         new OutboundRouter('playCard').message($(this).data('stub'));
-    })
+    });
+
+    $('.game-root').find('[data-action="select-option"]').click(function() {
+        new OutboundRouter('provideInput').message($(this).data('stub'));
+    });
 
 }

@@ -15,7 +15,7 @@ use App\Http\Renderers\GameRenderer;
 
 use View;
 
-class Game extends Controller {
+class GameController extends Controller {
 
     private $state;
 

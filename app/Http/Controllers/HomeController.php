@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Game;
 
-class Home extends Controller {
+class HomeController extends Controller {
 
     public function index() {
         /**
