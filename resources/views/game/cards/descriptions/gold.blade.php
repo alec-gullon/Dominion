@@ -1,3 +1,3 @@
 <div class="card__description">
-    <div>A gold card</div>
+    +3 Coins
 </div>

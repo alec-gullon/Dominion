@@ -12,7 +12,7 @@
     border: 3px solid $blue;
   }
 
-  &__description {
+  .__description {
     background: $grey-dark;
     color: $grey-light;
     padding: 10px;
@@ -24,7 +24,7 @@
     width: 200px;
   }
 
-  &__standard-effects {
+  .__standard-effects {
     text-align: center;
     border-bottom: 1px solid $grey-light;
     padding-bottom: 10px;

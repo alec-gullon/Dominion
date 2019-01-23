@@ -1,3 +1,3 @@
-<div class="card__description">
-    <div>A duchy card</div>
+<div class="__description">
+    +3 VP
 </div>

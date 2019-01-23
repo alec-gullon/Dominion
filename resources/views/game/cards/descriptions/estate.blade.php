@@ -1,3 +1,3 @@
-<div class="card__description">
-    <div>An estate card</div>
+<div class="__description">
+    +1 VP
 </div>
