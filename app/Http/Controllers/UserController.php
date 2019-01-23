@@ -57,7 +57,9 @@ class UserController extends Controller {
             return $this->gameRenderer->renderLobby($user);
         }
 
-        if (count($user->game->users) === 1) {
+        $game = $user->game;
+        $state = unserialize($game->object);
+        if (count($state->players()) <= 1) {
             return $this->gameRenderer->renderWaitingRoom($user->game, $user);
         }
 

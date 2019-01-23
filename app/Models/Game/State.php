@@ -79,6 +79,10 @@ class State {
         return $this->isResolved;
     }
 
+    public function players() {
+        return $this->players;
+    }
+
     public function activePlayerId() {
         return $this->activePlayerId;
     }

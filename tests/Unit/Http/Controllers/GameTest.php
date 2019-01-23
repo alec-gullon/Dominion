@@ -12,8 +12,7 @@ class GameTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function testItUpdatesAGameProperly()
-    {
+    public function testItUpdatesAGameProperly() {
         $this->buildGame();
 
         $response = $this->post('/game/update/', [
@@ -57,8 +56,21 @@ class GameTest extends TestCase
         $this->assertEquals(count($games), 1);
     }
 
-    protected function buildGame()
-    {
+    public function testItUpdatesAnAIGameProperly() {
+        $this->buildAIGame();
+
+        $response = $this->post('/game/update/', [
+            'guid' => 'alec',
+            'action' => 'end-turn',
+            'input' => null
+        ])->getContent();
+        $response = json_decode($response);
+
+        $this->assertEquals(count($response->responses), 1);
+        $this->assertContains('Turn: 3', $response->responses[0]->response->view);
+    }
+
+    protected function buildGame() {
         $game = new \App\Models\Game();
         $state = new \App\Models\Game\State(new \App\Models\Game\Log, new \App\Services\Factories\CardFactory);
 
@@ -115,6 +127,62 @@ class GameTest extends TestCase
         $user->name = 'Lucy';
         $user->game_id = $game->id;
         $user->guid = 'lucy';
+        $user->save();
+
+        $this->game = $game;
+    }
+
+    protected function buildAIGame() {
+        $game = new \App\Models\Game();
+        $state = new \App\Models\Game\State(new \App\Models\Game\Log, new \App\Services\Factories\CardFactory);
+
+        $game->object = serialize($state);
+        $game->guid = uniqid();
+        $game->save();
+
+        $player1 = new \App\Models\Game\Player('alec');
+
+        $player1->setDeck([
+            CardFactory::build('estate'),
+            CardFactory::build('estate'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper')
+        ]);
+        $player1->setHand([
+            CardFactory::build('estate'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper')
+        ]);
+
+        $player2 = new \App\Models\Game\Player('marvin', true);
+
+        $player2->setDeck([
+            CardFactory::build('estate'),
+            CardFactory::build('estate'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper')
+        ]);
+        $player2->setHand([
+            CardFactory::build('estate'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper')
+        ]);
+
+        $state->setPlayers([$player1, $player2]);
+        $state->setActivePlayerId('alec');
+        $game->object = serialize($state);
+        $game->save();
+
+        $user = new \App\Models\User();
+        $user->name = 'Alec';
+        $user->game_id = $game->id;
+        $user->guid = 'alec';
         $user->save();
 
         $this->game = $game;

@@ -72,6 +72,16 @@ class UserTest extends TestCase
         $this->assertContains("data-action='start-ai-game'", $response);
     }
 
+    public function testRefreshesPageCorrectlyWhenUserIsInAIGame() {
+        $this->buildAIGame();
+
+        $response = $this->post('/user/refresh-page/', [
+            'guid' => 'alec'
+        ])->getContent();
+
+        $this->assertContains('Turn: 1', $response);
+    }
+
     protected function buildGame()
     {
         $game = new \App\Models\Game();
@@ -92,5 +102,31 @@ class UserTest extends TestCase
         $user->game_id = 0;
         $user->guid = 'lucy';
         $user->save();
+    }
+
+    protected function buildAIGame() {
+        $game = new \App\Models\Game();
+        $state = new \App\Models\Game\State(new \App\Models\Game\Log, new \App\Services\Factories\CardFactory);
+
+        $game->object = serialize($state);
+        $game->guid = uniqid();
+        $game->save();
+
+        $player1 = new \App\Models\Game\Player('alec');
+
+        $player2 = new \App\Models\Game\Player('marvin', true);
+
+        $state->setPlayers([$player1, $player2]);
+        $state->setActivePlayerId('alec');
+        $game->object = serialize($state);
+        $game->save();
+
+        $user = new \App\Models\User();
+        $user->name = 'Alec';
+        $user->game_id = $game->id;
+        $user->guid = 'alec';
+        $user->save();
+
+        $this->game = $game;
     }
 }
