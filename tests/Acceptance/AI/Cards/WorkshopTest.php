@@ -19,7 +19,7 @@ class WorkshopTest extends AcceptanceTestBase {
             'smithy' => 10,
             'curse' => 10
         ];
-        $this->setKingdom($kingdom);
+        $this->setKingdomCards($kingdom);
 
         $this->setOpponentHand(['workshop', 'copper@4']);
         $this->postUpdate('end-turn');

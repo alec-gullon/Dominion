@@ -84,6 +84,16 @@ class CardTestBase extends AcceptanceTestBase
 
         $state->setPlayers([$player1, $player2]);
         $state->setActivePlayerId('alec');
+        $state->setKingdomCards([
+            'copper' => 30,
+            'silver' => 20,
+            'gold' => 10,
+            'estate' => 8,
+            'duchy' => 8,
+            'province' => 8,
+            'village' => 10,
+            'curse' => 10
+        ]);
         $game->object = serialize($state);
         $game->save();
 
@@ -106,7 +116,7 @@ class CardTestBase extends AcceptanceTestBase
         $state = unserialize($this->game->object);
         $player = $state->activePlayer();
         $player->playVirtualCard($card);
-        $state->removePlayerInput();
+        $state->setAwaitingPlayerInputId(null);
         $this->game->object = serialize($state);
         $this->game->save();
         $this->updateGame();
@@ -117,7 +127,7 @@ class CardTestBase extends AcceptanceTestBase
         $cards = $state->kingdomCards();
         $cards[$stub] = $amount;
 
-        $state->setKingdom($cards);
+        $state->setKingdomCards($cards);
         $this->game->object = serialize($state);
         $this->game->save();
     }
@@ -129,7 +139,7 @@ class CardTestBase extends AcceptanceTestBase
         $kingdomCards = $state->kingdomCards();
         $kingdomCards['moat'] = 10;
 
-        $state->setKingdom($kingdomCards);
+        $state->setKingdomCards($kingdomCards);
         $this->game->object = serialize($state);
         $this->game->save();
     }

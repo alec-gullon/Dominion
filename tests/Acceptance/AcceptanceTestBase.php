@@ -89,6 +89,16 @@ class AcceptanceTestBase extends TestCase
 
         $state->setPlayers([$player1, $player2]);
         $state->setActivePlayerId('alec');
+        $state->setKingdomCards([
+            'copper' => 30,
+            'silver' => 20,
+            'gold' => 10,
+            'estate' => 8,
+            'duchy' => 8,
+            'province' => 8,
+            'village' => 10,
+            'curse' => 10
+        ]);
         $game->object = serialize($state);
         $game->save();
 
@@ -156,6 +166,16 @@ class AcceptanceTestBase extends TestCase
 
         $state->setPlayers([$player1, $player2]);
         $state->setActivePlayerId('alec');
+        $state->setKingdomCards([
+                'copper' => 30,
+                'silver' => 20,
+                'gold' => 10,
+                'estate' => 8,
+                'duchy' => 8,
+                'province' => 8,
+                'village' => 10,
+                'curse' => 10
+        ]);
         $game->object = serialize($state);
         $game->save();
 
@@ -183,7 +203,7 @@ class AcceptanceTestBase extends TestCase
         $cards = $state->kingdomCards();
         $cards[$stub] = $amount;
 
-        $state->setKingdom($cards);
+        $state->setKingdomCards($cards);
         $this->game->object = serialize($state);
         $this->game->save();
     }
@@ -195,7 +215,7 @@ class AcceptanceTestBase extends TestCase
         $kingdomCards = $state->kingdomCards();
         $kingdomCards['moat'] = 10;
 
-        $state->setKingdom($kingdomCards);
+        $state->setKingdomCards($kingdomCards);
         $this->game->object = serialize($state);
         $this->game->save();
     }
@@ -385,9 +405,9 @@ class AcceptanceTestBase extends TestCase
         return unserialize($this->game->object);
     }
 
-    protected function setKingdom($kingdom) {
+    protected function setKingdomCards($kingdom) {
         $state = $this->state();
-        $state->setKingdom($kingdom);
+        $state->setKingdomCards($kingdom);
         $this->game->object = serialize($state);
         $this->game->save();
     }

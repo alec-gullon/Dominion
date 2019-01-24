@@ -18,7 +18,7 @@ class BureaucratTest extends AcceptanceTestBase {
             'curse' => 10,
             'moat' => 10
         ];
-        $this->setKingdom($kingdom);
+        $this->setKingdomCards($kingdom);
         $this->setHand(['bureaucrat', 'estate@2', 'copper@2']);
         $this->setOpponentHand(['moat', 'estate@2', 'copper@2']);
         $this->playCard('bureaucrat');

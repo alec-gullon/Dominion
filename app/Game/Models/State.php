@@ -4,39 +4,105 @@ namespace App\Game\Models;
 
 use App\Services\Factories\CardFactory;
 
+/**
+ * Class to represent the overall state of a Dominion game in progress
+ */
 class State {
 
-    private $kingdom = array(
-        'copper' => 30,
-        'silver' => 20,
-        'gold' => 10,
-        'estate' => 8,
-        'duchy' => 8,
-        'province' => 8,
-        'village' => 10,
-        'curse' => 10
-    );
+    /**
+     * A description of the cards in the kingdom, i.e., cards in the game that do not belong
+     * to a given player or have not been trashed. Represented as an array of key => value entries, where
+     * the keys are stubs that represent a particular card and the values are the number remaining
+     * in game e.g.,
+     *
+     * $this->>kingdom = [
+     *     'estate' => 8,
+     *     'village' => 10
+     * ]
+     *
+     * @var array
+     */
+    private $kingdomCards = [];
 
-    private $trash = array();
+    /**
+     * Array of cards that have been trashed by players during the game. Entries are instances of
+     * \App\Game\Models\Cards models
+     *
+     * @var array
+     */
+    private $trash = [];
 
-    private $players = array();
+    /**
+     * Array of players in the game. Entries are instances of \App\Game\Models\Player model
+     *
+     * @var array
+     */
+    private $players = [];
 
+    /**
+     * The id of the player that is currently taking their turn, also known as the "active player"
+     *
+     * @var string
+     */
     private $activePlayerId;
 
+    /**
+     * The id of the player that is currently responsible for providing some form of input in response
+     * to a card played by the active player. If no such data needs to be noted, this value is set
+     * to null
+     *
+     * @var null|string
+     */
     private $awaitingPlayerInputId = null;
 
+    /**
+     * How number of coins the current player has on their turn. Always a non-negative integer
+     *
+     * @var int
+     */
     private $coins = 0;
 
+    /**
+     * The number of actions the current player has on their turn. Always a non-negative integer
+     *
+     * @var int
+     */
     private $actions = 1;
 
+    /**
+     * The number of buys the current player has on their turn. Always a non-negative integer
+     * @var int
+     */
     private $buys = 1;
 
+    /**
+     * How many turns have been carried out so far in this game.
+     *
+     * @var int
+     */
     private $turn = 1;
 
+    /**
+     * What phase we are at in the given turn. Should be either 'action' or 'buy'
+     *
+     * @var string
+     */
     private $phase = 'action';
 
+    /**
+     * Set to true when a game has been fully resolved, all turns have been played and a winner
+     * has been declared
+     *
+     * @var bool
+     */
     private $isResolved = false;
 
+    /**
+     * The historical game log, updated when players take actions and things occur in response
+     * to these actions
+     *
+     * @var \App\Game\Models\Log
+     */
     private $log;
 
     public function __construct(Log $log) {
@@ -47,16 +113,12 @@ class State {
         return $this->log;
     }
 
-    public function buys() {
-        return $this->buys;
-    }
-
     public function phase() {
         return $this->phase;
     }
 
     public function kingdomCards() {
-        return $this->kingdom;
+        return $this->kingdomCards;
     }
 
     public function actions() {
@@ -67,12 +129,16 @@ class State {
         return $this->coins;
     }
 
-    public function trash() {
-        return $this->trash;
+    public function buys() {
+        return $this->buys;
     }
 
     public function turn() {
         return $this->turn;
+    }
+
+    public function trash() {
+        return $this->trash;
     }
 
     public function isResolved() {
@@ -95,34 +161,32 @@ class State {
         $this->phase = $phase;
     }
 
-    public function setKingdom($kingdom) {
-        $this->kingdom = $kingdom;
+    public function setKingdomCards($kingdomCards) {
+        $this->kingdomCards = $kingdomCards;
     }
 
     public function setActivePlayerId($id) {
         $this->activePlayerId = $id;
     }
 
-    public function setCoins($coins) {
-        $this->coins = $coins;
+    public function setAwaitingPlayerInputId($id) {
+        $this->awaitingPlayerInputId = $id;
     }
 
-    public function setBuys($buys) {
-        $this->buys = $buys;
-    }
-
-    public function getPlayerById($id) {
-        foreach ($this->players as $player) {
-            if ($id === $player->id()) {
-                return $player;
-            }
-        }
-    }
-
+    /**
+     * Gets the player who is currently carrying out their turn
+     *
+     * @return  \App\Game\Models\Player
+     */
     public function activePlayer() {
         return $this->getPlayerById($this->activePlayerId);
     }
 
+    /**
+     * Gets the player who is currently not taking their turn
+     *
+     * @return  \App\Game\Models\Player
+     */
     public function secondaryPlayer() {
         foreach($this->players as $player) {
             if ($this->activePlayerId !== $player->id()) {
@@ -131,12 +195,34 @@ class State {
         }
     }
 
+    /**
+     * Gets the player in the game whose id matches the supplied $id
+     *
+     * @param   string      $id
+     *
+     * @return  \App\Game\Models\Player
+     */
+    public function getPlayerById($id) {
+        foreach ($this->players as $player) {
+            if ($id === $player->id()) {
+                return $player;
+            }
+        }
+    }
+
+    /**
+     * Determines whether or not the game would be declared finished once the current turn
+     * is finished. A game is declared finished if the Province pile has been depleted or if
+     * three non-Province piles have been depleted.
+     *
+     * @return  bool
+     */
     public function checkGameOver() {
-        if ($this->kingdom['province'] === 0) {
+        if ($this->kingdomCards['province'] === 0) {
             return true;
         }
         $emptyPiles = 0;
-        foreach ($this->kingdom as $count) {
+        foreach ($this->kingdomCards as $count) {
             if ($count === 0) {
                 $emptyPiles++;
             }
@@ -144,40 +230,65 @@ class State {
         return ($emptyPiles >= 3);
     }
 
+    /**
+     * Returns true if there are any Moat cards in the game (even if there are none in the kingdom)
+     *
+     * @return bool
+     */
     public function hasMoat() {
-        return isset($this->kingdom['moat']);
+        return isset($this->kingdomCards['moat']);
     }
 
+    /**
+     * Checks to see if there are cards specified by $stub in the kingdom
+     *
+     * @param   string      $stub
+     *
+     * @return  bool
+     */
     public function hasCard($stub) {
-        return ($this->kingdom[$stub] > 0);
+        return ($this->kingdomCards[$stub] > 0);
     }
 
+    /**
+     * Returns true if the state requires some player input before anything else can proceed
+     *
+     * @return  bool
+     */
     public function needPlayerInput() {
         return ($this->awaitingPlayerInputId !== null);
     }
 
+    /**
+     * Returns how much the cheapest available card in the kingdom costs. If $type equals 'all', then
+     * all cards are considered, otherwise just cards that have the type $type are considered. Returns null
+     * if there are no cards of the given type
+     *
+     * @param string $type
+     * @return int|mixed|null
+     */
     public function cheapestCardAmount($type = 'all') {
-        $cheapest = 1000;
-        foreach ($this->kingdom as $stub => $amount) {
+        $cheapest = null;
+        foreach ($this->kingdomCards as $stub => $amount) {
             $card = CardFactory::build($stub);
             if (    $amount > 0
                 && ($type === 'all' || $card->hasType($type))
             ) {
+                if ($cheapest === null) {
+                    $cheapest = $card->value();
+                }
                 $cheapest = min($cheapest, $card->value());
             }
-        }
-        if ($cheapest === 1000) {
-            $cheapest = null;
         }
         return $cheapest;
     }
 
     public function addCoins($coins) {
-        $this->coins = $this->coins + $coins;
+        $this->coins += $coins;
     }
 
-    public function deductCoins($amount) {
-        $this->coins = $this->coins - $amount;
+    public function deductCoins($coins) {
+        $this->coins -= $coins;
     }
 
     public function addActions($actions) {
@@ -188,66 +299,99 @@ class State {
         $this->actions -= $actions;
     }
 
-    public function addBuys($amount) {
-        $this->buys = $this->buys + $amount;
+    public function addBuys($buys) {
+        $this->buys += $buys;
     }
 
-    public function deductBuys($amount) {
-        $this->buys = $this->buys - $amount;
+    public function deductBuys($buys) {
+        $this->buys -= $buys;
     }
 
-    public function moveCardToPlayer($card, $where = 'discard', $playerId = null) {
-        if ($this->kingdom[$card] <= 0) {
+    /**
+     * Takes the card specified by $stub and moves it from its kingdom to the specified player. If
+     * $playerId is set to the empty string, then defaults to moving this card to the active player,
+     * otherwise the  id of a specific player should be provided. The $location parameter specifies
+     * where the player should place the new card
+     *
+     * @param   string     $stub
+     * @param   string     $location
+     * @param   string     $playerId
+     */
+    public function moveCardToPlayer($stub, $location = 'discard', $playerId = '') {
+        if ($this->kingdomCards[$stub] <= 0) {
             return;
         }
-        if (null === $playerId) {
+        if ('' === $playerId) {
             $playerId = $this->activePlayerId();
         }
         $player = $this->getPlayerById($playerId);
-        $player->gainCard($card, $where);
-        $this->kingdom[$card] = $this->kingdom[$card] - 1;
+        $player->gainCard($stub, $location);
+        $this->kingdomCards[$stub] = $this->kingdomCards[$stub] - 1;
     }
 
+    /**
+     * Sets various parameters of the state to their default values in preparation of a fresh
+     * turn and increments the turn counter
+     */
     public function advanceTurn() {
         $this->phase = 'action';
+        $this->actions = 1;
+        $this->coins = 0;
+        $this->buys = 1;
         $this->turn++;
     }
 
-    public function trashCards($stubs, $where = 'hand') {
+    /**
+     * Adds cards specified by the $stubs array into the games central trash pile. $stubs should
+     * be an array of card stubs. The location refers to where the active player should remove these
+     * cards from
+     *
+     * @param   array       $stubs
+     * @param   string      $location
+     */
+    public function trashCards($stubs, $location = 'hand') {
         foreach($stubs as $stub) {
-            $this->trashCard($stub, $where);
+            $this->trashCard($stub, $location);
         }
     }
 
-    public function trashCard($stub, $where = 'hand', $player = null) {
+    /**
+     * Adds the card specified by the $stub string into the games central trash pile. The $location
+     * input specifies where the specified $player should remove the same card from. If $player is
+     * set to null, then the active player is used
+     *
+     * @param   string                      $stub
+     * @param   string                      $location
+     * @param   \App\Game\Models\Player     $player
+     */
+    public function trashCard($stub, $location = 'hand', $player = null) {
         if ($player === null) {
             $player = $this->activePlayer();
         }
-        $this->trash[] = $stub;
-        $player->trashCard($stub, $where);
+        $this->trash[] = CardFactory::build($stub);
+        $player->trashCard($stub, $location);
     }
 
-    public function setAwaitingPlayerInput($active = true) {
-        if ($active) {
-            $this->awaitingPlayerInputId = $this->activePlayer()->id();
-        } else {
-            $this->awaitingPlayerInputId = $this->secondaryPlayer()->id();
-        }
-    }
-
-    public function removePlayerInput() {
-        $this->awaitingPlayerInputId = null;
-    }
-
+    /**
+     * Mark the game as being resolved
+     */
     public function resolveGame() {
         $this->isResolved = true;
     }
 
+    /**
+     * Returns true if:
+     *
+     *      -   a card is being resolved and the game is waiting player input from an AI
+     *          to proceed
+     *      -   all cards have been resolved and the active player is an AI
+     *
+     * @return bool
+     */
     public function aiPlaying() {
+        $player = $this->activePlayer();
         if ($this->awaitingPlayerInputId) {
             $player = $this->getPlayerById($this->awaitingPlayerInputId);
-        } else {
-            $player = $this->activePlayer();
         }
         return $player->isAi();
     }

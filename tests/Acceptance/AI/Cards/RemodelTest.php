@@ -31,7 +31,7 @@ class RemodelTest extends AcceptanceTestBase {
             'militia' => 10,
             'curse' => 10
         ];
-        $this->setKingdom($kingdom);
+        $this->setKingdomCards($kingdom);
         $this->setOpponentHand(['remodel', 'estate', 'copper@3']);
         $this->postUpdate('end-turn');
 

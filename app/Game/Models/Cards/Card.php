@@ -111,7 +111,7 @@ class Card {
     /**
      * Returns true if the card has the type $type, false otherwise
      *
-     * @param   string      $type
+     * @param   string  $type
      *
      * @return  bool
      */

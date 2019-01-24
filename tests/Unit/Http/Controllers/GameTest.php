@@ -114,6 +114,16 @@ class GameTest extends TestCase
 
         $state->setPlayers([$player1, $player2]);
         $state->setActivePlayerId('alec');
+        $state->setKingdomCards([
+            'copper' => 30,
+            'silver' => 20,
+            'gold' => 10,
+            'estate' => 8,
+            'duchy' => 8,
+            'province' => 8,
+            'village' => 10,
+            'curse' => 10
+        ]);
         $game->object = serialize($state);
         $game->save();
 
@@ -175,6 +185,16 @@ class GameTest extends TestCase
         ]);
 
         $state->setPlayers([$player1, $player2]);
+        $state->setKingdomCards([
+            'copper' => 30,
+            'silver' => 20,
+            'gold' => 10,
+            'estate' => 8,
+            'duchy' => 8,
+            'province' => 8,
+            'village' => 10,
+            'curse' => 10
+        ]);
         $state->setActivePlayerId('alec');
         $game->object = serialize($state);
         $game->save();

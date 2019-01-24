@@ -18,7 +18,7 @@ class FeastTest extends AcceptanceTestBase {
             'curse' => 10,
             'witch' => 10
         ];
-        $this->setKingdom($kingdom);
+        $this->setKingdomCards($kingdom);
         $this->setOpponentHand(['feast', 'copper@4']);
         $this->postUpdate('end-turn');
 

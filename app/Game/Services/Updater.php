@@ -28,7 +28,7 @@ class Updater {
             $this->state->log()->addEntry($this->state->activePlayer()->name() . ' plays ' . $card->nameWithArticlePrefix());
             $this->state->deductActions(1);
             $this->state->activePlayer()->playCard($input);
-            $this->state->removePlayerInput();
+            $this->state->setAwaitingPlayerInputId(null);
             return;
         }
 
