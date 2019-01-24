@@ -3,9 +3,9 @@
 ?>
 
 <?php foreach ($cards as $stub => $amount): $card = App\Services\Factories\CardFactory::build($stub); ?>
-    <?php if ($card->getValue() <= 4): ?>
+    <?php if ($card->value() <= 4): ?>
         <div class="hand-card active" data-action="select-option" data-option="<?= $card->stub() ?>">
-            <?= $card->getName() ?>
+            <?= $card->name() ?>
         </div>
     <?php endif; ?>
 <?php endforeach; ?>

@@ -10,7 +10,7 @@ class GainCard extends Base {
         $this->state->moveCardToPlayer(
             $this->params['card'],
             $this->params['location'],
-            $this->params['player']->getId()
+            $this->params['player']->id()
         );
         $this->description();
     }
@@ -20,7 +20,7 @@ class GainCard extends Base {
         $player = $this->params['player'];
         $location = $this->params['location'];
 
-        $entry = '.. ' . $player->getName();
+        $entry = '.. ' . $player->name();
         if ($this->state->kingdomCards()[$card] === 0) {
             if ($location === 'deck') {
                 $entry .= ' places nothing on their deck';

@@ -2,6 +2,9 @@
 
 namespace App\Game\Models\Cards;
 
+/**
+ * Class representation of a Council Room card from the Dominion card game
+ */
 class CouncilRoom extends Card {
 
     protected $value = 5;
@@ -10,12 +13,8 @@ class CouncilRoom extends Card {
 
     protected $name = 'Council Room';
 
-    protected $types = array(
+    protected $types = [
         'action'
-    );
-
-    protected $steps = array(
-        'play'
-    );
+    ];
 
 }

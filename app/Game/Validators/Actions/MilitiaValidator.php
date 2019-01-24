@@ -9,7 +9,7 @@ class MilitiaValidator extends ActionValidator {
     }
 
     public function resolveAttack($input) {
-        $hand = $this->state->secondaryPlayer()->getHand();
+        $hand = $this->state->secondaryPlayer()->hand();
 
         if (count($input) !== count($hand) - 3) {
             return false;

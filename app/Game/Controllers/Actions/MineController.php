@@ -18,7 +18,7 @@ class MineController extends ActionController {
         $trashedCard = $this->buildCard($stub);
 
         $this->trashCards([$stub]);
-        $mineCard->treasureValue = $trashedCard->getValue() + 3;
+        $mineCard->treasureValue = $trashedCard->value() + 3;
 
         $cheapestTreasure = $this->state->cheapestCardAmount('treasure');
 

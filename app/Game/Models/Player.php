@@ -4,24 +4,75 @@ namespace App\Game\Models;
 
 use App\Services\Factories\CardFactory;
 
+/**
+ * Class to represent the state of a Dominion Player
+ */
+
 class Player {
 
-    private $played = array();
-
-    private $hand = array();
-
-    private $discard = array();
-
-    private $deck = array();
-
-    private $revealed = array();
-
-    private $setAside = array();
-
+    /**
+     * The id used to identify the player. Set on instantiation of the class
+     *
+     * @var string
+     */
     private $id;
 
+    /**
+     * An optional name to use when referring to this player
+     *
+     * @var string
+     */
     private $name;
 
+    /**
+     * The cards that the player has played
+     *
+     * @var array
+     */
+    private $played = [];
+
+    /**
+     * The cards in the player's hand
+     *
+     * @var array
+     */
+    private $hand = [];
+
+    /**
+     * The cards that the player has in their discard pile
+     *
+     * @var array
+     */
+    private $discard = [];
+
+    /**
+     * The cards that the player has in their deck. The topmost card is the first entry of the array,
+     * i.e., $this->deck[0].
+     *
+     * @var array
+     */
+    private $deck = [];
+
+    /**
+     * The cards that the player has currently revealed due to a card effect
+     *
+     * @var array
+     */
+    private $revealed = [];
+
+    /**
+     * The cards that the player has set aside due to a card effect
+     *
+     * @var array
+     */
+    private $setAside = [];
+
+    /**
+     * Whether or not the player is a real player controlled by a user, or an artificial
+     * intelligence
+     *
+     * @var bool
+     */
     private $isAi;
 
     public function __construct($id, $isAi = false) {
@@ -29,24 +80,36 @@ class Player {
         $this->isAi = $isAi;
     }
 
-    public function setName($name) {
-        $this->name = $name;
-    }
-
-    public function getName() {
+    public function name() {
         return $this->name;
     }
 
-    public function getId() {
+    public function id() {
         return $this->id;
     }
 
-    public function getDeck() {
+    public function deck() {
         return $this->deck;
     }
 
-    public function getHand() {
+    public function hand() {
         return $this->hand;
+    }
+
+    public function discard() {
+        return $this->discard;
+    }
+
+    public function played() {
+        return $this->played;
+    }
+
+    public function setAside() {
+        return $this->setAside;
+    }
+
+    public function revealed() {
+        return $this->revealed;
     }
 
     public function isAi() {
@@ -65,20 +128,8 @@ class Player {
         $this->discard = $discard;
     }
 
-    public function getDiscard() {
-        return $this->discard;
-    }
-
-    public function getPlayed() {
-        return $this->played;
-    }
-
-    public function getSetAside() {
-        return $this->setAside;
-    }
-
-    public function revealed() {
-        return $this->revealed;
+    public function setName($name) {
+        $this->name = $name;
     }
 
     public function numberOfDrawableCards() {
@@ -97,6 +148,14 @@ class Player {
         return ($this->numberOfDrawableCards() > 0);
     }
 
+    /**
+     * Whether or not the player has the given card in the given location.
+     *
+     * @param   string  $stub
+     * @param   string  $where
+     *
+     * @return  bool
+     */
     public function hasCard($stub, $where = 'hand') {
         foreach($this->$where as $card) {
             if ($card->stub() === $stub) {
@@ -106,15 +165,27 @@ class Player {
         return false;
     }
 
+    /**
+     * Whether or not the player has any cards of the provided type in the given location
+     *
+     * @param   string  $type
+     * @param   string  $from
+     *
+     * @return  bool
+     */
     public function hasCardsOfType($type, $from = 'hand') {
         $cards = $this->getCardsOfType($from, $type);
         return (count($cards) > 0);
     }
 
-    public function getCards($from) {
-        return $this->getCardsOfType($from, 'all');
-    }
-
+    /**
+     * Returns those cards that have the given type in the specified location
+     *
+     * @param   string  $from
+     * @param   string  $type
+     *
+     * @return  array
+     */
     public function getCardsOfType($from, $type) {
         $cards = [];
         foreach ($this->$from as $key => $card) {
@@ -125,35 +196,48 @@ class Player {
         return $cards;
     }
 
+    /**
+     * Returns true if the player has a card in play that is yet to be resolved
+     *
+     * @return bool
+     */
     public function hasUnresolvedCard() {
         return ($this->unresolvedCard() !== null);
     }
 
+    /**
+     * Returns the next played card that needs to be resolved, or null if there is no such card
+     *
+     * @return mixed|null
+     */
     public function unresolvedCard() {
         foreach ($this->played as $key => $card) {
-            if (!$card->isResolved()) {
+            if (!$card->resolved()) {
                 return $card;
             }
         }
         return null;
     }
 
-    private function unresolvedCardIndex() {
-        foreach ($this->played as $index => $card) {
-            if (!$card->isResolved()) {
-                return $index;
-            }
-        }
-    }
-
+    /**
+     * Return the next step that needs to be resolved on the player's first unresolved card, or null
+     * otherwise
+     *
+     * @return null
+     */
     public function getNextStep() {
         if (!$this->hasUnresolvedCard()) {
             return null;
         }
         $card = $this->unresolvedCard();
-        return $card->getNextStep();
+        return $card->stub() . '/' . $card->nextStep();
     }
 
+    /**
+     * Returns the top card of the player's deck, or null otherwise
+     *
+     * @return mixed|null
+     */
     public function topCard() {
         $this->createNewDeckIfNecessary();
         if (count($this->deck) === 0) {
@@ -162,6 +246,11 @@ class Player {
         return $this->deck[0];
     }
 
+    /**
+     * The total number of victory points the player has in their deck
+     *
+     * @return int
+     */
     public function score() {
         $cards = array_merge($this->hand, $this->played, $this->discard);
 
@@ -172,70 +261,148 @@ class Player {
         return $score;
     }
 
+    /**
+     * Shuffles the player's deck
+     */
     public function shuffleDeck() {
         shuffle($this->deck);
     }
 
+    /**
+     * Builds a fresh instance of the card corresponding to the $stub and places it on the player's deck
+     *
+     * @param   string      $stub
+     */
     public function placeCardOnDeck($stub) {
         array_unshift($this->deck, CardFactory::build($stub));
     }
 
+    /**
+     * Takes the top card of the player's deck and moves it their revealed area
+     */
     public function revealTopCard() {
         $this->moveCardFromTopOfDeck('revealed');
     }
 
+    /**
+     * Takes the top card of the player's deck and moves it to their set aside area
+     */
     public function setAsideTopCard() {
         $this->moveCardFromTopOfDeck('setAside');
     }
 
+    /**
+     * Takes the top card of the player's deck and moves it to their hand
+     */
+    public function drawCard() {
+        $this->moveCardFromTopOfDeck('hand');
+    }
+
+    /**
+     * Moves the given $number of cards from the top of the player's deck to their hand
+     *
+     * @param   int         $number
+     */
     public function drawCards($number) {
         for ($i = 1; $i <= $number; $i++) {
             $this->drawCard();
         }
     }
 
-    public function drawCard() {
-        $this->moveCardFromTopOfDeck('hand');
+    /**
+     * Looks in the player's hand and discards the first instance of a card with a stub matching $stub
+     *
+     * @param   string      $stub
+     */
+    public function discardCard($stub) {
+        $this->moveCard($stub, 'hand', 'discard');
     }
 
+    /**
+     * Looks in the player's hand and discards as many card's that have a stub matching one
+     * in the $stubs array. If there are multiple instance's of the same stub, discards cards up
+     * to that amount, e.g., discard's up to two coppers if 'copper' appears twice in $stubs
+     * array
+     *
+     * @param   array       $stubs
+     */
     public function discardCards($stubs) {
         foreach($stubs as $stub) {
             $this->discardCard($stub);
         }
     }
 
-    public function discardCard($stub) {
-        $this->moveCard('hand', 'discard', $stub);
-    }
-
+    /**
+     * Removes a card with a stub matching $stub from the player's hand and builds a fresh instance
+     * of that card in the player's hand. Places this new instance after the first unresolved card,
+     * to maintain card order when a card is played in response to another card's effect
+     * (e.g., throne room)
+     *
+     * @param   string      $stub
+     */
     public function playCard($stub) {
         $this->removeCardFrom($stub, 'hand');
 
         $card = CardFactory::build($stub);
         $position = $this->unresolvedCardIndex();
-        array_splice($this->played, $position+1, 0, array($card));
+        array_splice($this->played, $position+1, 0, [$card]);
     }
 
+    /**
+     * Places a virtual copy of the card matching the given $stub in the player's played area. No
+     * need to remove any card from the player's hand. Used when playing a Feast in response to a
+     * Throne Room
+     *
+     * @param   string      $stub
+     */
     public function playVirtualCard($stub) {
         $card = CardFactory::build($stub);
         $card->markAsVirtual();
 
         $position = $this->unresolvedCardIndex();
-        array_splice($this->played, $position+1, 0, array($card));
+        array_splice($this->played, $position+1, 0, [$card]);
     }
 
-    public function trashCard($stub, $location) {
+    /**
+     * Removes a card matching the given $stub from the provided $location
+     *
+     * @param   string      $stub
+     * @param   string      $location
+     */
+    public function trashCard($stub, $location = 'hand') {
         $this->removeCardFrom($stub, $location);
     }
 
-    public function gainCard($card, $where = 'discard') {
-        $this->addCardTo($card, $where);
+    /**
+     * Adds a card corresponding to the given $stub to the provided $location
+     *
+     * @param   string      $stub
+     * @param   string      $location
+     */
+    public function gainCard($stub, $location = 'discard') {
+        $this->addCardTo($stub, $location);
     }
 
+    /**
+     * Moves all the card's that reside in the location designated by $from to the location
+     * designated by $to. Examples of such locations include 'hand', 'deck', 'discard' and
+     * so on
+     *
+     * @param   string      $from
+     * @param   string      $to
+     */
     public function moveCards($from, $to) {
         $this->moveCardsOfType($from, $to, 'all');
     }
 
+    /**
+     * Moves all the card's that have the specified $type from the location specified by $from
+     * to the location specified by $to$. Examples: 'hand', 'deck', 'discard' and so on
+     *
+     * @param   string      $from
+     * @param   string      $to
+     * @param   string      $type
+     */
     public function moveCardsOfType($from, $to, $type) {
         foreach($this->$from as $index => $card) {
             if ($card->hasType($type) || $type === 'all') {
@@ -245,31 +412,82 @@ class Player {
         }
     }
 
-    public function moveCardOntoDeck($from, $stub) {
+    /**
+     * Moves the first instance of the card specified by $stub that resides in the location designated
+     * by $from and places it on top of the player' deck
+     *
+     * @param   string      $stub
+     * @param   string      $location
+     */
+    public function moveCardOntoDeck($stub, $location) {
         $this->placeCardOnDeck($stub);
-        $this->removeCardFrom($stub, $from);
+        $this->removeCardFrom($stub, $location);
     }
 
+    /**
+     * Finds the first instance of the card specified by $stub that resides in the location designated
+     * bby $from and deletes it from this location
+     *
+     * @param   string      $stub
+     * @param   string      $location
+     */
+    public function removeCardFrom($stub, $location) {
+        foreach ($this->$location as $key => $card) {
+            if ($card->stub() === $stub) {
+                unset($this->$location[$key]);
+                $this->$location  = array_values($this->$location);
+                return;
+            }
+        }
+    }
+
+    /**
+     * Builds an instance of the card specified by $stub and adds it to the location designated by
+     * $location
+     *
+     * @param   string      $stub
+     * @param   string      $location
+     */
+    private function addCardTo($stub, $location) {
+        $this->$location[] = CardFactory::build($stub);
+    }
+
+    /**
+     * Resolves the first unresolved card in the player's played pile
+     */
     public function resolveCard() {
         $this->unresolvedCard()->resolve();
-
     }
 
+    /**
+     * Resolves every card in the player's played pile
+     */
     public function resolveAll() {
         foreach($this->played as $card) {
             $card->resolve();
         }
     }
 
+    /**
+     * Finds the first unresolved card in the player's played pile and sets its next step to be equal to
+     * $step
+     *
+     * @param   string      $step
+     *
+     * @return  void
+     */
     public function setNextStep($step) {
         foreach ($this->played as $card) {
-            if (!$card->isResolved()) {
-                $card->setNextStep($step);
-                return;
+            if (!$card->resolved()) {
+                return $card->setNextStep($step);
             }
         }
     }
 
+    /**
+     * Helper function to create a fresh deck by shuffling the player's discard, if this is necessary, for example
+     * if access to the top card of the player's deck is required
+     */
     private function createNewDeckIfNecessary() {
         if (count($this->deck) === 0) {
             $this->moveCards('discard', 'deck');
@@ -277,31 +495,45 @@ class Player {
         }
     }
 
-    private function moveCardFromTopOfDeck($to) {
+    /**
+     * Takes the top card of the player's deck and moves it to the location designated by $location, if
+     * this is actually possible
+     *
+     * @param   string      $location
+     */
+    private function moveCardFromTopOfDeck($location) {
         $this->createNewDeckIfNecessary();
         if (count($this->deck) === 0) {
-            return null;
+            return;
         }
-        $this->moveCard('deck', $to, $this->topCard()->stub());
+        $this->moveCard($this->topCard()->stub(), 'deck', $location);
     }
 
-    private function moveCard($from, $to, $stub) {
+    /**
+     * Moves the first instance of a card specified by $stub from the location designated by $from to the
+     * location designated by $to
+     *
+     * @param   string        $stub
+     * @param   string        $from
+     * @param   string        $to
+     */
+    private function moveCard($stub, $from, $to) {
         $this->addCardTo($stub, $to);
         $this->removeCardFrom($stub, $from);
     }
 
-    private function addCardTo($stub, $location) {
-        $this->$location[] = CardFactory::build($stub);
-    }
-
-    public function removeCardFrom($stub, $from) {
-        foreach ($this->$from as $key => $card) {
-            if ($card->stub() === $stub) {
-                unset($this->$from[$key]);
-                $this->$from  = array_values($this->$from);
-                return;
+    /**
+     * Returns the index of the first unresolved card in the player's played area, or null otherwise
+     *
+     * @return  int|null
+     */
+    private function unresolvedCardIndex() {
+        foreach ($this->played as $index => $card) {
+            if (!$card->resolved()) {
+                return $index;
             }
         }
+        return null;
     }
 
 }

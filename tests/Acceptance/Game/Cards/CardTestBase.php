@@ -196,7 +196,7 @@ class CardTestBase extends AcceptanceTestBase
         $player = unserialize($this->game->object)->activePlayer();
 
         $existingStubs = [];
-        foreach ($player->getHand() as $card) {
+        foreach ($player->hand() as $card) {
             $existingStubs[] = $card->getStub();
         }
         $this->assertContains($stub, $existingStubs);
@@ -204,22 +204,22 @@ class CardTestBase extends AcceptanceTestBase
 
     protected function assertHandSize($size) {
         $player = unserialize($this->game->object)->activePlayer();
-        $this->assertEquals(count($player->getHand()), $size);
+        $this->assertEquals(count($player->hand()), $size);
     }
 
     protected function assertOpponentHandSize($size) {
         $player = unserialize($this->game->object)->secondaryPlayer();
-        $this->assertEquals(count($player->getHand()), $size);
+        $this->assertEquals(count($player->hand()), $size);
     }
 
     protected function assertDeckSize($size) {
         $player = unserialize($this->game->object)->activePlayer();
-        $this->assertEquals(count($player->getDeck()), $size);
+        $this->assertEquals(count($player->deck()), $size);
     }
 
     protected function assertOpponentDeckSize($size) {
         $player = unserialize($this->game->object)->secondaryPlayer();
-        $this->assertEquals(count($player->getDeck()), $size);
+        $this->assertEquals(count($player->deck()), $size);
     }
 
     protected function assertOpponentRevealedSize($size) {
@@ -229,12 +229,12 @@ class CardTestBase extends AcceptanceTestBase
 
     protected function assertDiscardSize($size) {
         $player = unserialize($this->game->object)->activePlayer();
-        $this->assertEquals(count($player->getDiscard()), $size);
+        $this->assertEquals(count($player->discard()), $size);
     }
 
     protected function assertOpponentDiscardSize($size) {
         $player = unserialize($this->game->object)->secondaryPlayer();
-        $this->assertEquals(count($player->getDiscard()), $size);
+        $this->assertEquals(count($player->discard()), $size);
     }
 
     protected function assertActions($actions) {
@@ -244,7 +244,7 @@ class CardTestBase extends AcceptanceTestBase
 
     protected function assertNumberOfPlayed($number) {
         $state = unserialize($this->game->object);
-        $this->assertEquals(count($state->activePlayer()->getPlayed()), $number);
+        $this->assertEquals(count($state->activePlayer()->played()), $number);
     }
 
     protected function assertNumberOfBuys($number) {
@@ -274,7 +274,7 @@ class CardTestBase extends AcceptanceTestBase
 
     protected function assertNumberOfSetAside($number) {
         $state = unserialize($this->game->object);
-        $this->assertEquals(count($state->activePlayer()->getSetAside()), $number);
+        $this->assertEquals(count($state->activePlayer()->setAside()), $number);
     }
 
     protected function assertLogContains($lines) {
@@ -310,7 +310,7 @@ class CardTestBase extends AcceptanceTestBase
     }
 
     protected function assertNextStep($step) {
-        $nextStep = $this->state()->activePlayer()->unresolvedCard()->getNextStep();
+        $nextStep = $this->state()->activePlayer()->getNextStep();
         $nextStep = explode('/', $nextStep)[1];
         $this->assertEquals($nextStep, $step);
     }

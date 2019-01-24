@@ -262,7 +262,7 @@ class AcceptanceTestBase extends TestCase
         $player = $this->state()->activePlayer();
 
         $existingStubs = [];
-        foreach ($player->getHand() as $card) {
+        foreach ($player->hand() as $card) {
             $existingStubs[] = $card->getStub();
         }
         $this->assertContains($stub, $existingStubs);
@@ -270,32 +270,32 @@ class AcceptanceTestBase extends TestCase
 
     protected function assertHandSize($size) {
         $player = $this->state()->activePlayer();
-        $this->assertEquals(count($player->getHand()), $size);
+        $this->assertEquals(count($player->hand()), $size);
     }
 
     protected function assertOpponentHandSize($size) {
         $player = $this->state()->secondaryPlayer();
-        $this->assertEquals(count($player->getHand()), $size);
+        $this->assertEquals(count($player->hand()), $size);
     }
 
     protected function assertDeckSize($size) {
         $player = $this->state()->activePlayer();
-        $this->assertEquals(count($player->getDeck()), $size);
+        $this->assertEquals(count($player->deck()), $size);
     }
 
     protected function assertOpponentDeckSize($size) {
         $player = $this->state()->secondaryPlayer();
-        $this->assertEquals(count($player->getDeck()), $size);
+        $this->assertEquals(count($player->deck()), $size);
     }
 
     protected function assertDiscardSize($size) {
         $player = $this->state()->activePlayer();
-        $this->assertEquals(count($player->getDiscard()), $size);
+        $this->assertEquals(count($player->discard()), $size);
     }
 
     protected function assertOpponentDiscardSize($size) {
         $player = $this->state()->secondaryPlayer();
-        $this->assertEquals(count($player->getDiscard()), $size);
+        $this->assertEquals(count($player->discard()), $size);
     }
 
     protected function assertActions($actions) {
@@ -305,7 +305,7 @@ class AcceptanceTestBase extends TestCase
 
     protected function assertNumberOfPlayed($number) {
         $state = $this->state();
-        $this->assertEquals(count($state->activePlayer()->getPlayed()), $number);
+        $this->assertEquals(count($state->activePlayer()->played()), $number);
     }
 
     protected function assertNumberOfBuys($number) {
@@ -335,7 +335,7 @@ class AcceptanceTestBase extends TestCase
 
     protected function assertNumberOfSetAside($number) {
         $state = $this->state();
-        $this->assertEquals(count($state->activePlayer()->getSetAside()), $number);
+        $this->assertEquals(count($state->activePlayer()->setAside()), $number);
     }
 
     protected function assertLogContains($lines) {
@@ -394,9 +394,9 @@ class AcceptanceTestBase extends TestCase
 
     protected function assertTotalNumberOfCardsForOpponent($amount) {
         $player = $this->state()->secondaryPlayer();
-        $total = count($player->getHand())
-            + count($player->getDiscard())
-            + count($player->getDeck());
+        $total = count($player->hand())
+            + count($player->discard())
+            + count($player->deck());
         $this->assertEquals($amount, $total);
     }
 
@@ -404,21 +404,21 @@ class AcceptanceTestBase extends TestCase
         $player = $this->state()->secondaryPlayer();
 
         $amountInPlay = 0;
-        $hand = $player->getHand();
+        $hand = $player->hand();
         foreach ($hand as $card) {
             if ($card->stub() === $stub) {
                 $amountInPlay++;
             }
         }
 
-        $deck = $player->getDeck();
+        $deck = $player->deck();
         foreach ($deck as $card) {
             if ($card->stub() === $stub) {
                 $amountInPlay++;
             }
         }
 
-        $discard = $player->getDiscard();
+        $discard = $player->discard();
         foreach ($discard as $card) {
             if ($card->stub() === $stub) {
                 $amountInPlay++;
@@ -429,7 +429,7 @@ class AcceptanceTestBase extends TestCase
     }
 
     protected function assertOpponentDiscardContains($stub) {
-        $discard = $this->state()->secondaryPlayer()->getDiscard();
+        $discard = $this->state()->secondaryPlayer()->discard();
 
         $isTrue = false;
         foreach ($discard as $card) {

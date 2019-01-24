@@ -2,6 +2,9 @@
 
 namespace App\Game\Models\Cards;
 
+/**
+ * Class representation of a Village card from the Dominion card game
+ */
 class Village extends Card {
 
     protected $value = 3;
@@ -10,16 +13,12 @@ class Village extends Card {
 
     protected $name = 'Village';
 
-    protected $types = array(
+    protected $types = [
         'action'
-    );
+    ];
 
-    protected $steps = array(
-        'play'
-    );
-
-    protected $features = array(
+    protected $features = [
         'increasesActions'
-    );
+    ];
 
 }

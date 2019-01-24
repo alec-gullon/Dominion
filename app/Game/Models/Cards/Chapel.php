@@ -2,6 +2,9 @@
 
 namespace App\Game\Models\Cards;
 
+/**
+ * Class representation of a Chapel card from the Dominion card game
+ */
 class Chapel extends Card {
 
     protected $value = 2;
@@ -10,13 +13,8 @@ class Chapel extends Card {
 
     protected $name = 'Chapel';
 
-    protected $types = array(
+    protected $types = [
         'action'
-    );
-
-    protected $steps = array(
-        'play',
-        'trash-selected-cards'
-    );
+    ];
 
 }

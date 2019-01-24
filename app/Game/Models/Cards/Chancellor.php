@@ -2,6 +2,9 @@
 
 namespace App\Game\Models\Cards;
 
+/**
+ * Class representation of a Chancellor card from the Dominion card game
+ */
 class Chancellor extends Card {
 
     protected $value = 3;
@@ -10,13 +13,8 @@ class Chancellor extends Card {
 
     protected $name = 'Chancellor';
 
-    protected $types = array(
+    protected $types = [
         'action'
-    );
-
-    protected $steps = array(
-        'play',
-        'put-deck-in-discard'
-    );
+    ];
 
 }

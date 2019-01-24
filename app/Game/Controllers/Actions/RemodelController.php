@@ -18,7 +18,7 @@ class RemodelController extends ActionController {
         $trashedCard = $this->buildCard($stub);
 
         $this->trashCards([$stub]);
-        $gainValue = $trashedCard->getValue() + 2;
+        $gainValue = $trashedCard->value() + 2;
 
         if ($this->state->cheapestCardAmount() > $gainValue) {
             $this->addPlayerActionToLog('cannot gain anything');

@@ -21,7 +21,7 @@ class DrawCards extends Base {
         $amount = $this->params['amount'];
         $player = $this->params['player'];
 
-        $entry = '.. ' . $player->getName();
+        $entry = '.. ' . $player->name();
         if ($amount === 0) {
             $entry .= ' draws nothing';
         } else if ($amount === 1) {

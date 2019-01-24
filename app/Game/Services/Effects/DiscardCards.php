@@ -17,7 +17,7 @@ class DiscardCards extends Base {
         $player = $this->params['player'];
         $cards = CardFactory::buildMultiple($this->params['cards']);
 
-        $entry = '.. ' . $player->getName() . ' discards';
+        $entry = '.. ' . $player->name() . ' discards';
         if (count($cards) === 0) {
             $entry .= ' nothing';
         } else {

@@ -2,6 +2,9 @@
 
 namespace App\Game\Models\Cards;
 
+/**
+ * Class representation of a Throne Room card from the Dominion card game
+ */
 class ThroneRoom extends Card {
 
     protected $value = 3;
@@ -10,13 +13,8 @@ class ThroneRoom extends Card {
 
     protected $name = 'Throne Room';
 
-    protected $types = array(
+    protected $types = [
         'action'
-    );
-
-    protected $steps = array(
-        'play',
-        'duplicate-card'
-    );
+    ];
 
 }

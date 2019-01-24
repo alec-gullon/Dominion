@@ -2,6 +2,9 @@
 
 namespace App\Game\Models\Cards;
 
+/**
+ * Class representation of an Adventurer card from the Dominion card game
+ */
 class Adventurer extends Card {
 
     protected $value = 6;
@@ -10,12 +13,8 @@ class Adventurer extends Card {
 
     protected $name = 'Adventurer';
 
-    protected $types = array(
+    protected $types = [
         'action'
-    );
-
-    protected $steps = array(
-        'play'
-    );
+    ];
 
 }

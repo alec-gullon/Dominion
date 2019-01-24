@@ -6,7 +6,7 @@ class CardsHelper {
 
     public static function sortCardStackByName($cardStack) {
         usort($cardStack, function($a, $b) {
-            if ($a->getName() < $b->getName()) {
+            if ($a->name() < $b->name()) {
                 return -1;
             }
             return 1;

@@ -6,7 +6,7 @@
     Cards in Hand
 </h1>
 
-@foreach ($player->getHand() as $card)
+@foreach ($player->hand() as $card)
     @if ($gameObserver->isHandCardActive($card, $playerKey))
         <?php
             if ($card->hasType('action')) {
@@ -16,11 +16,11 @@
             }
         ?>
         <div class="card card--active" data-action="<?= $action ?>" data-stub="<?= $card->stub() ?>">
-            <?= $card->getName() ?>
+            <?= $card->name() ?>
         </div>
     @else
         <div class="card">
-            <?= $card->getName() ?>
+            <?= $card->name() ?>
         </div>
     @endif
 @endforeach

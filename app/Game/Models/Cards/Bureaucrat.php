@@ -2,6 +2,9 @@
 
 namespace App\Game\Models\Cards;
 
+/**
+ * Class representation of a Bureaucrat card from the Dominion card game
+ */
 class Bureaucrat extends Card {
 
     protected $value = 3;
@@ -10,14 +13,9 @@ class Bureaucrat extends Card {
 
     protected $name = 'Bureaucrat';
 
-    protected $types = array(
-        'action', 'attack'
-    );
-
-    protected $steps = array(
-        'play',
-        'resolve-moat',
-        'resolve-attack'
-    );
+    protected $types = [
+        'action',
+        'attack'
+    ];
 
 }

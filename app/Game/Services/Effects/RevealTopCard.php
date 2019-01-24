@@ -14,7 +14,7 @@ class RevealTopCard extends Base {
     public function description() {
         $player = $this->params['player'];
 
-        $entry = '.. ' . $player->getName();
+        $entry = '.. ' . $player->name();
         if (!$player->canDrawCard()) {
             $entry .= ' has nothing to reveal';
         } else {

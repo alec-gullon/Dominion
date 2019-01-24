@@ -9,14 +9,14 @@ class Feast extends CardStrategy {
 
         foreach ($kingdomCards as $stub => $amount) {
             $card = $this->makeCard($stub);
-            if ($card->getValue() === 5 && $card->hasType('attack')) {
+            if ($card->value() === 5 && $card->hasType('attack')) {
                 return $card->stub();
             }
         }
 
         foreach ($kingdomCards as $stub => $amount) {
             $card = $this->makeCard($stub);
-            if ($card->getValue() <= 5 && $card->hasType('attack')) {
+            if ($card->value() <= 5 && $card->hasType('attack')) {
                 return $card->stub();
             }
         }

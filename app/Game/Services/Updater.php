@@ -25,7 +25,7 @@ class Updater {
         // if the player has just played a card, decrease actions by 1 and move card to played
         if ($action === 'play-card') {
             $card = CardFactory::build($input);
-            $this->state->log()->addEntry($this->state->activePlayer()->getName() . ' plays ' . $card->nameWithArticlePrefix());
+            $this->state->log()->addEntry($this->state->activePlayer()->name() . ' plays ' . $card->nameWithArticlePrefix());
             $this->state->deductActions(1);
             $this->state->activePlayer()->playCard($input);
             $this->state->removePlayerInput();

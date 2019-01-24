@@ -10,7 +10,7 @@
                 }
             ?>
             <div class="{{ $class }}">
-                {{ $card->getName() }}: {{ $state->kingdomCards()[$stub] }}
+                {{ $card->name() }}: {{ $state->kingdomCards()[$stub] }}
             </div>
         @endforeach
     </div>
@@ -25,7 +25,7 @@
                 }
             ?>
             <div class="{{ $class }}">
-                {{ $card->getName() }}: {{ $state->kingdomCards()[$stub] }}
+                {{ $card->name() }}: {{ $state->kingdomCards()[$stub] }}
             </div>
         @endforeach
     </div>
@@ -38,7 +38,7 @@
             }
         ?>
         <div class="{{ $class }}">
-            {{ $card->getName() }}: {{ $state->kingdomCards()[$stub] }}
+            {{ $card->name() }}: {{ $state->kingdomCards()[$stub] }}
         </div>
     </div>
 </div>

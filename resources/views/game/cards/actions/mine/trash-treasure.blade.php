@@ -1,6 +1,6 @@
 <?php
 $player = $state->activePlayer();
-$cards = $player->getHand();
+$cards = $player->hand();
 ?>
 
 <?php if ($playerKey !== $playerKey): ?>
@@ -9,7 +9,7 @@ $cards = $player->getHand();
     <?php foreach ($cards as $card): ?>
         <?php if ($card->hasType('treasure')) : ?>
             <div class="hand-card" data-test-active>
-                <?= $card->getName() ?>
+                <?= $card->name() ?>
             </div>
         <?php endif; ?>
     <?php endforeach; ?>

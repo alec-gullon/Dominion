@@ -21,7 +21,7 @@ class MoveCards extends Base {
             $this->params['type']
         );
 
-        $entry = '.. ' . $player->getName();
+        $entry = '.. ' . $player->name();
         if (count($cardsToMove) === 0) {
             $entry .= ' does not put anything';
         } else {

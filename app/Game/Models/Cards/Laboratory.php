@@ -2,6 +2,9 @@
 
 namespace App\Game\Models\Cards;
 
+/**
+ * Class representation of a Laboratory card from the Dominion card game
+ */
 class Laboratory extends Card {
 
     protected $value = 5;
@@ -10,12 +13,8 @@ class Laboratory extends Card {
 
     protected $name = 'Laboratory';
 
-    protected $types = array(
+    protected $types = [
         'action'
-    );
-
-    protected $steps = array(
-        'play'
-    );
+    ];
 
 }

@@ -8,7 +8,7 @@ class Spy extends CardStrategy {
         $card = $this->state->activePlayer()->revealed()[0];
 
         if (    $card->hasType('victory')
-            ||  $card->getValue() <= 2
+            ||  $card->value() <= 2
         ) {
             return true;
         }
@@ -19,7 +19,7 @@ class Spy extends CardStrategy {
         $card = $this->state->secondaryPlayer()->revealed()[0];
 
         if (    $card->hasType('victory')
-            ||  $card->getValue() <= 2
+            ||  $card->value() <= 2
         ) {
             return false;
         }

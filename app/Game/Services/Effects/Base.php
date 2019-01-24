@@ -30,7 +30,7 @@ class Base {
     }
 
     protected function activePlayerName() {
-        return $this->state->activePlayer()->getName();
+        return $this->state->activePlayer()->name();
     }
 
 }

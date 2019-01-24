@@ -2,6 +2,9 @@
 
 namespace App\Game\Models\Cards;
 
+/**
+ * Class representation of a Thief card from the Dominion card game
+ */
 class Thief extends Card {
 
     protected $value = 3;
@@ -10,17 +13,9 @@ class Thief extends Card {
 
     protected $name = 'Thief';
 
-    public $moatRevealed = false;
-
-    protected $types = array(
-        'action', 'attack'
-    );
-
-    protected $steps = array(
-        'play',
-        'resolve-moat',
-        'resolve-attack',
-        'gain-trashed-card'
-    );
+    protected $types = [
+        'action',
+        'attack'
+    ];
 
 }

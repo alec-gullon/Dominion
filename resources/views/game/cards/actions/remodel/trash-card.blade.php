@@ -1,6 +1,6 @@
 <?php
     $player = $state->activePlayer();
-    $cards = $player->getHand();
+    $cards = $player->hand();
 ?>
 
 <?php if ($playerKey !== $playerKey): ?>
@@ -8,7 +8,7 @@
 <?php else: ?>
     <?php foreach ($cards as $card): ?>
         <div class="hand-card" data-test-active>
-            <?= $card->getName() ?>
+            <?= $card->name() ?>
         </div>
     <?php endforeach; ?>
 <?php endif; ?>

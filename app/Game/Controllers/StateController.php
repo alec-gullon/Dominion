@@ -25,7 +25,7 @@ class StateController {
         if ($player === null) {
             $player = $this->activePlayer();
         }
-        $this->addToLog('.. ' . $player->getName() . ' ' . $log);
+        $this->addToLog('.. ' . $player->name() . ' ' . $log);
     }
 
     protected function effect($effectClass, $params = array()) {

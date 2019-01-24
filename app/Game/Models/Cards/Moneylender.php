@@ -2,6 +2,9 @@
 
 namespace App\Game\Models\Cards;
 
+/**
+ * Class representation of a Moneylender card from the Dominion card game
+ */
 class Moneylender extends Card {
 
     protected $value = 3;
@@ -10,13 +13,8 @@ class Moneylender extends Card {
 
     protected $name = 'Moneylender';
 
-    protected $types = array(
+    protected $types = [
         'action'
-    );
-
-    protected $steps = array(
-        'play',
-        'trash-copper'
-    );
+    ];
 
 }

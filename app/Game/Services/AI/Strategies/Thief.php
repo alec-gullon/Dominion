@@ -7,7 +7,7 @@ class Thief extends CardStrategy {
     public function resolveAttack() {
         $revealedCards = $this->state->secondaryPlayer()->revealed();
 
-        if ($revealedCards[0]->getValue() < $revealedCards[1]->getValue()) {
+        if ($revealedCards[0]->value() < $revealedCards[1]->value()) {
             return $revealedCards[1]->stub();
         }
         return $revealedCards[0]->stub();
@@ -18,7 +18,7 @@ class Thief extends CardStrategy {
 
         $card = $this->makeCard($thiefCard->trashedCard);
 
-        if ($card->getValue() >= 3) {
+        if ($card->value() >= 3) {
             return true;
         }
         return false;

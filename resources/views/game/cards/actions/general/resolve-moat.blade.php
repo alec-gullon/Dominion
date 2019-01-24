@@ -2,7 +2,7 @@
     $player = $state->secondaryPlayer();
 ?>
 
-<?php if ($playerKey === $player->getId()): ?>
+<?php if ($playerKey === $player->id()): ?>
 
 <div class="player-prompt">
     Do you reveal a moat?

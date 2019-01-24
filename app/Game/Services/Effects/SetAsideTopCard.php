@@ -13,7 +13,7 @@ class SetAsideTopCard extends Base {
         $card = $this->state->activePlayer()->topCard();
 
         $entry = '.. '
-            . $this->state->activePlayer()->getName()
+            . $this->state->activePlayer()->name()
             . ' sets aside '
             . $card->nameWithArticlePrefix();
 

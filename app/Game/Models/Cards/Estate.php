@@ -2,18 +2,19 @@
 
 namespace App\Game\Models\Cards;
 
+/**
+ * Class representation of an Estate card from the Dominion card game
+ */
 class Estate extends Card {
 
     protected $value = 2;
-
-    protected $points = 1;
 
     protected $stub = 'estate';
 
     protected $name = 'Estate';
 
-    protected $types = array(
+    protected $types = [
         'victory'
-    );
+    ];
 
 }

@@ -16,7 +16,7 @@ class DiscardRevealedCards extends Base {
     public function description() {
         $player = $this->params['player'];
 
-        $entry = '.. ' . $player->getName() . ' discards'
+        $entry = '.. ' . $player->name() . ' discards'
             . $this->describeCardList($player->revealed())
             . ' from their revealed';
 

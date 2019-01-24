@@ -13,14 +13,14 @@ class DiscardSetAsideCards extends Base {
 
     public function description() {
         $player = $this->state->activePlayer();
-        $cards = $player->getSetAside();
+        $cards = $player->setAside();
 
         if (count($cards) === 0) {
             return;
         }
 
-        $entry = '.. ' . $player->getName() . ' discards'
-            . $this->describeCardList($player->getSetAside())
+        $entry = '.. ' . $player->name() . ' discards'
+            . $this->describeCardList($player->setAside())
             . ' that they set aside';
 
         $this->addToLog($entry);

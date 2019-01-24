@@ -11,7 +11,7 @@ class Chapel extends CardStrategy {
     ];
 
     public function trashSelectedCards() {
-        $handCards = $this->state->activePlayer()->getHand();
+        $handCards = $this->state->activePlayer()->hand();
 
         $cardsToTrash = [];
         foreach ($handCards as $handCard) {

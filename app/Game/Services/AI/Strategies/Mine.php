@@ -5,7 +5,7 @@ namespace App\Game\Services\AI\Strategies;
 class Mine extends CardStrategy {
 
     public function trashTreasure() {
-        $handCards = $this->state->activePlayer()->getHand();
+        $handCards = $this->state->activePlayer()->hand();
 
         foreach ($handCards as $card) {
             if ($card->hasType('treasure') && $card->stub() !== 'gold') {

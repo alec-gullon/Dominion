@@ -5,7 +5,7 @@ namespace App\Game\Services\AI\Strategies;
 class Bureaucrat extends CardStrategy {
 
     public function resolveAttack() {
-        $handCards = $this->state->activePlayer()->getHand();
+        $handCards = $this->state->activePlayer()->hand();
 
         foreach ($handCards as $handCard) {
             if ($handCard->hasType('victory')) {

@@ -7,7 +7,7 @@ class Militia extends CardStrategy {
     public function resolveAttack() {
         $cardsToDiscard = [];
         $valuesInHand = [];
-        $handCards = $this->state->secondaryPlayer()->getHand();
+        $handCards = $this->state->secondaryPlayer()->hand();
 
         $numberOfCardsToDiscard = count($handCards) - 3;
         foreach ($handCards as $key => $card) {
@@ -18,8 +18,8 @@ class Militia extends CardStrategy {
                 $cardsToDiscard[] = $key;
             }
 
-            if (!in_array($card->getValue(), $valuesInHand)) {
-                $valuesInHand[] = $card->getValue();
+            if (!in_array($card->value(), $valuesInHand)) {
+                $valuesInHand[] = $card->value();
             }
         }
 
@@ -36,7 +36,7 @@ class Militia extends CardStrategy {
                 if (in_array($key, $cardsToDiscard)) {
                     continue;
                 }
-                if ($card->getValue() === $value) {
+                if ($card->value() === $value) {
                     $cardsToDiscard[] = $key;
                 }
             }

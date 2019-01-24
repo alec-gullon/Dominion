@@ -14,7 +14,7 @@ class TurnController extends StateController {
         $this->state->advanceTurn();
         $this->addPlayerActionToLog('ends their turn');
 
-        $this->state->setActivePlayerId($this->state->secondaryPlayer()->getId());
+        $this->state->setActivePlayerId($this->state->secondaryPlayer()->id());
 
         if ($this->state->checkGameOver()) {
             $this->state->resolveGame();

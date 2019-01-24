@@ -2,6 +2,9 @@
 
 namespace App\Game\Models\Cards;
 
+/**
+ * Class representation of a Festival card from the Dominion card game
+ */
 class Festival extends Card {
 
     protected $value = 5;
@@ -10,12 +13,8 @@ class Festival extends Card {
 
     protected $name = 'Festival';
 
-    protected $types = array(
+    protected $types = [
         'action'
-    );
-
-    protected $steps = array(
-        'play'
-    );
+    ];
 
 }

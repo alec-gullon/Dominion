@@ -113,7 +113,7 @@ class State {
 
     public function getPlayerById($id) {
         foreach ($this->players as $player) {
-            if ($id === $player->getId()) {
+            if ($id === $player->id()) {
                 return $player;
             }
         }
@@ -125,7 +125,7 @@ class State {
 
     public function secondaryPlayer() {
         foreach($this->players as $player) {
-            if ($this->activePlayerId !== $player->getId()) {
+            if ($this->activePlayerId !== $player->id()) {
                 return $player;
             }
         }
@@ -163,7 +163,7 @@ class State {
             if (    $amount > 0
                 && ($type === 'all' || $card->hasType($type))
             ) {
-                $cheapest = min($cheapest, $card->getValue());
+                $cheapest = min($cheapest, $card->value());
             }
         }
         if ($cheapest === 1000) {
@@ -229,9 +229,9 @@ class State {
 
     public function setAwaitingPlayerInput($active = true) {
         if ($active) {
-            $this->awaitingPlayerInputId = $this->activePlayer()->getId();
+            $this->awaitingPlayerInputId = $this->activePlayer()->id();
         } else {
-            $this->awaitingPlayerInputId = $this->secondaryPlayer()->getId();
+            $this->awaitingPlayerInputId = $this->secondaryPlayer()->id();
         }
     }
 

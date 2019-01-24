@@ -2,6 +2,9 @@
 
 namespace App\Game\Models\Cards;
 
+/**
+ * Class representation of a Mine card from the Dominion card game
+ */
 class Mine extends Card {
 
     protected $value = 5;
@@ -10,16 +13,16 @@ class Mine extends Card {
 
     protected $name = 'Mine';
 
-    protected $types = array(
+    protected $types = [
         'action'
-    );
+    ];
 
-    protected $steps = array(
-        'play',
-        'trash-treasure',
-        'gain-treasure'
-    );
-
+    /**
+     * What value of treasure the player can gain after they have trashed a card
+     * from their hand
+     *
+     * @var int
+     */
     public $treasureValue = 0;
 
 }

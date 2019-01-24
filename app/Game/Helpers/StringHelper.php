@@ -30,7 +30,7 @@ class StringHelper {
     public static function describeCardStack($cardStack) {
         $cardAmounts = [];
         foreach ($cardStack as $card) {
-            $name = $card->getName();
+            $name = $card->name();
             if (!isset($cardAmounts[$name])) {
                 $cardAmounts[$name] = [
                     'amount' => 0,

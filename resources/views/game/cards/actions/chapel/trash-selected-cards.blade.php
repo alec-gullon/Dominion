@@ -1,12 +1,12 @@
 <?php
     $player = $state->activePlayer();
-    $cards = $player->getHand();
+    $cards = $player->hand();
 ?>
 
-<?php if ($playerKey === $player->getId()): ?>
+<?php if ($playerKey === $player->id()): ?>
     <?php foreach ($cards as $card): ?>
         <div data-test-active>
-            <?= $card->getName(); ?>
+            <?= $card->name(); ?>
         </div>
     <?php endforeach; ?>
 <?php else: ?>

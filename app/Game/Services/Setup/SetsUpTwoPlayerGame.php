@@ -12,7 +12,7 @@ class SetsUpTwoPlayerGame extends SetsUpGame {
         $player2 = $this->setUpPlayer($players[1]->guid);
 
         $state->setPlayers([$player1, $player2]);
-        $state->setActivePlayerId($player1->getId());
+        $state->setActivePlayerId($player1->id());
 
         $game->object = serialize($state);
         return $game;

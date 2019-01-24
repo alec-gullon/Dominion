@@ -8,9 +8,9 @@ $cards = $state->kingdomCards();
 <?php else: ?>
     <?php foreach ($cards as $stub => $amount): ?>
         <?php if ($amount > 0): $card = App\Services\Factories\CardFactory::build($stub); ?>
-            <?php if ($card->getValue() <= $player->unresolvedCard()->gainValue): ?>
+            <?php if ($card->value() <= $player->unresolvedCard()->gainValue): ?>
                 <div class="active" data-test-active>
-                    <?= $card->getName(); ?>
+                    <?= $card->name(); ?>
                 </div>
             <?php endif; ?>
         <?php endif; ?>

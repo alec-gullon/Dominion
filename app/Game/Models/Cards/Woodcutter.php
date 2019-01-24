@@ -2,6 +2,9 @@
 
 namespace App\Game\Models\Cards;
 
+/**
+ * Class representation of a Woodcutter card from the Dominion card game
+ */
 class Woodcutter extends Card {
 
     protected $value = 3;
@@ -10,12 +13,8 @@ class Woodcutter extends Card {
 
     protected $name = 'Woodcutter';
 
-    protected $type = array(
+    protected $type = [
         'action'
-    );
-
-    protected $steps = array(
-        'play'
-    );
+    ];
 
 }

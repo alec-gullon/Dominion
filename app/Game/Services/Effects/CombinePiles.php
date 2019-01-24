@@ -14,7 +14,7 @@ class CombinePiles extends Base {
 
     public function description() {
         $entry = '.. '
-            . $this->state->activePlayer()->getName()
+            . $this->state->activePlayer()->name()
             . ' puts their '
             . $this->params['from']
             . ' into their '

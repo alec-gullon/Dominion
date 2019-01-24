@@ -6,7 +6,7 @@ class Remodel extends CardStrategy {
 
     public function trashCard() {
         // start by trashing an estate, if it is possible
-        $handCards = $this->state->activePlayer()->getHand();
+        $handCards = $this->state->activePlayer()->hand();
         foreach ($handCards as $handCard) {
             if ($handCard->stub() === 'estate') {
                 return 'estate';
@@ -32,7 +32,7 @@ class Remodel extends CardStrategy {
                 continue;
             }
             $card = $this->makeCard($stub);
-            if ($card->getValue() > $gainAmount) {
+            if ($card->value() > $gainAmount) {
                 continue;
             }
 

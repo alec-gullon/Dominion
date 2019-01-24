@@ -2,6 +2,9 @@
 
 namespace App\Game\Models\Cards;
 
+/**
+ * Class representation of a Feast card from the Dominion card game
+ */
 class Feast extends Card {
 
     protected $value = 4;
@@ -10,13 +13,8 @@ class Feast extends Card {
 
     protected $name = 'Feast';
 
-    protected $types = array(
+    protected $types = [
         'action'
-    );
-
-    protected $steps = array(
-        'play',
-        'gain-selected-card'
-    );
+    ];
 
 }

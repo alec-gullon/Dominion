@@ -2,6 +2,9 @@
 
 namespace App\Game\Models\Cards;
 
+/**
+ * Class representation of a Cellar card from the Dominion card game
+ */
 class Cellar extends Card {
 
     protected $value = 2;
@@ -10,13 +13,8 @@ class Cellar extends Card {
 
     protected $name = 'Cellar';
 
-    protected $types = array(
+    protected $types = [
         'action'
-    );
-
-    protected $steps = array(
-        'play',
-        'discard-selected-cards'
-    );
+    ];
 
 }

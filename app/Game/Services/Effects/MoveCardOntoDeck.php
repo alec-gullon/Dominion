@@ -9,8 +9,8 @@ class MoveCardOntoDeck extends Base {
     public function effect() {
         $this->description();
         $this->params['player']->moveCardOntoDeck(
-            $this->params['from'],
-            $this->params['card']
+            $this->params['card'],
+            $this->params['from']
         );
     }
 
@@ -19,9 +19,9 @@ class MoveCardOntoDeck extends Base {
         $from = $this->params['from'];
         $card = CardFactory::build($this->params['card']);
 
-        $entry = '.. ' . $player->getName();
+        $entry = '.. ' . $player->name();
         if ($from === 'revealed') {
-            $entry .= ' places the ' . $card->getName() . ' on top of their deck';
+            $entry .= ' places the ' . $card->name() . ' on top of their deck';
         } else {
             $entry .= ' places ' . $card->nameWithArticlePrefix() . ' onto their deck from their ' . $from;
         }

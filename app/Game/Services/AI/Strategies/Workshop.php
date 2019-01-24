@@ -16,7 +16,7 @@ class Workshop extends CardStrategy {
                 continue;
             }
             $card = $this->makeCard($stub);
-            if ($card->getValue() === 4) {
+            if ($card->value() === 4) {
                 return $stub;
             }
         }

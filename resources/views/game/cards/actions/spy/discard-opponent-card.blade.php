@@ -5,8 +5,8 @@
 
 @if (false)
 
-<?php if ($playerKey === $player->getId()): ?>
-    You reveal a <?= $card->getName(); ?> from the top of their deck. Do you want to discard it?
+<?php if ($playerKey === $player->id()): ?>
+    You reveal a <?= $card->name(); ?> from the top of their deck. Do you want to discard it?
     <div data-test-active>
         Yes
     </div>

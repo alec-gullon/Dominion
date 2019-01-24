@@ -2,6 +2,9 @@
 
 namespace App\Game\Models\Cards;
 
+/**
+ * Class representation of a Witch card from the Dominion card game
+ */
 class Witch extends Card {
 
     protected $value = 3;
@@ -10,15 +13,9 @@ class Witch extends Card {
 
     protected $name = 'Witch';
 
-    protected $types = array(
+    protected $types = [
         'action',
         'attack'
-    );
-
-    protected $steps = array(
-        'play',
-        'resolve-moat',
-        'resolve-attack'
-    );
+    ];
 
 }
