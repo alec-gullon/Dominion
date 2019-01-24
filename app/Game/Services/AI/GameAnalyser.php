@@ -2,7 +2,7 @@
 
 namespace App\Game\Services\AI;
 
-use App\Models\Game\State;
+use App\Game\Models\State;
 
 class GameAnalyser {
 

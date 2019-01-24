@@ -3,7 +3,7 @@
 namespace App\Game\Services\Setup;
 
 use App\Game\Services\GeneratesRandomKingdom;
-use App\Models\Game\Player;
+use App\Game\Models\Player;
 use App\Services\Factories\CardFactory;
 
 class SetsUpGame {

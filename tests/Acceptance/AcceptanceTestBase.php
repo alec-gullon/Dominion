@@ -43,7 +43,7 @@ class AcceptanceTestBase extends TestCase
     protected function buildGame()
     {
         $game = new \App\Models\Game();
-        $state = new \App\Models\Game\State(new \App\Models\Game\Log, new \App\Services\Factories\CardFactory);
+        $state = new \App\Game\Models\State(new \App\Game\Models\Log, new \App\Services\Factories\CardFactory);
 
         $game->object = serialize($state);
         $game->guid = uniqid();
@@ -51,7 +51,7 @@ class AcceptanceTestBase extends TestCase
 
         $cardFactory = new \App\Services\Factories\CardFactory();
 
-        $player1 = new \App\Models\Game\Player('alec');
+        $player1 = new \App\Game\Models\Player('alec');
 
         $player1->setDeck([
             CardFactory::build('estate'),
@@ -69,7 +69,7 @@ class AcceptanceTestBase extends TestCase
         ]);
         $player1->setName('Alec');
 
-        $player2 = new \App\Models\Game\Player('lucy');
+        $player2 = new \App\Game\Models\Player('lucy');
 
         $player2->setDeck([
             CardFactory::build('estate'),
@@ -110,7 +110,7 @@ class AcceptanceTestBase extends TestCase
     protected function buildGameWithAI()
     {
         $game = new \App\Models\Game();
-        $state = new \App\Models\Game\State(new \App\Models\Game\Log, new \App\Services\Factories\CardFactory);
+        $state = new \App\Game\Models\State(new \App\Game\Models\Log, new \App\Services\Factories\CardFactory);
 
         $game->object = serialize($state);
         $game->guid = uniqid();
@@ -118,7 +118,7 @@ class AcceptanceTestBase extends TestCase
 
         $cardFactory = new \App\Services\Factories\CardFactory();
 
-        $player1 = new \App\Models\Game\Player('alec');
+        $player1 = new \App\Game\Models\Player('alec');
 
         $player1->setDeck([
             CardFactory::build('estate'),
@@ -136,7 +136,7 @@ class AcceptanceTestBase extends TestCase
         ]);
         $player1->setName('Alec');
 
-        $player2 = new \App\Models\Game\Player('marvin', true);
+        $player2 = new \App\Game\Models\Player('marvin', true);
 
         $player2->setDeck([
             CardFactory::build('estate'),

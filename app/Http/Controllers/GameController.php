@@ -7,13 +7,10 @@ use Illuminate\Http\Request;
 use App\Game\Services\Updater;
 use App\Game\Services\Setup\SetsUpAIGame;
 
-use App\Models\Game\State;
+use App\Game\Models\State;
 use App\Models\Game as GameModel;
 
-use App\Services\Factories\CardFactory;
 use App\Http\Renderers\GameRenderer;
-
-use View;
 
 class GameController extends Controller {
 
@@ -30,7 +27,7 @@ class GameController extends Controller {
         $user = $request->input('user');
         $game = new GameModel();
 
-        $state = resolve('\App\Models\Game\State');
+        $state = resolve('\App\Game\Models\State');
 
         $game->object = serialize($state);
         $game->guid = uniqid();
@@ -46,7 +43,7 @@ class GameController extends Controller {
         $user = $request->input('user');
         $game = new GameModel();
 
-        $state = resolve('\App\Models\Game\State');
+        $state = resolve('\App\Game\Models\State');
 
         $game->object = serialize($state);
         $game->guid = uniqid();

@@ -2,7 +2,7 @@
 
 namespace App\Game\Services\AI\Strategies;
 
-use App\Models\Game\State;
+use App\Game\Models\State;
 use App\Services\Factories\CardFactory;
 
 class CardStrategy {

@@ -6,7 +6,7 @@ class CardFactory {
 
     public static function build($stub) {
         $parts = explode('-', $stub);
-        $composed = 'App\Models\Game\Cards\\';
+        $composed = 'App\Game\Models\Cards\\';
         foreach($parts as $part) {
             $composed .= ucfirst($part);
         }

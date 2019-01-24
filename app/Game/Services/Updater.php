@@ -2,7 +2,7 @@
 
 namespace App\Game\Services;
 
-use App\Models\Game\State;
+use App\Game\Models\State;
 use App\Services\Factories\CardFactory;
 
 class Updater {

@@ -4,7 +4,7 @@ namespace App\Game\Services\Effects;
 
 use App\Game\Helpers\CardsHelper;
 use App\Game\Helpers\StringHelper;
-use App\Models\Game\State;
+use App\Game\Models\State;
 
 class Base {
 

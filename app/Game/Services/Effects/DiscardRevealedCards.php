@@ -2,7 +2,7 @@
 
 namespace App\Game\Services\Effects;
 
-use App\Models\Game\Player;
+use App\Game\Models\Player;
 
 class DiscardRevealedCards extends Base {
 

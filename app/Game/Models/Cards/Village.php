@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Game\Models\Cards;
+
+class Village extends Card {
+
+    protected $value = 3;
+
+    protected $stub = 'village';
+
+    protected $name = 'Village';
+
+    protected $types = array(
+        'action'
+    );
+
+    protected $steps = array(
+        'play'
+    );
+
+    protected $features = array(
+        'increasesActions'
+    );
+
+}
