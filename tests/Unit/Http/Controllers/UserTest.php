@@ -85,7 +85,7 @@ class UserTest extends TestCase
     protected function buildGame()
     {
         $game = new \App\Models\Game();
-        $state = new \App\Game\Models\State(new \App\Game\Models\Log, new \App\Services\Factories\CardFactory);
+        $state = new \App\Game\Models\State(new \App\Game\Models\Log, new \App\Game\Factories\CardFactory);
 
         $game->object = serialize($state);
         $game->guid = 'game-hash';
@@ -106,7 +106,7 @@ class UserTest extends TestCase
 
     protected function buildAIGame() {
         $game = new \App\Models\Game();
-        $state = new \App\Game\Models\State(new \App\Game\Models\Log, new \App\Services\Factories\CardFactory);
+        $state = new \App\Game\Models\State(new \App\Game\Models\Log, new \App\Game\Factories\CardFactory);
 
         $game->object = serialize($state);
         $game->guid = uniqid();

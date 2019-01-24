@@ -2,7 +2,7 @@
 
 namespace App\Game\Services;
 
-use App\Services\Factories\CardFactory;
+use App\Game\Factories\CardFactory;
 
 class GeneratesRandomKingdom {
 

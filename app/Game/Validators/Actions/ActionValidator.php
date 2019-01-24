@@ -3,7 +3,7 @@
 namespace App\Game\Validators\Actions;
 
 use App\Game\Models\State;
-use App\Services\Factories\CardFactory;
+use App\Game\Factories\CardFactory;
 
 class ActionValidator {
 

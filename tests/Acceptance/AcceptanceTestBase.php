@@ -3,7 +3,7 @@
 namespace Tests\Acceptance;
 
 use App\Game\Services\Updater;
-use App\Services\Factories\CardFactory;
+use App\Game\Factories\CardFactory;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -43,13 +43,13 @@ class AcceptanceTestBase extends TestCase
     protected function buildGame()
     {
         $game = new \App\Models\Game();
-        $state = new \App\Game\Models\State(new \App\Game\Models\Log, new \App\Services\Factories\CardFactory);
+        $state = new \App\Game\Models\State(new \App\Game\Models\Log, new \App\Game\Factories\CardFactory);
 
         $game->object = serialize($state);
         $game->guid = uniqid();
         $game->save();
 
-        $cardFactory = new \App\Services\Factories\CardFactory();
+        $cardFactory = new \App\Game\Factories\CardFactory();
 
         $player1 = new \App\Game\Models\Player('alec');
 
@@ -120,13 +120,13 @@ class AcceptanceTestBase extends TestCase
     protected function buildGameWithAI()
     {
         $game = new \App\Models\Game();
-        $state = new \App\Game\Models\State(new \App\Game\Models\Log, new \App\Services\Factories\CardFactory);
+        $state = new \App\Game\Models\State(new \App\Game\Models\Log, new \App\Game\Factories\CardFactory);
 
         $game->object = serialize($state);
         $game->guid = uniqid();
         $game->save();
 
-        $cardFactory = new \App\Services\Factories\CardFactory();
+        $cardFactory = new \App\Game\Factories\CardFactory();
 
         $player1 = new \App\Game\Models\Player('alec');
 
@@ -262,7 +262,7 @@ class AcceptanceTestBase extends TestCase
 
     private function buildCardStackFromShorthand($shorthand) {
         $stack = [];
-        $cardFactory = new \App\Services\Factories\CardFactory();
+        $cardFactory = new \App\Game\Factories\CardFactory();
         foreach($shorthand as $stub) {
             $parts = explode('@', $stub);
             if (empty($parts[1])) {

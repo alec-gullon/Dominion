@@ -2,7 +2,7 @@
 
 namespace App\Http\Renderers;
 
-use App\Services\Factories\CardFactory;
+use App\Game\Factories\CardFactory;
 use App\Services\GameObserver;
 
 class GameRenderer {

@@ -2,7 +2,7 @@
 
 namespace App\Game\Models;
 
-use App\Services\Factories\CardFactory;
+use App\Game\Factories\CardFactory;
 
 /**
  * Class to represent the overall state of a Dominion game in progress

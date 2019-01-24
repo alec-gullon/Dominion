@@ -2,7 +2,7 @@
 
 namespace App\Game\Services\Effects;
 
-use App\Services\Factories\CardFactory;
+use App\Game\Factories\CardFactory;
 
 class GainCard extends Base {
 

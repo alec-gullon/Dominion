@@ -4,7 +4,7 @@ namespace App\Game\Services\AI;
 
 use App\Game\Helpers\StringHelper;
 
-use App\Services\Factories\CardFactory;
+use App\Game\Factories\CardFactory;
 
 class AI {
 

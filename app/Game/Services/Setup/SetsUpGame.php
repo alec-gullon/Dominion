@@ -4,7 +4,7 @@ namespace App\Game\Services\Setup;
 
 use App\Game\Services\GeneratesRandomKingdom;
 use App\Game\Models\Player;
-use App\Services\Factories\CardFactory;
+use App\Game\Factories\CardFactory;
 
 class SetsUpGame {
 
