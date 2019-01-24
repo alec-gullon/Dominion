@@ -9,7 +9,7 @@ export default class Router {
                 'public-game-join': 'Game@publicGameJoin'
             },
             'inbound': {
-                ''
+                '': ''
             }
         }
     }

@@ -64,8 +64,7 @@
 /******/ })
 /************************************************************************/
 /******/ ([
-/* 0 */,
-/* 1 */
+/* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -10436,13 +10435,13 @@ return jQuery;
 
 
 /***/ }),
-/* 2 */
+/* 1 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__messages_outbound_Home_js__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__messages_outbound_Game_js__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__messages_outbound_User_js__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__messages_outbound_Home_js__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__messages_outbound_Game_js__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__messages_outbound_User_js__ = __webpack_require__(12);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -10460,13 +10459,15 @@ var OutboundRouter = function () {
             'home': 'Home@refresh',
             'submitName': 'User@submitName',
             'createGame': 'Game@create',
+            'createAIGame': 'Game@createAIGame',
             'joinGameIfPossible': 'Game@joinIfPossible',
             'submitNameThenJoin': 'Game@submitNameThenJoin',
             'joinGame': 'Game@join',
             'playTreasure': 'Game@playTreasure',
             'buyCard': 'Game@buyCard',
             'endTurn': 'Game@endTurn',
-            'playCard': 'Game@playCard'
+            'playCard': 'Game@playCard',
+            'submitChoice': 'Game@submitChoice'
         };
         this.classMap = {
             'Home': __WEBPACK_IMPORTED_MODULE_0__messages_outbound_Home_js__["a" /* default */],
@@ -10496,11 +10497,30 @@ var OutboundRouter = function () {
 /* harmony default export */ __webpack_exports__["a"] = (OutboundRouter);
 
 /***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = refreshBindings;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_js__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__join_js__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__game_js__ = __webpack_require__(14);
+
+
+
+
+function refreshBindings() {
+    Object(__WEBPACK_IMPORTED_MODULE_0__home_js__["a" /* default */])();
+    Object(__WEBPACK_IMPORTED_MODULE_1__join_js__["a" /* default */])();
+    Object(__WEBPACK_IMPORTED_MODULE_2__game_js__["a" /* default */])();
+}
+
+/***/ }),
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(4);
-module.exports = __webpack_require__(14);
+module.exports = __webpack_require__(17);
 
 
 /***/ }),
@@ -10510,7 +10530,7 @@ module.exports = __webpack_require__(14);
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__websocket_js__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_browser_cookies__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_browser_cookies__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_browser_cookies___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_browser_cookies__);
 
 
@@ -10528,7 +10548,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__websocket_js__["a" /* default */])();
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["a"] = setupWebSocketConnection;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__routers_InboundRouter_js__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__ = __webpack_require__(1);
 // On page load, set up a connection to the websocket server
 
 
@@ -10561,8 +10581,8 @@ function setupWebSocketConnection() {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__messages_inbound_Game_js__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__messages_inbound_Home_js__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__messages_inbound_User_js__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__messages_inbound_Home_js__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__messages_inbound_User_js__ = __webpack_require__(15);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -10655,6 +10675,95 @@ var Game = function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game_bindings_index_js__ = __webpack_require__(2);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+var Home = function () {
+    function Home(message) {
+        _classCallCheck(this, Home);
+
+        this.message = message;
+    }
+
+    _createClass(Home, [{
+        key: "refresh",
+        value: function refresh() {
+            document.getElementById('root').innerHTML = this.message.view;
+            Object(__WEBPACK_IMPORTED_MODULE_0__game_bindings_index_js__["a" /* default */])();
+        }
+    }]);
+
+    return Home;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (Home);
+
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = refreshBindings;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__ = __webpack_require__(1);
+
+
+
+function refreshBindings() {
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()(document).ready(function () {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.card').hover(function () {
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).mousemove(function (event) {
+                __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).find('.card__description').css({
+                    top: event.pageY + 3,
+                    left: event.pageX + 3
+                });
+            });
+        });
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.card').mouseenter(function () {
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).find('.card__description').show();
+        });
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.card').mouseleave(function () {
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).find('.card__description').hide();
+        });
+    });
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.home-root').find('.submit-name').click(function () {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).addClass('is-loading');
+        new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('submitName').message();
+    });
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.home-root').find('[data-action="start-game"]').click(function () {
+        new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('createGame').message();
+    });
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.home-root').find('.submit-card').click(function () {
+        var message = {
+            route: "/game/update/",
+            data: {
+                guid: Cookies.get('guid'),
+                action: 'play-treasure',
+                input: 'copper'
+            }
+        };
+        window.dominion.connection.send(JSON.stringify(message));
+    });
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.home-root').find('[data-action="start-ai-game"]').click(function () {
+        new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('createAIGame').message();
+    });
+}
+
+/***/ }),
+/* 10 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -10710,11 +10819,11 @@ var Home = function () {
 /* harmony default export */ __webpack_exports__["a"] = (Home);
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -10732,6 +10841,17 @@ var Game = function () {
         value: function create() {
             var message = {
                 route: "/game/create/",
+                data: {
+                    guid: window.cookies.get('guid')
+                }
+            };
+            window.dominion.connection.send(JSON.stringify(message));
+        }
+    }, {
+        key: "createAIGame",
+        value: function createAIGame() {
+            var message = {
+                route: "/game/create-ai-game/",
                 data: {
                     guid: window.cookies.get('guid')
                 }
@@ -10828,6 +10948,19 @@ var Game = function () {
             };
             window.dominion.connection.send(JSON.stringify(message));
         }
+    }, {
+        key: "provideInput",
+        value: function provideInput(input) {
+            var message = {
+                route: '/game/update/',
+                data: {
+                    action: 'provide-input',
+                    input: input,
+                    guid: window.cookies.get('guid')
+                }
+            };
+            window.dominion.connection.send(JSON.stringify(message));
+        }
     }]);
 
     return Game;
@@ -10836,11 +10969,11 @@ var Game = function () {
 /* harmony default export */ __webpack_exports__["a"] = (Game);
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -10885,44 +11018,67 @@ var User = function () {
 /* harmony default export */ __webpack_exports__["a"] = (User);
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game_bindings_index_js__ = __webpack_require__(20);
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+/* harmony export (immutable) */ __webpack_exports__["a"] = refreshBindings;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__ = __webpack_require__(1);
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 
+function refreshBindings() {
 
-var Home = function () {
-    function Home(message) {
-        _classCallCheck(this, Home);
-
-        this.message = message;
-    }
-
-    _createClass(Home, [{
-        key: "refresh",
-        value: function refresh() {
-            document.getElementById('root').innerHTML = this.message.view;
-            Object(__WEBPACK_IMPORTED_MODULE_0__game_bindings_index_js__["a" /* default */])();
-        }
-    }]);
-
-    return Home;
-}();
-
-/* harmony default export */ __webpack_exports__["a"] = (Home);
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.join-root').find('.submit-name').click(function () {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).addClass('is-loading');
+        new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('submitNameThenJoin').message();
+    });
+}
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game_bindings_index_js__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__ = __webpack_require__(2);
+/* harmony export (immutable) */ __webpack_exports__["a"] = refreshBindings;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__ = __webpack_require__(1);
+
+
+
+function refreshBindings() {
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.game-root').find('[data-action="play-treasure"]').click(function () {
+        new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('playTreasure').message(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).data('stub'));
+    });
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.game-root').find('[data-action="buy-card"]').click(function () {
+        new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('buyCard').message(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).data('stub'));
+    });
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.game-root').find('[data-action="end-turn"]').click(function () {
+        new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('endTurn').message();
+    });
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.game-root').find('[data-action="play-card"]').click(function () {
+        new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('playCard').message(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).data('stub'));
+    });
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.game-root').find('[data-action="select-option"]').click(function () {
+        new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('provideInput').message(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).data('stub'));
+    });
+}
+
+/***/ }),
+/* 15 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__game_bindings_index_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__ = __webpack_require__(1);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -10962,7 +11118,7 @@ var User = function () {
 /* harmony default export */ __webpack_exports__["a"] = (User);
 
 /***/ }),
-/* 13 */
+/* 16 */
 /***/ (function(module, exports) {
 
 exports.defaults = {};
@@ -11061,137 +11217,10 @@ exports.all = function() {
 
 
 /***/ }),
-/* 14 */
+/* 17 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 15 */,
-/* 16 */,
-/* 17 */,
-/* 18 */,
-/* 19 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = refreshBindings;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__ = __webpack_require__(2);
-
-
-
-function refreshBindings() {
-
-    __WEBPACK_IMPORTED_MODULE_0_jquery___default()(document).ready(function () {
-        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.card').hover(function () {
-            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).mousemove(function (event) {
-                __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).find('.card__description').css({
-                    top: event.pageY + 3,
-                    left: event.pageX + 3
-                });
-            });
-        });
-        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.card').mouseenter(function () {
-            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).find('.card__description').show();
-        });
-        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.card').mouseleave(function () {
-            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).find('.card__description').hide();
-        });
-    });
-
-    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.home-root').find('.submit-name').click(function () {
-        __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).addClass('is-loading');
-        new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('submitName').message();
-    });
-
-    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.home-root').find('[data-action="start-game"]').click(function () {
-        new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('createGame').message();
-    });
-
-    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.home-root').find('.submit-card').click(function () {
-        var message = {
-            route: "/game/update/",
-            data: {
-                guid: Cookies.get('guid'),
-                action: 'play-treasure',
-                input: 'copper'
-            }
-        };
-        window.dominion.connection.send(JSON.stringify(message));
-    });
-}
-
-/***/ }),
-/* 20 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = refreshBindings;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__home_js__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__join_js__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__game_js__ = __webpack_require__(22);
-
-
-
-
-function refreshBindings() {
-    Object(__WEBPACK_IMPORTED_MODULE_0__home_js__["a" /* default */])();
-    Object(__WEBPACK_IMPORTED_MODULE_1__join_js__["a" /* default */])();
-    Object(__WEBPACK_IMPORTED_MODULE_2__game_js__["a" /* default */])();
-}
-
-/***/ }),
-/* 21 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = refreshBindings;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__ = __webpack_require__(2);
-
-
-
-function refreshBindings() {
-
-    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.join-root').find('.submit-name').click(function () {
-        __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).addClass('is-loading');
-        new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('submitNameThenJoin').message();
-    });
-}
-
-/***/ }),
-/* 22 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = refreshBindings;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__ = __webpack_require__(2);
-
-
-
-function refreshBindings() {
-
-    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.game-root').find('[data-action="play-treasure"]').click(function () {
-        new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('playTreasure').message(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).data('stub'));
-    });
-
-    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.game-root').find('[data-action="buy-card"]').click(function () {
-        new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('buyCard').message(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).data('stub'));
-    });
-
-    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.game-root').find('[data-action="end-turn"]').click(function () {
-        new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('endTurn').message();
-    });
-
-    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.game-root').find('[data-action="play-card"]').click(function () {
-        new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('playCard').message(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).data('stub'));
-    });
-}
 
 /***/ })
 /******/ ]);

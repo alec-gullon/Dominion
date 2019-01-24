@@ -49,7 +49,7 @@ webSocketServer.on('request', function(request) {
                     body = JSON.parse(body);
                 } catch(e) {
                     const fs = require('fs');
-                    fs.writeFile('server/error.log', body, function(err) {
+                    fs.writeFile('error.log', body, function(err) {
                         if (err) {
                             return console.log(err);
                         }

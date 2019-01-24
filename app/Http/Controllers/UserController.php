@@ -42,7 +42,12 @@ class UserController extends Controller {
         $user->game_id = 0;
         $user->save();
 
-        return $this->gameRenderer->renderLobby($user);
+        $view = view('player.lobby')->with(['name' => $user->name])->render();
+        return response()->json([
+            'view' => $view,
+            'action' => 'setGuid',
+            'guid' => $user->guid
+        ]);
     }
 
     /**

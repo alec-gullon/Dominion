@@ -4,7 +4,7 @@ namespace App\Models\Game\Cards;
 
 class Gardens extends Card {
 
-    protected $value = 2;
+    protected $value = 4;
 
     protected $points = 0;
 

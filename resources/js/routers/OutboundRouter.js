@@ -10,6 +10,7 @@ export default class OutboundRouter {
             'home': 'Home@refresh',
             'submitName': 'User@submitName',
             'createGame': 'Game@create',
+            'createAIGame': 'Game@createAIGame',
             'joinGameIfPossible': 'Game@joinIfPossible',
             'submitNameThenJoin': 'Game@submitNameThenJoin',
             'joinGame': 'Game@join',

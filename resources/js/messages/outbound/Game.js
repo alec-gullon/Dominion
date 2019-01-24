@@ -12,6 +12,16 @@ export default class Game {
         window.dominion.connection.send(JSON.stringify(message));
     }
 
+    createAIGame() {
+        let message = {
+            route: "/game/create-ai-game/",
+            data: {
+                guid: window.cookies.get('guid')
+            }
+        };
+        window.dominion.connection.send(JSON.stringify(message));
+    }
+
     joinIfPossible() {
         if (window.cookies.get('guid') === null) {
             let message = {

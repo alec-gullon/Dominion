@@ -27,7 +27,7 @@ export default function refreshBindings() {
 
     $('.home-root').find('[data-action="start-game"]').click(function() {
         new OutboundRouter('createGame').message();
-    })
+    });
 
     $('.home-root').find('.submit-card').click(function() {
         let message = {
@@ -40,5 +40,9 @@ export default function refreshBindings() {
         };
         window.dominion.connection.send(JSON.stringify(message));
     });
+
+    $('.home-root').find('[data-action="start-ai-game"]').click(function() {
+        new OutboundRouter('createAIGame').message();
+    })
 
 }
