@@ -15,7 +15,7 @@ class State {
      * the keys are stubs that represent a particular card and the values are the number remaining
      * in game e.g.,
      *
-     * $this->>kingdom = [
+     * $this->kingdom = [
      *     'estate' => 8,
      *     'village' => 10
      * ]
@@ -56,7 +56,7 @@ class State {
     private $awaitingPlayerInputId = null;
 
     /**
-     * How number of coins the current player has on their turn. Always a non-negative integer
+     * The number of coins the current player has on their turn. Always a non-negative integer
      *
      * @var int
      */
@@ -339,6 +339,7 @@ class State {
         $this->coins = 0;
         $this->buys = 1;
         $this->turn++;
+        $this->log->setCurrentTurn($this->turn);
     }
 
     /**
