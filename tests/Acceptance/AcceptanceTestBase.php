@@ -15,7 +15,7 @@ class AcceptanceTestBase extends TestCase
     protected function updateGame() {
         $updater = new Updater($this->state(), new CardFactory);
         $updater->resolve();
-        $this->game->object = serialize($updater->getState());
+        $this->game->object = serialize($updater->state());
         $this->game->save();
     }
 

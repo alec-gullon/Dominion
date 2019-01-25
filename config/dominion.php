@@ -17,7 +17,8 @@ return [
         'play-treasure' => 'Treasure@playTreasure',
         'end-turn' => 'Turn@endTurn',
         'buy' => 'Buy@buy',
-        'advance-to-buy' => 'Buy@advanceToBuy'
+        'advance-to-buy' => 'Buy@advanceToBuy',
+        'play-card' => 'Card@play'
     ],
     'number-mappings' => [
         0 => 'no',

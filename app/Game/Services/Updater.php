@@ -2,43 +2,71 @@
 
 namespace App\Game\Services;
 
-use App\Game\Models\State;
-use App\Game\Factories\CardFactory;
+use App\Game\Services\Router;
+use App\Game\Services\AI\AI;
 
+/**
+ * The class responsible for updating the game state. The major methods the class updates are an update method,
+ * which coordinates updating the game state in response to some player/ai supplied input and a resolve method,
+ * which coordinates resolving everything that needs to happen once player supplied input has been accepted and
+ * dealt with
+ */
 class Updater {
 
-    private $cartographer;
+    /**
+     * The router used to decide what controller needs to be called next when resolving
+     * an update or resolve method
+     *
+     * @var \App\Game\Services\Router
+     */
+    private $router;
 
+    /**
+     * The actual state that this updater is responsible for updating
+     *
+     * @var \App\Game\Models\State
+     */
     private $state;
 
+    /**
+     * The artificial intelligence that can be used to provide player input in the
+     * absence of an actual physical player
+     *
+     * @var \App\Game\Services\AI\AI
+     */
     private $ai;
 
-    public function __construct(State $state) {
-        $this->cartographer = new Router($state);
-        $this->state = $state;
-        $this->ai = resolve('\App\Game\Services\AI\AI');
-        $this->ai->setState($this->state);
+    public function __construct(Router $router, AI $ai) {
+        $this->router = $router;
+        $this->ai = $ai;
     }
 
+    public function state() {
+        return $this->state;
+    }
+
+    /**
+     * Sets the state that the Updater is concerned with and passes this down to the classes
+     * dependencies as well
+     *
+     * @param   \App\Game\Models\State      $state
+     */
+    public function setState($state) {
+        $this->state = $state;
+        $this->router->setState($state);
+        $this->ai->setState($state);
+    }
+
+    /**
+     * Calls the appropriate method on the appropriate controller in response to the action
+     * selected by the player/ai. Also validates the provided input if necessary
+     *
+     * @param   string          $action
+     * @param   string|null     $input
+     */
     public function update($action, $input = null) {
-
-        // if the player has just played a card, decrease actions by 1 and move card to played
-        if ($action === 'play-card') {
-            $card = CardFactory::build($input);
-            $this->state->log()->addEntry($this->state->activePlayer()->name() . ' plays ' . $card->nameWithArticlePrefix());
-            $this->state->deductActions(1);
-            $this->state->activePlayer()->playCard($input);
-            $this->state->setAwaitingPlayerInputId(null);
-            return;
-        }
-
-        if ($action === 'provide-input') {
-            $controller = $this->cartographer->nextController();
-            $method = $this->cartographer->nextMethod();
-        } else {
-            $controller = $this->cartographer->controller($action);
-            $method = $this->cartographer->method($action);
-        }
+        $controller = $this->router->controller($action);
+        $method = $this->router->method($action);
 
         $validate = $this->validate($action, $input);
         if ($validate) {
@@ -46,40 +74,46 @@ class Updater {
         }
     }
 
+    /**
+     * Resolves any remaining updates that need to be carried out in the game, until player input
+     * is required to proceed. If this input is required from an ai, then fetches this input and
+     * invokes a new update/resolve cycle
+     */
     public function resolve() {
-        while (!$this->state->needPlayerInput() && $this->state->activePlayer()->hasUnresolvedCard()) {
-            $controller = $this->cartographer->nextController();
-            $method = $this->cartographer->nextMethod();
+        $state = $this->state;
 
+        while (!$state->needPlayerInput() && $state->activePlayer()->hasUnresolvedCard()) {
+            $controller = $this->router->nextController();
+            $method = $this->router->nextMethod();
             $controller->{$method}();
         }
 
-        if (!$this->state->aiPlaying()) {
-            return;
+        if ($state->aiPlaying()) {
+            $decision = $this->ai->decision();
+            $this->update($decision['action'], $decision['input']);
+            $this->resolve();
         }
-
-        // let the ai make a decision about what to do, then pass that decision into the update method
-        $decision = $this->ai->decision();
-
-        $this->update($decision['action'], $decision['input']);
-        $this->resolve();
     }
 
-    public function getState() {
-        return $this->state;
-    }
-
+    /**
+     * Calls the validator corresponding to the chosen action and ensures that the chosen input
+     * makes sense in the context of the current state of the game
+     *
+     * @param   string          $action
+     * @param   string|null     $input
+     *
+     * @return  bool
+     */
     private function validate($action, $input) {
-        $validator = null;
-        $method = '';
-        if ($action === 'provide-input') {
-            $validator = $this->cartographer->nextValidator();
-            $method = $this->cartographer->nextMethod();
+        if ($action !== 'provide-input') {
+            return true;
         }
-        if ($validator !== null) {
-            if (method_exists($validator, $method)) {
-                return $validator->{$method}($input);
-            }
+
+        $validator = $this->router->nextValidator();
+        $method = $this->router->nextMethod();
+
+        if ($validator !== null && method_exists($validator, $method)) {
+            return $validator->{$method}($input);
         }
         return true;
     }

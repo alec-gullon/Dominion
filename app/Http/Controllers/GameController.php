@@ -58,15 +58,15 @@ class GameController extends Controller {
         return $this->gameRenderer->renderGameForBothPlayers($game);
     }
 
-    public function update(Request $request) {
+    public function update(Request $request, Updater $updater) {
         $user = $request->input('user');
         $game = $user->game;
 
-        $updater = new Updater(unserialize($game->object));
+        $updater->setState(unserialize($game->object));
         $updater->update($request->input('action'), $request->input('input'));
         $updater->resolve();
 
-        $game->object = serialize($updater->getState());
+        $game->object = serialize($updater->state());
 
         $game->save();
 

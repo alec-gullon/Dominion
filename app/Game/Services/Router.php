@@ -9,11 +9,14 @@ class Router {
 
     private $state;
 
-    public function __construct(State $state) {
+    public function setState($state) {
         $this->state = $state;
     }
 
     public function controller($action) {
+        if ($action === 'provide-input') {
+            $action = $this->state->activePlayer()->getNextStep();
+        }
         return $this->buildClassFromAction('Controller', $action);
     }
 
@@ -22,6 +25,10 @@ class Router {
     }
 
     public function method($action) {
+        if ($action === 'provide-input') {
+            $action = $this->state->activePlayer()->getNextStep();
+        }
+
         $routes = config('dominion.routes');
         if (isset($routes[$action])) {
             return $this->getMethodFromRoutes($action);
@@ -73,7 +80,10 @@ class Router {
             $classString = $this->getCardAssociatedToAction($action);
             $classString = 'App\Game\\' . $group . 's\Actions\\' . $classString . $group;
         }
-        return new $classString($this->state);
+        if (class_exists($classString)) {
+            return new $classString($this->state);
+        }
+        return null;
     }
 
     private function getClassFromRoutes($action) {

@@ -10,9 +10,10 @@ use Tests\Acceptance\AcceptanceTestBase;
 class CardTestBase extends AcceptanceTestBase
 {
     protected function updateGame() {
-        $updater = new Updater(unserialize($this->game->object), new CardFactory);
+        $updater = resolve('\App\Game\Services\Updater');
+        $updater->setState($this->state());
         $updater->resolve();
-        $this->game->object = serialize($updater->getState());
+        $this->game->object = serialize($updater->state());
         $this->game->save();
     }
 
