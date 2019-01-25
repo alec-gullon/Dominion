@@ -13,6 +13,15 @@ return [
         'laboratory',
         'gardens'
     ],
+    'base-cards' => [
+        'copper' => 30,
+        'curse' => 10,
+        'duchy' => 8,
+        'estate' => 8,
+        'gold' => 10,
+        'province' => 8,
+        'silver' => 20
+    ],
     'routes' => [
         'play-treasure' => 'Treasure@playTreasure',
         'end-turn' => 'Turn@endTurn',

@@ -2,12 +2,15 @@
 
 namespace App\Game\Services;
 
-use App\Game\Models\State;
 use App\Game\Helpers\StringHelper;
+use App\Game\Models\State;
 
 /**
- * The Dominion Router class. Links actions to their appropriate methods on appropriate controllers.
- * The routes themselves are stored in the app.dominion config file
+ * The Dominion Router class. Links routes to their appropriate methods on appropriate controllers.
+ * The routes themselves are stored in the app.dominion config file.
+ *
+ * There are two methods that are used to identify a route: either via a user-selected "action" or
+ * automatically determined based on the next step that is required to resolve the state
  */
 class Router {
 

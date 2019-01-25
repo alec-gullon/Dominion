@@ -2,8 +2,8 @@
 
 namespace App\Game\Services;
 
-use App\Game\Services\Router;
 use App\Game\Services\AI\AI;
+use App\Game\Services\Router;
 
 /**
  * The class responsible for updating the game state. The major methods the class updates are an update method,
