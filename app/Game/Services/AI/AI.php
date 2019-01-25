@@ -26,7 +26,7 @@ class AI {
         if ($this->state->activePlayer()->hasUnresolvedCard()) {
             $alias = $this->state->activePlayer()->unresolvedCard()->alias();
             $nextStep = $this->state->activePlayer()->getNextStep();
-            $method = StringHelper::methodFromCardAction($nextStep);
+            $method = StringHelper::methodFromNextStep($nextStep);
 
             $strategy = 'App\Game\Services\AI\Strategies\\' . $alias;
             $strategy = new $strategy($this->state);

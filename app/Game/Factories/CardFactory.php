@@ -17,7 +17,7 @@ class CardFactory {
      * @return  object
      */
     public static function build($stub) {
-        $class = 'App\Game\Models\Cards\\' . StringHelper::cardAliasFromStub($stub);
+        $class = 'App\Game\Models\Cards\\' . StringHelper::stubToCamelCase($stub);
         return new $class();
     }
 

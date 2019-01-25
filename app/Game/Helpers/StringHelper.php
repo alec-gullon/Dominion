@@ -16,7 +16,7 @@ class StringHelper {
      *
      * @return  string
      */
-    public static function cardAliasFromStub($stub) {
+    public static function stubToCamelCase($stub) {
         $parts = explode('-', $stub);
 
         $alias = '';
@@ -28,23 +28,29 @@ class StringHelper {
     }
 
     /**
-     * Takes a string which represents some kind of in game $action corresponding to an action card
+     * Takes a string which represents the next step required to resolve an action card
      * and builds the corresponding method from it - e.g., 'workshop/gain-card' becomes 'gainCard'
      *
-     * @param   string      $action
+     * @param   string      $nextStep
      *
      * @return  string
      */
-    public static function methodFromCardAction($action) {
-        $action = explode('/', $action)[1];
-        $parts = explode('-', $action);
+    public static function methodFromNextStep($nextStep) {
+        $stub = explode('/', $nextStep)[1];
+        return StringHelper::stubToCamelCase($stub);
+    }
 
-        $method = '';
-        foreach ($parts as $part) {
-            $method .= ucfirst($part);
-        }
-
-        return lcfirst($method);
+    /**
+     * Takes a string which represents the next step required to resolve an action card and
+     * returns the corresponding card alias - e.g., 'workshop/gain-card' becomes 'Workshop'
+     *
+     * @param   string      $nextStep
+     *
+     * @return  string
+     */
+    public static function cardAliasFromNextStep($nextStep) {
+        $stub = explode('/', $nextStep)[0];
+        return StringHelper::stubToCamelCase($stub);
     }
 
     /**

@@ -183,7 +183,7 @@ class Card {
      * @return  string
      */
     public function alias() {
-        return StringHelper::cardAliasFromStub($this->stub);
+        return StringHelper::stubToCamelCase($this->stub);
     }
 
 }

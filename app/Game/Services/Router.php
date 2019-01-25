@@ -3,101 +3,181 @@
 namespace App\Game\Services;
 
 use App\Game\Models\State;
-use App\Game\Factories\CardFactory;
+use App\Game\Helpers\StringHelper;
 
+/**
+ * The Dominion Router class. Links actions to their appropriate methods on appropriate controllers.
+ * The routes themselves are stored in the app.dominion config file
+ */
 class Router {
 
+    /**
+     * The game $state that needs to be injected into the Controller classes
+     *
+     * @var \App\Game\Models\State
+     */
     private $state;
 
-    public function setState($state) {
+    /**
+     * Array of Dominion game routes. The syntax used is based on Laravel route syntax
+     *
+     * @var array
+     */
+    private $routes;
+
+    public function __construct() {
+        $this->routes = config('dominion.routes');
+    }
+
+    public function setState(State $state) {
         $this->state = $state;
     }
 
-    public function controller($action) {
-        if ($action === 'provide-input') {
-            $action = $this->state->activePlayer()->getNextStep();
+    /**
+     * Determines what controller should be called based on a supplied route and returns
+     * an instance of this class. If the route provided is a well-defined route, then
+     *
+     * @param   string      $route
+     *
+     * @return  object
+     */
+    public function controller($route) {
+        if (!isset($this->routes[$route])) {
+            return $this->buildClassFromNextStep('Controller');
         }
-        return $this->buildClassFromAction('Controller', $action);
+        return $this->buildClassFromRoute('Controller', $route);
     }
 
-    public function validator($action) {
-        return $this->buildClassFromAction('Validator', $action);
+    /**
+     * Determines what validator, if any, should be called based on a supplied route and
+     * returns an instance of this class, if necessary
+     *
+     * @return  object|null
+     */
+    public function validator() {
+        return $this->buildClassFromNextStep('Validator');
     }
 
-    public function method($action) {
-        if ($action === 'provide-input') {
-            $action = $this->state->activePlayer()->getNextStep();
+    /**
+     * Determines what method should be called from a provided route and returns this method
+     * as a string
+     *
+     * @param   string      $route
+     *
+     * @return  string
+     */
+    public function method($route) {
+        if (isset($this->routes[$route])) {
+            return $this->routeMethod($route);
         }
-
-        $routes = config('dominion.routes');
-        if (isset($routes[$action])) {
-            return $this->getMethodFromRoutes($action);
-        }
-        return $this->getMethodAssociatedToAction($action);
+        return $this->nextMethod();
     }
 
+    /**
+     * Uses the next step on the players unresolved card to determine what the next controller
+     * that should be called is
+     *
+     * @return  object
+     */
     public function nextController() {
-        $action = $this->state->activePlayer()->getNextStep();
-        return $this->controller($action);
+        $route = $this->state->activePlayer()->getNextStep();
+        return $this->controller($route);
     }
 
+    /**
+     * Uses the next step on the players unresolved card to determine what the next validator
+     * that should be called is. Returns null if no validation needs to occur
+     *
+     * @return  object|null
+     */
     public function nextValidator() {
-        $action = $this->state->activePlayer()->getNextStep();
-        return $this->validator($action);
+        $route = $this->state->activePlayer()->getNextStep();
+        return $this->validator($route);
     }
 
+    /**
+     * Uses the next step on the players unresolved card to determine what the next method that
+     * should be called is
+     *
+     * @return  string
+     */
     public function nextMethod() {
-        $action = $this->state->activePlayer()->getNextStep();
-        return $this->method($action);
+        $step = $this->state->activePlayer()->getNextStep();
+        return StringHelper::methodFromNextStep($step);
     }
 
-    private function getCardAssociatedToAction($action) {
-        $parts = explode('/', $action);
-        $cardParts = explode('-', $parts[0]);
-        $cardString = '';
-        foreach($cardParts as $part) {
-            $cardString .= ucfirst($part);
-        }
-        return $cardString;
-    }
+    /**
+     * Builds an instance of the class associated to a provided route. The $group parameter determines what
+     * subfolder the Router should look in for the class and what class suffix to expect: e.g., 'Validator',
+     * 'Controller'
+     *
+     * @param   string      $group
+     * @param   string      $route
+     *
+     * @return  object|null
+     */
+    private function buildClassFromRoute($group, $route) {
+        $classString = $this->routeClassAlias($route);
+        $classString = 'App\Game\\' . $group . 's\\' . $classString . $group;
 
-    private function getMethodAssociatedToAction($action) {
-        $parts = explode('/', $action);
-        $methodParts = explode('-', $parts[1]);
-        $methodString = '';
-        foreach ($methodParts as $part) {
-            $methodString .= ucfirst($part);
-        }
-        return $methodString;
-    }
-
-    private function buildClassFromAction($group, $action) {
-        $routes = config('dominion.routes');
-        if (isset($routes[$action])) {
-            $classString = $this->getClassFromRoutes($action);
-            $classString = 'App\Game\\' . $group . 's\\' . $classString . $group;
-        } else {
-            $classString = $this->getCardAssociatedToAction($action);
-            $classString = 'App\Game\\' . $group . 's\Actions\\' . $classString . $group;
-        }
         if (class_exists($classString)) {
             return new $classString($this->state);
         }
         return null;
     }
 
-    private function getClassFromRoutes($action) {
-        $routes = config('dominion.routes');
-        $route = $routes[$action];
-        $parts = explode('@', $route);
+    /**
+     * Builds an instance of the class associated to the games current next step. The $group parameter
+     * determines what subfolder the Router should look in for the class and what class suffix to expect:
+     * e.g., 'Validator', 'Controller'
+     *
+     * @param   string      $group
+     *
+     * @return  null
+     */
+    private function buildClassFromNextStep($group) {
+        $classString = $this->nextStepClassAlias();
+        $classString = 'App\Game\\' . $group . 's\\' . $classString . $group;
+
+        if (class_exists($classString)) {
+            return new $classString($this->state);
+        }
+        return null;
+    }
+
+    /**
+     * Returns the class string associated to a given route
+     *
+     * @param   string      $route
+     *
+     * @return  string
+     */
+    private function routeClassAlias($route) {
+        $parts = explode('@', $this->routes[$route]);
         return $parts[0];
     }
 
-    private function getMethodFromRoutes($action) {
-        $routes = config('dominion.routes');
-        $route = $routes[$action];
-        $parts = explode('@', $route);
+    /**
+     * Returns the method associated to a given route
+     *
+     * @param   string      $route
+     *
+     * @return  string
+     */
+    private function routeMethod($route) {
+        $parts = explode('@', $this->routes[$route]);
         return $parts[1];
+    }
+
+    /**
+     * Returns the class alias associated to a cards next step, e.g., bureaucrat/reveal-moat =>
+     * Bureaucrat
+     *
+     * @return  string
+     */
+    private function nextStepClassAlias() {
+        $step = $this->state->activePlayer()->getNextStep();
+        return 'Actions\\' . StringHelper::cardAliasFromNextStep($step);
     }
 
 }
