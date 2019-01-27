@@ -2,17 +2,19 @@
 
 namespace App\Game\Controllers;
 
-use App\Game\Factories\CardFactory;
-
+/**
+ * Controller responsible for updating game state when a player plays an action card from their hand
+ */
 class CardController extends StateController {
 
+    /**
+     * Plays the card corresponding to the provided $stub from the player's hand
+     *
+     * @param   string      $stub
+     */
     public function play($stub) {
-        $card = CardFactory::build($stub);
-        $this->state->log()->addEntry($this->state->activePlayer()->name() . ' plays ' . $card->nameWithArticlePrefix());
+        $this->playCard($stub);
         $this->state->deductActions(1);
-        $this->state->activePlayer()->playCard($stub);
-        $this->state->setAwaitingPlayerInputId(null);
-        return;
     }
 
 }

@@ -14,7 +14,8 @@ class ThiefController extends ActionController {
 
     public function resolveMoat($revealed) {
         if ($revealed) {
-            return $this->revealMoat($revealed);
+            $this->revealMoat();
+            return $this->resolveCard();
         }
         $this->nextStep('resolve-attack');
         $this->inputOff();

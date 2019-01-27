@@ -19,4 +19,6 @@ class Silver extends Card {
 
     protected $denomination = 2;
 
+    protected $resolved = true;
+
 }

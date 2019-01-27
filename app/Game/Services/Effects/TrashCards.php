@@ -7,12 +7,12 @@ use App\Game\Factories\CardFactory;
 class TrashCards extends Base {
 
     public function effect() {
-        $this->state->trashCards($this->params['cards']);
+        $this->state->trashCards($this->params['stubs']);
         $this->description();
     }
 
     public function description() {
-        $cards = CardFactory::buildMultiple($this->params['cards']);
+        $cards = CardFactory::buildMultiple($this->params['stubs']);
 
         $entry = '.. ' . $this->activePlayerName() . ' trashes';
 

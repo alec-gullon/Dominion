@@ -2,18 +2,29 @@
 
 namespace App\Game\Controllers;
 
+/**
+ * Controller responsible for updating game state when a player buys a card or selects to advance into
+ * the buy phase
+ */
 class BuyController extends StateController {
 
+    /**
+     * Advances the game to the buy phase
+     */
     public function advanceToBuy() {
         $this->state->setPhase('buy');
     }
 
+    /**
+     * Updates the state when a player buys the card represented by $stub
+     *
+     * @param   string      $stub
+     */
     public function buy($stub) {
-        $selectedCard = $this->buildCard($stub);
+        $card = $this->buildCard($stub);
 
-        $this->state->deductCoins($selectedCard->value());
+        $this->state->deductCoins($card->value());
         $this->state->deductBuys(1);
-
         $this->buyCard($stub);
     }
 

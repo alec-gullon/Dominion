@@ -17,7 +17,8 @@ class BureaucratController extends ActionController {
 
     public function resolveMoat($revealed) {
         if ($revealed) {
-            return $this->revealMoat();
+            $this->revealMoat();
+            return $this->resolveCard();
         }
         return $this->resolveAttackIfNecessary();
     }

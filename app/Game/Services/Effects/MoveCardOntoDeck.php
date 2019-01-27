@@ -9,7 +9,7 @@ class MoveCardOntoDeck extends Base {
     public function effect() {
         $this->description();
         $this->params['player']->moveCardOntoDeck(
-            $this->params['card'],
+            $this->params['stub'],
             $this->params['from']
         );
     }
@@ -17,7 +17,7 @@ class MoveCardOntoDeck extends Base {
     public function description() {
         $player = $this->params['player'];
         $from = $this->params['from'];
-        $card = CardFactory::build($this->params['card']);
+        $card = CardFactory::build($this->params['stub']);
 
         $entry = '.. ' . $player->name();
         if ($from === 'revealed') {

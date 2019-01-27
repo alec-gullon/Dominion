@@ -19,4 +19,6 @@ class Gold extends Card {
 
     protected $denomination = 3;
 
+    protected $resolved = true;
+
 }

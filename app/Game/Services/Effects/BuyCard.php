@@ -7,12 +7,12 @@ use App\Game\Factories\CardFactory;
 class BuyCard extends Base {
 
     public function effect() {
-        $this->state->moveCardToPlayer($this->params['card']);
+        $this->state->moveCardToPlayer($this->params['stub']);
         $this->description();
     }
 
     public function description() {
-        $card = CardFactory::build($this->params['card']);
+        $card = CardFactory::build($this->params['stub']);
 
         $description = '.. '
             . $this->activePlayerName()

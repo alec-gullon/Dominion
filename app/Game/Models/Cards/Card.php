@@ -40,8 +40,8 @@ class Card {
 
     /**
      * Whether or not the given instance of the card has been resolved. Only of relevance when
-     * the card has been played by a player, all cards are automatically unresolved until marked
-     * as resolved
+     * the card has been played by a player. Certain cards are marked as automatically resolved (e.g.,
+     * treasure and victory cards)
      *
      * @var bool
      */

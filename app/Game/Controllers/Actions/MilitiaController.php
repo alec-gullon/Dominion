@@ -18,7 +18,8 @@ class MilitiaController extends ActionController {
 
     public function resolveMoat($revealed) {
         if ($revealed) {
-            return $this->revealMoat();
+            $this->revealMoat();
+            return $this->resolveCard();
         }
         $this->resolveAttackIfNecessary();
     }

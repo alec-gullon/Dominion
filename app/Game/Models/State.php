@@ -331,13 +331,20 @@ class State {
 
     /**
      * Sets various parameters of the state to their default values in preparation of a fresh
-     * turn and increments the turn counter
+     * turn, gives the player a fresh hand and increments the turn counter
      */
     public function advanceTurn() {
         $this->phase = 'action';
         $this->actions = 1;
         $this->coins = 0;
         $this->buys = 1;
+
+        $this->activePlayer()->moveCards('hand', 'discard');
+        $this->activePlayer()->moveCards('played', 'discard');
+        $this->activePlayer()->drawCards(5);
+
+        $this->activePlayerId = $this->secondaryPlayer()->id();
+
         $this->turn++;
         $this->log->setCurrentTurn($this->turn);
     }

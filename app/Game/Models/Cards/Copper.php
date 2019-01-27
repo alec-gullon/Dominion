@@ -19,4 +19,6 @@ class Copper extends Card {
 
     protected $denomination = 1;
 
+    protected $resolved = true;
+
 }

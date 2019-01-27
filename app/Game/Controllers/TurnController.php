@@ -2,17 +2,17 @@
 
 namespace App\Game\Controllers;
 
+/**
+ * Controller responsible for updating game state when a player ends their turn
+ */
 class TurnController extends StateController {
 
+    /**
+     * Updates state when a user selects to end their turn
+     */
     public function endTurn() {
-        $this->activePlayer()->moveCards('hand', 'discard');
-        $this->activePlayer()->moveCards('played', 'discard');
-        $this->activePlayer()->drawCards(5);
-
+        $this->addPlayerActionToLog('ends their turn', null, 0);
         $this->state->advanceTurn();
-        $this->addPlayerActionToLog('ends their turn');
-
-        $this->state->setActivePlayerId($this->state->secondaryPlayer()->id());
 
         if ($this->state->checkGameOver()) {
             $this->state->resolveGame();

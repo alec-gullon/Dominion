@@ -16,7 +16,8 @@ class WitchController extends ActionController {
 
     public function resolveMoat($revealed) {
         if ($revealed) {
-            return $this->revealMoat();
+            $this->revealMoat();
+            return $this->resolveCard();
         }
         $this->nextStep('resolve-attack');
         $this->inputOff();

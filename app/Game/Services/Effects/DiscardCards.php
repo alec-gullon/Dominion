@@ -9,13 +9,13 @@ class DiscardCards extends Base {
     public function effect() {
         $player = $this->params['player'];
 
-        $player->discardCards($this->params['cards']);
+        $player->discardCards($this->params['stubs']);
         $this->description();
     }
 
     public function description() {
         $player = $this->params['player'];
-        $cards = CardFactory::buildMultiple($this->params['cards']);
+        $cards = CardFactory::buildMultiple($this->params['stubs']);
 
         $entry = '.. ' . $player->name() . ' discards';
         if (count($cards) === 0) {

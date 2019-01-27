@@ -20,7 +20,7 @@ class TurnTest extends AcceptanceTestBase
         $this->assertOpponentDiscardSize(6);
 
         $this->assertLogContains([
-            '.. Alec ends their turn'
+            'Alec ends their turn'
         ]);
     }
 

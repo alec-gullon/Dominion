@@ -8,7 +8,7 @@ class GainCard extends Base {
 
     public function effect() {
         $this->state->moveCardToPlayer(
-            $this->params['card'],
+            $this->params['stub'],
             $this->params['location'],
             $this->params['player']->id()
         );
@@ -16,7 +16,7 @@ class GainCard extends Base {
     }
 
     public function description() {
-        $card = $this->params['card'];
+        $card = $this->params['stub'];
         $player = $this->params['player'];
         $location = $this->params['location'];
 
