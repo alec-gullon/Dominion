@@ -24,4 +24,30 @@ class CardsHelper {
         return $cardStack;
     }
 
+    /**
+     * Takes a set of $stubs and confirms that this stub is "contained" in an array of instances of
+     * card Models from \App\Game\Models\Cards. This comparison takes into account the number of each
+     * individual stub, e.g., [estate, estate] is not a subset of any stack containing one instance
+     * of the Estate model
+     *
+     * @param   array       $stubs
+     * @param   array       $cardStack
+     *
+     * @return  bool
+     */
+    public static function checkStubsAreSubsetOfCardStack($stubs, $cardStack) {
+        $originalCount = count($cardStack);
+
+        foreach ($stubs as $stub) {
+            foreach ($cardStack as $key => $card) {
+                if ($card->stub() === $stub) {
+                    unset($cardStack[$key]);
+                    break;
+                }
+            }
+        }
+
+        return (count($cardStack) === $originalCount - count($stubs));
+    }
+
 }

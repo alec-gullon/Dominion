@@ -36,6 +36,8 @@ class WitchTest extends CardTestBase
         $this->assertNumberOfRemainingCards('curse', 10);
         $this->assertOpponentDiscardSize(0);
 
+        dd($this->log());
+
         $this->assertLogContains([
             '.. Alec draws two cards',
             '.. Lucy reveals a Moat'

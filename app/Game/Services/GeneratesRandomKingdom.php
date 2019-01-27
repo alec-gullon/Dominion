@@ -79,7 +79,7 @@ class GeneratesRandomKingdom {
      *
      * @param   array       $kingdomCards
      *
-     * @return  mixed
+     * @return  array
      */
     private function appendDefaultCards($kingdomCards) {
         return array_merge($kingdomCards, $this->baseCards);

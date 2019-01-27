@@ -2,19 +2,26 @@
 
 namespace App\Game\Validators\Actions;
 
+/**
+ * Validates user input in relation to certain methods on the MilitiaController class
+ */
 class MilitiaValidator extends ActionValidator {
 
-    public function resolveMoat($input) {
-        return is_bool($input);
-    }
-
+    /**
+     * Confirms that the user has selected the correct number of cards and has actually
+     * selected cards that are within their hand
+     *
+     * @param   mixed       $input
+     *
+     * @return  bool
+     */
     public function resolveAttack($input) {
         $hand = $this->state->secondaryPlayer()->hand();
 
         if (count($input) !== count($hand) - 3) {
             return false;
         }
-        return $this->checkInputSubsetOfCardStack($input, $hand);
+        return $this->checkStubsAreSubsetOfCardStack($input, $hand);
     }
 
 }

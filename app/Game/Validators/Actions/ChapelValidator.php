@@ -2,11 +2,20 @@
 
 namespace App\Game\Validators\Actions;
 
+/**
+ * Validates user input in relation to certain methods on the ChapelController class
+ */
 class ChapelValidator extends ActionValidator {
 
+    /**
+     * Takes the provided $input and confirms that the user has those cards in their hand
+     *
+     * @param   mixed       $input
+     *
+     * @return  bool
+     */
     public function trashSelectedCards($input) {
-        $hand = $this->state->activePlayer()->hand();
-        return $this->checkInputSubsetOfCardStack($input, $hand);
+        return $this->checkStubsAreSubsetOfCardStack($input, $this->state->activePlayer()->hand());
     }
 
 }
