@@ -5,7 +5,7 @@ namespace App\Game\Controllers\Actions;
 class ThroneRoomController extends ActionController {
 
     public function play() {
-        $this->nextStep('duplicate-card');
+        $this->setNextStep('duplicate-card');
 
         // if we've run out of action cards in hand, reset throne room count and resolve the duplicateCard step on all remaining throne room cards
         if (!$this->activePlayer()->hasCardsOfType('action')) {

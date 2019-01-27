@@ -2,8 +2,14 @@
 
 namespace App\Game\Controllers\Actions;
 
+/**
+ * Controller responsible for resolving the Adventurer card when it has been played
+ */
 class AdventurerController extends ActionController {
 
+    /**
+     * Adjusts game state in line with an Adventurer card
+     */
     public function play() {
         $activePlayer = $this->activePlayer();
 
@@ -24,7 +30,7 @@ class AdventurerController extends ActionController {
         $this->moveCards('revealed', 'hand', 'treasure');
         $this->moveCards('revealed', 'discard');
 
-        return $this->resolveCard();
+        $this->resolveCard();
     }
 
 }

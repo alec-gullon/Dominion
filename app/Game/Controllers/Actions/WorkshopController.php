@@ -5,7 +5,7 @@ namespace App\Game\Controllers\Actions;
 class WorkshopController extends ActionController {
 
     public function play() {
-        $this->nextStep('gain-selected-card');
+        $this->setNextStep('gain-selected-card');
         $this->inputOn();
     }
 

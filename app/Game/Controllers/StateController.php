@@ -36,6 +36,15 @@ class StateController {
     }
 
     /**
+     * Helper method that grabs the secondary player from the state
+     *
+     * @return \App\Game\Models\Player
+     */
+    protected function secondaryPlayer() {
+        return $this->state->secondaryPlayer();
+    }
+
+    /**
      * Adds the provided $entry to the state's log. The number $indentation determines how many
      * ".."'s appear before the entry: e.g.,
      *

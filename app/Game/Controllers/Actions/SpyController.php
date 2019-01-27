@@ -9,10 +9,10 @@ class SpyController extends ActionController {
         $this->addActions(1);
 
         if ($this->state->hasMoat()) {
-            $this->nextStep('resolve-moat');
+            $this->setNextStep('resolve-moat');
             return $this->inputOn();
         }
-        $this->nextStep('reveal-card');
+        $this->setNextStep('reveal-card');
     }
 
     public function resolveMoat($revealed) {
@@ -21,7 +21,7 @@ class SpyController extends ActionController {
             $this->addPlayerActionToLog('reveals a Moat', $this->secondaryPlayer());
             $card->moatRevealed = true;
         }
-        $this->nextStep('reveal-card');
+        $this->setNextStep('reveal-card');
     }
 
     public function revealCard() {
@@ -34,11 +34,11 @@ class SpyController extends ActionController {
         }
         if (!$activePlayer->canDrawCard()) {
             $this->revealTopCard();
-            return $this->nextStep('reveal-opponent-card');
+            return $this->setNextStep('reveal-opponent-card');
         }
 
         $this->revealTopCard();
-        $this->nextStep('discard-card');
+        $this->setNextStep('discard-card');
         $this->inputOn();
     }
 
@@ -56,7 +56,7 @@ class SpyController extends ActionController {
             return $this->resolveCard();
         }
         $this->inputOff();
-        return $this->nextStep('reveal-opponent-card');
+        return $this->setNextStep('reveal-opponent-card');
     }
 
     public function revealOpponentCard() {
@@ -67,7 +67,7 @@ class SpyController extends ActionController {
         }
 
         $this->revealTopCard($player);
-        $this->nextStep('discard-opponent-card');
+        $this->setNextStep('discard-opponent-card');
         return $this->inputOn();
     }
 

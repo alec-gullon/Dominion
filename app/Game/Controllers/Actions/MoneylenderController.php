@@ -5,7 +5,7 @@ namespace App\Game\Controllers\Actions;
 class MoneylenderController extends ActionController {
 
     public function play() {
-        $this->nextStep('trash-copper');
+        $this->setNextStep('trash-copper');
         $this->inputOn();
     }
 

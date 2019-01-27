@@ -6,10 +6,10 @@ class ThiefController extends ActionController {
 
     public function play() {
         if ($this->state->hasMoat()) {
-            $this->nextStep('resolve-moat');
+            $this->setNextStep('resolve-moat');
             return $this->inputOn();
         }
-        $this->nextStep('reveal-cards');
+        $this->setNextStep('reveal-cards');
     }
 
     public function resolveMoat($revealed) {
@@ -17,7 +17,7 @@ class ThiefController extends ActionController {
             $this->revealMoat();
             return $this->resolveCard();
         }
-        $this->nextStep('resolve-attack');
+        $this->setNextStep('resolve-attack');
         $this->inputOff();
     }
 
@@ -29,11 +29,11 @@ class ThiefController extends ActionController {
         $treasureCards = $this->secondaryPlayer()->getCardsOfType('revealed', 'treasure');
 
         if (count($treasureCards) === 2) {
-            $this->nextStep('resolve-attack');
+            $this->setNextStep('resolve-attack');
             return $this->inputOn();
         } else if (count($treasureCards) === 1) {
             $card->trashedCard = $treasureCards[0]->stub();
-            $this->nextStep('gain-trashed-card');
+            $this->setNextStep('gain-trashed-card');
             return $this->inputOn();
         }
         $this->moveCards('revealed', 'discard', 'all', $this->secondaryPlayer());
@@ -44,7 +44,7 @@ class ThiefController extends ActionController {
         $card = $this->activePlayer()->unresolvedCard();
         $card->trashedCard = $stub;
 
-        $this->nextStep('gain-trashed-card');
+        $this->setNextStep('gain-trashed-card');
         $this->inputOn();
     }
 

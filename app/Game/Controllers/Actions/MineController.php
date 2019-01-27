@@ -6,7 +6,7 @@ class MineController extends ActionController {
 
     public function play() {
         if($this->activePlayer()->hasCardsOfType('treasure')) {
-            $this->nextStep('trash-treasure');
+            $this->setNextStep('trash-treasure');
             return $this->inputOn();
         }
         $this->addPlayerActionToLog('has nothing to trash');
@@ -23,7 +23,7 @@ class MineController extends ActionController {
         $cheapestTreasure = $this->state->cheapestCardAmount('treasure');
 
         if ($cheapestTreasure !== null && $cheapestTreasure < $mineCard->treasureValue) {
-            $this->nextStep('gain-treasure');
+            $this->setNextStep('gain-treasure');
             return $this->inputOn();
         }
         $this->addPlayerActionToLog('has no cards which they can gain');

@@ -6,7 +6,7 @@ class RemodelController extends ActionController {
 
     public function play() {
         if (!$this->activePlayer()->hasEmptyHand()) {
-            $this->nextStep('trash-card');
+            $this->setNextStep('trash-card');
             return $this->inputOn();
         }
         $this->addPlayerActionToLog('has nothing to trash');
@@ -25,7 +25,7 @@ class RemodelController extends ActionController {
             return $this->resolveCard();
         }
         $remodelCard->gainValue = $gainValue;
-        $this->nextStep('gain-selected-card');
+        $this->setNextStep('gain-selected-card');
         $this->inputOn();
     }
 

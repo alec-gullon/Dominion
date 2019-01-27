@@ -5,7 +5,7 @@ namespace App\Game\Controllers\Actions;
 class LibraryController extends ActionController {
 
     public function play() {
-        $this->nextStep('draw-until-action-card');
+        $this->setNextStep('draw-until-action-card');
     }
 
     public function drawUntilActionCard() {
@@ -15,7 +15,7 @@ class LibraryController extends ActionController {
         while ($this->canDrawCard()) {
             $card = $activePlayer->topCard();
             if ($card->hasType('action')) {
-                $this->nextStep('set-aside-card');
+                $this->setNextStep('set-aside-card');
                 return $this->inputOn();
             }
             $libraryCard->numberOfCardsDrawn++;
@@ -41,7 +41,7 @@ class LibraryController extends ActionController {
             $libraryCard->numberOfCardsDrawn++;
             $this->activePlayer()->drawCards(1);
         }
-        $this->nextStep('draw-until-action-card');
+        $this->setNextStep('draw-until-action-card');
         $this->inputOff();
     }
 

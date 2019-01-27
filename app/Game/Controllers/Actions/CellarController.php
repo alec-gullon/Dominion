@@ -11,7 +11,7 @@ class CellarController extends ActionController {
             $this->addPlayerActionToLog('has nothing to discard');
             return $this->resolveCard();
         }
-        $this->nextStep('discard-selected-cards');
+        $this->setNextStep('discard-selected-cards');
         $this->inputOn();
     }
 

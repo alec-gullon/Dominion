@@ -8,7 +8,7 @@ class BureaucratController extends ActionController {
         $this->gainCard('silver', $this->activePlayer(), 'deck');
 
         if ($this->state->hasMoat()) {
-            $this->nextStep('resolve-moat');
+            $this->setNextStep('resolve-moat');
             $this->inputOn(false);
             return;
         }
@@ -33,7 +33,7 @@ class BureaucratController extends ActionController {
             $this->describeHand($this->secondaryPlayer());
             return $this->resolveCard();
         }
-        $this->nextStep('resolve-attack');
+        $this->setNextStep('resolve-attack');
         $this->inputOn(false);
     }
 

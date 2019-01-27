@@ -11,7 +11,7 @@ class FeastController extends ActionController {
             $this->addPlayerActionToLog('trashes the Feast');
         }
 
-        $this->nextStep('gain-selected-card');
+        $this->setNextStep('gain-selected-card');
         $this->inputOn();
     }
 

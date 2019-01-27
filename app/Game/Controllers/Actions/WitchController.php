@@ -8,10 +8,10 @@ class WitchController extends ActionController {
         $this->drawCards(2);
 
         if ($this->state->hasMoat()) {
-            $this->nextStep('resolve-moat');
+            $this->setNextStep('resolve-moat');
             return $this->inputOn(false);
         }
-        $this->nextStep('resolve-attack');
+        $this->setNextStep('resolve-attack');
     }
 
     public function resolveMoat($revealed) {
@@ -19,7 +19,7 @@ class WitchController extends ActionController {
             $this->revealMoat();
             return $this->resolveCard();
         }
-        $this->nextStep('resolve-attack');
+        $this->setNextStep('resolve-attack');
         $this->inputOff();
     }
 

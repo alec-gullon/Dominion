@@ -9,7 +9,7 @@ class ChapelController extends ActionController {
             $this->addPlayerActionToLog('has nothing to trash');
             return $this->resolveCard();
         }
-        $this->nextStep('trash-selected-cards');
+        $this->setNextStep('trash-selected-cards');
         $this->inputOn();
     }
 

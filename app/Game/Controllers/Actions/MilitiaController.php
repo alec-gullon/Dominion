@@ -10,7 +10,7 @@ class MilitiaController extends ActionController {
         $this->addCoins(2);
 
         if ($this->state->hasMoat()) {
-            $this->nextStep('resolve-moat');
+            $this->setNextStep('resolve-moat');
             return $this->inputOn(false);
         }
         $this->resolveAttackIfNecessary();
@@ -33,7 +33,7 @@ class MilitiaController extends ActionController {
         $cardsInHand = $this->secondaryPlayer()->numberOfCards();
 
         if ($cardsInHand > 3) {
-            $this->nextStep('resolve-attack');
+            $this->setNextStep('resolve-attack');
             return $this->inputOn(false);
         }
 
