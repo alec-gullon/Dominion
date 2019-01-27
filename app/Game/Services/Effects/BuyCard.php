@@ -2,24 +2,29 @@
 
 namespace App\Game\Services\Effects;
 
-use App\Game\Factories\CardFactory;
+/**
+ * Common card effect that lets a player buy a card
+ */
+class BuyCard extends BaseEffect {
 
-class BuyCard extends Base {
+    /**
+     * A $stub representing what card is being bought
+     *
+     * @var string
+     */
+    protected $stub;
 
     public function effect() {
-        $this->state->moveCardToPlayer($this->params['stub']);
+        $this->state->moveCardToPlayer($this->stub);
         $this->description();
     }
 
     public function description() {
-        $card = CardFactory::build($this->params['stub']);
+        $card = $this->buildCard($this->stub);
 
-        $description = '.. '
-            . $this->activePlayerName()
-            . ' buys '
-            . $card->nameWithArticlePrefix();
+        $description = 'buys ' . $card->nameWithArticlePrefix();
 
-        $this->addToLog($description);
+        $this->addToLog($description, null, 0);
     }
 
 }

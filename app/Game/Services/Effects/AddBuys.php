@@ -2,21 +2,29 @@
 
 namespace App\Game\Services\Effects;
 
-class AddBuys extends Base {
+/**
+ * Common card effect that adds buys to a player's current total
+ */
+class AddBuys extends BaseEffect {
+
+    /**
+     * The number of buys that should be added to the player's total
+     *
+     * @var int
+     */
+    protected $amount;
 
     public function effect() {
-        $this->state->addBuys($this->params['amount']);
+        $this->state->addBuys($this->amount);
         $this->description();
     }
 
     public function description() {
-        $amount = $this->params['amount'];
-
-        $entry = '.. ' . $this->activePlayerName() . ' gains';
-        if ($amount === 1) {
-            $entry .= ' a buy';
+        $entry = 'gains ';
+        if ($this->amount === 1) {
+            $entry .= 'a buy';
         } else {
-            $entry .= ' ' . $this->numberMappings[$amount] . ' buys';
+            $entry .= $this->numberMappings[$this->amount] . ' buys';
         }
         $this->addToLog($entry);
     }

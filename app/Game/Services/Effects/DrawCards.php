@@ -2,35 +2,45 @@
 
 namespace App\Game\Services\Effects;
 
-class DrawCards extends Base {
+/**
+ * Common card effect that draws cards from a player's deck into their hand
+ */
+class DrawCards extends BaseEffect {
+
+    /**
+     * How many cards to (try and) draw
+     *
+     * @var int
+     */
+    protected $amount;
+
+    /**
+     * The player who is drawing cards
+     *
+     * @var \App\Game\Models\Player
+     */
+    protected $player;
 
     public function effect() {
-        $amount = $this->params['amount'];
-        $player = $this->params['player'];
+        $remainingCards = $this->player->numberOfDrawableCards();
+        $this->player->drawCards($this->amount);
 
-        $remainingCards = $player->numberOfDrawableCards();
-        $player->drawCards($amount);
-
-        if ($remainingCards < $amount) {
-            $this->params['amount'] = $remainingCards;
+        if ($remainingCards < $this->amount) {
+            $this->amount = $remainingCards;
         }
         $this->description();
     }
 
     public function description() {
-        $amount = $this->params['amount'];
-        $player = $this->params['player'];
-
-        $entry = '.. ' . $player->name();
-        if ($amount === 0) {
-            $entry .= ' draws nothing';
-        } else if ($amount === 1) {
-            $entry .= ' draws a card';
+        if ($this->amount === 0) {
+            $entry = 'draws nothing';
+        } else if ($this->amount === 1) {
+            $entry = 'draws a card';
         } else {
-            $entry .= ' draws ' . $this->numberMappings[$amount] . ' cards';
+            $entry = 'draws ' . $this->numberMappings[$this->amount] . ' cards';
         }
 
-        $this->addToLog($entry);
+        $this->addToLog($entry, $this->player);
     }
 
 }

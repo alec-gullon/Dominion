@@ -2,24 +2,32 @@
 
 namespace App\Game\Services\Effects;
 
-class CombinePiles extends Base {
+/**
+ * Common card effect that controls the placement of one card pile into another
+ */
+class CombinePiles extends BaseEffect {
+
+    /**
+     * Which pile will be left empty after the effect is resolved
+     *
+     * @var string
+     */
+    protected $from;
+
+    /**
+     * Which pile will have more cards in it after the effect is resolved
+     *
+     * @var string
+     */
+    protected $to;
 
     public function effect() {
         $this->description();
-        $this->state->activePlayer()->moveCards(
-            $this->params['from'],
-            $this->params['to']
-        );
+        $this->state->activePlayer()->moveCards($this->from, $this->to);
     }
 
     public function description() {
-        $entry = '.. '
-            . $this->state->activePlayer()->name()
-            . ' puts their '
-            . $this->params['from']
-            . ' into their '
-            . $this->params['to'];
-
+        $entry = 'puts their ' . $this->from . ' into their ' . $this->to;
         $this->addToLog($entry);
     }
 

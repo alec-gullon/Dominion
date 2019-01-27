@@ -53,4 +53,11 @@ class ActionController extends StateController {
         $this->activePlayer()->resolveCard();
     }
 
+    /**
+     * Records the fact that the player revealed a moat in the game log
+     */
+    protected function revealMoatDescription() {
+        $this->description('RevealMoat');
+    }
+
 }

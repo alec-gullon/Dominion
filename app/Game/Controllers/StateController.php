@@ -120,13 +120,6 @@ class StateController {
     }
 
     /**
-     * Records the fact that the player revealed a moat in the game log
-     */
-    protected function revealMoat() {
-        $this->description('RevealMoat');
-    }
-
-    /**
      * Adds the $amount of actions to the active player's current total
      *
      * @param   int         $amount

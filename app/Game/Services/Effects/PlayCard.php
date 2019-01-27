@@ -2,18 +2,26 @@
 
 namespace App\Game\Services\Effects;
 
-use App\Game\Factories\CardFactory;
+/**
+ * Common card effect that adds actions to a player's current total
+ */
+class PlayCard extends BaseEffect {
 
-class PlayCard extends Base {
+    /**
+     * A $stub representing which card is being played
+     *
+     * @var string
+     */
+    protected $stub;
 
     public function effect() {
-        $this->state->activePlayer()->playCard($this->params['stub']);
+        $this->state->activePlayer()->playCard($this->stub);
         $this->description();
     }
 
     public function description() {
-        $card = CardFactory::build($this->params['stub']);
-        $this->addToLog($this->state->activePlayer()->name() . ' plays ' . $card->nameWithArticlePrefix());
+        $card = $this->buildCard($this->stub);
+        $this->addToLog('plays ' . $card->nameWithArticlePrefix(), null, 0);
     }
 
 }

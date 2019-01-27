@@ -2,21 +2,29 @@
 
 namespace App\Game\Services\Effects;
 
-class AddActions extends Base {
+/**
+ * Common card effect that adds actions to a player's current total
+ */
+class AddActions extends BaseEffect {
+
+    /**
+     * The number of cards that should be added to the players amount
+     *
+     * @var int
+     */
+    protected $amount;
 
     public function effect() {
-        $this->state->addActions($this->params['amount']);
+        $this->state->addActions($this->amount);
         $this->description();
     }
 
     public function description() {
-        $amount = $this->params['amount'];
-
-        $entry = '.. ' . $this->activePlayerName() . ' gains';
-        if ($amount === 1) {
-            $entry .= ' an action';
+        $entry = 'gains ';
+        if ($this->amount === 1) {
+            $entry .= 'an action';
         } else {
-            $entry .= ' ' . $this->numberMappings[$amount] . ' actions';
+            $entry .= $this->numberMappings[$this->amount] . ' actions';
         }
         $this->addToLog($entry);
     }

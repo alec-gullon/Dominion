@@ -2,7 +2,10 @@
 
 namespace App\Game\Services\Effects;
 
-class SetAsideTopCard extends Base {
+/**
+ * Common card effect that sets aside a player's top card
+ */
+class SetAsideTopCard extends BaseEffect {
 
     public function effect() {
         $this->description();
@@ -12,10 +15,7 @@ class SetAsideTopCard extends Base {
     public function description() {
         $card = $this->state->activePlayer()->topCard();
 
-        $entry = '.. '
-            . $this->state->activePlayer()->name()
-            . ' sets aside '
-            . $card->nameWithArticlePrefix();
+        $entry = 'sets aside ' . $card->nameWithArticlePrefix();
 
         $this->addToLog($entry);
     }

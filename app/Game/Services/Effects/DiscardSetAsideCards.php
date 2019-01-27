@@ -2,13 +2,14 @@
 
 namespace App\Game\Services\Effects;
 
-class DiscardSetAsideCards extends Base {
+/**
+ * Common card effect that discards a player's set aside cards
+ */
+class DiscardSetAsideCards extends BaseEffect {
 
     public function effect() {
-        $player = $this->state->activePlayer();
-
         $this->description();
-        $player->moveCards('setAside', 'discard');
+        $this->state->activePlayer()->moveCards('setAside', 'discard');
     }
 
     public function description() {
@@ -19,9 +20,7 @@ class DiscardSetAsideCards extends Base {
             return;
         }
 
-        $entry = '.. ' . $player->name() . ' discards'
-            . $this->describeCardList($player->setAside())
-            . ' that they set aside';
+        $entry = 'discards' . $this->describeCardList($player->setAside()) . ' that they set aside';
 
         $this->addToLog($entry);
     }

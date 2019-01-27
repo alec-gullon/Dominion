@@ -21,7 +21,7 @@ class BuyTest extends AcceptanceTestBase
         $this->assertNumberOfPlayed(2);
 
         $this->assertLogContains([
-            '.. Alec buys an Estate'
+            'Alec buys an Estate'
         ]);
     }
 }

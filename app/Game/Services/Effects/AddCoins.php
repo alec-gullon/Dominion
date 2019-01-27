@@ -2,21 +2,29 @@
 
 namespace App\Game\Services\Effects;
 
-class AddCoins extends Base {
+/**
+ * Common card effect that adds coins to a player's current total
+ */
+class AddCoins extends BaseEffect {
+
+    /**
+     * The number of coins that should be added to the player's total
+     *
+     * @var int
+     */
+    protected $amount;
 
     public function effect() {
-        $this->state->addCoins($this->params['amount']);
+        $this->state->addCoins($this->amount);
         $this->description();
     }
 
     public function description() {
-        $amount = $this->params['amount'];
-
-        $entry = '.. ' . $this->activePlayerName() . ' gains';
-        if ($amount === 1) {
-            $entry .= ' a coin';
+        $entry = 'gains ';
+        if ($this->amount === 1) {
+            $entry .= 'a coin';
         } else {
-            $entry .= ' ' . $this->numberMappings[$amount] . ' coins';
+            $entry .= $this->numberMappings[$this->amount] . ' coins';
         }
         $this->addToLog($entry);
     }

@@ -4,28 +4,42 @@ namespace App\Game\Services\Effects;
 
 use App\Game\Factories\CardFactory;
 
-class DiscardCards extends Base {
+/**
+ * Common card effect that discards cards from a players hand
+ */
+class DiscardCards extends BaseEffect {
+
+    /**
+     * The player who is discarding their cards
+     *
+     * @var \App\Game\Models\Player
+     */
+    protected $player;
+
+    /**
+     * The set of cards that are being discarded
+     *
+     * @var array
+     */
+    protected $stubs;
 
     public function effect() {
-        $player = $this->params['player'];
-
-        $player->discardCards($this->params['stubs']);
+        $this->player->discardCards($this->stubs);
         $this->description();
     }
 
     public function description() {
-        $player = $this->params['player'];
-        $cards = CardFactory::buildMultiple($this->params['stubs']);
+        $cardStack = CardFactory::buildMultiple($this->stubs);
 
-        $entry = '.. ' . $player->name() . ' discards';
-        if (count($cards) === 0) {
+        $entry = 'discards';
+        if (count($cardStack) === 0) {
             $entry .= ' nothing';
         } else {
-            $entry .= $this->describeCardList($cards);
+            $entry .= $this->describeCardList($cardStack);
         }
 
         $entry .= ' from their hand';
-        $this->addToLog($entry);
+        $this->addToLog($entry, $this->player);
     }
 
 }

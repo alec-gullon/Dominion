@@ -2,27 +2,34 @@
 
 namespace App\Game\Services\Effects;
 
-class RevealTopCard extends Base {
+/**
+ * Common card effect that reveals the top card of a player's deck
+ */
+class RevealTopCard extends BaseEffect {
+
+    /**
+     * The player who is having their top card revealed
+     *
+     * @var \App\Game\Models\Player
+     */
+    protected $player;
 
     public function effect() {
         $this->description();
-        if ($this->params['player']->canDrawCard()) {
-            $this->params['player']->revealTopCard();
+        if ($this->player->canDrawCard()) {
+            $this->player->revealTopCard();
         }
     }
 
     public function description() {
-        $player = $this->params['player'];
-
-        $entry = '.. ' . $player->name();
-        if (!$player->canDrawCard()) {
-            $entry .= ' has nothing to reveal';
+        if (!$this->player->canDrawCard()) {
+            $entry = 'has nothing to reveal';
         } else {
-            $card = $player->topCard();
-            $entry .= ' reveals ' . $card->nameWithArticlePrefix() . ' from the top of their deck';
+            $card = $this->player->topCard();
+            $entry = 'reveals ' . $card->nameWithArticlePrefix() . ' from the top of their deck';
         }
 
-        $this->addToLog($entry);
+        $this->addToLog($entry, $this->player);
     }
 
 }
