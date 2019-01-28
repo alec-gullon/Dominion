@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Game\Services\AI\Strategies;
+namespace App\Game\Services\AI\Strategies\Actions;
 
 use App\Game\Models\State;
 use App\Game\Factories\CardFactory;
