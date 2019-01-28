@@ -4,6 +4,7 @@ namespace App\Game\Controllers;
 
 use App\Game\Factories\CardFactory;
 use App\Game\Models\State;
+use App\Game\Helpers\StringHelper;
 
 /**
  * A base implementation of behaviour that any controller responsible for updating and changing
@@ -45,41 +46,24 @@ class StateController {
     }
 
     /**
-     * Adds the provided $entry to the state's log. The number $indentation determines how many
-     * ".."'s appear before the entry: e.g.,
+     * Adds the provided $entry to the state's log. Prepends the player name before the
+     * provided entry. The input $indentation determines how many".."'s appear before the
+     * entry: e.g.,
      *
      * "Alec played a Copper" vs.
      * ".. Alec gains a Village"
      *
-     * @param   string      $entry
-     * @param   int         $indentation
+     * @param   string                              $entry
+     * @param   \App\Game\Models\Player|null        $player
+     * @param   int                                 $indentation
      */
-    protected function addToLog($entry, $indentation = 0) {
-        if ($indentation === 0) {
-            $this->state->log()->addEntry($entry);
-            return;
-        }
-        $entry = ' ' . $entry;
-        for ($i = 1; $i <= $indentation; $i++) {
-            $entry = '..' . $entry;
-        }
-        $this->state->log()->addEntry($entry);
-        return;
-    }
-
-    /**
-     * Adds the provided entry to the state's log, but appends the provided Player's name. If null
-     * is passed as an argument for the player, the active player is used as a default value
-     *
-     * @param   string          $entry
-     * @param   object|null     $player
-     * @param   int             $indentation
-     */
-    protected function addPlayerActionToLog($entry, $player = null, $indentation = 1) {
+    protected function addToLog($entry, $player = null, $indentation = 1) {
         if ($player === null) {
             $player = $this->activePlayer();
         }
-        $this->addToLog($player->name() . ' ' . $entry, $indentation);
+        $entry = StringHelper::createPlayerActionEntry($entry, $player, $indentation);
+        $this->state->log()->addEntry($entry);
+        return;
     }
 
     /**

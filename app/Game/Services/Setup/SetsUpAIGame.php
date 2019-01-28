@@ -2,9 +2,22 @@
 
 namespace App\Game\Services\Setup;
 
+use App\Models\Game;
+
+/**
+ * Class responsible for taking a state that exists on a Game model and sets it up
+ * ready to play from Turn 1 against an AI opponent
+ */
 class SetsUpAIGame extends SetsUpGame {
 
-    public function setup($game) {
+    /**
+     * Sets the game up
+     *
+     * @param   \App\Models\Game    $game
+     *
+     * @return  \App\Models\Game
+     */
+    public function setup(Game $game) {
         $player = $game->users[0];
         $state = unserialize($game->object);
 

@@ -9,7 +9,7 @@ class RemodelController extends ActionController {
             $this->setNextStep('trash-card');
             return $this->inputOn();
         }
-        $this->addPlayerActionToLog('has nothing to trash');
+        $this->addToLog('has nothing to trash');
         $this->resolveCard();
     }
 
@@ -21,7 +21,7 @@ class RemodelController extends ActionController {
         $gainValue = $trashedCard->value() + 2;
 
         if ($this->state->cheapestCardAmount() > $gainValue) {
-            $this->addPlayerActionToLog('cannot gain anything');
+            $this->addToLog('cannot gain anything');
             return $this->resolveCard();
         }
         $remodelCard->gainValue = $gainValue;

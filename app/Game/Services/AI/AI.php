@@ -4,21 +4,12 @@ namespace App\Game\Services\AI;
 
 use App\Game\Helpers\StringHelper;
 
-use App\Game\Factories\CardFactory;
-
 class AI {
 
     private $state;
 
-    private $gameAnalyser;
-
-    public function __construct(GameAnalyser $gameAnalyser) {
-        $this->gameAnalyser = $gameAnalyser;
-    }
-
     public function setState($state) {
         $this->state = $state;
-        $this->gameAnalyser->setState($state);
     }
 
     public function decision() {
@@ -37,7 +28,7 @@ class AI {
         }
 
         // if we aren't resolving a card, start by playing an action card if possible
-        if ($this->gameAnalyser->canPlayActionCard()) {
+        if ($this->canPlayActionCard()) {
             // play anything that gives actions first
             $handCards = $this->state->activePlayer()->getCardsOfType('hand', 'action');
             foreach ($handCards as $card) {
@@ -67,7 +58,7 @@ class AI {
         }
 
         // if we've got this far, time to play a treasure card if we have one
-        if ($this->gameAnalyser->canPlayTreasureCard()) {
+        if ($this->canPlayTreasureCard()) {
             $treasureCards = $this->state->activePlayer()->getCardsOfType('hand', 'treasure');
             return [
                 'action' => 'play-treasure',
@@ -76,7 +67,7 @@ class AI {
         }
 
         // now we buy something if we can
-        if ($this->gameAnalyser->canBuyCard()) {
+        if ($this->canBuyCard()) {
             if ($this->state->coins() >= 3) {
                 return [
                     'action' => 'buy',
@@ -89,6 +80,45 @@ class AI {
             'action' => 'end-turn',
             'input' => null
         ];
+    }
+
+    private function canPlayTreasureCard() {
+        if (!$this->canPlayActionCard() && $this->state->activePlayer()->hasCardsOfType('treasure')) {
+            return true;
+        }
+        return false;
+    }
+
+    private function canPlayActionCard() {
+        return ($this->state->actions() > 0 && $this->state->activePlayer()->hasCardsOfType('action'));
+    }
+
+    private function canBuyCard() {
+        return ($this->state->phase() === 'buy' && $this->state->buys() > 0);
+    }
+
+    private function chooseActionCardToPlay() {
+        $cards = $this->state->activePlayer()->hasCardsOfType('action');
+
+        foreach ($cards as $card) {
+            if ($card->hasFeature('increasesActions')) {
+                return $card->stub();
+            }
+        }
+
+        foreach ($cards as $card) {
+            if ($card->hasFeature('cantrip')) {
+                return $card->stub();
+            }
+        }
+
+        foreach ($cards as $card) {
+            if ($card->hasType('attack')) {
+                return $card->stub();
+            }
+        }
+
+        return $cards[0];
     }
 
 }

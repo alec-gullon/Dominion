@@ -54,6 +54,29 @@ class StringHelper {
     }
 
     /**
+     * Creates an entry for the game log that prepends the number of ".."'s according to the
+     * value of $indentation and the given $player's name. E.g.,
+     *
+     * "Alec played a Village" vs.
+     * ".. Lucy reveals a Moat"
+     *
+     * @param $entry
+     * @param $player
+     * @param $indentation
+     * @return string
+     */
+    public static function createPlayerActionEntry($entry, $player, $indentation) {
+        $entry = $player->name() . ' ' . $entry;
+        if ($indentation !== 0) {
+            $entry = ' ' . $entry;
+        }
+        for ($i = 1; $i <= $indentation; $i++) {
+            $entry = '..' . $entry;
+        }
+        return $entry;
+    }
+
+    /**
      * Describes the given array of cards in a log friendly format - e.g., ['estate', 'estate', 'village']
      * becomes 'two Estates and a Village'. The alphabetical order of the elements is determined by
      * the first appearance of each element in the $cardStack array

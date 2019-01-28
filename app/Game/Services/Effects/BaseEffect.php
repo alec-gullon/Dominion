@@ -32,6 +32,13 @@ class BaseEffect {
      */
     protected $state;
 
+    /**
+     * Accepts an array of $params which are then set as class variables on the class. For example,
+     * if an entry has the key 'amount' and value 1, then $this->amount = 1
+     *
+     * @param   \App\Game\Models\State      $state
+     * @param   array                       $params
+     */
     public function __construct(State $state, $params) {
         $this->state = $state;
         $this->numberMappings = config('dominion.number-mappings');
@@ -53,14 +60,9 @@ class BaseEffect {
         if ($player === null) {
             $player = $this->state->activePlayer();
         }
-        $entry = $player->name() . ' ' . $entry;
-        if ($indentation !== 0) {
-            $entry = ' ' . $entry;
-        }
-        for ($i = 1; $i <= $indentation; $i++) {
-            $entry = '..' . $entry;
-        }
+        $entry = StringHelper::createPlayerActionEntry($entry, $player, $indentation);
         $this->state->log()->addEntry($entry);
+        return;
     }
 
     /**

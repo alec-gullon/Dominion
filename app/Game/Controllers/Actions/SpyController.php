@@ -18,7 +18,7 @@ class SpyController extends ActionController {
     public function resolveMoat($revealed) {
         $card = $this->activePlayer()->unresolvedCard();
         if ($revealed) {
-            $this->addPlayerActionToLog('reveals a Moat', $this->secondaryPlayer());
+            $this->addToLog('reveals a Moat', $this->secondaryPlayer());
             $card->moatRevealed = true;
         }
         $this->setNextStep('reveal-card');

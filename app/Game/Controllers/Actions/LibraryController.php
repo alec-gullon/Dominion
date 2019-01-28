@@ -23,7 +23,7 @@ class LibraryController extends ActionController {
         }
 
         if ($this->nothingLeftToDraw()) {
-            $this->addPlayerActionToLog('has nothing left to draw');
+            $this->addToLog('has nothing left to draw');
         }
 
         $this->resetNumberOfCardsDrawn();

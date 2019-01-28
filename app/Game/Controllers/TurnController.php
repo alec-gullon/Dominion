@@ -11,7 +11,7 @@ class TurnController extends StateController {
      * Updates state when a user selects to end their turn
      */
     public function endTurn() {
-        $this->addPlayerActionToLog('ends their turn', null, 0);
+        $this->addToLog('ends their turn', null, 0);
         $this->state->advanceTurn();
 
         if ($this->state->checkGameOver()) {

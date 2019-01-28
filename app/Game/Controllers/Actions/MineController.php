@@ -9,7 +9,7 @@ class MineController extends ActionController {
             $this->setNextStep('trash-treasure');
             return $this->inputOn();
         }
-        $this->addPlayerActionToLog('has nothing to trash');
+        $this->addToLog('has nothing to trash');
         $this->resolveCard();
     }
 
@@ -26,7 +26,7 @@ class MineController extends ActionController {
             $this->setNextStep('gain-treasure');
             return $this->inputOn();
         }
-        $this->addPlayerActionToLog('has no cards which they can gain');
+        $this->addToLog('has no cards which they can gain');
         $this->resolveCard();
     }
 

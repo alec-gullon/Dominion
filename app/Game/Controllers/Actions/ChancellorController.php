@@ -15,7 +15,7 @@ class ChancellorController extends ActionController {
             $this->combinePiles('deck', 'discard');
             return $this->resolveCard();
         }
-        $this->addPlayerActionToLog('does not put their deck into their discard');
+        $this->addToLog('does not put their deck into their discard');
         $this->resolveCard();
     }
 

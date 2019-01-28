@@ -14,7 +14,7 @@ class AdventurerController extends ActionController {
         $activePlayer = $this->activePlayer();
 
         if (!$activePlayer->canDrawCard()) {
-            $this->addPlayerActionToLog('has nothing to draw');
+            $this->addToLog('has nothing to draw');
             return $this->resolveCard();
         }
 

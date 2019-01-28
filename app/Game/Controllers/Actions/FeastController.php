@@ -8,7 +8,7 @@ class FeastController extends ActionController {
         $feastCard = $this->activePlayer()->unresolvedCard();
 
         if (!$feastCard->isVirtual()) {
-            $this->addPlayerActionToLog('trashes the Feast');
+            $this->addToLog('trashes the Feast');
         }
 
         $this->setNextStep('gain-selected-card');

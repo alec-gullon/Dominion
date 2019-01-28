@@ -38,7 +38,7 @@ class MilitiaController extends ActionController {
         }
 
         $message = 'is unaffected since they have ' . $this->numberMappings[$cardsInHand] . ' cards in hand';
-        $this->addPlayerActionToLog($message, $this->secondaryPlayer());
+        $this->addToLog($message, $this->secondaryPlayer());
         $this->resolveCard();
     }
 

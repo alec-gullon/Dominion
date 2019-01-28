@@ -14,7 +14,7 @@ class MoneylenderController extends ActionController {
             $this->trashCards(['copper']);
             $this->addCoins(3);
         } else {
-            $this->addPlayerActionToLog('does not trash anything');
+            $this->addToLog('does not trash anything');
         }
         $this->resolveCard();
     }
