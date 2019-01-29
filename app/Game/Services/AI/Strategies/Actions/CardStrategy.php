@@ -54,9 +54,7 @@ class CardStrategy {
     }
 
     /**
-     * Given a $cardStack, returns a deeper array where each entry contains an instance of
-     * the original $cardStack and a priority value, which is determined by passing the instance
-     * to the $priorityMethod
+     * Given a $cardStack, sorts the $cardStack according to the callback specified by $priorityMethod
      *
      * @param   array       $cardStack
      * @param   string      $priorityMethod
@@ -64,14 +62,12 @@ class CardStrategy {
      * @return  array
      */
     protected function prioritiseCards($cardStack, $priorityMethod = 'cardPriority') {
-        $prioritisedStack = [];
-
-        foreach ($cardStack as $card) {
-            $prioritisedStack[] = [
+        $prioritisedStack = array_map(function($card) use ($priorityMethod) {
+            return [
                 'instance' => $card,
                 'priority' => $this->$priorityMethod($card)
             ];
-        }
+        }, $cardStack);
 
         usort($prioritisedStack, function($a, $b) {
             if ($a['priority'] > $b['priority']) {
@@ -79,6 +75,11 @@ class CardStrategy {
             }
             return 1;
         });
+
+        $prioritisedStack = array_map(function($entry) {
+            return $entry['instance'];
+        }, $prioritisedStack);
+
         return $prioritisedStack;
     }
 
@@ -91,7 +92,7 @@ class CardStrategy {
      * @return  array
      */
     protected function prioritisedCard($cardStack, $priorityMethod = 'cardPriority') {
-        return $this->prioritiseCards($cardStack, $priorityMethod)[0]['instance']->stub();
+        return $this->prioritiseCards($cardStack, $priorityMethod)[0]->stub();
     }
 
     /**

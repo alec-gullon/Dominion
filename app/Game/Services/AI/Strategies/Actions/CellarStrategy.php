@@ -9,12 +9,11 @@ class CellarStrategy extends CardStrategy {
 
     public function discardSelectedCards() {
         $handCards = $this->state->activePlayer()->hand();
-        $prioritisedCards = $this->prioritiseCards($handCards);
 
         $cardsToDiscard = [];
-        foreach ($prioritisedCards as $prioritisedCard) {
-            if ($prioritisedCard['priority'] > 0) {
-                $cardsToDiscard[] = $prioritisedCard['instance']->stub();
+        foreach ($handCards as $card) {
+            if ($this->cardPriority($card) > 0) {
+                $cardsToDiscard[] = $card->stub();
             }
         }
 
