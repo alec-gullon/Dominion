@@ -8,7 +8,7 @@ use App\Game\Models\State;
  * The AI that can be subbed in for a human Dominion player. The decision method analyses the current state
  * and attempts to make an informed decision about what should be done next in the game if the AI is playing.
  * In order to make this decision, the AI runs through an ordered checklist of strategies to consider, until
- * nothing seems valid at which point it ends its turn
+ * nothing seems valid, at which point it ends its turn
  */
 class AI {
 

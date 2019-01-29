@@ -77,10 +77,22 @@ class BaseEffect {
         return StringHelper::describeCardStack($cardStack);
     }
 
+    /**
+     * Convenience method that builds the card represented by the given $stub
+     *
+     * @param   string      $stub
+     *
+     * @return  object
+     */
     protected function buildCard($stub) {
         return CardFactory::build($stub);
     }
 
+    /**
+     * Convenience method that fetches the secondary player from the game state
+     *
+     * @return \App\Game\Models\Player
+     */
     protected function secondaryPlayer() {
         return $this->state->secondaryPlayer();
     }

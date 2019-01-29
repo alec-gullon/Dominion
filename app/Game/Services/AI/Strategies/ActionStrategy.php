@@ -23,7 +23,7 @@ class ActionStrategy {
         $nextStep = $this->state->activePlayer()->getNextStep();
         $method = StringHelper::methodFromNextStep($nextStep);
 
-        $strategy = 'App\Game\Services\AI\Strategies\Actions\\' . $alias;
+        $strategy = 'App\Game\Services\AI\Strategies\Actions\\' . $alias . 'Strategy';
         $strategy = new $strategy($this->state);
         return [
             'action' => 'provide-input',

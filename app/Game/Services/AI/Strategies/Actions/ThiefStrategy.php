@@ -2,8 +2,17 @@
 
 namespace App\Game\Services\AI\Strategies\Actions;
 
-class Thief extends CardStrategy {
+/**
+ * Provides the AI with an appropriate decision to resolve a Thief card that has been played
+ */
+class ThiefStrategy extends CardStrategy {
 
+    /**
+     * Select the most valuable treasure, if it is necessary to do so. Note that this method
+     * will only be invoked if the playing of a thief card reveals two treasure cards
+     *
+     * @return  string
+     */
     public function resolveAttack() {
         $revealedCards = $this->state->secondaryPlayer()->revealed();
 
@@ -13,6 +22,11 @@ class Thief extends CardStrategy {
         return $revealedCards[0]->stub();
     }
 
+    /**
+     * Gain the trashed card if it is a Silver/Gold card, otherwise decline
+     *
+     * @return bool
+     */
     public function gainTrashedCard() {
         $thiefCard = $this->state->activePlayer()->unresolvedCard();
 

@@ -259,6 +259,16 @@ class State {
         return ($this->awaitingPlayerInputId !== null);
     }
 
+    public function remainingKingdomCards() {
+        $remainingKingdomCards = [];
+        foreach ($this->kingdomCards as $stub => $amount) {
+            if ($amount > 0) {
+                $remainingKingdomCards[$stub] = $amount;
+            }
+        }
+        return $remainingKingdomCards;
+    }
+
     /**
      * Returns how much the cheapest available card in the kingdom costs. If $type equals 'all', then
      * all cards are considered, otherwise just cards that have the type $type are considered. Returns null

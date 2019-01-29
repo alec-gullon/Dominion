@@ -7,7 +7,7 @@ namespace App\Game\Models\Cards;
  */
 class Witch extends Card {
 
-    protected $value = 3;
+    protected $value = 5;
 
     protected $stub = 'witch';
 

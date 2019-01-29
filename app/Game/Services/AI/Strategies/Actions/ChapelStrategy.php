@@ -2,8 +2,16 @@
 
 namespace App\Game\Services\AI\Strategies\Actions;
 
-class Chapel extends CardStrategy {
+/**
+ * Provides the AI with an appropriate decision to resolve a Chapel card that has been played
+ */
+class ChapelStrategy extends CardStrategy {
 
+    /**
+     * A list of stubs that represent cards the AI would want to trash
+     *
+     * @var array
+     */
     private $trashableCards = [
         'estate',
         'curse',

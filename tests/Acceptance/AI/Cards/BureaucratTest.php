@@ -19,12 +19,13 @@ class BureaucratTest extends AcceptanceTestBase {
             'moat' => 10
         ];
         $this->setKingdomCards($kingdom);
-        $this->setHand(['bureaucrat', 'estate@2', 'copper@2']);
+        $this->setHand(['bureaucrat', 'duchy@2', 'copper@2']);
         $this->setOpponentHand(['moat', 'estate@2', 'copper@2']);
         $this->playCard('bureaucrat');
 
         $this->assertAllCardsResolved();
         $this->assertOpponentDeckSize(5);
+        $this->assertDeckSize(6);
     }
 
     public function testPicksAVictoryCardWhenPromptedTo() {
