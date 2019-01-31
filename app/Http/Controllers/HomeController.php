@@ -27,4 +27,8 @@ class HomeController extends Controller {
         return view('join', ['gameId' => $game->guid]);
     }
 
+    public function concept() {
+        return view('concept');
+    }
+
 }

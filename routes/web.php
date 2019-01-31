@@ -24,3 +24,5 @@ Route::post('/game/create-ai-game/', 'GameController@createAIGame')->name('game-
 Route::post('/game/update/', 'GameController@update')->name('game-update')->middleware('player');
 
 Route::get('/public/game/join/{guid}/', 'HomeController@join')->name('public-game-join');
+
+Route::get('/concept/', 'HomeController@concept');
