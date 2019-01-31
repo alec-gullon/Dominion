@@ -8,23 +8,25 @@
             if (!isset($cardsByValue[$card->value()])) {
                 $cardsByValue[$card->value()] = [];
             }
-            $cardsByValue[$card->value()] = $card;
+            $cardsByValue[$card->value()][] = $card;
         }
     }
 ?>
 
 <div class="kingdom-cards">
-@foreach ($cardsByValue as $amount => $cards)
-    <div class="kingdom-card-group">
-        <div class="kingdom-card-coin-divider">
-            <div class="kingdom-card-coin">{{ $amount }}</div>
+@for ($amount = 6; $amount >= 2; $amount--)
+    @if (isset($cardsByValue[$amount]))
+        <div class="kingdom-card-group">
+            <div class="kingdom-card-coin-divider">
+                <div class="kingdom-card-coin">{{ $amount }}</div>
+            </div>
+            @foreach ($cardsByValue[$amount] as $card)
+                <div class="kingdom-card">
+                    <div class="name">{{ $card->name() }}</div>
+                    <div class="amount">{{ $cards[$card->stub()] }}</div>
+                </div>
+            @endforeach
         </div>
-        @foreach ($cards as $card)
-        <div class="kingdom-card">
-            <div class="name">{{ $card->name() }}</div>
-            <div class="amount">{{ $cards[$card->stub()]['amount'] }}</div>
-        </div>
-        @endforeach
-    </div>
-@endforeach
+    @endif
+@endfor
 </div>

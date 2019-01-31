@@ -1,0 +1,17 @@
+.bottom {
+  border-top: 1px solid $grey-mid;
+  bottom: 0;
+  height: 325px;
+  display: flex;
+  background: $grey-light;
+
+  h2 {
+    font-size: 24px;
+    font-weight: 300;
+    margin-bottom: 10px;
+  }
+
+  @import 'bottom/player-area';
+  @import 'bottom/hand';
+  @import 'bottom/log';
+}

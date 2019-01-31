@@ -48,13 +48,15 @@ webSocketServer.on('request', function(request) {
                 try {
                     body = JSON.parse(body);
                 } catch(e) {
+                    let ts = new Date();
+                    console.log(ts.toGMTString());
+                    console.log('Something went wrong, saving error to file');
+
                     const fs = require('fs');
                     fs.writeFile('error.log', body, function(err) {
                         if (err) {
                             return console.log(err);
                         }
-
-                        console.log('Something went wrong, saving error to file');
                     })
                     return;
                 }

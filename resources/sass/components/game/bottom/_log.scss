@@ -1,0 +1,24 @@
+.log {
+  width: 40%;
+  border-left: 1px solid $grey-mid;
+  background: white;
+  font-size: 15px;
+  line-height: 20px;
+  overflow: scroll;
+
+  h2 {
+    padding: 15px;
+    border-bottom: 1px solid $grey-mid;
+    margin-bottom: 15px;
+  }
+
+  span {
+    display: block;
+    padding: 0 0 10px 15px;
+  }
+
+  .dot-wrapper {
+    display: inline;
+    margin: 0 5px 0 0px;
+  }
+}

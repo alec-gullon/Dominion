@@ -16,6 +16,6 @@
                 $class = 'action';
             }
         ?>
-        <div class="hand-card {{ $class }}">{{ $card->name() }}</div>
+        <div class="hand-card hand-card--{{ $class }}">{{ $card->name() }}</div>
     @endforeach
 </div>
