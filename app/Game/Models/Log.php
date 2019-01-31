@@ -31,6 +31,14 @@ class Log {
      */
     private $currentTurn = 1;
 
+    public function entries() {
+        return $this->entries;
+    }
+
+    public function currentTurn() {
+        return $this->currentTurn;
+    }
+
     public function setCurrentTurn($turn) {
         $this->currentTurn = $turn;
     }

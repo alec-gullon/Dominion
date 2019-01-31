@@ -1,10 +1,5 @@
 <div class="game game-root">
-    <div class="game-board">
-        @include('game.kingdom-cards')
-        <div class="game-main">
-            @include('game.key-stats')
-            @include('game.standard-cards')
-        </div>
-    </div>
-    @include('game.sidebar')
+    @include('game.layout.top')
+    @include('game.layout.status')
+    @include('game.layout.bottom')
 </div>
