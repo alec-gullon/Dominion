@@ -2,20 +2,20 @@
     $player = $state->getPlayerById($playerKey);
 ?>
 
-<div class="hand">
-    <h2>Your Hand</h2>
+<div class="__hand">
+    <h2 class="__hand-title">Your Hand</h2>
     @foreach ($player->hand() as $card)
         <?php
             if ($card->hasType('victory')) {
-                $class = 'victory';
+                $type = 'victory';
             } else if ($card->hasType('treasure')) {
-                $class = 'treasure';
+                $type = 'treasure';
             } else if ($card->stub() === 'curse') {
-                $class = 'curse';
+                $type = 'curse';
             } else {
-                $class = 'action';
+                $type = 'action';
             }
         ?>
-        <div class="hand-card hand-card--{{ $class }}">{{ $card->name() }}</div>
+        <div class="{{ bem('hand-card--' . $type) }}">{{ $card->name() }}</div>
     @endforeach
 </div>

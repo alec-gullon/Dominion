@@ -1,40 +1,41 @@
-.hand {
+.__hand {
   width: 20%;
   display: flex;
   flex-direction: column;
   border-left: 1px solid $grey-mid;
   background: white;
   line-height: 20px;
+}
 
-  h2 {
-    border-bottom: 1px solid $grey-mid;
-    padding: 15px;
-    margin-bottom: 15px;
+.__hand-title {
+  border-bottom: 1px solid $grey-mid;
+  padding: 15px;
+  margin-bottom: 15px;
+  font-size: 24px;
+}
+
+.__hand-card {
+  font-size: 20px;
+  text-align: center;
+  height: 35px;
+  line-height: 35px;
+  margin: 0px 15px 10px 15px;
+
+  &--treasure {
+    background: $treasure-light;
+    color: $treasure-dark;
+    border: 1px solid $treasure-dark;
   }
 
-  .hand-card {
-    font-size: 20px;
-    text-align: center;
-    height: 35px;
-    line-height: 35px;
-    margin: 0px 15px 10px 15px;
+  &--victory {
+    background: $victory-light;
+    color: $victory-dark;
+    border: 1px solid $victory-dark;
+  }
 
-    &--treasure {
-      background: $treasure-light;
-      color: $treasure-dark;
-      border: 1px solid $treasure-dark;
-    }
-
-    &--victory {
-      background: $victory-light;
-      color: $victory-dark;
-      border: 1px solid $victory-dark;
-    }
-
-    &--curse {
-      border: 1px solid $curse-dark;
-      color: $curse-dark;
-      background: $curse-light;
-    }
+  &--curse {
+    border: 1px solid $curse-dark;
+    color: $curse-dark;
+    background: $curse-light;
   }
 }

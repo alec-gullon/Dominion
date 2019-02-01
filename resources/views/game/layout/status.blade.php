@@ -1,5 +1,5 @@
-<div class="status">
-    <div class="resource">Actions: <span class="amount">{{ $state->actions() }}</span></div>
-    <div class="resource">Buys: <span class="amount">{{ $state->buys() }}</span></div>
-    <div class="resource">Coins: <span class="amount">{{ $state->coins() }}</span></div>
+<div class="__status">
+    <div class="__status-resource">Actions: <span class="__status-amount">{{ $state->actions() }}</span></div>
+    <div class="__status-resource">Buys: <span class="__status-amount">{{ $state->buys() }}</span></div>
+    <div class="__status-resource">Coins: <span class="__status-amount">{{ $state->coins() }}</span></div>
 </div>

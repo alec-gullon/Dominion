@@ -3,12 +3,7 @@
   flex-direction: column;
   height: 100%;
 
-  .top {
-    flex-grow: 1;
-  }
   @import '/game/top';
-
   @import '/game/status';
-
   @import '/game/bottom';
 }

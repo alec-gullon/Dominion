@@ -1,0 +1,57 @@
+.__common-cards {
+  width: 200px;
+  border-left: 1px solid $grey-mid;
+  display: flex;
+  flex-direction: column;
+}
+
+.__common-card-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  &--treasure {
+    flex-grow: 2;
+    background: $treasure-light;
+    color: $treasure-dark;
+  }
+
+  &--victory {
+    flex-grow: 2;
+    background: $victory-light;
+    color: $victory-dark;
+  }
+
+  &--misc {
+    flex-grow: 1;
+    background: $curse-light;
+    color: $curse-dark;
+  }
+}
+
+.__common-card {
+  display: flex;
+  margin: 0 0 10px 20px;
+  font-size: 20px;
+  line-height: 35px;
+}
+
+.__common-card-letter {
+  font-weight: bold;
+  width: 35px;
+  height: 35px;
+  text-align: center;
+  margin-right: 15px;
+
+  &--treasure {
+    border: 1px solid $treasure-dark;
+  }
+
+  &--victory {
+    border: 1px solid $victory-dark;
+  }
+
+  &--misc {
+    border: 1px solid $curse-dark;
+  }
+}
