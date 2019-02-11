@@ -13,7 +13,7 @@ class Moat extends Card {
 
     protected $name = 'Moat';
 
-    protected $type = [
+    protected $types = [
         'action'
     ];
 

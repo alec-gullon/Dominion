@@ -13,7 +13,7 @@ class Smithy extends Card {
 
     protected $name = 'Smithy';
 
-    protected $type = [
+    protected $types = [
         'action'
     ];
 

@@ -13,7 +13,7 @@ class Woodcutter extends Card {
 
     protected $name = 'Woodcutter';
 
-    protected $type = [
+    protected $types = [
         'action'
     ];
 

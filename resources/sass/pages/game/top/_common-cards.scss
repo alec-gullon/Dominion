@@ -43,6 +43,7 @@
     height: 35px;
     text-align: center;
     margin-right: 15px;
+    position: relative;
 
     &--treasure {
       border: 1px solid $treasure-dark;
@@ -52,13 +53,28 @@
       border: 1px solid $victory-dark;
     }
 
-    &--misc {
+    &--curse {
       border: 1px solid $curse-dark;
     }
 
     &--active {
       border: 2px solid $highlight-blue;
       cursor: pointer;
+    }
+
+    &.active {
+      font-size: 0px;
+      &::after {
+        position: absolute;
+        left: 0;
+        top: 0;
+        text-align: center;
+        width: 100%;
+        font-size: 16px;
+        content: '...';
+        display: block;
+        height: 100%;
+      }
     }
   }
 }

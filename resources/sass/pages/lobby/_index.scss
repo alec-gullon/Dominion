@@ -1,0 +1,15 @@
+.lobby {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80%;
+
+  &__heading {
+    margin-bottom: 2rem;
+  }
+
+  &__button {
+    margin-bottom: 1rem;
+  }
+}
