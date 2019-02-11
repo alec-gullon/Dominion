@@ -20,7 +20,7 @@ export default function refreshBindings() {
     });
 
     $('.game-root').find('[data-action="select-option"]').click(function() {
-        new OutboundRouter('provideInput').message($(this).data('stub'));
+        new OutboundRouter('submitChoice').message($(this).data('option'));
     });
 
 }

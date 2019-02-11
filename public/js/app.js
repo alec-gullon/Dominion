@@ -10961,6 +10961,19 @@ var Game = function () {
             };
             window.dominion.connection.send(JSON.stringify(message));
         }
+    }, {
+        key: "submitChoice",
+        value: function submitChoice(input) {
+            var message = {
+                route: '/game/update/',
+                data: {
+                    action: 'provide-input',
+                    input: input,
+                    guid: window.cookies.get('guid')
+                }
+            };
+            window.dominion.connection.send(JSON.stringify(message));
+        }
     }]);
 
     return Game;
@@ -11068,7 +11081,7 @@ function refreshBindings() {
     });
 
     __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.game-root').find('[data-action="select-option"]').click(function () {
-        new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('provideInput').message(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).data('stub'));
+        new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('submitChoice').message(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).data('option'));
     });
 }
 

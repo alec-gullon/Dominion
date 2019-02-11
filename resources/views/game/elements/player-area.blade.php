@@ -7,11 +7,12 @@
         <h2 class="game__player-area-title">Select a card to play:</h2>
         <div class="game__player-area-options">
             @foreach ($player->hand() as $card)
-                @if ($card->hasType('treasure') || $card->hasType('action'))
-                    <?php $class = 'game-button--active--' . $card->types()[0]; ?>
-                    <div class="{{ bem($class) }} game__player-area-option" data-action="play-treasure" data-stub="{{ $card->stub() }}">
-                        {{ $card->name() }}
-                    </div>
+                @if ($card->hasType('treasure'))
+                    @include('game.elements.player-area.play-card-option', ['card' => $card])
+                @endif
+
+                @if ($card->hasType('action') && $state->phase() === 'action' && $state->actions() > 0)
+                    @include('game.elements.player-area.play-card-option', ['card' => $card])
                 @endif
             @endforeach
         </div>

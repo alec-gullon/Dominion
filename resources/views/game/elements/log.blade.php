@@ -6,9 +6,9 @@
 @for ($i = $log->currentTurn(); $i >= 1; $i--)
     <h2 class="game__log-title">Turn {{ $i }}</h2>
     @if (isset($log->entries()[$i]))
-        @for ($j = count($log->entries()[$i]) - 1; $j >= 0; $j--)
-            <span class="game__log-entry">{{ $log->entries()[$i][$j] }}</span>
-        @endfor
+        @foreach ($log->entries()[$i] as $entry)
+            <span class="game__log-entry">{{ $entry }}</span>
+        @endforeach
     @endif
 @endfor
 </div>

@@ -11,7 +11,8 @@ return [
         'festival',
         'adventurer',
         'laboratory',
-        'gardens'
+        'gardens',
+        'workshop'
     ],
     'base-cards' => [
         'copper' => 30,
