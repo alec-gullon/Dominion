@@ -1,4 +1,4 @@
 <div class="game__top">
-    @include('game.atoms.kingdom-cards')
-    @include('game.atoms.common-cards')
+    @include('game.elements.kingdom-cards')
+    @include('game.elements.common-cards')
 </div>

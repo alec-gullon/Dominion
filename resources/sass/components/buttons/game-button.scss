@@ -12,10 +12,6 @@
     background: white;
   }
 
-  &--active {
-    border: 2px solid #007bff;
-  }
-
   &--treasure {
     background: $treasure-light;
     color: $treasure-dark;
@@ -32,5 +28,9 @@
     border: 1px solid $curse-dark;
     color: $curse-dark;
     background: $curse-light;
+  }
+
+  &--active {
+    border: 2px solid #007bff;
   }
 }

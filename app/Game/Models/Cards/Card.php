@@ -108,6 +108,10 @@ class Card {
         return $this->name;
     }
 
+    public function types() {
+        return $this->types;
+    }
+
     /**
      * Returns true if the card has the type $type, false otherwise
      *

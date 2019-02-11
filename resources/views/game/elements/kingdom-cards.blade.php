@@ -22,7 +22,14 @@
             </div>
             @foreach ($cardsByValue[$amount] as $card)
                 <div class="game__kingdom-card">
-                    <div class="game__kingdom-card-name game-button">{{ $card->name() }}</div>
+                    @if ($card->value() <= $state->coins() && $state->phase() === 'buy' && $state->buys() >= 1)
+                        <div class="game__kingdom-card-name {{ bem('game-button--active') }}"
+                             data-action="buy-card"
+                             data-stub="{{ $card->stub() }}"
+                        >{{ $card->name() }}</div>
+                    @else
+                        <div class="game__kingdom-card-name game-button">{{ $card->name() }}</div>
+                    @endif
                     <div class="game__kingdom-card-amount">{{ $cards[$card->stub()] }}</div>
                 </div>
             @endforeach

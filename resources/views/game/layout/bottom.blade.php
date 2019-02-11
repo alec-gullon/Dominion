@@ -1,5 +1,5 @@
 <div class="game__bottom">
-    @include('game.atoms.player-area')
-    @include('game.atoms.hand')
-    @include('game.atoms.log')
+    @include('game.elements.player-area')
+    @include('game.elements.hand')
+    @include('game.elements.log')
 </div>
