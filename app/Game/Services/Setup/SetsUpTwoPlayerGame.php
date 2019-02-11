@@ -21,8 +21,8 @@ class SetsUpTwoPlayerGame extends SetsUpGame {
         $players = $game->users;
         $state = unserialize($game->object);
 
-        $player1 = $this->setUpPlayer($players[0]->guid);
-        $player2 = $this->setUpPlayer($players[1]->guid);
+        $player1 = $this->setUpPlayer($players[0]->guid, $players[0]->name);
+        $player2 = $this->setUpPlayer($players[1]->guid, $players[1]->name);
 
         $state->setPlayers([$player1, $player2]);
         $state->setActivePlayerId($player1->id());

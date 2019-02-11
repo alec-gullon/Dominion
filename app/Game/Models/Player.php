@@ -75,8 +75,9 @@ class Player {
      */
     private $isAi;
 
-    public function __construct($id, $isAi = false) {
+    public function __construct($id, $name, $isAi = false) {
         $this->id = $id;
+        $this->name = $name;
         $this->isAi = $isAi;
     }
 

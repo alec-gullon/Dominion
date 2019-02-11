@@ -7,16 +7,18 @@
         <h2 class="__player-area-title">Select a card to play:</h2>
         <div class="__player-area-options">
             @foreach ($player->hand() as $card)
-                <div class="__player-area-option">
-                    {{ $card->name() }}
-                </div>
+                @if ($card->hasType('treasure'))
+                    <div class="__player-area-option" data-action="play-treasure" data-stub="{{ $card->stub() }}">
+                        {{ $card->name() }}
+                    </div>
+                @endif
             @endforeach
         </div>
 
         <h2 class="__player-area-title">Or alternatively:</h2>
         <div class="__player-area-options">
             <div class="__player-area-option">Play all treasures</div>
-            <div class="__player-area-option">End turn</div>
+            <div class="__player-area-option" data-action="end-turn">End turn</div>
         </div>
     @else
         @include('game.cards.actions.' . $gameObserver->playerAreaView($state, $playerKey))

@@ -47,12 +47,13 @@ class SetsUpGame {
      * @todo Eek, a wild new appears! Should be extracted to a factory class
      *
      * @param   string      $id
+     * @param   string      $name
      * @param   bool        $isAi
      *
      * @return  \App\Game\Models\Player
      */
-    protected function setUpPlayer($id, $isAi = false) {
-        $player = new Player($id, $isAi);
+    protected function setUpPlayer($id, $name, $isAi = false) {
+        $player = new Player($id, $name, $isAi);
         $player->setDeck($this->defaultDeck());
         $player->shuffleDeck();
         $player->drawCards(5);

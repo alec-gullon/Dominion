@@ -21,8 +21,8 @@ class SetsUpAIGame extends SetsUpGame {
         $player = $game->users[0];
         $state = unserialize($game->object);
 
-        $player1 = $this->setUpPlayer($player->guid);
-        $player2 = $this->setUpPlayer('Marvin', true);
+        $player1 = $this->setUpPlayer($player->guid, $player->name);
+        $player2 = $this->setUpPlayer('marvin', 'Marvin', true);
 
         $state->setPlayers([$player1, $player2]);
         $state->setActivePlayerId($player1->id());

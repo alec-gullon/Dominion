@@ -29,7 +29,7 @@ class UserTest extends TestCase
         $game = \App\Models\Game::all()->first();
 
         $this->assertEquals(count($game->users), 2);
-        $this->assertContains('Coins: 0', $response);
+        $this->assertContains('<div class=\"game game-root\">', $response);
     }
 
     public function testRefreshesPageCorrectlyWhenUserInGame() {
@@ -44,7 +44,7 @@ class UserTest extends TestCase
             'guid' => 'alec'
         ])->getContent();
 
-        $this->assertContains('Coins: 0', $response);
+        $this->assertContains('<div class=\"game game-root\">', $response);
     }
 
     public function testRefreshesPageCorrectlyWhenUserWaitingForAnotherPlayer() {
@@ -79,7 +79,7 @@ class UserTest extends TestCase
             'guid' => 'alec'
         ])->getContent();
 
-        $this->assertContains('Turn: 1', $response);
+        $this->assertContains('Turn 1', $response);
     }
 
     protected function buildGame()
@@ -112,9 +112,9 @@ class UserTest extends TestCase
         $game->guid = uniqid();
         $game->save();
 
-        $player1 = new \App\Game\Models\Player('alec');
+        $player1 = new \App\Game\Models\Player('alec', 'Alec');
 
-        $player2 = new \App\Game\Models\Player('marvin', true);
+        $player2 = new \App\Game\Models\Player('marvin', 'Marvin', true);
 
         $state->setPlayers([$player1, $player2]);
         $state->setActivePlayerId('alec');

@@ -21,7 +21,7 @@ class GameTest extends TestCase
             'input' => 'copper'
         ])->getContent();
 
-        $this->assertContains('Coins: 1', $response);
+        $this->assertContains('<div class=\"game game-root\">', $response);
     }
 
     public function testItCreatesAGame()
@@ -52,7 +52,7 @@ class GameTest extends TestCase
 
         $games = \App\Models\Game::all();
 
-        $this->assertContains('Coins: 0', $response);
+        $this->assertContains('<div class=\"game game-root\">', $response);
         $this->assertEquals(count($games), 1);
     }
 
@@ -67,7 +67,7 @@ class GameTest extends TestCase
         $response = json_decode($response);
 
         $this->assertEquals(count($response->responses), 1);
-        $this->assertContains('Turn: 3', $response->responses[0]->response->view);
+        $this->assertContains('Turn 3', $response->responses[0]->response->view);
     }
 
     protected function buildGame() {
@@ -78,7 +78,7 @@ class GameTest extends TestCase
         $game->guid = uniqid();
         $game->save();
 
-        $player1 = new \App\Game\Models\Player('alec');
+        $player1 = new \App\Game\Models\Player('alec', 'Alec');
 
         $player1->setDeck([
             CardFactory::build('estate'),
@@ -95,7 +95,7 @@ class GameTest extends TestCase
             CardFactory::build('copper')
         ]);
 
-        $player2 = new \App\Game\Models\Player('lucy');
+        $player2 = new \App\Game\Models\Player('lucy', 'Lucy');
 
         $player2->setDeck([
             CardFactory::build('estate'),
@@ -150,7 +150,7 @@ class GameTest extends TestCase
         $game->guid = uniqid();
         $game->save();
 
-        $player1 = new \App\Game\Models\Player('alec');
+        $player1 = new \App\Game\Models\Player('alec', 'Alec');
 
         $player1->setDeck([
             CardFactory::build('estate'),
@@ -167,7 +167,7 @@ class GameTest extends TestCase
             CardFactory::build('copper')
         ]);
 
-        $player2 = new \App\Game\Models\Player('marvin', true);
+        $player2 = new \App\Game\Models\Player('marvin', 'Marvin', true);
 
         $player2->setDeck([
             CardFactory::build('estate'),

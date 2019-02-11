@@ -47,7 +47,7 @@ class CardTestBase extends AcceptanceTestBase
 
         $cardFactory = new \App\Game\Factories\CardFactory();
 
-        $player1 = new \App\Game\Models\Player('alec');
+        $player1 = new \App\Game\Models\Player('alec', 'Alec');
 
         $player1->setDeck([
             CardFactory::build('estate'),
@@ -65,7 +65,7 @@ class CardTestBase extends AcceptanceTestBase
         ]);
         $player1->setName('Alec');
 
-        $player2 = new \App\Game\Models\Player('lucy');
+        $player2 = new \App\Game\Models\Player('lucy', 'Lucy');
 
         $player2->setDeck([
             CardFactory::build('estate'),

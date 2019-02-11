@@ -49,9 +49,7 @@ class AcceptanceTestBase extends TestCase
         $game->guid = uniqid();
         $game->save();
 
-        $cardFactory = new \App\Game\Factories\CardFactory();
-
-        $player1 = new \App\Game\Models\Player('alec');
+        $player1 = new \App\Game\Models\Player('alec', 'Alec');
 
         $player1->setDeck([
             CardFactory::build('estate'),
@@ -69,7 +67,7 @@ class AcceptanceTestBase extends TestCase
         ]);
         $player1->setName('Alec');
 
-        $player2 = new \App\Game\Models\Player('lucy');
+        $player2 = new \App\Game\Models\Player('lucy', 'Lucy');
 
         $player2->setDeck([
             CardFactory::build('estate'),
@@ -128,7 +126,7 @@ class AcceptanceTestBase extends TestCase
 
         $cardFactory = new \App\Game\Factories\CardFactory();
 
-        $player1 = new \App\Game\Models\Player('alec');
+        $player1 = new \App\Game\Models\Player('alec', 'Alec');
 
         $player1->setDeck([
             CardFactory::build('estate'),
@@ -146,7 +144,7 @@ class AcceptanceTestBase extends TestCase
         ]);
         $player1->setName('Alec');
 
-        $player2 = new \App\Game\Models\Player('marvin', true);
+        $player2 = new \App\Game\Models\Player('marvin', 'Marvin', true);
 
         $player2->setDeck([
             CardFactory::build('estate'),
