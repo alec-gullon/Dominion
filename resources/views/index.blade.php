@@ -15,6 +15,7 @@
 <script>
     window.dominion = {};
     window.dominion.route = '{{ Route::currentRouteName() }}';
+    window.dominion.messageInProgress = false;
 </script>
 <script src="/js/app.js"></script>
 </body>

@@ -7,13 +7,7 @@
         <h2 class="game__player-area-title">Select a card to play:</h2>
         <div class="game__player-area-options">
             @foreach ($player->hand() as $card)
-                @if ($card->hasType('treasure'))
-                    @include('game.elements.player-area.play-card-option', ['card' => $card])
-                @endif
-
-                @if ($card->hasType('action') && $state->phase() === 'action' && $state->actions() > 0)
-                    @include('game.elements.player-area.play-card-option', ['card' => $card])
-                @endif
+                @include('game.elements.player-area.play-card-option', ['card' => $card])
             @endforeach
         </div>
 

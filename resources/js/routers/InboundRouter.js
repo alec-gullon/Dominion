@@ -29,7 +29,9 @@ export default class InboundRouter {
         let parts = method.split('@');
 
         let controller = new this.classMap[parts[0]](this.message);
-        return controller[parts[1]]();
+        controller[parts[1]]();
+
+        window.dominion.messageInProgress = false;
     }
 
 }

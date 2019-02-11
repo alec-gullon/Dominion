@@ -160,6 +160,7 @@ body {
   line-height: 35px;
   text-align: center;
   cursor: pointer;
+  position: relative;
 }
 
 .game-button--white {
@@ -186,6 +187,22 @@ body {
 
 .game-button--active {
   border: 2px solid #007bff;
+}
+
+.game-button.active {
+  font-size: 0px;
+}
+
+.game-button.active::after {
+  position: absolute;
+  left: 0;
+  top: 0;
+  text-align: center;
+  width: 100%;
+  font-size: 16px;
+  content: 'Loading...';
+  display: block;
+  height: 100%;
 }
 
 .game {

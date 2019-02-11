@@ -10621,7 +10621,9 @@ var InboundRouter = function () {
             var parts = method.split('@');
 
             var controller = new this.classMap[parts[0]](this.message);
-            return controller[parts[1]]();
+            controller[parts[1]]();
+
+            window.dominion.messageInProgress = false;
         }
     }]);
 
@@ -11065,24 +11067,43 @@ function refreshBindings() {
 function refreshBindings() {
 
     __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.game-root').find('[data-action="play-treasure"]').click(function () {
-        new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('playTreasure').message(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).data('stub'));
+        if (sendMessageIfNotBusy(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this))) {
+            new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('playTreasure').message(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).data('stub'));
+        }
     });
 
     __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.game-root').find('[data-action="buy-card"]').click(function () {
-        new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('buyCard').message(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).data('stub'));
+        if (sendMessageIfNotBusy(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this))) {
+            new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('buyCard').message(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).data('stub'));
+        }
     });
 
     __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.game-root').find('[data-action="end-turn"]').click(function () {
-        new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('endTurn').message();
+        if (sendMessageIfNotBusy(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this))) {
+            new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('endTurn').message();
+        }
     });
 
     __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.game-root').find('[data-action="play-card"]').click(function () {
-        new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('playCard').message(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).data('stub'));
+        if (sendMessageIfNotBusy(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this))) {
+            new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('playCard').message(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).data('stub'));
+        }
     });
 
     __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.game-root').find('[data-action="select-option"]').click(function () {
-        new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('submitChoice').message(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).data('option'));
+        if (sendMessageIfNotBusy(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this))) {
+            new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('submitChoice').message(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).data('option'));
+        }
     });
+}
+
+function sendMessageIfNotBusy(object) {
+    if (window.dominion.messageInProgress) {
+        return false;
+    }
+    window.dominion.messageInProgress = true;
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()(object).addClass('active');
+    return true;
 }
 
 /***/ }),
