@@ -1,0 +1,66 @@
+.game {
+  &__kingdom-cards {
+    flex-grow: 1;
+    padding: 60px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__kingdom-card-group {
+    width: 30%;
+    margin-right: 4%;
+    display: flex;
+    flex-direction: column;
+
+    &:nth-child(3n) {
+      margin-right: 0;
+    }
+  }
+
+  &__kingdom-card-coin-divider {
+    position: relative;
+    height: 34px;
+    margin-bottom: 20px;
+
+    &:before {
+      content: '';
+      border-top: 1px solid $grey-mid;
+      position: absolute;
+      width: 100%;
+      top: 17px;
+      left: 0;
+    }
+  }
+
+  &__kingdom-card-coin {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: -17px;
+    height: 34px;
+    width: 34px;
+    text-align: center;
+    line-height: 34px;
+    border-radius: 50%;
+    background: $treasure-light;
+    color: $treasure-dark;
+    font-size: 20px;
+  }
+
+  &__kingdom-card {
+    color: $grey-warm;
+    display: flex;
+    line-height: 35px;
+    margin-bottom: 10px;
+  }
+
+  &__kingdom-card-name {
+    width: 85%;
+  }
+
+  &__kingdom-card-amount {
+    width: 15%;
+    height: 35px;
+    text-align: center;
+  }
+}

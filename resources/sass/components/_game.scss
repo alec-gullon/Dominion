@@ -1,9 +1,0 @@
-.game {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-
-  @import '/game/top';
-  @import '/game/status';
-  @import '/game/bottom';
-}

@@ -3,10 +3,10 @@
 function bem($class) {
     $parts = explode('--', $class);
 
-    $return = '__' . $parts[0];
+    $return = $parts[0];
 
     for ($i = 1; $i < count($parts); $i++) {
-        $return .= ' __' . $parts[0] . '--' . $parts[$i];
+        $return .= ' ' . $parts[0] . '--' . $parts[$i];
     }
 
     return $return;
