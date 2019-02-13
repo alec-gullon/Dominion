@@ -41,6 +41,9 @@ class Log {
 
     public function setCurrentTurn($turn) {
         $this->currentTurn = $turn;
+        if (!isset($this->entries[$turn])) {
+            $this->entries[$turn] = [];
+        }
     }
 
     /**

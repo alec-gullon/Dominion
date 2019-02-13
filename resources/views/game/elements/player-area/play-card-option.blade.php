@@ -1,9 +1,14 @@
-@if ($card->hasType('treasure'))
-    <div class="__player-area-option game-button --highlighted --{{ $card->types()[0] }}" data-action="play-treasure" data-stub="{{ $card->stub() }}">
+<?php
+    $stub = $card->stub();
+    $type = $card->types()[0];
+?>
+
+@if ($type === 'treasure')
+    <div class="__player-area-option game-button --highlighted --{{ $type }}" data-action="play-treasure" data-stub="{{ $stub }}">
         {{ $card->name() }}
     </div>
-@elseif ($card->hasType('action') && $state->phase() === 'action' && $state->actions() > 0)
-    <div class="__player-area-option game-button --highlighted --{{ $card->types()[0] }}" data-action="play-card" data-stub="{{ $card->stub() }}">
+@elseif ($type === 'action' && App\Game\Helpers\ViewHelper::canPlayAction($state))
+    <div class="__player-area-option game-button --highlighted --{{ $type }}" data-action="play-card" data-stub="{{ $stub }}">
         {{ $card->name() }}
     </div>
 @endif

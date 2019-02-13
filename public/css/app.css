@@ -308,13 +308,13 @@ body {
   margin-right: 0;
 }
 
-.game .__kingdom-card-coin-divider {
+.game .__coin-divider {
   position: relative;
   height: 34px;
   margin-bottom: 20px;
 }
 
-.game .__kingdom-card-coin-divider:before {
+.game .__coin-divider:before {
   content: '';
   border-top: 1px solid #ccc;
   position: absolute;
@@ -323,7 +323,7 @@ body {
   left: 0;
 }
 
-.game .__kingdom-card-coin {
+.game .__coin {
   position: absolute;
   top: 0;
   left: 50%;

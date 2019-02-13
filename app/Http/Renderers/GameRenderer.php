@@ -11,10 +11,11 @@ class GameRenderer {
         $state = unserialize($game->object);
 
         $view = view('game.index', [
-            'cardFactory' => new CardFactory(),
             'state' => $state,
             'gameObserver' => new GameObserver($state),
-            'playerKey' => $user->guid
+            'playerKey' => $user->guid,
+            'activePlayer' => ($user->guid === $state->activePlayer()->id()),
+            'player' => $state->getPlayerById($user->guid)
         ])->render();
 
         return response()->json([
@@ -33,7 +34,9 @@ class GameRenderer {
                 'cardFactory' => new CardFactory(),
                 'state' => $state,
                 'gameObserver' => new GameObserver($state),
-                'playerKey' => $user->guid
+                'playerKey' => $user->guid,
+                'activePlayer' => ($user->guid === $state->activePlayer()->id()),
+                'player' => $state->getPlayerById($user->guid)
             ])->render();
 
             $responses[] = [

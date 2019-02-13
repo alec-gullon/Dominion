@@ -1,7 +1,3 @@
-<?php
-    $player = $state->getPlayerById($playerKey);
-?>
-
 <div class="__hand">
     <h2 class="__hand-title">Your Hand</h2>
     @foreach ($player->hand() as $card)

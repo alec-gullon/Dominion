@@ -17,12 +17,12 @@
 @for ($amount = 6; $amount >= 2; $amount--)
     @if (isset($cardsByValue[$amount]))
         <div class="__kingdom-card-group">
-            <div class="__kingdom-card-coin-divider">
-                <div class="__kingdom-card-coin">{{ $amount }}</div>
+            <div class="__coin-divider">
+                <div class="__coin">{{ $amount }}</div>
             </div>
             @foreach ($cardsByValue[$amount] as $card)
                 <div class="__kingdom-card">
-                    @if ($card->value() <= $state->coins() && $state->phase() === 'buy' && $state->buys() >= 1)
+                    @if (App\Game\Helpers\ViewHelper::isCardActive($card, $state))
                         <div class="__kingdom-card-name game-button --highlighted"
                              data-action="buy-card"
                              data-stub="{{ $card->stub() }}"
