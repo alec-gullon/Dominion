@@ -1,43 +1,43 @@
 .game {
-  &__common-cards {
+  .__common-cards {
     width: 200px;
     border-left: 1px solid $grey-mid;
     display: flex;
     flex-direction: column;
   }
 
-  &__common-card-group {
+  .__common-card-group {
     display: flex;
     flex-direction: column;
     justify-content: center;
 
-    &--treasure {
+    &.--treasure {
       flex-grow: 2;
       background: $treasure-light;
       color: $treasure-dark;
     }
 
-    &--victory {
+    &.--victory {
       flex-grow: 2;
       background: $victory-light;
       color: $victory-dark;
     }
 
-    &--misc {
+    &.--misc {
       flex-grow: 1;
       background: $curse-light;
       color: $curse-dark;
     }
   }
 
-  &__common-card {
+  .__common-card {
     display: flex;
     margin: 0 0 10px 20px;
     font-size: 20px;
     line-height: 35px;
   }
 
-  &__common-card-letter {
+  .__common-card-letter {
     font-weight: bold;
     width: 35px;
     height: 35px;
@@ -45,24 +45,24 @@
     margin-right: 15px;
     position: relative;
 
-    &--treasure {
+    &.--treasure {
       border: 1px solid $treasure-dark;
     }
 
-    &--victory {
+    &.--victory {
       border: 1px solid $victory-dark;
     }
 
-    &--curse {
+    &.--curse {
       border: 1px solid $curse-dark;
     }
 
-    &--active {
+    &.--highlighted {
       border: 2px solid $highlight-blue;
       cursor: pointer;
     }
 
-    &.active {
+    &.--loading {
       font-size: 0px;
       &::after {
         position: absolute;

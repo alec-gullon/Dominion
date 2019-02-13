@@ -109,37 +109,37 @@ body {
   position: relative;
 }
 
-.game-button--white {
+.game-button.\--white {
   background: white;
 }
 
-.game-button--treasure {
+.game-button.\--treasure {
   background: #ffeeba;
   color: #856404;
   border: 1px solid #856404;
 }
 
-.game-button--victory {
+.game-button.\--victory {
   background: #c3e6cb;
   color: #155724;
   border: 1px solid #155724;
 }
 
-.game-button--curse {
+.game-button.\--curse {
   border: 1px solid #49205e;
   color: #49205e;
   background: #b39dc9;
 }
 
-.game-button--active {
+.game-button.\--highlighted {
   border: 2px solid #007bff;
 }
 
-.game-button.active {
+.game-button.\--loading {
   font-size: 0px;
 }
 
-.game-button.active::after {
+.game-button.\--loading::after {
   position: absolute;
   left: 0;
   top: 0;
@@ -180,11 +180,11 @@ body {
   cursor: not-allowed;
 }
 
-.heading--large {
+.heading.\--large {
   font-size: 3rem;
 }
 
-.heading--medium {
+.heading.\--medium {
   font-size: 2rem;
 }
 
@@ -222,15 +222,15 @@ body {
   height: 80%;
 }
 
-.name-entry__heading {
+.name-entry .__heading {
   margin-bottom: 1.5rem;
 }
 
-.name-entry__subheading {
+.name-entry .__subheading {
   margin-bottom: 1.5rem;
 }
 
-.name-entry__input {
+.name-entry .__input {
   margin-bottom: 1rem;
   text-align: center;
 }
@@ -252,11 +252,11 @@ body {
   height: 80%;
 }
 
-.lobby__heading {
+.lobby .__heading {
   margin-bottom: 2rem;
 }
 
-.lobby__button {
+.lobby .__button {
   margin-bottom: 1rem;
 }
 
@@ -271,7 +271,7 @@ body {
   height: 100%;
 }
 
-.game__top {
+.game .__top {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -280,7 +280,7 @@ body {
           flex-grow: 1;
 }
 
-.game__kingdom-cards {
+.game .__kingdom-cards {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
@@ -292,7 +292,7 @@ body {
       flex-wrap: wrap;
 }
 
-.game__kingdom-card-group {
+.game .__kingdom-card-group {
   width: 30%;
   margin-right: 4%;
   display: -webkit-box;
@@ -304,17 +304,17 @@ body {
           flex-direction: column;
 }
 
-.game__kingdom-card-group:nth-child(3n) {
+.game .__kingdom-card-group:nth-child(3n) {
   margin-right: 0;
 }
 
-.game__kingdom-card-coin-divider {
+.game .__kingdom-card-coin-divider {
   position: relative;
   height: 34px;
   margin-bottom: 20px;
 }
 
-.game__kingdom-card-coin-divider:before {
+.game .__kingdom-card-coin-divider:before {
   content: '';
   border-top: 1px solid #ccc;
   position: absolute;
@@ -323,7 +323,7 @@ body {
   left: 0;
 }
 
-.game__kingdom-card-coin {
+.game .__kingdom-card-coin {
   position: absolute;
   top: 0;
   left: 50%;
@@ -338,7 +338,7 @@ body {
   font-size: 20px;
 }
 
-.game__kingdom-card {
+.game .__kingdom-card {
   color: #383d41;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -347,17 +347,17 @@ body {
   margin-bottom: 10px;
 }
 
-.game__kingdom-card-name {
+.game .__kingdom-card-name {
   width: 85%;
 }
 
-.game__kingdom-card-amount {
+.game .__kingdom-card-amount {
   width: 15%;
   height: 35px;
   text-align: center;
 }
 
-.game__common-cards {
+.game .__common-cards {
   width: 200px;
   border-left: 1px solid #ccc;
   display: -webkit-box;
@@ -369,7 +369,7 @@ body {
           flex-direction: column;
 }
 
-.game__common-card-group {
+.game .__common-card-group {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -382,7 +382,7 @@ body {
           justify-content: center;
 }
 
-.game__common-card-group--treasure {
+.game .__common-card-group.\--treasure {
   -webkit-box-flex: 2;
       -ms-flex-positive: 2;
           flex-grow: 2;
@@ -390,7 +390,7 @@ body {
   color: #856404;
 }
 
-.game__common-card-group--victory {
+.game .__common-card-group.\--victory {
   -webkit-box-flex: 2;
       -ms-flex-positive: 2;
           flex-grow: 2;
@@ -398,7 +398,7 @@ body {
   color: #155724;
 }
 
-.game__common-card-group--misc {
+.game .__common-card-group.\--misc {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
@@ -406,7 +406,7 @@ body {
   color: #49205e;
 }
 
-.game__common-card {
+.game .__common-card {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -415,7 +415,7 @@ body {
   line-height: 35px;
 }
 
-.game__common-card-letter {
+.game .__common-card-letter {
   font-weight: bold;
   width: 35px;
   height: 35px;
@@ -424,28 +424,28 @@ body {
   position: relative;
 }
 
-.game__common-card-letter--treasure {
+.game .__common-card-letter.\--treasure {
   border: 1px solid #856404;
 }
 
-.game__common-card-letter--victory {
+.game .__common-card-letter.\--victory {
   border: 1px solid #155724;
 }
 
-.game__common-card-letter--curse {
+.game .__common-card-letter.\--curse {
   border: 1px solid #49205e;
 }
 
-.game__common-card-letter--active {
+.game .__common-card-letter.\--highlighted {
   border: 2px solid #007bff;
   cursor: pointer;
 }
 
-.game__common-card-letter.active {
+.game .__common-card-letter.\--loading {
   font-size: 0px;
 }
 
-.game__common-card-letter.active::after {
+.game .__common-card-letter.\--loading::after {
   position: absolute;
   left: 0;
   top: 0;
@@ -457,7 +457,7 @@ body {
   height: 100%;
 }
 
-.game__status {
+.game .__status {
   border-top: 1px solid #ccc;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -468,19 +468,19 @@ body {
   height: 60px;
 }
 
-.game__status-resource {
+.game .__status-resource {
   margin: 0 20px;
   font-size: 19px;
   font-weight: bold;
   min-width: 130px;
 }
 
-.game__status-amount {
+.game .__status-amount {
   font-weight: normal;
   margin-left: 5px;
 }
 
-.game__bottom {
+.game .__bottom {
   border-top: 1px solid #ccc;
   bottom: 0;
   height: 325px;
@@ -490,12 +490,12 @@ body {
   background: #eee;
 }
 
-.game__player-area {
+.game .__player-area {
   width: 40%;
   padding: 15px;
 }
 
-.game__player-area-options {
+.game .__player-area-options {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -507,22 +507,22 @@ body {
   margin-bottom: 10px;
 }
 
-.game__player-area-option {
+.game .__player-area-option {
   margin: 0 15px 10px 0;
   width: 48%;
 }
 
-.game__player-area-option:nth-child(2n) {
+.game .__player-area-option:nth-child(2n) {
   margin-right: 0;
 }
 
-.game__player-area-title {
+.game .__player-area-title {
   font-size: 22px;
   font-weight: 300;
   margin-bottom: 10px;
 }
 
-.game__hand {
+.game .__hand {
   width: 20%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -536,18 +536,18 @@ body {
   line-height: 20px;
 }
 
-.game__hand-title {
+.game .__hand-title {
   border-bottom: 1px solid #ccc;
   padding: 15px;
   margin-bottom: 15px;
   font-size: 24px;
 }
 
-.game__hand-card {
+.game .__hand-card {
   margin: 0px 15px 10px 15px;
 }
 
-.game__log {
+.game .__log {
   width: 40%;
   border-left: 1px solid #ccc;
   background: white;
@@ -556,19 +556,19 @@ body {
   overflow: scroll;
 }
 
-.game__log-title {
+.game .__log-title {
   padding: 15px;
   border-bottom: 1px solid #ccc;
   margin-bottom: 15px;
   font-size: 24px;
 }
 
-.game__log-entry {
+.game .__log-entry {
   display: block;
   padding: 0 0 10px 15px;
 }
 
-.game__log-dot-wrapper {
+.game .__log-dot-wrapper {
   display: inline;
   margin: 0 5px 0 0px;
 }

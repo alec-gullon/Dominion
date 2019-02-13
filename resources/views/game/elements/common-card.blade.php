@@ -10,24 +10,22 @@
     ) {
         $isActive = true;
     }
-
-    $class = 'game__common-card-letter--' . $card->types()[0];
 ?>
 
-<div class="game__common-card">
+<div class="__common-card">
     @if ($isActive)
-        <div    class="{{  bem($class . '--active') }}"
+        <div    class="__common-card-letter --highlighted --{{ $card->types()[0] }}"
                 data-action="buy-card"
                 data-stub="{{ $stub }}"
         >
             {{ ucfirst(substr($stub, 0, 1)) }}
         </div>
     @else
-        <div class="{{  bem($class) }}">
+        <div class="__common-card-letter --{{ $card->types()[0] }}">
             {{ ucfirst(substr($stub, 0, 1)) }}
         </div>
     @endif
-    <div class="game__common-card-amount">
+    <div class="__common-card-amount">
         {{ $cards[$stub] }}
     </div>
 </div>

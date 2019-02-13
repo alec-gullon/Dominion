@@ -40,6 +40,6 @@ function sendMessageIfNotBusy(object) {
         return false;
     }
     window.dominion.messageInProgress = true;
-    $(object).addClass('active');
+    $(object).addClass('--loading');
     return true;
 }

@@ -9,33 +9,33 @@
   cursor: pointer;
   position: relative;
 
-  &--white {
+  &.--white {
     background: white;
   }
 
-  &--treasure {
+  &.--treasure {
     background: $treasure-light;
     color: $treasure-dark;
     border: 1px solid $treasure-dark;
   }
 
-  &--victory {
+  &.--victory {
     background: $victory-light;
     color: $victory-dark;
     border: 1px solid $victory-dark;
   }
 
-  &--curse {
+  &.--curse {
     border: 1px solid $curse-dark;
     color: $curse-dark;
     background: $curse-light;
   }
 
-  &--active {
+  &.--highlighted {
     border: 2px solid #007bff;
   }
 
-  &.active {
+  &.--loading {
     font-size: 0px;
     &::after {
       position: absolute;

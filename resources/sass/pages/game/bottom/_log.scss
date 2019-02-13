@@ -1,5 +1,5 @@
 .game {
-  &__log {
+  .__log {
     width: 40%;
     border-left: 1px solid $grey-mid;
     background: white;
@@ -8,19 +8,19 @@
     overflow: scroll;
   }
 
-  &__log-title {
+  .__log-title {
     padding: 15px;
     border-bottom: 1px solid $grey-mid;
     margin-bottom: 15px;
     font-size: 24px;
   }
 
-  &__log-entry {
+  .__log-entry {
     display: block;
     padding: 0 0 10px 15px;
   }
 
-  &__log-dot-wrapper {
+  .__log-dot-wrapper {
     display: inline;
     margin: 0 5px 0 0px;
   }

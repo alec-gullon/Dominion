@@ -1,12 +1,12 @@
 .game {
-  &__kingdom-cards {
+  .__kingdom-cards {
     flex-grow: 1;
     padding: 60px;
     display: flex;
     flex-wrap: wrap;
   }
 
-  &__kingdom-card-group {
+  .__kingdom-card-group {
     width: 30%;
     margin-right: 4%;
     display: flex;
@@ -17,7 +17,7 @@
     }
   }
 
-  &__kingdom-card-coin-divider {
+  .__kingdom-card-coin-divider {
     position: relative;
     height: 34px;
     margin-bottom: 20px;
@@ -32,7 +32,7 @@
     }
   }
 
-  &__kingdom-card-coin {
+  .__kingdom-card-coin {
     position: absolute;
     top: 0;
     left: 50%;
@@ -47,18 +47,18 @@
     font-size: 20px;
   }
 
-  &__kingdom-card {
+  .__kingdom-card {
     color: $grey-warm;
     display: flex;
     line-height: 35px;
     margin-bottom: 10px;
   }
 
-  &__kingdom-card-name {
+  .__kingdom-card-name {
     width: 85%;
   }
 
-  &__kingdom-card-amount {
+  .__kingdom-card-amount {
     width: 15%;
     height: 35px;
     text-align: center;

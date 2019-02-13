@@ -11102,7 +11102,7 @@ function sendMessageIfNotBusy(object) {
         return false;
     }
     window.dominion.messageInProgress = true;
-    __WEBPACK_IMPORTED_MODULE_0_jquery___default()(object).addClass('active');
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()(object).addClass('--loading');
     return true;
 }
 

@@ -1,5 +1,5 @@
 .game {
-  &__hand {
+  .__hand {
     width: 20%;
     display: flex;
     flex-direction: column;
@@ -8,14 +8,14 @@
     line-height: 20px;
   }
 
-  &__hand-title {
+  .__hand-title {
     border-bottom: 1px solid $grey-mid;
     padding: 15px;
     margin-bottom: 15px;
     font-size: 24px;
   }
 
-  &__hand-card {
+  .__hand-card {
     margin: 0px 15px 10px 15px;
   }
 }
