@@ -1,17 +1,15 @@
-<?php
-    $player = $state->secondaryPlayer();
-    $secondaryPlayerKey = $state->secondaryPlayer()->id();
-    $cards = $player->hand();
-?>
-
-<?php if ($playerKey !== $secondaryPlayerKey): ?>
-Waiting for other player to choose a card...
-<?php else: ?>
-    <?php foreach ($cards as $card): ?>
-        <?php if ($card->hasType('victory')) : ?>
-            <div class="hand-card" data-test-active>
-                <?= $card->name() ?>
+@if ($activePlayer)
+    {{ $state->secondaryPlayer()->name() }} is selecting a card
+@else
+    <h2 class="__player-area-title">Select a victory card to place on your deck:</h2>
+    @foreach ($player->hand() as $card)
+        @if ($card->hasType('victory'))
+            <div    class="__player-area-option game-button --highlighted"
+                    data-action="select-option"
+                    data-option="{{ $card->stub() }}"
+            >
+                {{ $card->name() }}
             </div>
-        <?php endif; ?>
-    <?php endforeach; ?>
-<?php endif; ?>
+        @endif
+    @endforeach
+@endif

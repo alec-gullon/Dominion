@@ -18,4 +18,12 @@ class Thief extends Card {
         'attack'
     ];
 
+    /**
+     * Keeps trash of which card the player selected to trash, when it comes time to
+     * choose whether or not to gain this card
+     *
+     * @var
+     */
+    public $trashedCard;
+
 }

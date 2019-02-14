@@ -1,18 +1,22 @@
 <?php
-$player = $state->activePlayer();
-$cards = $state->kingdomCards();
+    $cards = [];
+    foreach ($state->kingdomCards() as $stub => $amount) {
+        $card = App\Game\Factories\CardFactory::build($stub);
+        if ($amount > 0 && $card->value() <= $player->unresolvedCard()->gainValue) {
+            $cards[] = $card;
+        }
+    }
 ?>
 
-<?php if ($playerKey !== $playerKey): ?>
-    Waiting for other player to choose a card to gain
-<?php else: ?>
-    <?php foreach ($cards as $stub => $amount): ?>
-        <?php if ($amount > 0): $card = App\Game\Factories\CardFactory::build($stub); ?>
-            <?php if ($card->value() <= $player->unresolvedCard()->gainValue): ?>
-                <div class="active" data-test-active>
-                    <?= $card->name(); ?>
-                </div>
-            <?php endif; ?>
-        <?php endif; ?>
-    <?php endforeach; ?>
-<?php endif; ?>
+@if ($activePlayer)
+    @foreach ($cards as $card)
+        <div    class="__player-area-option game-button --highlighted"
+                data-action="select-option"
+                data-option="{{ $card->stub() }}"
+        >
+            {{ $card->name() }}
+        </div>
+    @endforeach
+@else
+    {{ $player->name() }} is selecting what card to gain
+@endif

@@ -68,6 +68,7 @@ class ThiefController extends ActionController {
 
         $this->discardRevealedCards($this->secondaryPlayer());
 
+        $card->trashedCard = null;
         $this->resolveCard();
     }
 

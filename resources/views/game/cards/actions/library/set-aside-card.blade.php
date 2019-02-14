@@ -1,11 +1,19 @@
-<?php
-$player = $state->activePlayer();
-?>
-
-<?php if ($playerKey === $player->id()): $card = $player->topCard(); ?>
-    <div>Next card is a <?= $card->name() ?>? Do you want to set it aside?</div>
-    <div data-test-active>Yes</div>
-    <div data-test-active>No</div>
-<?php else: ?>
-    Player is resolving library...
-<?php endif; ?>
+@if ($activePlayer)
+    <h2 class="__player-area-title">You draw a <?= $player->topCard()->name() ?>? Do you want to set is aside?</h2>
+    <div class="__player-area-options">
+        <div    class="__player-area-option"
+                data-action="select-option"
+                data-option="true"
+        >
+            Yes
+        </div>
+        <div    class="__player-area-option"
+                data-action="select-option"
+                data-option="false"
+        >
+            No
+        </div>
+    </div>
+@else
+    {{ $state->activePlayer()->name() }} is resolving their Library card...
+@endif
