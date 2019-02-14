@@ -10529,53 +10529,24 @@ module.exports = __webpack_require__(17);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__websocket_js__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__ajax_AjaxConnection_js__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_browser_cookies__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_browser_cookies___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_browser_cookies__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__routers_OutboundRouter_js__ = __webpack_require__(1);
+
 
 
 
 // define a global cookies object to keep track of cookies
 window.cookies = __WEBPACK_IMPORTED_MODULE_1_browser_cookies___default.a;
 
-// setup the websocket connection and scaffold code to handle outgoing and incoming messages
-Object(__WEBPACK_IMPORTED_MODULE_0__websocket_js__["a" /* default */])();
+// setup an AJAX connection to the back end
+window.dominion.connection = new __WEBPACK_IMPORTED_MODULE_0__ajax_AjaxConnection_js__["a" /* default */]();
+
+new __WEBPACK_IMPORTED_MODULE_2__routers_OutboundRouter_js__["a" /* default */](window.dominion.route).message();
 
 /***/ }),
-/* 5 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = setupWebSocketConnection;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__routers_InboundRouter_js__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__ = __webpack_require__(1);
-// On page load, set up a connection to the websocket server
-
-
-
-
-function setupWebSocketConnection() {
-    window.WebSocket = window.WebSocket || window.MozWebSocket;
-
-    var connection = new WebSocket('ws://127.0.0.1:1337');
-    window.dominion.connection = connection;
-
-    connection.onopen = function () {
-        new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */](window.dominion.route).message();
-    };
-
-    connection.onmessage = function (message) {
-        try {
-            message = JSON.parse(message.data);
-            var controller = new __WEBPACK_IMPORTED_MODULE_0__routers_InboundRouter_js__["a" /* default */](message.action, message);
-            controller.respond();
-        } catch (e) {
-            console.log(e);
-        }
-    };
-}
-
-/***/ }),
+/* 5 */,
 /* 6 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -10766,57 +10737,42 @@ function refreshBindings() {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__OutboundMessage__ = __webpack_require__(23);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var Home = function () {
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+
+
+var Home = function (_OutboundMessage) {
+    _inherits(Home, _OutboundMessage);
+
     function Home() {
         _classCallCheck(this, Home);
+
+        return _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).apply(this, arguments));
     }
 
     _createClass(Home, [{
-        key: "refresh",
+        key: 'refresh',
         value: function refresh() {
-            var message = {};
             if (window.cookies.get('guid') === null) {
-                message = {
-                    route: "/user/get-name-form/",
-                    data: {}
-                };
+                this.send('user/get-name-form/', {});
             } else {
-                message = {
-                    route: "/user/refresh-page/",
-                    data: {
-                        guid: window.cookies.get('guid')
-                    },
-                    setGuid: true
+                var data = {
+                    guid: window.cookies.get('guid')
                 };
+                this.send('user/refresh-page/', data);
             }
-            window.dominion.connection.send(JSON.stringify(message));
         }
-
-        // joinGame() {
-        //     if (typeof window.cookies.get('guid') === 'undefined') {
-        //         return {
-        //             route: "/user/get-name-form/",
-        //             data: {},
-        //         };
-        //     }
-        //     return {
-        //         route: "/user/join-game/",
-        //         data: {
-        //             guid: window.cookies.get('guid'),
-        //             gameHash: window.dominion.gameHash
-        //         },
-        //         setGuid: true
-        //     };
-        // }
-
     }]);
 
     return Home;
-}();
+}(__WEBPACK_IMPORTED_MODULE_0__OutboundMessage__["a" /* default */]);
 
 /* harmony default export */ __webpack_exports__["a"] = (Home);
 
@@ -10827,159 +10783,140 @@ var Home = function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__OutboundMessage__ = __webpack_require__(23);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 
-var Game = function () {
+
+
+var Game = function (_OutboundMessage) {
+    _inherits(Game, _OutboundMessage);
+
     function Game() {
         _classCallCheck(this, Game);
+
+        return _possibleConstructorReturn(this, (Game.__proto__ || Object.getPrototypeOf(Game)).apply(this, arguments));
     }
 
     _createClass(Game, [{
-        key: "create",
+        key: 'send',
+        value: function send(route, data) {
+            window.dominion.connection.send(route, data);
+        }
+    }, {
+        key: 'create',
         value: function create() {
-            var message = {
-                route: "/game/create/",
-                data: {
-                    guid: window.cookies.get('guid')
-                }
+            var data = {
+                guid: window.cookies.get('guid')
             };
-            window.dominion.connection.send(JSON.stringify(message));
+            this.send('/game/create/', data);
         }
     }, {
-        key: "createAIGame",
+        key: 'createAIGame',
         value: function createAIGame() {
-            var message = {
-                route: "/game/create-ai-game/",
-                data: {
-                    guid: window.cookies.get('guid')
-                }
+            var data = {
+                guid: window.cookies.get('guid')
             };
-            window.dominion.connection.send(JSON.stringify(message));
+            this.send('game/create-ai-game/', data);
         }
     }, {
-        key: "joinIfPossible",
+        key: 'joinIfPossible',
         value: function joinIfPossible() {
             if (window.cookies.get('guid') === null) {
-                var message = {
-                    route: "/user/get-name-form/",
-                    data: {}
-                };
-                window.dominion.connection.send(JSON.stringify(message));
+                this.send('/user/get-name-form/', {});
             } else {
                 this.join();
-            };
+            }
         }
     }, {
-        key: "join",
+        key: 'join',
         value: function join() {
-            var message = {
-                route: "/user/join-game/",
-                data: {
-                    guid: window.cookies.get('guid'),
-                    gameHash: window.dominion.gameHash
-                },
+            var data = {
+                guid: window.cookies.get('guid'),
+                gameHash: window.dominion.gameHash,
                 setGuid: true
             };
-            window.dominion.connection.send(JSON.stringify(message));
+            this.send('/user/join-game/', data);
         }
     }, {
-        key: "submitNameThenJoin",
+        key: 'submitNameThenJoin',
         value: function submitNameThenJoin() {
-            var message = {
-                route: "/user/set-name/",
-                data: {
-                    name: __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#submit-name--name').val(),
-                    responseAction: 'joinGameAfterSettingName'
-                }
+            var data = {
+                name: __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#submit-name--name').val(),
+                responseAction: 'joinGameAfterSettingName'
             };
-            window.dominion.connection.send(JSON.stringify(message));
+            this.send('/user/set-name/', data);
         }
     }, {
-        key: "playTreasure",
+        key: 'playTreasure',
         value: function playTreasure(treasureStub) {
-            var message = {
-                route: "/game/update/",
-                data: {
-                    action: 'play-treasure',
-                    input: treasureStub,
-                    guid: window.cookies.get('guid')
-                }
+            var data = {
+                action: 'play-treasure',
+                input: treasureStub,
+                guid: window.cookies.get('guid')
             };
-            window.dominion.connection.send(JSON.stringify(message));
+            this.send('/game/update/', data);
         }
     }, {
-        key: "buyCard",
+        key: 'buyCard',
         value: function buyCard(cardStub) {
-            var message = {
-                route: '/game/update',
-                data: {
-                    action: 'buy',
-                    input: cardStub,
-                    guid: window.cookies.get('guid')
-                }
+            var data = {
+                action: 'buy',
+                input: cardStub,
+                guid: window.cookies.get('guid')
             };
-            window.dominion.connection.send(JSON.stringify(message));
+            this.send('/game/update/', data);
         }
     }, {
-        key: "endTurn",
+        key: 'endTurn',
         value: function endTurn() {
-            var message = {
-                route: '/game/update',
-                data: {
-                    action: 'end-turn',
-                    input: null,
-                    guid: window.cookies.get('guid')
-                }
+            var data = {
+                action: 'end-turn',
+                input: null,
+                guid: window.cookies.get('guid')
             };
-            window.dominion.connection.send(JSON.stringify(message));
+            this.send('/game/update', data);
         }
     }, {
-        key: "playCard",
+        key: 'playCard',
         value: function playCard(cardStub) {
-            var message = {
-                route: '/game/update/',
-                data: {
-                    action: 'play-card',
-                    input: cardStub,
-                    guid: window.cookies.get('guid')
-                }
+            var data = {
+                action: 'play-card',
+                input: cardStub,
+                guid: window.cookies.get('guid')
             };
-            window.dominion.connection.send(JSON.stringify(message));
+            this.send('/game/update/', data);
         }
     }, {
-        key: "provideInput",
+        key: 'provideInput',
         value: function provideInput(input) {
-            var message = {
-                route: '/game/update/',
-                data: {
-                    action: 'provide-input',
-                    input: input,
-                    guid: window.cookies.get('guid')
-                }
+            var data = {
+                action: 'provide-input',
+                input: input,
+                guid: window.cookies.get('guid')
             };
-            window.dominion.connection.send(JSON.stringify(message));
+            this.send('/game/update/', data);
         }
     }, {
-        key: "submitChoice",
+        key: 'submitChoice',
         value: function submitChoice(input) {
-            var message = {
-                route: '/game/update/',
-                data: {
-                    action: 'provide-input',
-                    input: input,
-                    guid: window.cookies.get('guid')
-                }
+            var data = {
+                action: 'provide-input',
+                input: input,
+                guid: window.cookies.get('guid')
             };
-            window.dominion.connection.send(JSON.stringify(message));
+            this.send('/game/update/', data);
         }
     }]);
 
     return Game;
-}();
+}(__WEBPACK_IMPORTED_MODULE_1__OutboundMessage__["a" /* default */]);
 
 /* harmony default export */ __webpack_exports__["a"] = (Game);
 
@@ -10990,45 +10927,49 @@ var Game = function () {
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__OutboundMessage__ = __webpack_require__(23);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 
-var User = function () {
+
+
+var User = function (_OutboundMessage) {
+    _inherits(User, _OutboundMessage);
+
     function User() {
         _classCallCheck(this, User);
+
+        return _possibleConstructorReturn(this, (User.__proto__ || Object.getPrototypeOf(User)).apply(this, arguments));
     }
 
     _createClass(User, [{
-        key: "submitName",
+        key: 'submitName',
         value: function submitName() {
-            var message = {
-                route: "/user/set-name/",
-                data: {
-                    name: __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#submit-name--name').val(),
-                    responseAction: 'setGuid'
-                }
+            var data = {
+                name: __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#submit-name--name').val(),
+                responseAction: 'setGuid'
             };
-            window.dominion.connection.send(JSON.stringify(message));
+            this.send('/user/set-name/', data);
         }
     }, {
-        key: "submitNameThenJoin",
+        key: 'submitNameThenJoin',
         value: function submitNameThenJoin() {
-            var message = {
-                route: "/user/set-name/",
-                data: {
-                    name: __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#submit-name--name').val(),
-                    responseAction: 'joinGameAfterSettingName'
-                }
+            var data = {
+                name: __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#submit-name--name').val(),
+                responseAction: 'joinGameAfterSettingName'
             };
-            window.dominion.connection.send(JSON.stringify(message));
+            this.send('/user/set-name/', data);
         }
     }]);
 
     return User;
-}();
+}(__WEBPACK_IMPORTED_MODULE_1__OutboundMessage__["a" /* default */]);
 
 /* harmony default export */ __webpack_exports__["a"] = (User);
 
@@ -11255,6 +11196,70 @@ exports.all = function() {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 18 */,
+/* 19 */,
+/* 20 */,
+/* 21 */,
+/* 22 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__routers_InboundRouter_js__ = __webpack_require__(6);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
+
+
+var AjaxRouter = function () {
+    function AjaxRouter() {
+        _classCallCheck(this, AjaxRouter);
+    }
+
+    _createClass(AjaxRouter, [{
+        key: 'send',
+        value: function send(route, data) {
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default.a.post('http://localhost:8000/' + route, data, function (data) {
+                new __WEBPACK_IMPORTED_MODULE_1__routers_InboundRouter_js__["a" /* default */](data.action, data).respond();
+            });
+        }
+    }]);
+
+    return AjaxRouter;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (AjaxRouter);
+
+/***/ }),
+/* 23 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var OutboundMessage = function () {
+    function OutboundMessage() {
+        _classCallCheck(this, OutboundMessage);
+    }
+
+    _createClass(OutboundMessage, [{
+        key: "send",
+        value: function send(route, data) {
+            window.dominion.connection.send(route, data);
+        }
+    }]);
+
+    return OutboundMessage;
+}();
+
+/* harmony default export */ __webpack_exports__["a"] = (OutboundMessage);
 
 /***/ })
 /******/ ]);

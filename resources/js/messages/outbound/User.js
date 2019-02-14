@@ -1,27 +1,22 @@
 import $ from "jquery";
+import OutboundMessage from './OutboundMessage';
 
-export default class User {
+export default class User extends OutboundMessage {
 
     submitName() {
-        let message = {
-            route: "/user/set-name/",
-            data: {
-                name: $('#submit-name--name').val(),
-                responseAction: 'setGuid'
-            }
+        let data =  {
+            name: $('#submit-name--name').val(),
+            responseAction: 'setGuid'
         };
-        window.dominion.connection.send(JSON.stringify(message));
+        this.send('/user/set-name/', data);
     }
 
     submitNameThenJoin() {
-        let message = {
-            route: "/user/set-name/",
-            data: {
-                name: $('#submit-name--name').val(),
-                responseAction: 'joinGameAfterSettingName'
-            }
-        }
-        window.dominion.connection.send(JSON.stringify(message));
+        let data = {
+            name: $('#submit-name--name').val(),
+            responseAction: 'joinGameAfterSettingName'
+        };
+        this.send('/user/set-name/', data);
     }
 
 }

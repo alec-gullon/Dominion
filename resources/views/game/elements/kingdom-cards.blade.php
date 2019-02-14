@@ -22,7 +22,7 @@
             </div>
             @foreach ($cardsByValue[$amount] as $card)
                 <div class="__kingdom-card">
-                    @if (App\Game\Helpers\ViewHelper::isCardActive($card, $state))
+                    @if (App\Game\Helpers\ViewHelper::isKingdomCardActive($card, $state))
                         <div class="__kingdom-card-name game-button --highlighted"
                              data-action="buy-card"
                              data-stub="{{ $card->stub() }}"

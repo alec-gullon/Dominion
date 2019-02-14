@@ -1,132 +1,103 @@
 import $ from "jquery";
+import OutboundMessage from './OutboundMessage';
 
-export default class Game {
+export default class Game extends OutboundMessage {
+
+    send(route, data) {
+        window.dominion.connection.send(route, data);
+    }
 
     create() {
-        let message = {
-            route: "/game/create/",
-            data: {
-                guid: window.cookies.get('guid')
-            }
+        let data = {
+            guid: window.cookies.get('guid')
         };
-        window.dominion.connection.send(JSON.stringify(message));
+        this.send('/game/create/', data);
     }
 
     createAIGame() {
-        let message = {
-            route: "/game/create-ai-game/",
-            data: {
-                guid: window.cookies.get('guid')
-            }
+        let data = {
+            guid: window.cookies.get('guid')
         };
-        window.dominion.connection.send(JSON.stringify(message));
+        this.send('game/create-ai-game/', data);
     }
 
     joinIfPossible() {
         if (window.cookies.get('guid') === null) {
-            let message = {
-                route: "/user/get-name-form/",
-                data: {},
-            };
-            window.dominion.connection.send(JSON.stringify(message));
+            this.send('/user/get-name-form/', {});
         } else {
             this.join();
-        };
+        }
     }
 
     join() {
-        let message = {
-            route: "/user/join-game/",
-            data: {
-                guid: window.cookies.get('guid'),
-                gameHash: window.dominion.gameHash
-            },
+        let data = {
+            guid: window.cookies.get('guid'),
+            gameHash: window.dominion.gameHash,
             setGuid: true
         };
-        window.dominion.connection.send(JSON.stringify(message));
+        this.send('/user/join-game/', data);
     }
 
     submitNameThenJoin() {
-        let message = {
-            route: "/user/set-name/",
-            data: {
-                name: $('#submit-name--name').val(),
-                responseAction: 'joinGameAfterSettingName'
-            }
-        }
-        window.dominion.connection.send(JSON.stringify(message));
+        let data = {
+            name: $('#submit-name--name').val(),
+            responseAction: 'joinGameAfterSettingName'
+        };
+        this.send('/user/set-name/', data);
     }
 
     playTreasure(treasureStub) {
-        let message = {
-            route: "/game/update/",
-            data: {
-                action: 'play-treasure',
-                input: treasureStub,
-                guid: window.cookies.get('guid')
-            }
+        let data = {
+            action: 'play-treasure',
+            input: treasureStub,
+            guid: window.cookies.get('guid')
         };
-        window.dominion.connection.send(JSON.stringify(message));
+        this.send('/game/update/', data);
     }
 
     buyCard(cardStub) {
-        let message = {
-            route: '/game/update',
-            data: {
-                action: 'buy',
-                input: cardStub,
-                guid: window.cookies.get('guid')
-            }
+        let data = {
+            action: 'buy',
+            input: cardStub,
+            guid: window.cookies.get('guid')
         };
-        window.dominion.connection.send(JSON.stringify(message));
+        this.send('/game/update/', data);
     }
 
     endTurn() {
-        let message = {
-            route: '/game/update',
-            data: {
-                action: 'end-turn',
-                input: null,
-                guid: window.cookies.get('guid')
-            }
+        let data = {
+            action: 'end-turn',
+            input: null,
+            guid: window.cookies.get('guid')
         };
-        window.dominion.connection.send(JSON.stringify(message));
+        this.send('/game/update', data);
     }
 
     playCard(cardStub) {
-        let message = {
-            route: '/game/update/',
-            data: {
-                action: 'play-card',
-                input: cardStub,
-                guid: window.cookies.get('guid')
-            }
+        let data = {
+            action: 'play-card',
+            input: cardStub,
+            guid: window.cookies.get('guid')
         };
-        window.dominion.connection.send(JSON.stringify(message));
+        this.send('/game/update/', data);
     }
 
     provideInput(input) {
-        let message = {
-            route: '/game/update/',
-            data: {
-                action: 'provide-input',
-                input: input,
-                guid: window.cookies.get('guid')
-            }
+        let data = {
+            action: 'provide-input',
+            input: input,
+            guid: window.cookies.get('guid')
         };
-        window.dominion.connection.send(JSON.stringify(message));
+        this.send('/game/update/', data);
     }
 
     submitChoice(input) {
-        let message = {
-            route: '/game/update/',
-            data: {
-                action: 'provide-input',
-                input: input,
-                guid: window.cookies.get('guid')
-            }
+        let data = {
+            action: 'provide-input',
+            input: input,
+            guid: window.cookies.get('guid')
         };
-        window.dominion.connection.send(JSON.stringify(message));
+        this.send('/game/update/', data);
     }
 
 }

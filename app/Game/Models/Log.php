@@ -29,7 +29,11 @@ class Log {
      *
      * @var int
      */
-    private $currentTurn = 1;
+    private $currentTurn;
+
+    public function __construct() {
+        $this->setCurrentTurn(1);
+    }
 
     public function entries() {
         return $this->entries;
