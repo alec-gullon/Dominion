@@ -3,12 +3,7 @@
     <div class="__player-area-options">
         @foreach ($player->hand() as $card)
             @if ($card->hasType('treasure'))
-                <div    class="__player-area-option game-button --highlighted"
-                        data-action="select-option"
-                        data-option="{{ $card->stub() }}"
-                >
-                    {{ $card->name() }}
-                </div>
+                @include ('game.cards.actions.elements.card-button', ['card' => $card])
             @endif
         @endforeach
     </div>

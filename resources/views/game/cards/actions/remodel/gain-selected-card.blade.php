@@ -9,14 +9,12 @@
 ?>
 
 @if ($activePlayer)
-    @foreach ($cards as $card)
-        <div    class="__player-area-option game-button --highlighted"
-                data-action="select-option"
-                data-option="{{ $card->stub() }}"
-        >
-            {{ $card->name() }}
-        </div>
-    @endforeach
+    <h2 class="__player-area-title">Select a card to gain:</h2>
+    <div class="__player-area-options">
+        @foreach ($cards as $card)
+            @include ('game.cards.actions.elements.card-button', ['card' => $card])
+        @endforeach
+    </div>
 @else
     {{ $player->name() }} is selecting what card to gain
 @endif

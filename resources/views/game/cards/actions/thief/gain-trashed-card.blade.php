@@ -3,21 +3,7 @@
 ?>
 
 @if ($activePlayer)
-    <h2 class="__player-area-title">Do you want to gain the trashed {{ $trashedCard->name() }}?</h2>
-    <div class="__player-area-options">
-        <div    class="__player-area-option"
-                data-action="select-option"
-                data-option="true"
-        >
-            Yes
-        </div>
-        <div    class="__player-area-option"
-                data-action="select-option"
-                data-option="false"
-        >
-            No
-        </div>
-    </div>
+    @include('game.cards.actions.elements.yes-no-response', ['title' => 'Do you want to gain the trashed' . $trashedCard->name()])
 @else
     {{ $player->name() }} is deciding whether or not to gain the trashed card (a {{ $trashedCard->name() }}).
 @endif
