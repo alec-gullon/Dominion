@@ -33,6 +33,18 @@ export default function refreshBindings() {
         }
     });
 
+    $('.game-root').find('[data-action="submit-choices"]').click(function() {
+        if (sendMessageIfNotBusy($(this))) {
+            let choices = [];
+            $(this).parent().children('.player-area-option').each(function() {
+                if ($(this).is(':checked')) {
+                    choices.push($(this).data('option'));
+                }
+            });
+            new OutboundRouter('submitChoices').message(choices);
+        }
+    });
+
 }
 
 function sendMessageIfNotBusy(object) {

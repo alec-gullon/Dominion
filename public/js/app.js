@@ -11036,6 +11036,18 @@ function refreshBindings() {
             new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('submitChoice').message(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).data('option'));
         }
     });
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.game-root').find('[data-action="submit-choices"]').click(function () {
+        if (sendMessageIfNotBusy(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this))) {
+            var choices = [];
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).parent().children('.player-area-option').each(function () {
+                if (__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).is(':checked')) {
+                    choices.push(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).data('option'));
+                }
+            });
+            new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('submitChoices').message(choices);
+        }
+    });
 }
 
 function sendMessageIfNotBusy(object) {
