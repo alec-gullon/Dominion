@@ -1,0 +1,68 @@
+.digital-pattern-library {
+  width: 1200px;
+  margin: 4rem auto;
+
+  .__heading {
+    margin-bottom: 1.5rem;
+
+    &.--medium {
+      padding-top: 1rem;
+    }
+  }
+
+  .__paragraph {
+    width: 70%;
+    margin-bottom: 1rem;
+  }
+
+  .paragraph {
+    line-height: 1.6;
+  }
+
+  .list {
+    line-height: 1.6;
+    .__item {
+      margin-bottom: .5rem;
+    }
+    .__item:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .__list {
+    padding: .5rem 0 1.5rem 2rem;
+  }
+
+  .__heading-example {
+    margin-bottom: 1rem;
+  }
+
+  .__section {
+    padding: 3rem 0 1.5rem 0;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .__sub-section {
+    padding: 0 0 1rem 0;
+  }
+
+  .__example-group {
+    display: flex;
+    margin-bottom: 2rem;
+  }
+
+  .__button-example {
+    width: 10%;
+    margin-right: 2%;
+  }
+
+  .common-cards-wrapper {
+    display: flex;
+
+    .common-card {
+      width: 10%;
+      margin-right: 2%;
+    }
+  }
+}

@@ -100,4 +100,13 @@ export default class Game extends OutboundMessage {
         this.send('/game/update/', data);
     }
 
+    submitChoices(input) {
+        let data = {
+            action: 'provide-input',
+            input: input,
+            guid: window.cookies.get('guid')
+        };
+        this.send('/game/update', data);
+    }
+
 }

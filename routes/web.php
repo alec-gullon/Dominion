@@ -26,3 +26,5 @@ Route::post('/game/update/', 'GameController@update')->name('game-update')->midd
 Route::get('/public/game/join/{guid}/', 'HomeController@join')->name('public-game-join');
 
 Route::get('/concept/', 'HomeController@concept');
+
+Route::get('/digital-pattern-library/', 'DevController@viewDigitalPatternLibrary');

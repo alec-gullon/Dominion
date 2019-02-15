@@ -12,7 +12,8 @@ return [
         'adventurer',
         'laboratory',
         'gardens',
-        'workshop'
+        'workshop',
+        'cellar'
     ],
     'base-cards' => [
         'copper' => 30,

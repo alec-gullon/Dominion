@@ -1,13 +1,13 @@
 .game-button {
   border: 1px solid $grey-warm;
   background: $grey-warm-dark;
-  margin-right: 10px;
   font-weight: bold;
   height: 35px;
-  line-height: 35px;
   text-align: center;
-  cursor: pointer;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &.--white {
     background: white;
@@ -33,20 +33,19 @@
 
   &.--highlighted {
     border: 2px solid #007bff;
+    cursor: pointer;
   }
 
   &.--loading {
     font-size: 0px;
     &::after {
-      position: absolute;
-      left: 0;
-      top: 0;
-      text-align: center;
       width: 100%;
       font-size: 16px;
       content: 'Loading...';
-      display: block;
       height: 100%;
+      display: flex;;
+      align-items: center;
+      justify-content: center;
     }
   }
 }

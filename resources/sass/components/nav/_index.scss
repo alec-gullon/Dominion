@@ -1,0 +1,33 @@
+.nav {
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  padding: 1rem;
+
+  .__logo {
+    font-size: 2rem;
+    margin-right: 4rem;
+  }
+
+  .__links {
+    display: flex;
+    list-style: none;
+    align-items: center;
+
+    .__link {
+      margin: 0 0 0 1rem;
+      padding: 0 1rem 0 0;
+      border-right: 1px solid #ccc;
+
+      a {
+        color: $highlight-blue;
+        text-decoration: none;
+      }
+
+      &:last-child {
+        border-right: 0;
+      }
+    }
+  }
+
+
+}

@@ -7,20 +7,20 @@
     $letter = ucfirst(substr($stub, 0 ,1));
 ?>
 
-<div class="__common-card">
+<div class="common-card @if ($isActive) --highlighted @endif --{{ $type }}">
     @if ($isActive)
-        <div    class="__common-card-letter --highlighted --{{ $type }}"
+        <div    class="__letter"
                 data-action="buy-card"
                 data-stub="{{ $stub }}"
         >
             {{ $letter }}
         </div>
     @else
-        <div class="__common-card-letter --{{ $type }}">
+        <div class="__letter --{{ $type }}">
             {{ $letter }}
         </div>
     @endif
-    <div class="__common-card-amount">
+    <div class="__amount">
         {{ $cards[$stub] }}
     </div>
 </div>

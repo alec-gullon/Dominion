@@ -36,11 +36,12 @@ export default function refreshBindings() {
     $('.game-root').find('[data-action="submit-choices"]').click(function() {
         if (sendMessageIfNotBusy($(this))) {
             let choices = [];
-            $(this).parent().children('.player-area-option').each(function() {
-                if ($(this).is(':checked')) {
+            $(this).parent().find('.__player-area-checkbox-input').each(function() {
+                if ($(this).prop('checked')) {
                     choices.push($(this).data('option'));
                 }
             });
+            console.log(choices);
             new OutboundRouter('submitChoices').message(choices);
         }
     });

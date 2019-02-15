@@ -10,6 +10,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 0 0 0 1.5rem;
 
     &.--treasure {
       flex-grow: 2;
@@ -30,51 +31,7 @@
     }
   }
 
-  .__common-card {
-    display: flex;
-    margin: 0 0 10px 20px;
-    font-size: 20px;
-    line-height: 35px;
-  }
-
-  .__common-card-letter {
-    font-weight: bold;
-    width: 35px;
-    height: 35px;
-    text-align: center;
-    margin-right: 15px;
-    position: relative;
-
-    &.--treasure {
-      border: 1px solid $treasure-dark;
-    }
-
-    &.--victory {
-      border: 1px solid $victory-dark;
-    }
-
-    &.--curse {
-      border: 1px solid $curse-dark;
-    }
-
-    &.--highlighted {
-      border: 2px solid $highlight-blue;
-      cursor: pointer;
-    }
-
-    &.--loading {
-      font-size: 0px;
-      &::after {
-        position: absolute;
-        left: 0;
-        top: 0;
-        text-align: center;
-        width: 100%;
-        font-size: 16px;
-        content: '...';
-        display: block;
-        height: 100%;
-      }
-    }
+  .common-card {
+    margin: 0 0 10px 0;
   }
 }
