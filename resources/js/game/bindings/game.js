@@ -36,14 +36,37 @@ export default function refreshBindings() {
     $('.game-root').find('[data-action="submit-choices"]').click(function() {
         if (sendMessageIfNotBusy($(this))) {
             let choices = [];
-            $(this).parent().find('.__player-area-checkbox-input').each(function() {
+            $(this).parent().find('.__input').each(function() {
                 if ($(this).prop('checked')) {
                     choices.push($(this).data('option'));
                 }
             });
-            console.log(choices);
             new OutboundRouter('submitChoices').message(choices);
         }
+    });
+
+    $('.game-root').find('.__kingdom-card-name').mousemove(function(event) {
+        let description = $(this).siblings('.__kingdom-card-description');
+        description.show();
+        description.css('left', event.pageX+5);
+        description.css('top', event.pageY+5);
+    });
+
+    $('.game-root').find('.__kingdom-card-name').mouseleave(function() {
+        let description = $(this).siblings('.__kingdom-card-description');
+        description.hide();
+    });
+
+    $('.common-card').find('.__letter').mousemove(function(event) {
+        let description = $(this).siblings('.__common-card-description');
+        description.show();
+        description.css('left', event.pageX+5);
+        description.css('top', event.pageY+5);
+    });
+
+    $('.common-card').find('.__letter').mouseleave(function() {
+        let description = $(this).siblings('.__common-card-description');
+        description.hide();
     });
 
 }

@@ -11110,14 +11110,37 @@ function refreshBindings() {
     __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.game-root').find('[data-action="submit-choices"]').click(function () {
         if (sendMessageIfNotBusy(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this))) {
             var choices = [];
-            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).parent().find('.__player-area-checkbox-input').each(function () {
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).parent().find('.__input').each(function () {
                 if (__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).prop('checked')) {
                     choices.push(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).data('option'));
                 }
             });
-            console.log(choices);
             new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('submitChoices').message(choices);
         }
+    });
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.game-root').find('.__kingdom-card-name').mousemove(function (event) {
+        var description = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).siblings('.__kingdom-card-description');
+        description.show();
+        description.css('left', event.pageX + 5);
+        description.css('top', event.pageY + 5);
+    });
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.game-root').find('.__kingdom-card-name').mouseleave(function () {
+        var description = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).siblings('.__kingdom-card-description');
+        description.hide();
+    });
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.common-card').find('.__letter').mousemove(function (event) {
+        var description = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).siblings('.__common-card-description');
+        description.show();
+        description.css('left', event.pageX + 5);
+        description.css('top', event.pageY + 5);
+    });
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.common-card').find('.__letter').mouseleave(function () {
+        var description = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).siblings('.__common-card-description');
+        description.hide();
     });
 }
 

@@ -27,22 +27,7 @@
   }
 
   .__player-area-checkbox {
-    margin: 0 15px 10px 0;
+    margin: 0 .5% 10px 0;
     width: 48%;
-
-    &:nth-child(2n) {
-      margin-right: 0;
-    }
-  }
-
-  .__player-area-checkbox-input {
-    position: absolute;
-    left: -1000px;
-
-    &:checked {
-      &+.__player-area-checkbox-text {
-        border: 2px solid $highlight-blue;
-      }
-    }
   }
 }

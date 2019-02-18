@@ -1,3 +1,5 @@
-<div class="card__description">
-    +3 Coins
+<div class="__description">
+    <ul class="__standard-effects">
+        <li>+3 Coins</li>
+    </ul>
 </div>

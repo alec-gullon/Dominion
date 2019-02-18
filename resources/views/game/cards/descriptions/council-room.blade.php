@@ -3,5 +3,5 @@
         <li>+4 Cards</li>
         <li>+1 Buy</li>
     </ul>
-    Your opponent draws a card.
+    <p>Your opponent draws a card.</p>
 </div>

@@ -1,0 +1,30 @@
+.game {
+  .__top {
+    display: flex;
+    flex-grow: 1;
+  }
+
+  .__status {
+    border-top: 1px solid $grey-mid;
+    display: flex;
+    align-items: center;
+    height: 60px;
+  }
+
+  .__bottom {
+    border-top: 1px solid $grey-mid;
+    bottom: 0;
+    height: 325px;
+    display: flex;
+    background: $grey-light;
+  }
+}
+
+@import 'top/common-cards';
+@import 'top/kingdom-cards';
+
+@import 'status/status';
+
+@import 'bottom/hand';
+@import 'bottom/log';
+@import 'bottom/player-area';

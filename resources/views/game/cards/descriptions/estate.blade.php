@@ -1,3 +1,5 @@
 <div class="__description">
-    +1 VP
+    <ul class="__standard-effects">
+        <li>+1 VP</li>
+    </ul>
 </div>

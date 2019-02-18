@@ -4,7 +4,6 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   font-family: 'Roboto', 'Arial';
-  color: #363636;
   font-size: 16px;
 }
 
@@ -98,69 +97,20 @@ body {
   margin-bottom: 2rem;
 }
 
-.game-button {
-  border: 1px solid #383d41;
-  background: #e2e3e5;
-  font-weight: bold;
-  height: 35px;
-  text-align: center;
-  position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+.paragraph {
+  line-height: 1.6;
 }
 
-.game-button.\--white {
-  background: white;
+.list {
+  line-height: 1.6;
 }
 
-.game-button.\--treasure {
-  background: #ffeeba;
-  color: #856404;
-  border: 1px solid #856404;
+.list .__item {
+  margin-bottom: .5rem;
 }
 
-.game-button.\--victory {
-  background: #c3e6cb;
-  color: #155724;
-  border: 1px solid #155724;
-}
-
-.game-button.\--curse {
-  border: 1px solid #49205e;
-  color: #49205e;
-  background: #b39dc9;
-}
-
-.game-button.\--highlighted {
-  border: 2px solid #007bff;
-  cursor: pointer;
-}
-
-.game-button.\--loading {
-  font-size: 0px;
-}
-
-.game-button.\--loading::after {
-  width: 100%;
-  font-size: 16px;
-  content: 'Loading...';
-  height: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+.list .__item:last-child {
+  margin-bottom: 0;
 }
 
 .button {
@@ -219,6 +169,7 @@ body {
   padding-top: calc(.375rem - 1px);
   position: relative;
   vertical-align: top;
+  width: 100%;
 }
 
 .nav {
@@ -227,6 +178,7 @@ body {
   display: -ms-flexbox;
   display: flex;
   padding: 1rem;
+  background: #fafafa;
 }
 
 .nav .__logo {
@@ -325,6 +277,27 @@ body {
   height: 100%;
 }
 
+.button-checkbox {
+  position: relative;
+}
+
+.button-checkbox:nth-child(2n) {
+  margin-right: 0;
+}
+
+.button-checkbox .__input {
+  position: absolute;
+  left: -1000px;
+}
+
+.button-checkbox .__input:checked + .__button {
+  border: 2px solid #007bff;
+}
+
+.button-checkbox .__button {
+  cursor: pointer;
+}
+
 .common-card {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -352,6 +325,17 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.common-card .__letter.\--loading {
+  font-size: 0px;
+}
+
+.common-card .__letter.\--loading::after {
+  text-align: center;
+  font-size: 16px;
+  content: '...';
+  display: block;
 }
 
 .common-card.\--victory {
@@ -386,15 +370,107 @@ body {
   cursor: pointer;
 }
 
-.common-card.\--loading .__letter {
+.common-card .__common-card-description {
+  display: none;
+  position: fixed;
+  z-index: 10;
+}
+
+.game-button {
+  border: 1px solid #383d41;
+  background: #e2e3e5;
+  font-weight: bold;
+  height: 35px;
+  text-align: center;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.game-button.\--white {
+  background: white;
+}
+
+.game-button.\--treasure {
+  background: #ffeeba;
+  color: #856404;
+  border: 1px solid #856404;
+}
+
+.game-button.\--victory {
+  background: #c3e6cb;
+  color: #155724;
+  border: 1px solid #155724;
+}
+
+.game-button.\--curse {
+  border: 1px solid #49205e;
+  color: #49205e;
+  background: #b39dc9;
+}
+
+.game-button.\--highlighted {
+  border: 2px solid #007bff;
+  cursor: pointer;
+}
+
+.game-button.\--loading {
   font-size: 0px;
 }
 
-.common-card.\--loading .__letter::after {
-  text-align: center;
+.game-button.\--loading::after {
+  width: 100%;
   font-size: 16px;
-  content: '...';
-  display: block;
+  content: 'Loading...';
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.coin {
+  height: 34px;
+  width: 34px;
+  text-align: center;
+  line-height: 34px;
+  border-radius: 50%;
+  background: #ffeeba;
+  color: #856404;
+  font-size: 20px;
+}
+
+.description-box {
+  background: #222;
+  color: white;
+  padding: 1rem;
+  width: 20rem;
+  line-height: 24px;
+}
+
+.description-box .__standard-effects {
+  list-style: none;
+  border-bottom: 1px solid white;
+  padding-bottom: .5rem;
+  margin-bottom: .5rem;
+}
+
+.description-box .__standard-effects:last-child {
+  border-bottom: 0px;
+  padding: 0;
+  margin: 0;
 }
 
 .game .__top {
@@ -406,81 +482,25 @@ body {
           flex-grow: 1;
 }
 
-.game .__kingdom-cards {
-  -webkit-box-flex: 1;
-      -ms-flex-positive: 1;
-          flex-grow: 1;
-  padding: 60px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-}
-
-.game .__kingdom-card-group {
-  width: 30%;
-  margin-right: 4%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-.game .__kingdom-card-group:nth-child(3n) {
-  margin-right: 0;
-}
-
-.game .__coin-divider {
-  position: relative;
-  height: 34px;
-  margin-bottom: 20px;
-}
-
-.game .__coin-divider:before {
-  content: '';
+.game .__status {
   border-top: 1px solid #ccc;
-  position: absolute;
-  width: 100%;
-  top: 17px;
-  left: 0;
-}
-
-.game .__coin {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  margin-left: -17px;
-  height: 34px;
-  width: 34px;
-  text-align: center;
-  line-height: 34px;
-  border-radius: 50%;
-  background: #ffeeba;
-  color: #856404;
-  font-size: 20px;
-}
-
-.game .__kingdom-card {
-  color: #383d41;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  line-height: 35px;
-  margin-bottom: 10px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 60px;
 }
 
-.game .__kingdom-card-name {
-  width: 85%;
-}
-
-.game .__kingdom-card-amount {
-  width: 15%;
-  height: 35px;
-  text-align: center;
+.game .__bottom {
+  border-top: 1px solid #ccc;
+  bottom: 0;
+  height: 325px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background: #eee;
 }
 
 .game .__common-cards {
@@ -537,15 +557,79 @@ body {
   margin: 0 0 10px 0;
 }
 
-.game .__status {
-  border-top: 1px solid #ccc;
+.game .__kingdom-cards {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  padding: 60px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  height: 60px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.game .__kingdom-card-group {
+  width: 30%;
+  margin-right: 4%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.game .__kingdom-card-group:nth-child(3n) {
+  margin-right: 0;
+}
+
+.game .__coin-divider {
+  position: relative;
+  height: 34px;
+  margin-bottom: 20px;
+}
+
+.game .__coin-divider:before {
+  content: '';
+  border-top: 1px solid #ccc;
+  position: absolute;
+  width: 100%;
+  top: 17px;
+  left: 0;
+}
+
+.game .__coin {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  margin-left: -17px;
+}
+
+.game .__kingdom-card {
+  color: #383d41;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  line-height: 35px;
+  margin-bottom: 10px;
+}
+
+.game .__kingdom-card-name {
+  width: 85%;
+}
+
+.game .__kingdom-card-amount {
+  width: 15%;
+  height: 35px;
+  text-align: center;
+}
+
+.game .__kingdom-card-description {
+  position: fixed;
+  z-index: 10;
+  display: none;
 }
 
 .game .__status-resource {
@@ -560,14 +644,49 @@ body {
   margin-left: 5px;
 }
 
-.game .__bottom {
-  border-top: 1px solid #ccc;
-  bottom: 0;
-  height: 325px;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  background: #eee;
+.game .__hand {
+  width: 20%;
+  border-left: 1px solid #ccc;
+  background: white;
+  line-height: 20px;
+  overflow-y: scroll;
+}
+
+.game .__hand-title {
+  border-bottom: 1px solid #ccc;
+  padding: 15px;
+  margin-bottom: 15px;
+  font-size: 24px;
+}
+
+.game .__hand-card {
+  margin: 0px 15px 10px 15px;
+}
+
+.game .__log {
+  width: 40%;
+  border-left: 1px solid #ccc;
+  background: white;
+  font-size: 15px;
+  line-height: 20px;
+  overflow-y: scroll;
+}
+
+.game .__log-title {
+  padding: 15px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 15px;
+  font-size: 24px;
+}
+
+.game .__log-entry {
+  display: block;
+  padding: 0 0 10px 15px;
+}
+
+.game .__log-dot-wrapper {
+  display: inline;
+  margin: 0 5px 0 0px;
 }
 
 .game .__player-area {
@@ -603,72 +722,8 @@ body {
 }
 
 .game .__player-area-checkbox {
-  margin: 0 15px 10px 0;
+  margin: 0 .5% 10px 0;
   width: 48%;
-}
-
-.game .__player-area-checkbox:nth-child(2n) {
-  margin-right: 0;
-}
-
-.game .__player-area-checkbox-input {
-  position: absolute;
-  left: -1000px;
-}
-
-.game .__player-area-checkbox-input:checked + .__player-area-checkbox-text {
-  border: 2px solid #007bff;
-}
-
-.game .__hand {
-  width: 20%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  border-left: 1px solid #ccc;
-  background: white;
-  line-height: 20px;
-}
-
-.game .__hand-title {
-  border-bottom: 1px solid #ccc;
-  padding: 15px;
-  margin-bottom: 15px;
-  font-size: 24px;
-}
-
-.game .__hand-card {
-  margin: 0px 15px 10px 15px;
-}
-
-.game .__log {
-  width: 40%;
-  border-left: 1px solid #ccc;
-  background: white;
-  font-size: 15px;
-  line-height: 20px;
-  overflow: scroll;
-}
-
-.game .__log-title {
-  padding: 15px;
-  border-bottom: 1px solid #ccc;
-  margin-bottom: 15px;
-  font-size: 24px;
-}
-
-.game .__log-entry {
-  display: block;
-  padding: 0 0 10px 15px;
-}
-
-.game .__log-dot-wrapper {
-  display: inline;
-  margin: 0 5px 0 0px;
 }
 
 .digital-pattern-library {
@@ -689,28 +744,8 @@ body {
   margin-bottom: 1rem;
 }
 
-.digital-pattern-library .paragraph {
-  line-height: 1.6;
-}
-
-.digital-pattern-library .list {
-  line-height: 1.6;
-}
-
-.digital-pattern-library .list .__item {
-  margin-bottom: .5rem;
-}
-
-.digital-pattern-library .list .__item:last-child {
-  margin-bottom: 0;
-}
-
 .digital-pattern-library .__list {
   padding: .5rem 0 1.5rem 2rem;
-}
-
-.digital-pattern-library .__heading-example {
-  margin-bottom: 1rem;
 }
 
 .digital-pattern-library .__section {
@@ -728,10 +763,21 @@ body {
   display: -ms-flexbox;
   display: flex;
   margin-bottom: 2rem;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
 }
 
-.digital-pattern-library .__button-example {
+.digital-pattern-library .__example-full-width {
+  margin-bottom: 1rem;
+}
+
+.digital-pattern-library .__example-small {
   width: 10%;
+  margin-right: 2%;
+}
+
+.digital-pattern-library .__example-description-box {
   margin-right: 2%;
 }
 
@@ -743,6 +789,11 @@ body {
 
 .digital-pattern-library .common-cards-wrapper .common-card {
   width: 10%;
+  margin-right: 2%;
+}
+
+.digital-pattern-library .__input-example {
+  width: 30%;
   margin-right: 2%;
 }
 

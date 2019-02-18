@@ -5,7 +5,7 @@
     <h1 class="__heading heading --large">Digital Pattern Library</h1>
     <p class="__paragraph paragraph">The following page consists of a variety of components needed for the Dominion project that have
     been extracted for potential reuse in different parts of the application.</p>
-    <p class="__paragraph paragraph">Where appropriate these elements should be used when appropriate to create a sense
+    <p class="__paragraph paragraph">Where appropriate these elements should be used to create a sense
     of UI cohesion throughout the application. Anything that might potentially be reused in other parts of the
     project should be extracted and added here.</p>
     <p class="__paragraph paragraph">Components have no knowledge of the outside world and should rely on their
@@ -21,7 +21,7 @@
             block definition
         </li>
         <li class="__item">
-            <strong>Padding</strong>: unless this spacing is contextualised through a nontrivial border;
+            <strong>Padding</strong>: unless this spacing is contextualised through a nontrivial border
         </li>
         <li class="__item">
             <strong>Position</strong>: all components should default to a relative position.
@@ -32,26 +32,32 @@
 
     <h2 class="__section heading --medium">Headings</h2>
 
-    <h1 class="__heading-example heading --large">Large Heading</h1>
+    <h1 class="__example-full-width heading --large">Large Heading</h1>
 
-    <h2 class="__heading-example heading --medium">Medium Heading</h2>
+    <h2 class="__example-full-width heading --medium">Medium Heading</h2>
 
-    <h3 class="__heading-example heading">Standard Heading</h3>
+    <h3 class="__example-full-width heading">Standard Heading</h3>
 
     <h2 class="__section heading --medium">Buttons</h2>
 
-    <div class="__button-example-group">
-        <button class="__button-example button">
+    <div class="__example-group">
+        <button class="__example-small button">
             Button
         </button>
 
-        <button class="__button-example button" disabled>
+        <button class="__example-small button" disabled>
             Button
         </button>
 
-        <button class="__button-example button --loading">
+        <button class="__example-small button --loading">
             Button
         </button>
+    </div>
+
+    <h2 class="__section heading --medium">Inputs</h2>
+
+    <div class="__example-group">
+        <input class="__input-example input" type="text" placeholder="Text Input">
     </div>
 
     <h2 class="__section heading --medium">Game Board</h2>
@@ -59,73 +65,65 @@
     <h3 class="__sub-section heading">Game Buttons</h3>
 
     <div class="__example-group">
-        <div class="__button-example game-button">
+        <div class="__example-small game-button">
             Game Button
         </div>
-        <div class="__button-example game-button --treasure">
+        <div class="__example-small game-button --treasure">
             Game Button
         </div>
-        <div class="__button-example game-button --victory">
+        <div class="__example-small game-button --victory">
             Game Button
         </div>
-        <div class="__button-example game-button --curse">
+        <div class="__example-small game-button --curse">
             Game Button
         </div>
-        <div class="__button-example game-button --loading">
+        <div class="__example-small game-button --loading">
             Game Button
         </div>
-        <div class="__button-example game-button --highlighted">
+        <div class="__example-small game-button --highlighted">
             Game Button
         </div>
     </div>
 
-    <h3 class="__sub-section heading">Common Card UI Element</h3>
+    <h3 class="__sub-section heading">Checkbox</h3>
 
-    <div class="common-cards-wrapper">
+    <div class="__example-group">
 
-        <div class="common-card --victory">
-            <div class="__letter">
-                P
-            </div>
-            <div class="__amount">
-                8
-            </div>
+        <div class="__example-small button-checkbox">
+            <label  class="__label">
+                <input  class="__input"
+                        type="checkbox"
+                />
+                <div class="__button game-button">Checkbox</div>
+            </label>
         </div>
 
-        <div class="common-card --treasure">
-            <div class="__letter">
-                G
-            </div>
-            <div class="__amount">
-                10
-            </div>
+    </div>
+
+    <h3 class="__sub-section heading">Coin</h3>
+
+    <div class="__example-group">
+        <div class="coin">6</div>
+    </div>
+
+    <h3 class="__sub-section heading">Description Box</h3>
+
+    <div class="__example-group">
+
+        <div class="__example-description-box description-box">
+            <ul class="__standard-effects">
+                <li>+1 Action</li>
+            </ul>
+            <p>Discard as many cards from your hand as you want. Then draw a card for each card you discarded</p>
         </div>
 
-        <div class="common-card --curse">
-            <div class="__letter">
-                C
-            </div>
-            <div class="__amount">
-                10
-            </div>
-        </div>
-
-        <div class="common-card --victory --highlighted">
-            <div class="__letter">
-                P
-            </div>
-            <div class="__amount">
-                8
-            </div>
-        </div>
-
-        <div class="common-card --victory --loading">
-            <div class="__letter">
-                P
-            </div>
-            <div class="__amount">
-                8
-            </div>
+        <div class="__example-description-box description-box">
+            <ul class="__standard-effects">
+                <li>+1 Action</li>
+                <li>+1 Coin</li>
+                <li>+1 Buy</li>
+                <li>+1 Card</li>
+            </ul>
         </div>
 
     </div>

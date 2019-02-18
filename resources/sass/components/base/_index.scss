@@ -1,0 +1,13 @@
+.paragraph {
+  line-height: 1.6;
+}
+
+.list {
+  line-height: 1.6;
+  .__item {
+    margin-bottom: .5rem;
+  }
+  .__item:last-child {
+    margin-bottom: 0;
+  }
+}

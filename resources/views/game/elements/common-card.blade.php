@@ -23,4 +23,8 @@
     <div class="__amount">
         {{ $cards[$stub] }}
     </div>
+
+    <div class="__common-card-description description-box">
+        @include ('game.cards.descriptions.' . $card->stub())
+    </div>
 </div>
