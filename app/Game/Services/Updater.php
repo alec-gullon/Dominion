@@ -106,11 +106,14 @@ class Updater {
      */
     private function validate($action, $input) {
         if ($action !== 'provide-input') {
-            return true;
+            $validator = $this->router->validator($action);
+            $method = $this->router->method($action);
+        } else {
+            $validator = $this->router->nextValidator();
+            $method = $this->router->nextMethod();
         }
 
-        $validator = $this->router->nextValidator();
-        $method = $this->router->nextMethod();
+
 
         if ($validator !== null && method_exists($validator, $method)) {
             return $validator->{$method}($input);

@@ -66,8 +66,7 @@ class GameTest extends TestCase
         ])->getContent();
         $response = json_decode($response);
 
-        $this->assertEquals(count($response->responses), 1);
-        $this->assertContains('Turn 3', $response->responses[0]->response->view);
+        $this->assertContains('Turn 3', $response->view);
     }
 
     protected function buildGame() {

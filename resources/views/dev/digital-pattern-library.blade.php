@@ -60,6 +60,30 @@
         <input class="__input-example input" type="text" placeholder="Text Input">
     </div>
 
+    <h2 class="__section heading --medium">Loading</h2>
+
+    <div class="__example-group">
+        <div class="__example-loader loader">
+            <div class="__ripple"></div>
+            <div class="__ripple"></div>
+        </div>
+
+        <div class="__example-loader loader --large">
+            <div class="__ripple"></div>
+            <div class="__ripple"></div>
+        </div>
+
+        <div class="__example-loader loading-message">
+            <div class="__loader loader --large">
+                <div class="__ripple"></div>
+                <div class="__ripple"></div>
+            </div>
+            <div class="__text">
+                Connecting to Dominion...
+            </div>
+        </div>
+    </div>
+
     <h2 class="__section heading --medium">Game Board</h2>
 
     <h3 class="__sub-section heading">Game Buttons</h3>

@@ -24,4 +24,12 @@ class BuyTest extends AcceptanceTestBase
             'Alec buys an Estate'
         ]);
     }
+
+    public function testValidatesSelectedCard() {
+        $this->buildGame();
+        $this->playTreasure('copper');
+        $this->postUpdate('buy', 'estate');
+
+        $this->assertNumberOfRemainingCards('estate', 8);
+    }
 }

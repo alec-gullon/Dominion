@@ -1,21 +1,25 @@
-<!doctype html>
+@extends('layouts.app')
 
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <title>Dominion</title>
-    <link rel="stylesheet" href="/css/app.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-</head>
+@section('content')
 
-<body>
-<div id="root" class="home-root">
-    Connecting to Dominion...
-</div>
-<script>
-    window.dominion = {};
-    window.dominion.route = '{{ Route::currentRouteName() }}';
-    window.dominion.messageInProgress = false;
-</script>
-<script src="/js/app.js"></script>
-</body>
+    <div id="root" class="home-root">
+        <div class="root-loader">
+            <div class="loading-message">
+                <div class="__loader loader --large">
+                    <div class="__ripple"></div>
+                    <div class="__ripple"></div>
+                </div>
+                <div class="__text">
+                    Connecting to Dominion...
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.dominion = {};
+        window.dominion.route = '{{ Route::currentRouteName() }}';
+        window.dominion.messageInProgress = false;
+    </script>
+    <script src="/js/app.js"></script>
+
+@endsection

@@ -10749,25 +10749,8 @@ var Home = function () {
 
 function refreshBindings() {
 
-    __WEBPACK_IMPORTED_MODULE_0_jquery___default()(document).ready(function () {
-        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.card').hover(function () {
-            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).mousemove(function (event) {
-                __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).find('.card__description').css({
-                    top: event.pageY + 3,
-                    left: event.pageX + 3
-                });
-            });
-        });
-        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.card').mouseenter(function () {
-            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).find('.card__description').show();
-        });
-        __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.card').mouseleave(function () {
-            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).find('.card__description').hide();
-        });
-    });
-
     __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.home-root').find('.submit-name').click(function () {
-        __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).addClass('is-loading');
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).addClass('--loading');
         new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('submitName').message();
     });
 
@@ -10788,6 +10771,7 @@ function refreshBindings() {
     });
 
     __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.home-root').find('[data-action="start-ai-game"]').click(function () {
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).addClass('--loading');
         new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('createAIGame').message();
     });
 }

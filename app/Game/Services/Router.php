@@ -55,10 +55,15 @@ class Router {
      * Determines what validator, if any, should be called based on a supplied route and
      * returns an instance of this class, if necessary
      *
+     * @param   string      $route
+     *
      * @return  object|null
      */
-    public function validator() {
-        return $this->buildClassFromNextStep('Validator');
+    public function validator($route) {
+        if (!isset($this->routes[$route])) {
+            return $this->buildClassFromNextStep('Validator');
+        }
+        return $this->buildClassFromRoute('Validator', $route);
     }
 
     /**

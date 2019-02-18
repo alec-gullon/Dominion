@@ -17,9 +17,15 @@ class BuyStrategy {
     }
 
     public function decision() {
+        if ($this->state->coins() >= 3) {
+            return [
+                'action' => 'buy',
+                'input' => 'silver'
+            ];
+        }
         return [
             'action' => 'buy',
-            'input' => 'silver'
+            'input' => 'copper'
         ];
     }
 
