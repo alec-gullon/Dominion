@@ -17,4 +17,6 @@ class Duchy extends Card {
         'victory'
     ];
 
+    public $points = 3;
+
 }

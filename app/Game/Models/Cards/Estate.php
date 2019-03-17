@@ -17,4 +17,6 @@ class Estate extends Card {
         'victory'
     ];
 
+    public $points = 1;
+
 }

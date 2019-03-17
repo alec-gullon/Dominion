@@ -81,6 +81,13 @@ class Card {
     public $features = [];
 
     /**
+     * How many points the card is worth in the end game
+     *
+     * @var int
+     */
+    public $points = 0;
+
+    /**
      * Returns true if the card has the type $type, false otherwise
      *
      * @param   string  $type

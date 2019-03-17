@@ -18,6 +18,12 @@
     display: flex;
     background: $grey-light;
   }
+
+  .__game-end {
+    width: 60rem;
+    margin: 0 auto;
+    padding-top: 15rem;
+  }
 }
 
 @import 'top/common-cards';

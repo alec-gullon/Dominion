@@ -2,12 +2,6 @@
 
 @section('content')
 <div class="digital-pattern-library">
-    <heading--large>
-        My Heading
-    </heading--large>
-
-    becomes
-
     <h1 class="__heading heading --large">Digital Pattern Library</h1>
     <p class="__paragraph paragraph">The following page consists of a variety of components needed for the Dominion project that have
     been extracted for potential reuse in different parts of the application.</p>
@@ -154,6 +148,28 @@
                 <li>+1 Buy</li>
                 <li>+1 Card</li>
             </ul>
+        </div>
+
+    </div>
+
+    <h3 class="__sub-section heading">Score Card</h3>
+
+    <div class="__example-group">
+
+        <div class="score-card">
+            <div class="heading --medium">
+                Congratulations, you have won!
+            </div>
+            <table class="__scores">
+                <tr>
+                    <td class="__name">Alec</td>
+                    <td>26</td>
+                </tr>
+                <tr>
+                    <td class="__name">Marvin</td>
+                    <td>19</td>
+                </tr>
+            </table>
         </div>
 
     </div>

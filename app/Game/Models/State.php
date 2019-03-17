@@ -303,13 +303,6 @@ class State {
     }
 
     /**
-     * Mark the game as being resolved
-     */
-    public function resolveGame() {
-        $this->isResolved = true;
-    }
-
-    /**
      * Returns true if:
      *
      *      -   a card is being resolved and the game is waiting player input from an AI

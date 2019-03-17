@@ -55,7 +55,8 @@ class GameController extends Controller {
         $game = $setsUpAIGame->setup($game);
         $game->save();
 
-        return $this->gameRenderer->renderGameForBothPlayers($game);
+        return $this->gameRenderer->renderGameForPlayer($game, $user);
+//        return $this->gameRenderer->renderGameForBothPlayers($game);
     }
 
     public function update(Request $request, Updater $updater) {

@@ -17,4 +17,14 @@ class Gardens extends Card {
         'victory'
     ];
 
+    /**
+     * One point for every 10 cards in a player's deck at the end of the game
+     *
+     * @param   int         $deckSize
+     * @return  int
+     */
+    public function points($deckSize) {
+        return floor($deckSize/10);
+    }
+
 }

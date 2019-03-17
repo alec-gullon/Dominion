@@ -15,7 +15,7 @@ class TurnController extends StateController {
         $this->state->advanceTurn();
 
         if ($this->state->checkGameOver()) {
-            $this->state->resolveGame();
+            $this->state->isResolved = true;
         }
     }
 

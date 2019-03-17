@@ -17,4 +17,6 @@ class Province extends Card {
         'victory'
     ];
 
+    public $points = 6;
+
 }

@@ -201,12 +201,18 @@ class Player {
      * @return int
      */
     public function score() {
-        $cards = array_merge($this->hand, $this->played, $this->discard);
+        $numberOfCardsInDeck = count($this->deck);
+
+        $cards = array_merge($this->hand, $this->played, $this->discard, $this->deck);
 
         $score = 0;
         foreach ($cards as $card) {
-            $score += $card->getPoints();
+            $score += $card->points;
+            if ($card->stub === 'gardens') {
+                $score += $card->points($numberOfCardsInDeck);
+            }
         }
+
         return $score;
     }
 

@@ -4,7 +4,6 @@
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   font-family: 'Roboto', 'Arial';
-  font-size: 16px;
 }
 
 html,
@@ -351,6 +350,31 @@ body {
   font-size: 1.4rem;
 }
 
+.score-card {
+  border: 1px solid #ccc;
+  padding: 2rem;
+  font-size: 1.6rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.score-card .__name {
+  padding-right: 2rem;
+  font-weight: bold;
+}
+
+.score-card .heading {
+  margin-bottom: 1rem;
+}
+
 .name-entry {
   width: 1200px;
   margin: 4rem auto;
@@ -622,6 +646,12 @@ body {
   display: -ms-flexbox;
   display: flex;
   background: #eee;
+}
+
+.game .__game-end {
+  width: 60rem;
+  margin: 0 auto;
+  padding-top: 15rem;
 }
 
 .game .__common-cards {

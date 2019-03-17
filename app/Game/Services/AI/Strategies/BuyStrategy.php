@@ -17,7 +17,7 @@ class BuyStrategy {
     }
 
     public function decision() {
-        if ($this->state->coins >= 3) {
+        if ($this->state->coins >= 3 && $this->state->kingdomCards['silver'] > 0) {
             return [
                 'action' => 'buy',
                 'input' => 'silver'
