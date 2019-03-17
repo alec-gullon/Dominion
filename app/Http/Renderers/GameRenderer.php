@@ -14,7 +14,7 @@ class GameRenderer {
             'state' => $state,
             'gameObserver' => new GameObserver($state),
             'playerKey' => $user->guid,
-            'activePlayer' => ($user->guid === $state->activePlayer()->id()),
+            'activePlayer' => ($user->guid === $state->activePlayer()->id),
             'player' => $state->getPlayerById($user->guid)
         ])->render();
 
@@ -35,7 +35,7 @@ class GameRenderer {
                 'state' => $state,
                 'gameObserver' => new GameObserver($state),
                 'playerKey' => $user->guid,
-                'activePlayer' => ($user->guid === $state->activePlayer()->id()),
+                'activePlayer' => ($user->guid === $state->activePlayer()->id),
                 'player' => $state->getPlayerById($user->guid)
             ])->render();
 

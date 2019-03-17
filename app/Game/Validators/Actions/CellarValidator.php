@@ -16,7 +16,7 @@ class CellarValidator extends ActionValidator {
      * @return  bool
      */
     public function discardSelectedCards($input) {
-        return $this->checkStubsAreSubsetOfCardStack($input, $this->state->activePlayer()->hand());
+        return $this->checkStubsAreSubsetOfCardStack($input, $this->state->activePlayer()->hand);
     }
 
 }

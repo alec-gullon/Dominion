@@ -4,5 +4,5 @@
     ?>
     @include('game.cards.actions.elements.yes-no-response', ['title' => $title])
 @else
-    {{ $state->activePlayer()->name() }} is resolving their Library card...
+    {{ $state->activePlayer()->name }} is resolving their Library card...
 @endif

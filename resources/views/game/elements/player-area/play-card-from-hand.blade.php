@@ -1,7 +1,7 @@
 @if ($activePlayer)
     <h2 class="__player-area-title">Select a card to play:</h2>
     <div class="__player-area-options">
-        @foreach ($player->hand() as $card)
+        @foreach ($player->hand as $card)
             @include('game.elements.player-area.play-card-option', ['card' => $card])
         @endforeach
     </div>

@@ -15,7 +15,7 @@ class DescribeHand extends BaseEffect {
     protected $player;
 
     public function description() {
-        $entry = 'reveals a hand of' . $this->describeCardList($this->player->hand());
+        $entry = 'reveals a hand of' . $this->describeCardList($this->player->hand);
         $this->addToLog($entry, $this->player);
     }
 

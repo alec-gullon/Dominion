@@ -16,5 +16,5 @@
         @endforeach
     </div>
 @else
-    {{ $player->name() }} is selecting a treasure card to gain
+    {{ $player->name }} is selecting a treasure card to gain
 @endif

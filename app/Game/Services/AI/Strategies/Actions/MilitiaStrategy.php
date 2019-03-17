@@ -8,7 +8,7 @@ namespace App\Game\Services\AI\Strategies\Actions;
 class MilitiaStrategy extends CardStrategy {
 
     public function resolveAttack() {
-        $handCards = $this->secondaryPlayer()->hand();
+        $handCards = $this->secondaryPlayer()->hand;
 
         $prioritisedCards = $this->prioritiseCards($handCards);
 

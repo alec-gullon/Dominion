@@ -20,7 +20,7 @@ class DiscardRevealedCards extends BaseEffect {
     }
 
     public function description() {
-        $entry = 'discards' . $this->describeCardList($this->player->revealed()) . ' from their revealed';
+        $entry = 'discards' . $this->describeCardList($this->player->revealed) . ' from their revealed';
         $this->addToLog($entry, $this->player);
     }
 

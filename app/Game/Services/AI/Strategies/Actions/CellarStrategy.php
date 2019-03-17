@@ -8,7 +8,7 @@ namespace App\Game\Services\AI\Strategies\Actions;
 class CellarStrategy extends CardStrategy {
 
     public function discardSelectedCards() {
-        $handCards = $this->state->activePlayer()->hand();
+        $handCards = $this->state->activePlayer()->hand;
 
         $cardsToDiscard = [];
         foreach ($handCards as $card) {

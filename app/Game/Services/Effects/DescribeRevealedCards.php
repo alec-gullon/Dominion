@@ -15,7 +15,7 @@ class DescribeRevealedCards extends BaseEffect {
     protected $player;
 
     public function description() {
-        $entry = 'reveals' . $this->describeCardList($this->player->revealed());
+        $entry = 'reveals' . $this->describeCardList($this->player->revealed);
         $this->addToLog($entry, $this->player);
     }
 

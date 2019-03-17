@@ -13,7 +13,7 @@ class RemodelStrategy extends CardStrategy {
      * @return  string
      */
     public function trashCard() {
-        $handCards = $this->state->activePlayer()->hand();
+        $handCards = $this->state->activePlayer()->hand;
         return $this->prioritisedCard($handCards, 'trashPriority');
     }
 

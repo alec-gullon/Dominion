@@ -14,7 +14,7 @@ class ThiefStrategy extends CardStrategy {
      * @return  string
      */
     public function resolveAttack() {
-        $revealedCards = $this->state->secondaryPlayer()->revealed();
+        $revealedCards = $this->state->secondaryPlayer()->revealed;
 
         if ($revealedCards[0]->value() < $revealedCards[1]->value()) {
             return $revealedCards[1]->stub();

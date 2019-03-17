@@ -46,6 +46,7 @@ class WitchTest extends CardTestBase
         $this->buildGame();
         $this->setHand(['witch', 'copper@4']);
         $this->setNumberOfCardsRemaining('curse', 0);
+        $this->assertOpponentHandSize(5);
         $this->playCard('witch');
 
         $this->assertOpponentHandSize(5);

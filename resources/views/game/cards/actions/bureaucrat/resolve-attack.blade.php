@@ -1,9 +1,9 @@
 @if ($activePlayer)
-    {{ $state->secondaryPlayer()->name() }} is selecting a card
+    {{ $state->secondaryPlayer()->name }} is selecting a card
 @else
     <h2 class="__player-area-title">Select a victory card to place on your deck:</h2>
     <div class="__player-area-options">
-        @foreach ($player->hand() as $card)
+        @foreach ($player->hand as $card)
             @if ($card->hasType('victory'))
                 @include ('game.cards.actions.elements.card-button', ['card' => $card])
             @endif

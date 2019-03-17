@@ -16,7 +16,7 @@
         @endforeach
     </div>
 @else
-    {{ $player->name() }} is selecting what card they want to gain
+    {{ $player->name }} is selecting what card they want to gain
 @endif
 
 

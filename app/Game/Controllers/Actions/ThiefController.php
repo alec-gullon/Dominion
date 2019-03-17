@@ -56,7 +56,7 @@ class ThiefController extends ActionController {
             $this->activePlayer()->gainCard($card->trashedCard);
             $this->secondaryPlayer()->removeCardFrom($card->trashedCard, 'revealed');
             $this->addToLog(
-                'puts the ' . $trashedCard->name() . ' in ' . $this->activePlayer()->name() . '\'s discard',
+                'puts the ' . $trashedCard->name() . ' in ' . $this->activePlayer()->name . '\'s discard',
                 $this->secondaryPlayer()
             );
         } else {

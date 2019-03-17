@@ -45,43 +45,41 @@ class CardTestBase extends AcceptanceTestBase
         $game->guid = uniqid();
         $game->save();
 
-        $cardFactory = new \App\Game\Factories\CardFactory();
-
         $player1 = new \App\Game\Models\Player('alec', 'Alec');
 
-        $player1->setDeck([
+        $player1->deck = [
             CardFactory::build('estate'),
             CardFactory::build('estate'),
             CardFactory::build('copper'),
             CardFactory::build('copper'),
             CardFactory::build('copper')
-        ]);
-        $player1->setHand([
+        ];
+        $player1->hand = [
             CardFactory::build('estate'),
             CardFactory::build('copper'),
             CardFactory::build('copper'),
             CardFactory::build('copper'),
             CardFactory::build('copper')
-        ]);
-        $player1->setName('Alec');
+        ];
+        $player1->name = 'Alec';
 
         $player2 = new \App\Game\Models\Player('lucy', 'Lucy');
 
-        $player2->setDeck([
+        $player2->deck = [
             CardFactory::build('estate'),
             CardFactory::build('estate'),
             CardFactory::build('copper'),
             CardFactory::build('copper'),
             CardFactory::build('copper')
-        ]);
-        $player2->setHand([
+        ];
+        $player2->hand = [
             CardFactory::build('estate'),
             CardFactory::build('copper'),
             CardFactory::build('copper'),
             CardFactory::build('copper'),
             CardFactory::build('copper')
-        ]);
-        $player2->setName('Lucy');
+        ];
+        $player2->name = 'Lucy';
 
         $state->setPlayers([$player1, $player2]);
         $state->setActivePlayerId('alec');
@@ -148,7 +146,7 @@ class CardTestBase extends AcceptanceTestBase
     protected function setHand($shorthand) {
         $hand = $this->buildCardStackFromShorthand($shorthand);
         $state = unserialize($this->game->object);
-        $state->activePlayer()->setHand($hand);
+        $state->activePlayer()->hand = $hand;
         $this->game->object = serialize($state);
         $this->game->save();
     }
@@ -156,7 +154,7 @@ class CardTestBase extends AcceptanceTestBase
     protected function setOpponentHand($shorthand) {
         $hand = $this->buildCardStackFromShorthand($shorthand);
         $state = unserialize($this->game->object);
-        $state->secondaryPlayer()->setHand($hand);
+        $state->secondaryPlayer()->hand = $hand;
         $this->game->object = serialize($state);
         $this->game->save();
     }
@@ -164,7 +162,7 @@ class CardTestBase extends AcceptanceTestBase
     protected function setDeck($shorthand) {
         $deck = $this->buildCardStackFromShorthand($shorthand);
         $state = unserialize($this->game->object);
-        $state->activePlayer()->setDeck($deck);
+        $state->activePlayer()->deck = $deck;
         $this->game->object = serialize($state);
         $this->game->save();
     }
@@ -172,7 +170,7 @@ class CardTestBase extends AcceptanceTestBase
     protected function setDiscard($shorthand) {
         $discard = $this->buildCardStackFromShorthand($shorthand);
         $state = unserialize($this->game->object);
-        $state->activePlayer()->setDiscard($discard);
+        $state->activePlayer()->discard = $discard;
         $this->game->object = serialize($state);
         $this->game->save();
     }
@@ -180,7 +178,7 @@ class CardTestBase extends AcceptanceTestBase
     protected function setOpponentDeck($shorthand) {
         $deck = $this->buildCardStackFromShorthand($shorthand);
         $state = unserialize($this->game->object);
-        $state->secondaryPlayer()->setDeck($deck);
+        $state->secondaryPlayer()->deck = $deck;
         $this->game->object = serialize($state);
         $this->game->save();
     }
@@ -207,7 +205,7 @@ class CardTestBase extends AcceptanceTestBase
         $player = unserialize($this->game->object)->activePlayer();
 
         $existingStubs = [];
-        foreach ($player->hand() as $card) {
+        foreach ($player->hand as $card) {
             $existingStubs[] = $card->getStub();
         }
         $this->assertContains($stub, $existingStubs);
@@ -215,37 +213,37 @@ class CardTestBase extends AcceptanceTestBase
 
     protected function assertHandSize($size) {
         $player = unserialize($this->game->object)->activePlayer();
-        $this->assertEquals(count($player->hand()), $size);
+        $this->assertEquals(count($player->hand), $size);
     }
 
     protected function assertOpponentHandSize($size) {
         $player = unserialize($this->game->object)->secondaryPlayer();
-        $this->assertEquals(count($player->hand()), $size);
+        $this->assertEquals(count($player->hand), $size);
     }
 
     protected function assertDeckSize($size) {
         $player = unserialize($this->game->object)->activePlayer();
-        $this->assertEquals(count($player->deck()), $size);
+        $this->assertEquals(count($player->deck), $size);
     }
 
     protected function assertOpponentDeckSize($size) {
         $player = unserialize($this->game->object)->secondaryPlayer();
-        $this->assertEquals(count($player->deck()), $size);
+        $this->assertEquals(count($player->deck), $size);
     }
 
     protected function assertOpponentRevealedSize($size) {
         $player = unserialize($this->game->object)->secondaryPlayer();
-        $this->assertEquals(count($player->revealed()), $size);
+        $this->assertEquals(count($player->revealed), $size);
     }
 
     protected function assertDiscardSize($size) {
         $player = unserialize($this->game->object)->activePlayer();
-        $this->assertEquals(count($player->discard()), $size);
+        $this->assertEquals(count($player->discard), $size);
     }
 
     protected function assertOpponentDiscardSize($size) {
         $player = unserialize($this->game->object)->secondaryPlayer();
-        $this->assertEquals(count($player->discard()), $size);
+        $this->assertEquals(count($player->discard), $size);
     }
 
     protected function assertActions($actions) {
@@ -255,7 +253,7 @@ class CardTestBase extends AcceptanceTestBase
 
     protected function assertNumberOfPlayed($number) {
         $state = unserialize($this->game->object);
-        $this->assertEquals(count($state->activePlayer()->played()), $number);
+        $this->assertEquals(count($state->activePlayer()->played), $number);
     }
 
     protected function assertNumberOfBuys($number) {
@@ -285,7 +283,7 @@ class CardTestBase extends AcceptanceTestBase
 
     protected function assertNumberOfSetAside($number) {
         $state = unserialize($this->game->object);
-        $this->assertEquals(count($state->activePlayer()->setAside()), $number);
+        $this->assertEquals(count($state->activePlayer()->setAside), $number);
     }
 
     protected function assertLogContains($lines) {

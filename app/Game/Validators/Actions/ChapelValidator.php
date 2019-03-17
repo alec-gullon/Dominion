@@ -15,7 +15,7 @@ class ChapelValidator extends ActionValidator {
      * @return  bool
      */
     public function trashSelectedCards($input) {
-        return $this->checkStubsAreSubsetOfCardStack($input, $this->state->activePlayer()->hand());
+        return $this->checkStubsAreSubsetOfCardStack($input, $this->state->activePlayer()->hand);
     }
 
 }

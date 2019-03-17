@@ -15,35 +15,35 @@ class Player {
      *
      * @var string
      */
-    private $id;
+    public $id;
 
     /**
      * An optional name to use when referring to this player
      *
      * @var string
      */
-    private $name;
+    public $name;
 
     /**
      * The cards that the player has played
      *
      * @var array
      */
-    private $played = [];
+    public $played = [];
 
     /**
      * The cards in the player's hand
      *
      * @var array
      */
-    private $hand = [];
+    public $hand = [];
 
     /**
      * The cards that the player has in their discard pile
      *
      * @var array
      */
-    private $discard = [];
+    public $discard = [];
 
     /**
      * The cards that the player has in their deck. The topmost card is the first entry of the array,
@@ -51,21 +51,21 @@ class Player {
      *
      * @var array
      */
-    private $deck = [];
+    public $deck = [];
 
     /**
      * The cards that the player has currently revealed due to a card effect
      *
      * @var array
      */
-    private $revealed = [];
+    public $revealed = [];
 
     /**
      * The cards that the player has set aside due to a card effect
      *
      * @var array
      */
-    private $setAside = [];
+    public $setAside = [];
 
     /**
      * Whether or not the player is a real player controlled by a user, or an artificial
@@ -73,64 +73,12 @@ class Player {
      *
      * @var bool
      */
-    private $isAi;
+    public $isAi;
 
     public function __construct($id, $name, $isAi = false) {
         $this->id = $id;
         $this->name = $name;
         $this->isAi = $isAi;
-    }
-
-    public function name() {
-        return $this->name;
-    }
-
-    public function id() {
-        return $this->id;
-    }
-
-    public function deck() {
-        return $this->deck;
-    }
-
-    public function hand() {
-        return $this->hand;
-    }
-
-    public function discard() {
-        return $this->discard;
-    }
-
-    public function played() {
-        return $this->played;
-    }
-
-    public function setAside() {
-        return $this->setAside;
-    }
-
-    public function revealed() {
-        return $this->revealed;
-    }
-
-    public function isAi() {
-        return $this->isAi;
-    }
-
-    public function setDeck($deck) {
-        $this->deck = $deck;
-    }
-
-    public function setHand($hand) {
-        $this->hand = $hand;
-    }
-
-    public function setDiscard($discard) {
-        $this->discard = $discard;
-    }
-
-    public function setName($name) {
-        $this->name = $name;
     }
 
     public function numberOfDrawableCards() {

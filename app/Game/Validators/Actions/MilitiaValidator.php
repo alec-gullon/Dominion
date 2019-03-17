@@ -16,7 +16,7 @@ class MilitiaValidator extends ActionValidator {
      * @return  bool
      */
     public function resolveAttack($input) {
-        $hand = $this->state->secondaryPlayer()->hand();
+        $hand = $this->state->secondaryPlayer()->hand;
 
         if (count($input) !== count($hand) - 3) {
             return false;

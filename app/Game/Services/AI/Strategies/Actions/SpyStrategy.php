@@ -13,7 +13,7 @@ class SpyStrategy extends CardStrategy {
      * @return bool
      */
     public function discardCard() {
-        $card = $this->state->activePlayer()->revealed()[0];
+        $card = $this->state->activePlayer()->revealed[0];
 
         if ($card->hasType('victory') ||  $card->value() <= 2) {
             return true;
@@ -27,7 +27,7 @@ class SpyStrategy extends CardStrategy {
      * @return bool
      */
     public function discardOpponentCard() {
-        $card = $this->state->secondaryPlayer()->revealed()[0];
+        $card = $this->state->secondaryPlayer()->revealed[0];
 
         if ($card->hasType('victory') ||  $card->value() <= 2) {
             return false;

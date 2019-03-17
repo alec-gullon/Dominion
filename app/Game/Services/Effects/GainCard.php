@@ -33,7 +33,7 @@ class GainCard extends BaseEffect {
         $this->state->moveCardToPlayer(
             $this->stub,
             $this->location,
-            $this->player->id()
+            $this->player->id
         );
         $this->description();
     }

@@ -1,8 +1,8 @@
 @if ($activePlayer)
-    {{ $state->secondaryPlayer()->name() }} is choosing what cards to discard...
+    {{ $state->secondaryPlayer()->name }} is choosing what cards to discard...
 @else
     <h2 class="__player-area-title">Select the cards you want to discard:</h2>
-    @foreach ($state->secondaryPlayer->hand() as $card)
+    @foreach ($state->secondaryPlayer->hand as $card)
         <div    class="__player-area-option game-button --highlighted"
                 data-option="{{ $card->stub() }}"
         >

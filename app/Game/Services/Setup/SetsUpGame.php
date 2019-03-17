@@ -54,7 +54,7 @@ class SetsUpGame {
      */
     protected function setUpPlayer($id, $name, $isAi = false) {
         $player = new Player($id, $name, $isAi);
-        $player->setDeck($this->defaultDeck());
+        $player->deck = $this->defaultDeck();
         $player->shuffleDeck();
         $player->drawCards(5);
         return $player;

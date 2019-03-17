@@ -66,7 +66,7 @@ class StringHelper {
      * @return string
      */
     public static function createPlayerActionEntry($entry, $player, $indentation) {
-        $entry = $player->name() . ' ' . $entry;
+        $entry = $player->name . ' ' . $entry;
         if ($indentation !== 0) {
             $entry = ' ' . $entry;
         }

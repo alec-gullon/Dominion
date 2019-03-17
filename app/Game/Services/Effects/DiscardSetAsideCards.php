@@ -14,13 +14,13 @@ class DiscardSetAsideCards extends BaseEffect {
 
     public function description() {
         $player = $this->state->activePlayer();
-        $cards = $player->setAside();
+        $cards = $player->setAside;
 
         if (count($cards) === 0) {
             return;
         }
 
-        $entry = 'discards' . $this->describeCardList($player->setAside()) . ' that they set aside';
+        $entry = 'discards' . $this->describeCardList($player->setAside) . ' that they set aside';
 
         $this->addToLog($entry);
     }

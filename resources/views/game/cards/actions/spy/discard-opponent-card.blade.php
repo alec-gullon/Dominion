@@ -4,6 +4,6 @@
     ?>
     @include('game.cards.actions.elements.yes-no-response', ['title' => $title])
 @else
-    {{ $player->name() }} reveals a {{ $state->secondaryPlayer()->topCard() }} from the top of your deck. They are deciding
+    {{ $player->name }} reveals a {{ $state->secondaryPlayer()->topCard() }} from the top of your deck. They are deciding
     whether to discard it or not...
 @endif

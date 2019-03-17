@@ -79,37 +79,37 @@ class GameTest extends TestCase
 
         $player1 = new \App\Game\Models\Player('alec', 'Alec');
 
-        $player1->setDeck([
+        $player1->deck = [
             CardFactory::build('estate'),
             CardFactory::build('estate'),
             CardFactory::build('copper'),
             CardFactory::build('copper'),
             CardFactory::build('copper')
-        ]);
-        $player1->setHand([
+        ];
+        $player1->hand = [
             CardFactory::build('estate'),
             CardFactory::build('copper'),
             CardFactory::build('copper'),
             CardFactory::build('copper'),
             CardFactory::build('copper')
-        ]);
+        ];
 
         $player2 = new \App\Game\Models\Player('lucy', 'Lucy');
 
-        $player2->setDeck([
+        $player2->deck = [
             CardFactory::build('estate'),
             CardFactory::build('estate'),
             CardFactory::build('copper'),
             CardFactory::build('copper'),
             CardFactory::build('copper')
-        ]);
-        $player2->setHand([
+        ];
+        $player2->hand = [
             CardFactory::build('estate'),
             CardFactory::build('copper'),
             CardFactory::build('copper'),
             CardFactory::build('copper'),
             CardFactory::build('copper')
-        ]);
+        ];
 
         $state->setPlayers([$player1, $player2]);
         $state->setActivePlayerId('alec');
@@ -151,37 +151,37 @@ class GameTest extends TestCase
 
         $player1 = new \App\Game\Models\Player('alec', 'Alec');
 
-        $player1->setDeck([
+        $player1->deck = [
             CardFactory::build('estate'),
             CardFactory::build('estate'),
             CardFactory::build('copper'),
             CardFactory::build('copper'),
             CardFactory::build('copper')
-        ]);
-        $player1->setHand([
+        ];
+        $player1->hand = [
             CardFactory::build('estate'),
             CardFactory::build('copper'),
             CardFactory::build('copper'),
             CardFactory::build('copper'),
             CardFactory::build('copper')
-        ]);
+        ];
 
         $player2 = new \App\Game\Models\Player('marvin', 'Marvin', true);
 
-        $player2->setDeck([
+        $player2->deck = [
             CardFactory::build('estate'),
             CardFactory::build('estate'),
             CardFactory::build('copper'),
             CardFactory::build('copper'),
             CardFactory::build('copper')
-        ]);
-        $player2->setHand([
+        ];
+        $player2->hand = [
             CardFactory::build('estate'),
             CardFactory::build('copper'),
             CardFactory::build('copper'),
             CardFactory::build('copper'),
             CardFactory::build('copper')
-        ]);
+        ];
 
         $state->setPlayers([$player1, $player2]);
         $state->setKingdomCards([

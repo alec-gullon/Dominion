@@ -189,7 +189,7 @@ class State {
      */
     public function secondaryPlayer() {
         foreach($this->players as $player) {
-            if ($this->activePlayerId !== $player->id()) {
+            if ($this->activePlayerId !== $player->id) {
                 return $player;
             }
         }
@@ -204,7 +204,7 @@ class State {
      */
     public function getPlayerById($id) {
         foreach ($this->players as $player) {
-            if ($id === $player->id()) {
+            if ($id === $player->id) {
                 return $player;
             }
         }
@@ -353,7 +353,7 @@ class State {
         $this->activePlayer()->moveCards('played', 'discard');
         $this->activePlayer()->drawCards(5);
 
-        $this->activePlayerId = $this->secondaryPlayer()->id();
+        $this->activePlayerId = $this->secondaryPlayer()->id;
 
         $this->turn++;
         $this->log->setCurrentTurn($this->turn);
@@ -411,7 +411,7 @@ class State {
         if ($this->awaitingPlayerInputId) {
             $player = $this->getPlayerById($this->awaitingPlayerInputId);
         }
-        return $player->isAi();
+        return $player->isAi;
     }
 
 }

@@ -51,39 +51,39 @@ class AcceptanceTestBase extends TestCase
 
         $player1 = new \App\Game\Models\Player('alec', 'Alec');
 
-        $player1->setDeck([
+        $player1->deck = [
             CardFactory::build('estate'),
             CardFactory::build('estate'),
             CardFactory::build('copper'),
             CardFactory::build('copper'),
             CardFactory::build('copper')
-        ]);
-        $player1->setHand([
+        ];
+        $player1->hand = [
             CardFactory::build('estate'),
             CardFactory::build('copper'),
             CardFactory::build('copper'),
             CardFactory::build('copper'),
             CardFactory::build('copper')
-        ]);
-        $player1->setName('Alec');
+        ];
+        $player1->name = 'Alec';
 
         $player2 = new \App\Game\Models\Player('lucy', 'Lucy');
 
-        $player2->setDeck([
+        $player2->deck = [
             CardFactory::build('estate'),
             CardFactory::build('estate'),
             CardFactory::build('copper'),
             CardFactory::build('copper'),
             CardFactory::build('copper')
-        ]);
-        $player2->setHand([
+        ];
+        $player2->hand = [
             CardFactory::build('estate'),
             CardFactory::build('copper'),
             CardFactory::build('copper'),
             CardFactory::build('copper'),
             CardFactory::build('copper')
-        ]);
-        $player2->setName('Lucy');
+        ];
+        $player2->name = 'Lucy';
 
         $state->setPlayers([$player1, $player2]);
         $state->setActivePlayerId('alec');
@@ -124,43 +124,41 @@ class AcceptanceTestBase extends TestCase
         $game->guid = uniqid();
         $game->save();
 
-        $cardFactory = new \App\Game\Factories\CardFactory();
-
         $player1 = new \App\Game\Models\Player('alec', 'Alec');
 
-        $player1->setDeck([
+        $player1->deck = [
             CardFactory::build('estate'),
             CardFactory::build('estate'),
             CardFactory::build('copper'),
             CardFactory::build('copper'),
             CardFactory::build('copper')
-        ]);
-        $player1->setHand([
+        ];
+        $player1->hand = [
             CardFactory::build('estate'),
             CardFactory::build('copper'),
             CardFactory::build('copper'),
             CardFactory::build('copper'),
             CardFactory::build('copper')
-        ]);
-        $player1->setName('Alec');
+        ];
+        $player1->name = 'Alec';
 
         $player2 = new \App\Game\Models\Player('marvin', 'Marvin', true);
 
-        $player2->setDeck([
+        $player2->deck = [
             CardFactory::build('estate'),
             CardFactory::build('estate'),
             CardFactory::build('copper'),
             CardFactory::build('copper'),
             CardFactory::build('copper')
-        ]);
-        $player2->setHand([
+        ];
+        $player2->hand = [
             CardFactory::build('estate'),
             CardFactory::build('copper'),
             CardFactory::build('copper'),
             CardFactory::build('copper'),
             CardFactory::build('copper')
-        ]);
-        $player2->setName('Marvin');
+        ];
+        $player2->name = 'Marvin';
 
         $state->setPlayers([$player1, $player2]);
         $state->setActivePlayerId('alec');
@@ -221,7 +219,7 @@ class AcceptanceTestBase extends TestCase
     protected function setHand($shorthand) {
         $hand = $this->buildCardStackFromShorthand($shorthand);
         $state = $this->state();
-        $state->activePlayer()->setHand($hand);
+        $state->activePlayer()->hand = $hand;
         $this->game->object = serialize($state);
         $this->game->save();
     }
@@ -229,7 +227,7 @@ class AcceptanceTestBase extends TestCase
     protected function setOpponentHand($shorthand) {
         $hand = $this->buildCardStackFromShorthand($shorthand);
         $state = $this->state();
-        $state->secondaryPlayer()->setHand($hand);
+        $state->secondaryPlayer()->hand = $hand;
         $this->game->object = serialize($state);
         $this->game->save();
     }
@@ -237,7 +235,7 @@ class AcceptanceTestBase extends TestCase
     protected function setDeck($shorthand) {
         $deck = $this->buildCardStackFromShorthand($shorthand);
         $state = $this->state();
-        $state->activePlayer()->setDeck($deck);
+        $state->activePlayer()->deck = $deck;
         $this->game->object = serialize($state);
         $this->game->save();
     }
@@ -245,7 +243,7 @@ class AcceptanceTestBase extends TestCase
     protected function setDiscard($shorthand) {
         $discard = $this->buildCardStackFromShorthand($shorthand);
         $state = $this->state();
-        $state->activePlayer()->setDiscard($discard);
+        $state->activePlayer()->discard = $discard;
         $this->game->object = serialize($state);
         $this->game->save();
     }
@@ -253,7 +251,7 @@ class AcceptanceTestBase extends TestCase
     protected function setOpponentDeck($shorthand) {
         $deck = $this->buildCardStackFromShorthand($shorthand);
         $state = $this->state();
-        $state->secondaryPlayer()->setDeck($deck);
+        $state->secondaryPlayer()->deck = $deck;
         $this->game->object = serialize($state);
         $this->game->save();
     }
@@ -280,7 +278,7 @@ class AcceptanceTestBase extends TestCase
         $player = $this->state()->activePlayer();
 
         $existingStubs = [];
-        foreach ($player->hand() as $card) {
+        foreach ($player->hand as $card) {
             $existingStubs[] = $card->getStub();
         }
         $this->assertContains($stub, $existingStubs);
@@ -288,32 +286,32 @@ class AcceptanceTestBase extends TestCase
 
     protected function assertHandSize($size) {
         $player = $this->state()->activePlayer();
-        $this->assertEquals(count($player->hand()), $size);
+        $this->assertEquals(count($player->hand), $size);
     }
 
     protected function assertOpponentHandSize($size) {
         $player = $this->state()->secondaryPlayer();
-        $this->assertEquals(count($player->hand()), $size);
+        $this->assertEquals(count($player->hand), $size);
     }
 
     protected function assertDeckSize($size) {
         $player = $this->state()->activePlayer();
-        $this->assertEquals(count($player->deck()), $size);
+        $this->assertEquals(count($player->deck), $size);
     }
 
     protected function assertOpponentDeckSize($size) {
         $player = $this->state()->secondaryPlayer();
-        $this->assertEquals(count($player->deck()), $size);
+        $this->assertEquals(count($player->deck), $size);
     }
 
     protected function assertDiscardSize($size) {
         $player = $this->state()->activePlayer();
-        $this->assertEquals(count($player->discard()), $size);
+        $this->assertEquals(count($player->discard), $size);
     }
 
     protected function assertOpponentDiscardSize($size) {
         $player = $this->state()->secondaryPlayer();
-        $this->assertEquals(count($player->discard()), $size);
+        $this->assertEquals(count($player->discard), $size);
     }
 
     protected function assertActions($actions) {
@@ -323,7 +321,7 @@ class AcceptanceTestBase extends TestCase
 
     protected function assertNumberOfPlayed($number) {
         $state = $this->state();
-        $this->assertEquals(count($state->activePlayer()->played()), $number);
+        $this->assertEquals(count($state->activePlayer()->played), $number);
     }
 
     protected function assertNumberOfBuys($number) {
@@ -353,7 +351,7 @@ class AcceptanceTestBase extends TestCase
 
     protected function assertNumberOfSetAside($number) {
         $state = $this->state();
-        $this->assertEquals(count($state->activePlayer()->setAside()), $number);
+        $this->assertEquals(count($state->activePlayer()->setAside), $number);
     }
 
     protected function assertLogContains($lines) {
@@ -412,9 +410,9 @@ class AcceptanceTestBase extends TestCase
 
     protected function assertTotalNumberOfCardsForOpponent($amount) {
         $player = $this->state()->secondaryPlayer();
-        $total = count($player->hand())
-            + count($player->discard())
-            + count($player->deck());
+        $total = count($player->hand)
+            + count($player->discard)
+            + count($player->deck);
         $this->assertEquals($amount, $total);
     }
 
@@ -422,21 +420,21 @@ class AcceptanceTestBase extends TestCase
         $player = $this->state()->secondaryPlayer();
 
         $amountInPlay = 0;
-        $hand = $player->hand();
+        $hand = $player->hand;
         foreach ($hand as $card) {
             if ($card->stub() === $stub) {
                 $amountInPlay++;
             }
         }
 
-        $deck = $player->deck();
+        $deck = $player->deck;
         foreach ($deck as $card) {
             if ($card->stub() === $stub) {
                 $amountInPlay++;
             }
         }
 
-        $discard = $player->discard();
+        $discard = $player->discard;
         foreach ($discard as $card) {
             if ($card->stub() === $stub) {
                 $amountInPlay++;
@@ -447,7 +445,7 @@ class AcceptanceTestBase extends TestCase
     }
 
     protected function assertOpponentDiscardContains($stub) {
-        $discard = $this->state()->secondaryPlayer()->discard();
+        $discard = $this->state()->secondaryPlayer()->discard;
 
         $isTrue = false;
         foreach ($discard as $card) {

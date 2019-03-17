@@ -19,9 +19,9 @@ class ActionController extends StateController {
      * @param   bool    $active
      */
     protected function inputOn($active = true) {
-        $id = $this->activePlayer()->id();
+        $id = $this->activePlayer()->id;
         if (!$active) {
-            $id = $this->secondaryPlayer()->id();
+            $id = $this->secondaryPlayer()->id;
         }
         $this->state->setAwaitingPlayerInputId($id);
     }

@@ -13,7 +13,7 @@ class MineStrategy extends CardStrategy {
      * @return  string
      */
     public function trashTreasure() {
-        $handCards = $this->state->activePlayer()->hand();
+        $handCards = $this->state->activePlayer()->hand;
 
         foreach ($handCards as $card) {
             if ($card->hasType('treasure') && $card->stub() !== 'gold') {
