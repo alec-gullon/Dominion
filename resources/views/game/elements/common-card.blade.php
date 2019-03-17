@@ -7,24 +7,26 @@
     $letter = ucfirst(substr($stub, 0 ,1));
 ?>
 
-<div class="common-card @if ($isActive) --highlighted @endif --{{ $type }}">
-    @if ($isActive)
-        <div    class="__letter"
-                data-action="buy-card"
-                data-stub="{{ $stub }}"
-        >
-            {{ $letter }}
+@if (isset($cards[$stub]))
+    <div class="common-card @if ($isActive) --highlighted @endif --{{ $type }}">
+        @if ($isActive)
+            <div    class="__letter"
+                    data-action="buy-card"
+                    data-stub="{{ $stub }}"
+            >
+                {{ $letter }}
+            </div>
+        @else
+            <div class="__letter --{{ $type }}">
+                {{ $letter }}
+            </div>
+        @endif
+        <div class="__amount">
+            {{ $cards[$stub] }}
         </div>
-    @else
-        <div class="__letter --{{ $type }}">
-            {{ $letter }}
-        </div>
-    @endif
-    <div class="__amount">
-        {{ $cards[$stub] }}
-    </div>
 
-    <div class="__common-card-description description-box">
-        @include ('game.cards.descriptions.' . $card->stub)
+        <div class="__common-card-description description-box">
+            @include ('game.cards.descriptions.' . $stub)
+        </div>
     </div>
-</div>
+@endif

@@ -1,8 +1,8 @@
 @if ($activePlayer)
     <?php
-        $title = 'You reveal a ' . $state->secondaryPlayer()->topCard() . ' from the top of teir deck. Do you want to discard it?';
+        $question = 'You reveal ' . $state->secondaryPlayer()->revealed[0]->nameWithArticlePrefix() . ' from the top of their deck. Do you want to discard it?';
     ?>
-    @include('game.cards.actions.elements.yes-no-response', ['title' => $title])
+    @include('game.cards.actions.elements.yes-no-response', ['question' => $question])
 @else
     {{ $player->name }} reveals a {{ $state->secondaryPlayer()->topCard() }} from the top of your deck. They are deciding
     whether to discard it or not...
