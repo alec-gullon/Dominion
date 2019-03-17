@@ -15,7 +15,7 @@ class AddCoins extends BaseEffect {
     protected $amount;
 
     public function effect() {
-        $this->state->addCoins($this->amount);
+        $this->state->coins += $this->amount;
         $this->description();
     }
 

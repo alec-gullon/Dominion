@@ -24,7 +24,7 @@ class WitchController extends ActionController {
     }
 
     public function resolveAttack() {
-        if ($this->state->kingdomCards()['curse'] > 0) {
+        if ($this->state->kingdomCards['curse'] > 0) {
             $this->gainCard('curse', $this->secondaryPlayer());
         } else {
             $this->addToLog('gains nothing since Curse pile is empty', $this->secondaryPlayer());

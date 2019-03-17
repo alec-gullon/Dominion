@@ -16,7 +16,7 @@ class LibraryStrategy extends CardStrategy {
     public function setAsideCard() {
         $actionCardsInHand = count($this->activePlayer()->getCardsOfType('hand', 'action'));
 
-        if ($actionCardsInHand <= $this->state->actions()) {
+        if ($actionCardsInHand <= $this->state->actions) {
             return true;
         }
         return false;

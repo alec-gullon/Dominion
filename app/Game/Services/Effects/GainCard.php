@@ -39,7 +39,7 @@ class GainCard extends BaseEffect {
     }
 
     public function description() {
-        if ($this->state->kingdomCards()[$this->stub] === 0) {
+        if ($this->state->kingdomCards[$this->stub] === 0) {
             if ($this->location === 'deck') {
                 $entry = 'places nothing on their deck';
             } else {

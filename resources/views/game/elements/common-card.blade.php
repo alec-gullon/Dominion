@@ -1,8 +1,8 @@
 <?php
-    $cards = $state->kingdomCards();
+    $cards = $state->kingdomCards;
     $card = App\Game\Factories\CardFactory::build($stub);
 
-    $isActive = ($state->phase() === 'buy') &&  ($card->value() <= $state->coins()) &&  ($state->buys() > 0) &&  ($cards[$stub] > 0);
+    $isActive = ($state->phase === 'buy') &&  ($card->value() <= $state->coins) &&  ($state->buys > 0) &&  ($cards[$stub] > 0);
     $type = $card->types()[0];
     $letter = ucfirst(substr($stub, 0 ,1));
 ?>

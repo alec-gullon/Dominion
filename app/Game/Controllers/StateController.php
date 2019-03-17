@@ -62,7 +62,7 @@ class StateController {
             $player = $this->activePlayer();
         }
         $entry = StringHelper::createPlayerActionEntry($entry, $player, $indentation);
-        $this->state->log()->addEntry($entry);
+        $this->state->log->addEntry($entry);
         return;
     }
 

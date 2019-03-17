@@ -116,8 +116,8 @@ class UserTest extends TestCase
 
         $player2 = new \App\Game\Models\Player('marvin', 'Marvin', true);
 
-        $state->setPlayers([$player1, $player2]);
-        $state->setActivePlayerId('alec');
+        $state->players = [$player1, $player2];
+        $state->activePlayerId = 'alec';
         $game->object = serialize($state);
         $game->save();
 

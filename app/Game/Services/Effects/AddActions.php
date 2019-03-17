@@ -15,7 +15,7 @@ class AddActions extends BaseEffect {
     protected $amount;
 
     public function effect() {
-        $this->state->addActions($this->amount);
+        $this->state->actions += $this->amount;
         $this->description();
     }
 

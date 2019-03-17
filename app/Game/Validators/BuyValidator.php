@@ -30,15 +30,15 @@ class BuyValidator {
      * @return  bool
      */
     public function buy($input) {
-        if ($this->state->buys() === 0) {
+        if ($this->state->buys === 0) {
             return false;
         }
-        if (!isset($this->state->kingdomCards()[$input])) {
+        if (!isset($this->state->kingdomCards[$input])) {
             return false;
         }
 
         $card = CardFactory::build($input);
-        if ($card->value() > $this->state->coins()) {
+        if ($card->value() > $this->state->coins) {
             return false;
         }
 

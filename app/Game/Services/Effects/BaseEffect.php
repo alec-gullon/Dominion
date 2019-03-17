@@ -61,7 +61,7 @@ class BaseEffect {
             $player = $this->state->activePlayer();
         }
         $entry = StringHelper::createPlayerActionEntry($entry, $player, $indentation);
-        $this->state->log()->addEntry($entry);
+        $this->state->log->addEntry($entry);
         return;
     }
 

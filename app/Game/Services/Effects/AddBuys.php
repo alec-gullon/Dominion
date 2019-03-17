@@ -15,7 +15,7 @@ class AddBuys extends BaseEffect {
     protected $amount;
 
     public function effect() {
-        $this->state->addBuys($this->amount);
+        $this->state->buys += $this->amount;
         $this->description();
     }
 

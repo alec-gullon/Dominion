@@ -17,7 +17,7 @@ class ViewHelper {
      * @return  bool
      */
     public static function canPlayAction($state) {
-        return ($state->phase() === 'action') && ($state->actions() > 0);
+        return ($state->phase === 'action') && ($state->actions > 0);
     }
 
     /**
@@ -30,7 +30,7 @@ class ViewHelper {
      * @return bool
      */
     public static function isKingdomCardActive($card, $state) {
-        return ($card->value() <= $state->coins() && $state->phase() === 'buy' && $state->buys() >= 1);
+        return ($card->value() <= $state->coins && $state->phase === 'buy' && $state->buys >= 1);
     }
 
 }

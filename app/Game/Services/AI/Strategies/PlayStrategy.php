@@ -13,7 +13,7 @@ class PlayStrategy {
     }
 
     public function isRequired() {
-        return ($this->state->actions() > 0 && $this->state->activePlayer()->hasCardsOfType('action'));
+        return ($this->state->actions > 0 && $this->state->activePlayer()->hasCardsOfType('action'));
     }
 
     public function decision() {

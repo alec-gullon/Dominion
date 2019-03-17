@@ -1,5 +1,5 @@
 <?php
-    $cards = $state->kingdomCards();
+    $cards = $state->kingdomCards;
     $cardsByValue = [];
 
     foreach ($cards as $stub => $amount) {

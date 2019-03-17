@@ -111,9 +111,9 @@ class GameTest extends TestCase
             CardFactory::build('copper')
         ];
 
-        $state->setPlayers([$player1, $player2]);
-        $state->setActivePlayerId('alec');
-        $state->setKingdomCards([
+        $state->players = [$player1, $player2];
+        $state->activePlayerId = 'alec';
+        $state->kingdomCards = [
             'copper' => 30,
             'silver' => 20,
             'gold' => 10,
@@ -122,7 +122,7 @@ class GameTest extends TestCase
             'province' => 8,
             'village' => 10,
             'curse' => 10
-        ]);
+        ];
         $game->object = serialize($state);
         $game->save();
 
@@ -183,8 +183,8 @@ class GameTest extends TestCase
             CardFactory::build('copper')
         ];
 
-        $state->setPlayers([$player1, $player2]);
-        $state->setKingdomCards([
+        $state->players = [$player1, $player2];
+        $state->kingdomCards = [
             'copper' => 30,
             'silver' => 20,
             'gold' => 10,
@@ -193,8 +193,8 @@ class GameTest extends TestCase
             'province' => 8,
             'village' => 10,
             'curse' => 10
-        ]);
-        $state->setActivePlayerId('alec');
+        ];
+        $state->activePlayerId = 'alec';
         $game->object = serialize($state);
         $game->save();
 

@@ -26,32 +26,32 @@ class GameObserver {
     }
 
     public function isHandCardActive($card, $playerKey) {
-        if ($this->state->activePlayerId() !== $playerKey) {
+        if ($this->state->activePlayerId !== $playerKey) {
             return false;
         }
         if ($card->hasType('victory')) {
             return false;
         }
-        if ($this->state->actions() === 0 && $card->hasType('action')) {
+        if ($this->state->actions === 0 && $card->hasType('action')) {
             return false;
         }
-        if ($this->state->phase() !== 'action' && $card->hasType('action')) {
+        if ($this->state->phase !== 'action' && $card->hasType('action')) {
             return false;
         }
         return true;
     }
 
     public function canBuy($stub, $playerKey) {
-        if ($this->state->activePlayerId() !== $playerKey) {
+        if ($this->state->activePlayerId !== $playerKey) {
             return false;
         }
 
         $card = CardFactory::build($stub);
 
-        if ($this->state->phase() !== 'buy') {
+        if ($this->state->phase !== 'buy') {
             return false;
         }
-        if ($card->value() > $this->state->coins() || $this->state->buys() === 0) {
+        if ($card->value() > $this->state->coins || $this->state->buys === 0) {
             return false;
         }
         return true;

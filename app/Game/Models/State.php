@@ -22,7 +22,7 @@ class State {
      *
      * @var array
      */
-    private $kingdomCards = [];
+    public $kingdomCards = [];
 
     /**
      * Array of cards that have been trashed by players during the game. Entries are instances of
@@ -30,21 +30,21 @@ class State {
      *
      * @var array
      */
-    private $trash = [];
+    public $trash = [];
 
     /**
      * Array of players in the game. Entries are instances of \App\Game\Models\Player model
      *
      * @var array
      */
-    private $players = [];
+    public $players = [];
 
     /**
      * The id of the player that is currently taking their turn, also known as the "active player"
      *
      * @var string
      */
-    private $activePlayerId;
+    public $activePlayerId;
 
     /**
      * The id of the player that is currently responsible for providing some form of input in response
@@ -53,41 +53,41 @@ class State {
      *
      * @var null|string
      */
-    private $awaitingPlayerInputId = null;
+    public $awaitingPlayerInputId = null;
 
     /**
      * The number of coins the current player has on their turn. Always a non-negative integer
      *
      * @var int
      */
-    private $coins = 0;
+    public $coins = 0;
 
     /**
      * The number of actions the current player has on their turn. Always a non-negative integer
      *
      * @var int
      */
-    private $actions = 1;
+    public $actions = 1;
 
     /**
      * The number of buys the current player has on their turn. Always a non-negative integer
      * @var int
      */
-    private $buys = 1;
+    public $buys = 1;
 
     /**
      * How many turns have been carried out so far in this game.
      *
      * @var int
      */
-    private $turn = 1;
+    public $turn = 1;
 
     /**
      * What phase we are at in the given turn. Should be either 'action' or 'buy'
      *
      * @var string
      */
-    private $phase = 'action';
+    public $phase = 'action';
 
     /**
      * Set to true when a game has been fully resolved, all turns have been played and a winner
@@ -95,7 +95,7 @@ class State {
      *
      * @var bool
      */
-    private $isResolved = false;
+    public $isResolved = false;
 
     /**
      * The historical game log, updated when players take actions and things occur in response
@@ -103,74 +103,10 @@ class State {
      *
      * @var \App\Game\Models\Log
      */
-    private $log;
+    public $log;
 
     public function __construct(Log $log) {
         $this->log = $log;
-    }
-
-    public function log() {
-        return $this->log;
-    }
-
-    public function phase() {
-        return $this->phase;
-    }
-
-    public function kingdomCards() {
-        return $this->kingdomCards;
-    }
-
-    public function actions() {
-        return $this->actions;
-    }
-
-    public function coins() {
-        return $this->coins;
-    }
-
-    public function buys() {
-        return $this->buys;
-    }
-
-    public function turn() {
-        return $this->turn;
-    }
-
-    public function trash() {
-        return $this->trash;
-    }
-
-    public function isResolved() {
-        return $this->isResolved;
-    }
-
-    public function players() {
-        return $this->players;
-    }
-
-    public function activePlayerId() {
-        return $this->activePlayerId;
-    }
-
-    public function setPlayers($players) {
-        $this->players = $players;
-    }
-
-    public function setPhase($phase) {
-        $this->phase = $phase;
-    }
-
-    public function setKingdomCards($kingdomCards) {
-        $this->kingdomCards = $kingdomCards;
-    }
-
-    public function setActivePlayerId($id) {
-        $this->activePlayerId = $id;
-    }
-
-    public function setAwaitingPlayerInputId($id) {
-        $this->awaitingPlayerInputId = $id;
     }
 
     /**
@@ -293,30 +229,6 @@ class State {
         return $cheapest;
     }
 
-    public function addCoins($coins) {
-        $this->coins += $coins;
-    }
-
-    public function deductCoins($coins) {
-        $this->coins -= $coins;
-    }
-
-    public function addActions($actions) {
-        $this->actions += $actions;
-    }
-
-    public function deductActions($actions) {
-        $this->actions -= $actions;
-    }
-
-    public function addBuys($buys) {
-        $this->buys += $buys;
-    }
-
-    public function deductBuys($buys) {
-        $this->buys -= $buys;
-    }
-
     /**
      * Takes the card specified by $stub and moves it from its kingdom to the specified player. If
      * $playerId is set to the empty string, then defaults to moving this card to the active player,
@@ -332,7 +244,7 @@ class State {
             return;
         }
         if ('' === $playerId) {
-            $playerId = $this->activePlayerId();
+            $playerId = $this->activePlayerId;
         }
         $player = $this->getPlayerById($playerId);
         $player->gainCard($stub, $location);

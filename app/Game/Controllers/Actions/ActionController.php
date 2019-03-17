@@ -23,7 +23,7 @@ class ActionController extends StateController {
         if (!$active) {
             $id = $this->secondaryPlayer()->id;
         }
-        $this->state->setAwaitingPlayerInputId($id);
+        $this->state->awaitingPlayerInputId = $id;
     }
 
     /**
@@ -31,7 +31,7 @@ class ActionController extends StateController {
      * effects
      */
     protected function inputOff() {
-        $this->state->setAwaitingPlayerInputId(null);
+        $this->state->awaitingPlayerInputId = null;
     }
 
     /**

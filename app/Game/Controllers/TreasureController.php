@@ -16,8 +16,8 @@ class TreasureController extends StateController {
         $card = $this->buildCard($stub);
 
         $this->playCard($stub);
-        $this->state->addCoins($card->denomination());
-        $this->state->setPhase('buy');
+        $this->state->coins += $card->denomination();
+        $this->state->phase = 'buy';
     }
 
 }

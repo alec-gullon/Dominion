@@ -12,7 +12,7 @@ class BuyController extends StateController {
      * Advances the game to the buy phase
      */
     public function advanceToBuy() {
-        $this->state->setPhase('buy');
+        $this->state->phase = 'buy';
     }
 
     /**
@@ -23,8 +23,8 @@ class BuyController extends StateController {
     public function buy($stub) {
         $card = $this->buildCard($stub);
 
-        $this->state->deductCoins($card->value());
-        $this->state->deductBuys(1);
+        $this->state->coins -= $card->value();
+        $this->state->buys -= 1;
         $this->buyCard($stub);
     }
 

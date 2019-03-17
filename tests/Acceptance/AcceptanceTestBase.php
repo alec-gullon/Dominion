@@ -85,9 +85,9 @@ class AcceptanceTestBase extends TestCase
         ];
         $player2->name = 'Lucy';
 
-        $state->setPlayers([$player1, $player2]);
-        $state->setActivePlayerId('alec');
-        $state->setKingdomCards([
+        $state->players = [$player1, $player2];
+        $state->activePlayerId = 'alec';
+        $state->kingdomCards = [
             'copper' => 30,
             'silver' => 20,
             'gold' => 10,
@@ -96,7 +96,7 @@ class AcceptanceTestBase extends TestCase
             'province' => 8,
             'village' => 10,
             'curse' => 10
-        ]);
+        ];
         $game->object = serialize($state);
         $game->save();
 
@@ -160,9 +160,9 @@ class AcceptanceTestBase extends TestCase
         ];
         $player2->name = 'Marvin';
 
-        $state->setPlayers([$player1, $player2]);
-        $state->setActivePlayerId('alec');
-        $state->setKingdomCards([
+        $state->players = [$player1, $player2];
+        $state->activePlayerId = 'alec';
+        $state->kingdomCards = [
                 'copper' => 30,
                 'silver' => 20,
                 'gold' => 10,
@@ -171,7 +171,7 @@ class AcceptanceTestBase extends TestCase
                 'province' => 8,
                 'village' => 10,
                 'curse' => 10
-        ]);
+        ];
         $game->object = serialize($state);
         $game->save();
 
@@ -196,10 +196,10 @@ class AcceptanceTestBase extends TestCase
 
     protected function setNumberOfCardsRemaining($stub, $amount) {
         $state = $this->state();
-        $cards = $state->kingdomCards();
+        $cards = $state->kingdomCards;
         $cards[$stub] = $amount;
 
-        $state->setKingdomCards($cards);
+        $state->kingdomCards = $cards;
         $this->game->object = serialize($state);
         $this->game->save();
     }
@@ -208,10 +208,10 @@ class AcceptanceTestBase extends TestCase
         $this->buildGame();
         $state = $this->state();
 
-        $kingdomCards = $state->kingdomCards();
+        $kingdomCards = $state->kingdomCards;
         $kingdomCards['moat'] = 10;
 
-        $state->setKingdomCards($kingdomCards);
+        $state->kingdomCards = $kingdomCards;
         $this->game->object = serialize($state);
         $this->game->save();
     }
@@ -316,7 +316,7 @@ class AcceptanceTestBase extends TestCase
 
     protected function assertActions($actions) {
         $state = $this->state();
-        $this->assertEquals($state->actions(), $actions);
+        $this->assertEquals($state->actions, $actions);
     }
 
     protected function assertNumberOfPlayed($number) {
@@ -326,17 +326,17 @@ class AcceptanceTestBase extends TestCase
 
     protected function assertNumberOfBuys($number) {
         $state = $this->state();
-        $this->assertEquals($state->buys(), $number);
+        $this->assertEquals($state->buys, $number);
     }
 
     protected function assertNumberOfCoins($coins) {
         $state = $this->state();
-        $this->assertEquals($state->coins(), $coins);
+        $this->assertEquals($state->coins, $coins);
     }
 
     protected function assertTrashSize($size) {
         $state = $this->state();
-        $this->assertEquals(count($state->trash()), $size);
+        $this->assertEquals(count($state->trash), $size);
     }
 
     protected function assertAllCardsResolved() {
@@ -346,7 +346,7 @@ class AcceptanceTestBase extends TestCase
 
     protected function assertNumberOfRemainingCards($stub, $number) {
         $state = $this->state();
-        $this->assertEquals($state->kingdomCards()[$stub], $number);
+        $this->assertEquals($state->kingdomCards[$stub], $number);
     }
 
     protected function assertNumberOfSetAside($number) {
@@ -370,11 +370,11 @@ class AcceptanceTestBase extends TestCase
 
     protected function assertPhase($phase) {
         $state = $this->state();
-        $this->assertEquals($state->phase(), $phase);
+        $this->assertEquals($state->phase, $phase);
     }
 
     protected function log() {
-        return $this->state()->log();
+        return $this->state()->log;
     }
 
     protected function getPlayer() {
@@ -389,12 +389,12 @@ class AcceptanceTestBase extends TestCase
 
     protected function assertTurnNumber($turn) {
         $game = $this->state();
-        $this->assertEquals($game->turn(), $turn);
+        $this->assertEquals($game->turn, $turn);
     }
 
     protected function assertGameOver() {
         $game = $this->state();
-        $this->assertEquals($game->isResolved(), true);
+        $this->assertEquals($game->isResolved, true);
     }
 
     protected function state() {
@@ -403,7 +403,7 @@ class AcceptanceTestBase extends TestCase
 
     protected function setKingdomCards($kingdom) {
         $state = $this->state();
-        $state->setKingdomCards($kingdom);
+        $state->kingdomCards = $kingdom;
         $this->game->object = serialize($state);
         $this->game->save();
     }

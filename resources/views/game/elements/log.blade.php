@@ -1,5 +1,5 @@
 <?php
-    $log = $state->log();
+    $log = $state->log;
 ?>
 
 <div class="__log">

@@ -13,11 +13,11 @@ class BuyStrategy {
     }
 
     public function isRequired() {
-        return ($this->state->phase() === 'buy' && $this->state->buys() > 0 && $this->state->coins() >= 3);
+        return ($this->state->phase === 'buy' && $this->state->buys > 0 && $this->state->coins >= 3);
     }
 
     public function decision() {
-        if ($this->state->coins() >= 3) {
+        if ($this->state->coins >= 3) {
             return [
                 'action' => 'buy',
                 'input' => 'silver'

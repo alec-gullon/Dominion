@@ -14,7 +14,7 @@ class CardController extends StateController {
      */
     public function play($stub) {
         $this->playCard($stub);
-        $this->state->deductActions(1);
+        $this->state->actions -= 1;
     }
 
 }

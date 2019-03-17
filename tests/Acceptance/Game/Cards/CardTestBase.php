@@ -81,9 +81,9 @@ class CardTestBase extends AcceptanceTestBase
         ];
         $player2->name = 'Lucy';
 
-        $state->setPlayers([$player1, $player2]);
-        $state->setActivePlayerId('alec');
-        $state->setKingdomCards([
+        $state->players = [$player1, $player2];
+        $state->activePlayerId = 'alec';
+        $state->kingdomCards = [
             'copper' => 30,
             'silver' => 20,
             'gold' => 10,
@@ -92,7 +92,7 @@ class CardTestBase extends AcceptanceTestBase
             'province' => 8,
             'village' => 10,
             'curse' => 10
-        ]);
+        ];
         $game->object = serialize($state);
         $game->save();
 
@@ -115,7 +115,7 @@ class CardTestBase extends AcceptanceTestBase
         $state = unserialize($this->game->object);
         $player = $state->activePlayer();
         $player->playVirtualCard($card);
-        $state->setAwaitingPlayerInputId(null);
+        $state->awaitingPlayerInputId = null;
         $this->game->object = serialize($state);
         $this->game->save();
         $this->updateGame();
@@ -123,10 +123,10 @@ class CardTestBase extends AcceptanceTestBase
 
     protected function setNumberOfCardsRemaining($stub, $amount) {
         $state = unserialize($this->game->object);
-        $cards = $state->kingdomCards();
+        $cards = $state->kingdomCards;
         $cards[$stub] = $amount;
 
-        $state->setKingdomCards($cards);
+        $state->kingdomCards = $cards;
         $this->game->object = serialize($state);
         $this->game->save();
     }
@@ -135,10 +135,10 @@ class CardTestBase extends AcceptanceTestBase
         $this->buildGame();
         $state = unserialize($this->game->object);
 
-        $kingdomCards = $state->kingdomCards();
+        $kingdomCards = $state->kingdomCards;
         $kingdomCards['moat'] = 10;
 
-        $state->setKingdomCards($kingdomCards);
+        $state->kingdomCards = $kingdomCards;
         $this->game->object = serialize($state);
         $this->game->save();
     }
@@ -248,7 +248,7 @@ class CardTestBase extends AcceptanceTestBase
 
     protected function assertActions($actions) {
         $state = unserialize($this->game->object);
-        $this->assertEquals($state->actions(), $actions);
+        $this->assertEquals($state->actions, $actions);
     }
 
     protected function assertNumberOfPlayed($number) {
@@ -258,17 +258,17 @@ class CardTestBase extends AcceptanceTestBase
 
     protected function assertNumberOfBuys($number) {
         $state = unserialize($this->game->object);
-        $this->assertEquals($state->buys(), $number);
+        $this->assertEquals($state->buys, $number);
     }
 
     protected function assertNumberOfCoins($coins) {
         $state = unserialize($this->game->object);
-        $this->assertEquals($state->coins(), $coins);
+        $this->assertEquals($state->coins, $coins);
     }
 
     protected function assertTrashSize($size) {
         $state = unserialize($this->game->object);
-        $this->assertEquals(count($state->trash()), $size);
+        $this->assertEquals(count($state->trash), $size);
     }
 
     protected function assertAllCardsResolved() {
@@ -278,7 +278,7 @@ class CardTestBase extends AcceptanceTestBase
 
     protected function assertNumberOfRemainingCards($stub, $number) {
         $state = unserialize($this->game->object);
-        $this->assertEquals($state->kingdomCards()[$stub], $number);
+        $this->assertEquals($state->kingdomCards[$stub], $number);
     }
 
     protected function assertNumberOfSetAside($number) {
@@ -301,7 +301,7 @@ class CardTestBase extends AcceptanceTestBase
     }
 
     protected function log() {
-        return unserialize($this->game->object)->log();
+        return unserialize($this->game->object)->log;
     }
 
     protected function state() {
