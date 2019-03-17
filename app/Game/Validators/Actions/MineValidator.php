@@ -30,7 +30,7 @@ class MineValidator extends ActionValidator {
         $mineCard = $this->state->activePlayer()->unresolvedCard();
 
         $card = $this->makeCard($input);
-        if ($card->value() > $mineCard->treasureValue || !$card->hasType('treasure')) {
+        if ($card->value > $mineCard->treasureValue || !$card->hasType('treasure')) {
             return false;
         }
         return $this->state->hasCard($input);

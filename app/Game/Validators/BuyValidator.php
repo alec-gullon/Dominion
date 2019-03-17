@@ -38,7 +38,7 @@ class BuyValidator {
         }
 
         $card = CardFactory::build($input);
-        if ($card->value() > $this->state->coins) {
+        if ($card->value > $this->state->coins) {
             return false;
         }
 

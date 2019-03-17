@@ -41,7 +41,7 @@ class MoveCardOntoDeck extends BaseEffect {
         $card = $this->buildCard($this->stub);
 
         if ($this->from === 'revealed') {
-            $entry = 'places the ' . $card->name() . ' on top of their deck';
+            $entry = 'places the ' . $card->name . ' on top of their deck';
         } else {
             $entry = 'places ' . $card->nameWithArticlePrefix() . ' onto their deck from their ' . $this->from;
         }

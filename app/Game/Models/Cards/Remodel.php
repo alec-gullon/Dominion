@@ -7,13 +7,13 @@ namespace App\Game\Models\Cards;
  */
 class Remodel extends Card {
 
-    protected $value = 4;
+    public $value = 4;
 
-    protected $stub = 'remodel';
+    public $stub = 'remodel';
 
-    protected $name = 'Remodel';
+    public $name = 'Remodel';
 
-    protected $types = [
+    public $types = [
         'action'
     ];
 

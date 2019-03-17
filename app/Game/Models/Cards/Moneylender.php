@@ -7,13 +7,13 @@ namespace App\Game\Models\Cards;
  */
 class Moneylender extends Card {
 
-    protected $value = 3;
+    public $value = 3;
 
-    protected $stub = 'moneylender';
+    public $stub = 'moneylender';
 
-    protected $name = 'Moneylender';
+    public $name = 'Moneylender';
 
-    protected $types = [
+    public $types = [
         'action'
     ];
 

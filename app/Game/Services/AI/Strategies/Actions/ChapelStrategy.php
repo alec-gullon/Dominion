@@ -23,8 +23,8 @@ class ChapelStrategy extends CardStrategy {
 
         $cardsToTrash = [];
         foreach ($handCards as $handCard) {
-            if (in_array($handCard->stub(), $this->trashableCards)) {
-                $cardsToTrash[] = $handCard->stub();
+            if (in_array($handCard->stub, $this->trashableCards)) {
+                $cardsToTrash[] = $handCard->stub;
             }
         }
 

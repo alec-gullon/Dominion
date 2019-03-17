@@ -16,10 +16,10 @@ class ThiefStrategy extends CardStrategy {
     public function resolveAttack() {
         $revealedCards = $this->state->secondaryPlayer()->revealed;
 
-        if ($revealedCards[0]->value() < $revealedCards[1]->value()) {
-            return $revealedCards[1]->stub();
+        if ($revealedCards[0]->value < $revealedCards[1]->value) {
+            return $revealedCards[1]->stub;
         }
-        return $revealedCards[0]->stub();
+        return $revealedCards[0]->stub;
     }
 
     /**
@@ -32,7 +32,7 @@ class ThiefStrategy extends CardStrategy {
 
         $card = $this->makeCard($thiefCard->trashedCard);
 
-        if ($card->value() >= 3) {
+        if ($card->value >= 3) {
             return true;
         }
         return false;

@@ -14,7 +14,7 @@ class MilitiaStrategy extends CardStrategy {
 
         $cardsToDiscard = [];
         for ($i = 0; $i < count($handCards) - 3; $i++) {
-            $cardsToDiscard[] = $prioritisedCards[$i]->stub();
+            $cardsToDiscard[] = $prioritisedCards[$i]->stub;
         }
 
         return $cardsToDiscard;
@@ -29,8 +29,8 @@ class MilitiaStrategy extends CardStrategy {
      * @return  int
      */
     protected function cardPriority($card) {
-        $priority = 10 - $card->value();
-        if ($card->stub() === 'curse')              $priority += 100;
+        $priority = 10 - $card->value;
+        if ($card->stub === 'curse')              $priority += 100;
         if ($card->hasType('victory'))              $priority += 10;
         return $priority;
     }

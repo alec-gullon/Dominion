@@ -29,7 +29,7 @@ class TreasureStrategy {
 
     private function decideWhatTreasureCardToPlay() {
         $treasureCards = $this->state->activePlayer()->getCardsOfType('hand', 'treasure');
-        return $treasureCards[0]->stub();
+        return $treasureCards[0]->stub;
     }
 
 

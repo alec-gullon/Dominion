@@ -7,13 +7,13 @@ namespace App\Game\Models\Cards;
  */
 class Festival extends Card {
 
-    protected $value = 5;
+    public $value = 5;
 
-    protected $stub = 'festival';
+    public $stub = 'festival';
 
-    protected $name = 'Festival';
+    public $name = 'Festival';
 
-    protected $types = [
+    public $types = [
         'action'
     ];
 

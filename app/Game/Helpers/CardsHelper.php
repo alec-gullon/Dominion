@@ -16,7 +16,7 @@ class CardsHelper {
      */
     public static function sortCardStackByName($cardStack) {
         usort($cardStack, function($a, $b) {
-            if ($a->name() < $b->name()) {
+            if ($a->name < $b->name) {
                 return -1;
             }
             return 1;
@@ -40,7 +40,7 @@ class CardsHelper {
 
         foreach ($stubs as $stub) {
             foreach ($cardStack as $key => $card) {
-                if ($card->stub() === $stub) {
+                if ($card->stub === $stub) {
                     unset($cardStack[$key]);
                     break;
                 }

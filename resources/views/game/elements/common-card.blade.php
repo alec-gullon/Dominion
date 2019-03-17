@@ -2,8 +2,8 @@
     $cards = $state->kingdomCards;
     $card = App\Game\Factories\CardFactory::build($stub);
 
-    $isActive = ($state->phase === 'buy') &&  ($card->value() <= $state->coins) &&  ($state->buys > 0) &&  ($cards[$stub] > 0);
-    $type = $card->types()[0];
+    $isActive = ($state->phase === 'buy') &&  ($card->value <= $state->coins) &&  ($state->buys > 0) &&  ($cards[$stub] > 0);
+    $type = $card->types[0];
     $letter = ucfirst(substr($stub, 0 ,1));
 ?>
 
@@ -25,6 +25,6 @@
     </div>
 
     <div class="__common-card-description description-box">
-        @include ('game.cards.descriptions.' . $card->stub())
+        @include ('game.cards.descriptions.' . $card->stub)
     </div>
 </div>

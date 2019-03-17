@@ -16,8 +16,8 @@ class MineStrategy extends CardStrategy {
         $handCards = $this->state->activePlayer()->hand;
 
         foreach ($handCards as $card) {
-            if ($card->hasType('treasure') && $card->stub() !== 'gold') {
-                return $card->stub();
+            if ($card->hasType('treasure') && $card->stub !== 'gold') {
+                return $card->stub;
             }
         }
 

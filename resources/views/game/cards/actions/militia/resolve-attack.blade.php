@@ -4,9 +4,9 @@
     <h2 class="__player-area-title">Select the cards you want to discard:</h2>
     @foreach ($state->secondaryPlayer->hand as $card)
         <div    class="__player-area-option game-button --highlighted"
-                data-option="{{ $card->stub() }}"
+                data-option="{{ $card->stub }}"
         >
-            {{ $card->name() }}
+            {{ $card->name }}
         </div>
     @endforeach
     <div class="__player-area-option game-button --highlighted">

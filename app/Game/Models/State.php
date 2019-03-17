@@ -221,9 +221,9 @@ class State {
                 && ($type === 'all' || $card->hasType($type))
             ) {
                 if ($cheapest === null) {
-                    $cheapest = $card->value();
+                    $cheapest = $card->value;
                 }
-                $cheapest = min($cheapest, $card->value());
+                $cheapest = min($cheapest, $card->value);
             }
         }
         return $cheapest;

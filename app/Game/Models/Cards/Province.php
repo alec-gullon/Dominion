@@ -7,13 +7,13 @@ namespace App\Game\Models\Cards;
  */
 class Province extends Card {
 
-    protected $value = 8;
+    public $value = 8;
 
-    protected $stub = 'province';
+    public $stub = 'province';
 
-    protected $name = 'Province';
+    public $name = 'Province';
 
-    protected $types = [
+    public $types = [
         'victory'
     ];
 

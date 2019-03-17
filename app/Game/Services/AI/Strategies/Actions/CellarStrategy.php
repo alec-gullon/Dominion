@@ -13,7 +13,7 @@ class CellarStrategy extends CardStrategy {
         $cardsToDiscard = [];
         foreach ($handCards as $card) {
             if ($this->cardPriority($card) > 0) {
-                $cardsToDiscard[] = $card->stub();
+                $cardsToDiscard[] = $card->stub;
             }
         }
 

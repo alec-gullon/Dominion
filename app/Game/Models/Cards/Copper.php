@@ -7,18 +7,18 @@ namespace App\Game\Models\Cards;
  */
 class Copper extends Card {
 
-    protected $value = 0;
+    public $value = 0;
 
-    protected $stub = 'copper';
+    public $stub = 'copper';
 
-    protected $name = 'Copper';
+    public $name = 'Copper';
 
-    protected $types = [
+    public $types = [
         'treasure'
     ];
 
-    protected $denomination = 1;
+    public $denomination = 1;
 
-    protected $resolved = true;
+    public $resolved = true;
 
 }

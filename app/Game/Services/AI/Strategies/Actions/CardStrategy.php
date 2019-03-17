@@ -92,7 +92,7 @@ class CardStrategy {
      * @return  array
      */
     protected function prioritisedCard($cardStack, $priorityMethod = 'cardPriority') {
-        return $this->prioritiseCards($cardStack, $priorityMethod)[0]->stub();
+        return $this->prioritiseCards($cardStack, $priorityMethod)[0]->stub;
     }
 
     /**

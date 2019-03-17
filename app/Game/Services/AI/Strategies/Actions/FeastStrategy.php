@@ -22,10 +22,10 @@ class FeastStrategy extends CardStrategy {
      * @return int
      */
     protected function cardPriority($card) {
-        $priority = $card->value();
+        $priority = $card->value;
         if ($card->hasType('attack'))       $priority += 100;
         if ($card->hasType('action'))       $priority += 10;
-        if ($card->value() > 5)             $priority = -1;
+        if ($card->value > 5)               $priority = -1;
 
         return $priority;
     }

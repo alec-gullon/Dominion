@@ -7,13 +7,13 @@ namespace App\Game\Models\Cards;
  */
 class CouncilRoom extends Card {
 
-    protected $value = 5;
+    public $value = 5;
 
-    protected $stub = 'council-room';
+    public $stub = 'council-room';
 
-    protected $name = 'Council Room';
+    public $name = 'Council Room';
 
-    protected $types = [
+    public $types = [
         'action'
     ];
 

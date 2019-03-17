@@ -4,9 +4,9 @@
             <label  class="__label">
                 <input  class="__input"
                         type="checkbox"
-                        data-option="{{ $card->stub() }}"
+                        data-option="{{ $card->stub }}"
                 />
-                <div class="__button game-button --{{ $card->types()[0] }}">{{ $card->name() }}</div>
+                <div class="__button game-button --{{ $card->types[0] }}">{{ $card->name }}</div>
             </label>
         </div>
     @endforeach

@@ -7,17 +7,17 @@ namespace App\Game\Models\Cards;
  */
 class Village extends Card {
 
-    protected $value = 3;
+    public $value = 3;
 
-    protected $stub = 'village';
+    public $stub = 'village';
 
-    protected $name = 'Village';
+    public $name = 'Village';
 
-    protected $types = [
+    public $types = [
         'action'
     ];
 
-    protected $features = [
+    public $features = [
         'increasesActions'
     ];
 

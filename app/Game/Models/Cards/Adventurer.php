@@ -7,13 +7,13 @@ namespace App\Game\Models\Cards;
  */
 class Adventurer extends Card {
 
-    protected $value = 6;
+    public $value = 6;
 
-    protected $stub = 'adventurer';
+    public $stub = 'adventurer';
 
-    protected $name = 'Adventurer';
+    public $name = 'Adventurer';
 
-    protected $types = [
+    public $types = [
         'action'
     ];
 

@@ -15,7 +15,7 @@ class BureaucratStrategy extends CardStrategy {
      */
     public function resolveAttack() {
         $victoryCards = $this->secondaryPlayer()->getCardsOfType('hand', 'victory');
-        return $victoryCards[0]->stub();
+        return $victoryCards[0]->stub;
     }
 
 }

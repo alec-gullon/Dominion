@@ -2,7 +2,7 @@
     $cards = [];
     foreach ($state->kingdomCards as $stub => $amount) {
         $card = App\Game\Factories\CardFactory::build($stub);
-        if ($amount > 0 && $card->value() <= 4) {
+        if ($amount > 0 && $card->value <= 4) {
             $cards[] = $card;
         }
     }

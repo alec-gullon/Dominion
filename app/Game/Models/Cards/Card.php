@@ -14,7 +14,7 @@ class Card {
      *
      * @var int
      */
-    protected $value;
+    public $value;
 
     /**
      * The types that the card has, represented as an array of string. The possible types in the
@@ -22,21 +22,21 @@ class Card {
      *
      * @var array
      */
-    protected $types = [];
+    public $types = [];
 
     /**
      * The stub that we use to identify the card.
      *
      * @var string
      */
-    protected $stub;
+    public $stub;
 
     /**
      * The name of the class, as it is communicated to player's of the game
      *
      * @var string
      */
-    protected $name = 'Default';
+    public $name = 'Default';
 
     /**
      * Whether or not the given instance of the card has been resolved. Only of relevance when
@@ -45,7 +45,7 @@ class Card {
      *
      * @var bool
      */
-    protected $resolved = false;
+    public $resolved = false;
 
     /**
      * The next step that needs to be handled before the card can be marked as resolved. All cards start
@@ -53,7 +53,7 @@ class Card {
      *
      * @var string
      */
-    protected $nextStep = 'play';
+    public $nextStep = 'play';
 
     /**
      * The denomination of the card, i.e., how much money a player gains when playing a treasure card.
@@ -62,7 +62,7 @@ class Card {
      *
      * @var int
      */
-    protected $denomination = 0;
+    public $denomination = 0;
 
     /**
      * Whether or not the card is a virtual instance of a card. Virtual cards are not put into a player's discard
@@ -70,7 +70,7 @@ class Card {
      *
      * @var bool
      */
-    protected $isVirtual = false;
+    public $isVirtual = false;
 
     /**
      * Particular aspects of the card that the AI would like to be aware of when making a decision about what
@@ -78,39 +78,7 @@ class Card {
      *
      * @var array
      */
-    protected $features = [];
-
-    public function value() {
-        return $this->value;
-    }
-
-    public function nextStep() {
-        return $this->nextStep;
-    }
-
-    public function stub() {
-        return $this->stub;
-    }
-
-    public function denomination() {
-        return $this->denomination;
-    }
-
-    public function resolved() {
-        return $this->resolved;
-    }
-
-    public function isVirtual() {
-        return $this->isVirtual;
-    }
-
-    public function name() {
-        return $this->name;
-    }
-
-    public function types() {
-        return $this->types;
-    }
+    public $features = [];
 
     /**
      * Returns true if the card has the type $type, false otherwise
@@ -132,29 +100,6 @@ class Card {
      */
     public function hasFeature($feature) {
         return in_array($feature, $this->features);
-    }
-
-    /**
-     * Marks the card as being resolved
-     */
-    public function resolve() {
-        $this->resolved = true;
-    }
-
-    /**
-     * Marks the card as being a virtual card
-     */
-    public function markAsVirtual() {
-        $this->isVirtual = true;
-    }
-
-    /**
-     * Sets the next step required to resolve the card
-     *
-     * @param   string  $step
-     */
-    public function setNextStep($step) {
-        $this->nextStep = $step;
     }
 
     /**

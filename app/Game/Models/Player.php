@@ -107,7 +107,7 @@ class Player {
      */
     public function hasCard($stub, $where = 'hand') {
         foreach($this->$where as $card) {
-            if ($card->stub() === $stub) {
+            if ($card->stub === $stub) {
                 return true;
             }
         }
@@ -161,7 +161,7 @@ class Player {
      */
     public function unresolvedCard() {
         foreach ($this->played as $key => $card) {
-            if (!$card->resolved()) {
+            if (!$card->resolved) {
                 return $card;
             }
         }
@@ -179,7 +179,7 @@ class Player {
             return null;
         }
         $card = $this->unresolvedCard();
-        return $card->stub() . '/' . $card->nextStep();
+        return $card->stub . '/' . $card->nextStep;
     }
 
     /**
@@ -306,7 +306,7 @@ class Player {
      */
     public function playVirtualCard($stub) {
         $card = CardFactory::build($stub);
-        $card->markAsVirtual();
+        $card->isVirtual = true;
 
         $position = $this->unresolvedCardIndex();
         array_splice($this->played, $position+1, 0, [$card]);
@@ -382,7 +382,7 @@ class Player {
      */
     public function removeCardFrom($stub, $location) {
         foreach ($this->$location as $key => $card) {
-            if ($card->stub() === $stub) {
+            if ($card->stub === $stub) {
                 unset($this->$location[$key]);
                 $this->$location  = array_values($this->$location);
                 return;
@@ -405,7 +405,7 @@ class Player {
      * Resolves the first unresolved card in the player's played pile
      */
     public function resolveCard() {
-        $this->unresolvedCard()->resolve();
+        $this->unresolvedCard()->resolved = true;
     }
 
     /**
@@ -413,7 +413,7 @@ class Player {
      */
     public function resolveAll() {
         foreach($this->played as $card) {
-            $card->resolve();
+            $card->resolved = true;
         }
     }
 
@@ -427,8 +427,8 @@ class Player {
      */
     public function setNextStep($step) {
         foreach ($this->played as $card) {
-            if (!$card->resolved()) {
-                return $card->setNextStep($step);
+            if (!$card->resolved) {
+                return $card->nextStep = $step;
             }
         }
     }
@@ -455,7 +455,7 @@ class Player {
         if (count($this->deck) === 0) {
             return;
         }
-        $this->moveCard($this->topCard()->stub(), 'deck', $location);
+        $this->moveCard($this->topCard()->stub, 'deck', $location);
     }
 
     /**
@@ -478,7 +478,7 @@ class Player {
      */
     private function unresolvedCardIndex() {
         foreach ($this->played as $index => $card) {
-            if (!$card->resolved()) {
+            if (!$card->resolved) {
                 return $index;
             }
         }

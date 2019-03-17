@@ -28,17 +28,17 @@ class PlayStrategy {
         $handCards = $this->state->activePlayer()->getCardsOfType('hand', 'action');
         foreach ($handCards as $card) {
             if ($card->hasFeature('increasesActions')) {
-                return $card->stub();
+                return $card->stub;
             }
         }
 
         foreach ($handCards as $card) {
             if ($card->hasType('attack')) {
-                return $card->stub();
+                return $card->stub;
             }
         }
 
-        return $handCards[0]->stub();
+        return $handCards[0]->stub;
     }
 
 }

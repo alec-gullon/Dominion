@@ -7,13 +7,13 @@ namespace App\Game\Models\Cards;
  */
 class Chancellor extends Card {
 
-    protected $value = 3;
+    public $value = 3;
 
-    protected $stub = 'chancellor';
+    public $stub = 'chancellor';
 
-    protected $name = 'Chancellor';
+    public $name = 'Chancellor';
 
-    protected $types = [
+    public $types = [
         'action'
     ];
 

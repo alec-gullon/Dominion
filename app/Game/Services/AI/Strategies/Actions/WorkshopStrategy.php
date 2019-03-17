@@ -21,9 +21,9 @@ class WorkshopStrategy extends CardStrategy {
      * @return  int
      */
     protected function cardPriority($card) {
-        $priority = $card->value();
-        if ($this->state->checkGameOver() && $card->stub() === 'estate')    $priority += 10;
-        if ($card->value() > 4)                                             $priority = -1;
+        $priority = $card->value;
+        if ($this->state->checkGameOver() && $card->stub === 'estate')    $priority += 10;
+        if ($card->value > 4)                                             $priority = -1;
 
         return $priority;
     }

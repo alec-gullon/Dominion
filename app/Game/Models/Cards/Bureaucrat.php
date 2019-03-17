@@ -7,13 +7,13 @@ namespace App\Game\Models\Cards;
  */
 class Bureaucrat extends Card {
 
-    protected $value = 3;
+    public $value = 3;
 
-    protected $stub = 'bureaucrat';
+    public $stub = 'bureaucrat';
 
-    protected $name = 'Bureaucrat';
+    public $name = 'Bureaucrat';
 
-    protected $types = [
+    public $types = [
         'action',
         'attack'
     ];

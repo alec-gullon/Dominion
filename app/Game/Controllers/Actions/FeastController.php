@@ -7,7 +7,7 @@ class FeastController extends ActionController {
     public function play() {
         $feastCard = $this->activePlayer()->unresolvedCard();
 
-        if (!$feastCard->isVirtual()) {
+        if (!$feastCard->isVirtual) {
             $this->addToLog('trashes the Feast');
         }
 
@@ -19,7 +19,7 @@ class FeastController extends ActionController {
         $feastCard = $this->activePlayer()->unresolvedCard();
 
         $this->gainCard($stub);
-        if (!$feastCard->isVirtual()) {
+        if (!$feastCard->isVirtual) {
             $this->state->trashCard('feast', 'played');
             $this->inputOff();
         } else {

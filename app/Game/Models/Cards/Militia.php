@@ -7,13 +7,13 @@ namespace App\Game\Models\Cards;
  */
 class Militia extends Card {
 
-    protected $value = 3;
+    public $value = 3;
 
-    protected $stub = 'militia';
+    public $stub = 'militia';
 
-    protected $name = 'Militia';
+    public $name = 'Militia';
 
-    protected $types = [
+    public $types = [
         'action',
         'attack'
     ];

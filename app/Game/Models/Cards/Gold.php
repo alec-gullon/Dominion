@@ -7,18 +7,18 @@ namespace App\Game\Models\Cards;
  */
 class Gold extends Card {
 
-    protected $value = 6;
+    public $value = 6;
 
-    protected $stub = 'gold';
+    public $stub = 'gold';
 
-    protected $name = 'Gold';
+    public $name = 'Gold';
 
-    protected $types = [
+    public $types = [
         'treasure'
     ];
 
-    protected $denomination = 3;
+    public $denomination = 3;
 
-    protected $resolved = true;
+    public $resolved = true;
 
 }

@@ -70,8 +70,6 @@ class GameController extends Controller {
 
         $game->save();
 
-        return null;
-
         return $this->gameRenderer->renderGameForPlayer($game, $user);
 //        return $this->gameRenderer->renderGameForBothPlayers($game);
     }

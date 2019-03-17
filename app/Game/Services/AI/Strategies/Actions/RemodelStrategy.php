@@ -38,10 +38,10 @@ class RemodelStrategy extends CardStrategy {
     public function gainPriority($card) {
         $gainValue = $this->activePlayer()->unresolvedCard()->gainValue;
 
-        $priority = $card->value();
+        $priority = $card->value;
         if ($card->hasType('attack'))                                       $priority += 100;
-        if ($card->hasType('treasure') && $card->value() > 3)               $priority += 10;
-        if ($card->value() > $gainValue)                                    $priority = -1;
+        if ($card->hasType('treasure') && $card->value > 3)               $priority += 10;
+        if ($card->value > $gainValue)                                    $priority = -1;
         return $priority;
     }
 
@@ -54,8 +54,8 @@ class RemodelStrategy extends CardStrategy {
      * @return  int
      */
     public function trashPriority($card) {
-        $priority = $card->value();
-        if ($card->stub() === 'estate')                $priority += 10;
+        $priority = $card->value;
+        if ($card->stub === 'estate')                $priority += 10;
         return $priority;
     }
 

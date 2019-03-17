@@ -4,11 +4,11 @@
 
     foreach ($cards as $stub => $amount) {
         $card = App\Game\Factories\CardFactory::build($stub);
-        if (($card->hasType('action') || $card->stub() === 'gardens')) {
-            if (!isset($cardsByValue[$card->value()])) {
-                $cardsByValue[$card->value()] = [];
+        if (($card->hasType('action') || $card->stub === 'gardens')) {
+            if (!isset($cardsByValue[$card->value])) {
+                $cardsByValue[$card->value] = [];
             }
-            $cardsByValue[$card->value()][] = $card;
+            $cardsByValue[$card->value][] = $card;
         }
     }
 ?>

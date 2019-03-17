@@ -422,21 +422,21 @@ class AcceptanceTestBase extends TestCase
         $amountInPlay = 0;
         $hand = $player->hand;
         foreach ($hand as $card) {
-            if ($card->stub() === $stub) {
+            if ($card->stub === $stub) {
                 $amountInPlay++;
             }
         }
 
         $deck = $player->deck;
         foreach ($deck as $card) {
-            if ($card->stub() === $stub) {
+            if ($card->stub === $stub) {
                 $amountInPlay++;
             }
         }
 
         $discard = $player->discard;
         foreach ($discard as $card) {
-            if ($card->stub() === $stub) {
+            if ($card->stub === $stub) {
                 $amountInPlay++;
             }
         }
@@ -449,7 +449,7 @@ class AcceptanceTestBase extends TestCase
 
         $isTrue = false;
         foreach ($discard as $card) {
-            if ($card->stub() === $stub) {
+            if ($card->stub === $stub) {
                 $isTrue = true;
             }
         }

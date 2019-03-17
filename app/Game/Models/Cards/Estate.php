@@ -7,13 +7,13 @@ namespace App\Game\Models\Cards;
  */
 class Estate extends Card {
 
-    protected $value = 2;
+    public $value = 2;
 
-    protected $stub = 'estate';
+    public $stub = 'estate';
 
-    protected $name = 'Estate';
+    public $name = 'Estate';
 
-    protected $types = [
+    public $types = [
         'victory'
     ];
 

@@ -7,16 +7,16 @@ namespace App\Game\Models\Cards;
  */
 class Curse extends Card {
 
-    protected $value = 0;
+    public $value = 0;
 
-    protected $stub = 'curse';
+    public $stub = 'curse';
 
-    protected $name = 'Curse';
+    public $name = 'Curse';
 
-    protected $types = [
+    public $types = [
         'curse'
     ];
 
-    protected $points = -1;
+    public $points = -1;
 
 }

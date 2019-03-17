@@ -7,13 +7,13 @@ namespace App\Game\Models\Cards;
  */
 class Market extends Card {
 
-    protected $value = 5;
+    public $value = 5;
 
-    protected $stub = 'market';
+    public $stub = 'market';
 
-    protected $name = 'Market';
+    public $name = 'Market';
 
-    protected $types = [
+    public $types = [
         'action'
     ];
 

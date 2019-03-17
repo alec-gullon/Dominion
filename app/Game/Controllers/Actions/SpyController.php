@@ -44,7 +44,7 @@ class SpyController extends ActionController {
 
     public function discardCard($choice) {
         $card = $this->activePlayer()->unresolvedCard();
-        $revealedCard = $this->activePlayer()->revealed[0]->stub();
+        $revealedCard = $this->activePlayer()->revealed[0]->stub;
 
         if ($choice) {
             $this->discardRevealedCards();
@@ -73,7 +73,7 @@ class SpyController extends ActionController {
 
     public function discardOpponentCard($choice) {
         $player = $this->secondaryPlayer();
-        $revealedCard = $player->revealed[0]->stub();
+        $revealedCard = $player->revealed[0]->stub;
 
         if ($choice) {
             $this->discardRevealedCards($player);

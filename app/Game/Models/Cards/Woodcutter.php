@@ -7,13 +7,13 @@ namespace App\Game\Models\Cards;
  */
 class Woodcutter extends Card {
 
-    protected $value = 3;
+    public $value = 3;
 
-    protected $stub = 'woodcutter';
+    public $stub = 'woodcutter';
 
-    protected $name = 'Woodcutter';
+    public $name = 'Woodcutter';
 
-    protected $types = [
+    public $types = [
         'action'
     ];
 

@@ -30,7 +30,7 @@ class RemodelValidator extends ActionValidator {
         $remodelCard = $this->state->activePlayer()->unresolvedCard();
 
         $card = $this->makeCard($input);
-        if ($card->value() > $remodelCard->gainValue) {
+        if ($card->value > $remodelCard->gainValue) {
             return false;
         }
         return $this->state->hasCard($input);

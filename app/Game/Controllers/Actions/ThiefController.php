@@ -32,7 +32,7 @@ class ThiefController extends ActionController {
             $this->setNextStep('resolve-attack');
             return $this->inputOn();
         } else if (count($treasureCards) === 1) {
-            $card->trashedCard = $treasureCards[0]->stub();
+            $card->trashedCard = $treasureCards[0]->stub;
             $this->setNextStep('gain-trashed-card');
             return $this->inputOn();
         }
@@ -56,13 +56,13 @@ class ThiefController extends ActionController {
             $this->activePlayer()->gainCard($card->trashedCard);
             $this->secondaryPlayer()->removeCardFrom($card->trashedCard, 'revealed');
             $this->addToLog(
-                'puts the ' . $trashedCard->name() . ' in ' . $this->activePlayer()->name . '\'s discard',
+                'puts the ' . $trashedCard->name . ' in ' . $this->activePlayer()->name . '\'s discard',
                 $this->secondaryPlayer()
             );
         } else {
             $this->state->trashCard($card->trashedCard, 'revealed', $this->secondaryPlayer());
             $this->addToLog(
-                'trashes the ' . $trashedCard->name() . ' from their revealed', $this->secondaryPlayer()
+                'trashes the ' . $trashedCard->name . ' from their revealed', $this->secondaryPlayer()
             );
         }
 

@@ -7,13 +7,13 @@ namespace App\Game\Models\Cards;
  */
 class Library extends Card {
 
-    protected $value = 5;
+    public $value = 5;
 
-    protected $stub = 'library';
+    public $stub = 'library';
 
-    protected $name = 'Library';
+    public $name = 'Library';
 
-    protected $types = [
+    public $types = [
         'action'
     ];
 

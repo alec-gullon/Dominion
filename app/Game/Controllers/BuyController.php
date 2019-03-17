@@ -23,7 +23,7 @@ class BuyController extends StateController {
     public function buy($stub) {
         $card = $this->buildCard($stub);
 
-        $this->state->coins -= $card->value();
+        $this->state->coins -= $card->value;
         $this->state->buys -= 1;
         $this->buyCard($stub);
     }

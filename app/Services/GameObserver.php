@@ -51,7 +51,7 @@ class GameObserver {
         if ($this->state->phase !== 'buy') {
             return false;
         }
-        if ($card->value() > $this->state->coins || $this->state->buys === 0) {
+        if ($card->value > $this->state->coins || $this->state->buys === 0) {
             return false;
         }
         return true;

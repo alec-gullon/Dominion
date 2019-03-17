@@ -7,13 +7,13 @@ namespace App\Game\Models\Cards;
  */
 class Spy extends Card {
 
-    protected $value = 3;
+    public $value = 3;
 
-    protected $stub = 'spy';
+    public $stub = 'spy';
 
-    protected $name = 'Spy';
+    public $name = 'Spy';
 
-    protected $types = [
+    public $types = [
         'action',
         'attack'
     ];

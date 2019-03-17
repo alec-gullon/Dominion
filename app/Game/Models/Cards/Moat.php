@@ -7,13 +7,13 @@ namespace App\Game\Models\Cards;
  */
 class Moat extends Card {
 
-    protected $value = 2;
+    public $value = 2;
 
-    protected $stub = 'moat';
+    public $stub = 'moat';
 
-    protected $name = 'Moat';
+    public $name = 'Moat';
 
-    protected $types = [
+    public $types = [
         'action'
     ];
 

@@ -30,7 +30,7 @@ class ViewHelper {
      * @return bool
      */
     public static function isKingdomCardActive($card, $state) {
-        return ($card->value() <= $state->coins && $state->phase === 'buy' && $state->buys >= 1);
+        return ($card->value <= $state->coins && $state->phase === 'buy' && $state->buys >= 1);
     }
 
 }
