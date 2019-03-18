@@ -2,7 +2,9 @@
 
 namespace Tests\Acceptance\Game\Cards;
 
-class BureaucratTest extends CardTestBase
+use Tests\Acceptance\AcceptanceTestBase;
+
+class BureaucratTest extends AcceptanceTestBase
 {
     public function testWithNoVictoryCardsInHand() {
         $this->buildGame();

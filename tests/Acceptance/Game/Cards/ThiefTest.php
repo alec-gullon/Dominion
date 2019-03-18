@@ -2,7 +2,9 @@
 
 namespace Tests\Acceptance\Game\Cards;
 
-class ThiefTest extends CardTestBase
+use Tests\Acceptance\AcceptanceTestBase;
+
+class ThiefTest extends AcceptanceTestBase
 {
     public function testThief() {
         $this->buildGame();

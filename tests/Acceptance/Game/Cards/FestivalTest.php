@@ -2,7 +2,9 @@
 
 namespace Tests\Acceptance\Game\Cards;
 
-class FestivalTest extends CardTestBase
+use Tests\Acceptance\AcceptanceTestBase;
+
+class FestivalTest extends AcceptanceTestBase
 {
     public function testFestival()
     {

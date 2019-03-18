@@ -2,7 +2,9 @@
 
 namespace Tests\Acceptance\Game\Cards;
 
-class ChapelTest extends CardTestBase
+use Tests\Acceptance\AcceptanceTestBase;
+
+class ChapelTest extends AcceptanceTestBase
 {
     public function testChapel() {
         $this->buildGame();

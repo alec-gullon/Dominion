@@ -10,7 +10,7 @@ class ThiefTest extends AcceptanceTestBase {
         $this->buildGameWithAI();
         $this->setOpponentHand(['thief', 'copper@4']);
         $this->setDeck(['copper@5', 'gold', 'copper']);
-        $this->postUpdate('end-turn');
+        $this->update('end-turn');
 
         $this->assertOpponentsNumberOfRemainingCards('gold', 1);
         $this->assertAllCardsResolved();
@@ -21,7 +21,7 @@ class ThiefTest extends AcceptanceTestBase {
         $this->setOpponentHand(['thief', 'silver@4']);
         $this->setOpponentDeck([]);
         $this->setDeck(['copper@10']);
-        $this->postUpdate('end-turn');
+        $this->update('end-turn');
 
         $this->assertOpponentsNumberOfRemainingCards('copper', 0);
         $this->assertAllCardsResolved();

@@ -2,7 +2,9 @@
 
 namespace Tests\Acceptance\Game\Cards;
 
-class VillageTest extends CardTestBase
+use Tests\Acceptance\AcceptanceTestBase;
+
+class VillageTest extends AcceptanceTestBase
 {
     public function testVillage()
     {

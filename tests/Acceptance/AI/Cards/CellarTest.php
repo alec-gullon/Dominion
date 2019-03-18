@@ -10,7 +10,7 @@ class CellarTest extends AcceptanceTestBase {
         $this->buildGameWithAI();
         $this->setOpponentDeck(['copper@5']);
         $this->setOpponentHand(['cellar', 'estate@2', 'copper@2']);
-        $this->postUpdate('end-turn');
+        $this->update('end-turn');
 
         $this->assertNumberOfRemainingCards('silver', 19);
         $this->assertTotalNumberOfCardsForOpponent(11);
@@ -20,7 +20,7 @@ class CellarTest extends AcceptanceTestBase {
         $this->buildGameWithAI();
         $this->setOpponentDeck(['copper@6']);
         $this->setOpponentHand(['cellar', 'estate', 'curse', 'copper']);
-        $this->postUpdate('end-turn');
+        $this->update('end-turn');
 
         $this->assertNumberOfRemainingCards('silver', 19);
         $this->assertTotalNumberOfCardsForOpponent(11);

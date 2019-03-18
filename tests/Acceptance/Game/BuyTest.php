@@ -11,8 +11,8 @@ class BuyTest extends AcceptanceTestBase
         $this->buildGame();
         $this->playTreasure('copper');
         $this->playTreasure('copper');
-        $this->postUpdate('advance-to-buy');
-        $this->postUpdate('buy', 'estate');
+        $this->update('advance-to-buy');
+        $this->update('buy', 'estate');
 
         $this->assertPhase('buy');
         $this->assertDiscardSize(1);
@@ -28,7 +28,7 @@ class BuyTest extends AcceptanceTestBase
     public function testValidatesSelectedCard() {
         $this->buildGame();
         $this->playTreasure('copper');
-        $this->postUpdate('buy', 'estate');
+        $this->update('buy', 'estate');
 
         $this->assertNumberOfRemainingCards('estate', 8);
     }

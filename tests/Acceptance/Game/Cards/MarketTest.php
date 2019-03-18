@@ -2,7 +2,9 @@
 
 namespace Tests\Acceptance\Game\Cards;
 
-class MarketTest extends CardTestBase
+use Tests\Acceptance\AcceptanceTestBase;
+
+class MarketTest extends AcceptanceTestBase
 {
     public function testMarket()
     {

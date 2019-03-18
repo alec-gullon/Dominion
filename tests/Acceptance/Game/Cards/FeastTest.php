@@ -2,7 +2,9 @@
 
 namespace Tests\Acceptance\Game\Cards;
 
-class FeastTest extends CardTestBase
+use Tests\Acceptance\AcceptanceTestBase;
+
+class FeastTest extends AcceptanceTestBase
 {
     public function testFeast() {
         $this->buildGame();

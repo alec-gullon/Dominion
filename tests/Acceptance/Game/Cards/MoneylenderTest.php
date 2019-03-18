@@ -2,7 +2,9 @@
 
 namespace Tests\Acceptance\Game\Cards;
 
-class MoneylenderTest extends CardTestBase
+use Tests\Acceptance\AcceptanceTestBase;
+
+class MoneylenderTest extends AcceptanceTestBase
 {
     public function testMoneylender()
     {

@@ -11,7 +11,7 @@ class SpyTest extends AcceptanceTestBase {
         $this->setOpponentHand(['spy', 'copper@4']);
         $this->setDeck(['copper@5', 'gold', 'estate@15']);
         $this->setOpponentDeck(['copper', 'gold', 'estate@15']);
-        $this->postUpdate('end-turn');
+        $this->update('end-turn');
 
         $this->assertTurnNumber(3);
         $this->assertDiscardSize(6);
@@ -23,7 +23,7 @@ class SpyTest extends AcceptanceTestBase {
         $this->setOpponentHand(['spy', 'copper@4']);
         $this->setDeck(['copper@5', 'province', 'estate@15']);
         $this->setOpponentDeck(['copper', 'duchy', 'estate@15']);
-        $this->postUpdate('end-turn');
+        $this->update('end-turn');
 
         $this->assertTurnNumber(3);
         $this->assertDiscardSize(5);

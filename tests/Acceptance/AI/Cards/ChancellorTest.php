@@ -10,7 +10,7 @@ class ChancellorTest extends AcceptanceTestBase {
         $this->buildGameWithAI();
         $this->setOpponentDeck(['copper@5']);
         $this->setOpponentHand(['chancellor', 'estate@2', 'copper@2']);
-        $this->postUpdate('end-turn');
+        $this->update('end-turn');
 
         $this->assertOpponentDiscardSize(0);
     }

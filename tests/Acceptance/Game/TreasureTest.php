@@ -42,7 +42,7 @@ class TreasureTest extends AcceptanceTestBase
     public function testPlayAllTreasures() {
         $this->buildGame();
 
-        $this->postUpdate('play-all-treasures');
+        $this->update('play-all-treasures');
 
         $this->assertHandSize(1);
         $this->assertNumberOfCoins(4);

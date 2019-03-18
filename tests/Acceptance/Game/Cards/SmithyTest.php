@@ -2,7 +2,9 @@
 
 namespace Tests\Acceptance\Game\Cards;
 
-class SmithyTest extends CardTestBase
+use Tests\Acceptance\AcceptanceTestBase;
+
+class SmithyTest extends AcceptanceTestBase
 {
     public function testSmithy()
     {

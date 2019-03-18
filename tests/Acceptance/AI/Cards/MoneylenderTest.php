@@ -9,7 +9,7 @@ class MoneylenderTest extends AcceptanceTestBase {
     public function testTrashesCopperIfPossible() {
         $this->buildGameWithAI();
         $this->setOpponentHand(['moneylender', 'copper@2']);
-        $this->postUpdate('end-turn');
+        $this->update('end-turn');
 
         $this->assertOpponentsNumberOfRemainingCards('silver', 1);
     }
@@ -17,7 +17,7 @@ class MoneylenderTest extends AcceptanceTestBase {
     public function testResolvesIfDoesNotHaveCopper() {
         $this->buildGameWithAI();
         $this->setOpponentHand(['moneylender', 'silver@2']);
-        $this->postUpdate('end-turn');
+        $this->update('end-turn');
 
         $this->assertOpponentsNumberOfRemainingCards('silver', 3);
     }

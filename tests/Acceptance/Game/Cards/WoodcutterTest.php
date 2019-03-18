@@ -2,7 +2,9 @@
 
 namespace Tests\Acceptance\Game\Cards;
 
-class WoodcutterTest extends CardTestBase
+use Tests\Acceptance\AcceptanceTestBase;
+
+class WoodcutterTest extends AcceptanceTestBase
 {
     public function testWoodcutter()
     {

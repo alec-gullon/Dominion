@@ -2,7 +2,9 @@
 
 namespace Tests\Acceptance\Game\Cards;
 
-class MineTest extends CardTestBase
+use Tests\Acceptance\AcceptanceTestBase;
+
+class MineTest extends AcceptanceTestBase
 {
     public function testMine()
     {

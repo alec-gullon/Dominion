@@ -10,7 +10,7 @@ class ChapelTest extends AcceptanceTestBase {
         $this->buildGameWithAI();
         $this->setOpponentDeck(['copper@5']);
         $this->setOpponentHand(['chapel', 'estate@2', 'curse', 'silver']);
-        $this->postUpdate('end-turn');
+        $this->update('end-turn');
 
         $this->assertTotalNumberOfCardsForOpponent(7);
     }

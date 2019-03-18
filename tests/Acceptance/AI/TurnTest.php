@@ -8,14 +8,14 @@ class TurnTest extends AcceptanceTestBase
 {
     public function testAITakesTurnAfterUserTakesTurn() {
         $this->buildGameWithAI();
-        $this->postUpdate('end-turn');
+        $this->update('end-turn');
 
         $this->assertTurnNumber(3);
     }
 
     public function testAIBuysACardOnFirstTurn() {
         $this->buildGameWithAI();
-        $this->postUpdate('end-turn');
+        $this->update('end-turn');
 
         $this->assertOpponentDiscardSize(6);
     }
@@ -23,7 +23,7 @@ class TurnTest extends AcceptanceTestBase
     public function testAIPlaysVillageBeforeSmithy() {
         $this->buildGameWithAI();
         $this->setOpponentHand(['village', 'smithy', 'copper@3']);
-        $this->postUpdate('end-turn');
+        $this->update('end-turn');
 
         $this->assertTurnNumber(3);
         $this->assertOpponentDeckSize(6);
@@ -33,7 +33,7 @@ class TurnTest extends AcceptanceTestBase
     public function testAIPlaysWitchInsteadOfSmithy() {
         $this->buildGameWithAI();
         $this->setOpponentHand(['smithy', 'witch', 'copper@3']);
-        $this->postUpdate('end-turn');
+        $this->update('end-turn');
 
         $this->assertOpponentDeckSize(6);
         $this->assertNumberOfRemainingCards('curse', 9);

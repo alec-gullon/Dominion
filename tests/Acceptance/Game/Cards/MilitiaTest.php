@@ -2,7 +2,9 @@
 
 namespace Tests\Acceptance\Game\Cards;
 
-class MilitiaTest extends CardTestBase
+use Tests\Acceptance\AcceptanceTestBase;
+
+class MilitiaTest extends AcceptanceTestBase
 {
     public function testMilitia() {
         $this->buildGame();

@@ -2,7 +2,9 @@
 
 namespace Tests\Acceptance\Game\Cards;
 
-class AdventurerTest extends CardTestBase
+use Tests\Acceptance\AcceptanceTestBase;
+
+class AdventurerTest extends AcceptanceTestBase
 {
     public function testAdventurer()
     {

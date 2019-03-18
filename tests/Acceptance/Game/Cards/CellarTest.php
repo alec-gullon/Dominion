@@ -2,7 +2,9 @@
 
 namespace Tests\Acceptance\Game\Cards;
 
-class CellarTest extends CardTestBase
+use Tests\Acceptance\AcceptanceTestBase;
+
+class CellarTest extends AcceptanceTestBase
 {
     public function testCellar()
     {

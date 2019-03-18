@@ -2,7 +2,9 @@
 
 namespace Tests\Acceptance\Game\Cards;
 
-class WitchTest extends CardTestBase
+use Tests\Acceptance\AcceptanceTestBase;
+
+class WitchTest extends AcceptanceTestBase
 {
     public function testWitch() {
         $this->buildGame();

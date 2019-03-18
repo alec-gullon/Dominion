@@ -22,7 +22,7 @@ class WorkshopTest extends AcceptanceTestBase {
         $this->setKingdomCards($kingdom);
 
         $this->setOpponentHand(['workshop', 'copper@4']);
-        $this->postUpdate('end-turn');
+        $this->update('end-turn');
 
         $this->assertNumberOfRemainingCards('smithy', 9);
     }

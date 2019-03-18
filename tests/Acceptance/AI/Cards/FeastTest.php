@@ -20,7 +20,7 @@ class FeastTest extends AcceptanceTestBase {
         ];
         $this->setKingdomCards($kingdom);
         $this->setOpponentHand(['feast', 'copper@4']);
-        $this->postUpdate('end-turn');
+        $this->update('end-turn');
 
         $this->assertTotalNumberOfCardsForOpponent(11);
         $this->assertNumberOfRemainingCards('witch', 9);

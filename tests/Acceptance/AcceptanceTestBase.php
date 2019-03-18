@@ -12,32 +12,38 @@ class AcceptanceTestBase extends TestCase
 {
     use RefreshDatabase;
 
+    const KINGDOM_CARDS = [
+        'copper' => 30,
+        'silver' => 20,
+        'gold' => 10,
+        'estate' => 8,
+        'duchy' => 8,
+        'province' => 8,
+        'village' => 10,
+        'curse' => 10
+    ];
+
+    public $updater;
+
     protected function updateGame() {
-        $updater = new Updater($this->state(), new CardFactory);
-        $updater->resolve();
-        $this->game->object = serialize($updater->state());
-        $this->game->save();
+        $this->updater->resolve();
     }
 
     protected function playCard($stub) {
-        $this->postUpdate('play-card', $stub);
+        $this->update('play-card', $stub);
     }
 
     protected function playTreasure($stub) {
-        $this->postUpdate('play-treasure', $stub);
+        $this->update('play-treasure', $stub);
     }
 
     protected function provideInput($input) {
-        $this->postUpdate('provide-input', $input);
+        $this->update('provide-input', $input);
     }
 
-    protected function postUpdate($action, $input = null) {
-        $this->post('/game/update/', [
-            'guid' => 'alec',
-            'action' => $action,
-            'input' => $input
-        ]);
-        $this->game = \App\Models\Game::all()->first();
+    protected function update($action, $input = null) {
+        $this->updater->update($action, $input);
+        $this->updater->resolve();
     }
 
     protected function buildGame()
@@ -51,68 +57,20 @@ class AcceptanceTestBase extends TestCase
 
         $player1 = new \App\Game\Models\Player('alec', 'Alec');
 
-        $player1->deck = [
-            CardFactory::build('estate'),
-            CardFactory::build('estate'),
-            CardFactory::build('copper'),
-            CardFactory::build('copper'),
-            CardFactory::build('copper')
-        ];
-        $player1->hand = [
-            CardFactory::build('estate'),
-            CardFactory::build('copper'),
-            CardFactory::build('copper'),
-            CardFactory::build('copper'),
-            CardFactory::build('copper')
-        ];
+        $player1 = $this->setActivePlayerStartingCards($player1);
         $player1->name = 'Alec';
 
         $player2 = new \App\Game\Models\Player('lucy', 'Lucy');
 
-        $player2->deck = [
-            CardFactory::build('estate'),
-            CardFactory::build('estate'),
-            CardFactory::build('copper'),
-            CardFactory::build('copper'),
-            CardFactory::build('copper')
-        ];
-        $player2->hand = [
-            CardFactory::build('estate'),
-            CardFactory::build('copper'),
-            CardFactory::build('copper'),
-            CardFactory::build('copper'),
-            CardFactory::build('copper')
-        ];
+        $player2 = $this->setSecondaryPlayerStartingCards($player2);
         $player2->name = 'Lucy';
 
         $state->players = [$player1, $player2];
         $state->activePlayerId = 'alec';
-        $state->kingdomCards = [
-            'copper' => 30,
-            'silver' => 20,
-            'gold' => 10,
-            'estate' => 8,
-            'duchy' => 8,
-            'province' => 8,
-            'village' => 10,
-            'curse' => 10
-        ];
-        $game->object = serialize($state);
-        $game->save();
+        $state->kingdomCards = self::KINGDOM_CARDS;
 
-        $user = new \App\Models\User();
-        $user->name = 'Alec';
-        $user->game_id = $game->id;
-        $user->guid = 'alec';
-        $user->save();
-
-        $user = new \App\Models\User();
-        $user->name = 'Lucy';
-        $user->game_id = $game->id;
-        $user->guid = 'lucy';
-        $user->save();
-
-        $this->game = $game;
+        $this->updater = resolve('App\Game\Services\Updater');
+        $this->updater->setState($state);
     }
 
     protected function buildGameWithAI()
@@ -126,71 +84,26 @@ class AcceptanceTestBase extends TestCase
 
         $player1 = new \App\Game\Models\Player('alec', 'Alec');
 
-        $player1->deck = [
-            CardFactory::build('estate'),
-            CardFactory::build('estate'),
-            CardFactory::build('copper'),
-            CardFactory::build('copper'),
-            CardFactory::build('copper')
-        ];
-        $player1->hand = [
-            CardFactory::build('estate'),
-            CardFactory::build('copper'),
-            CardFactory::build('copper'),
-            CardFactory::build('copper'),
-            CardFactory::build('copper')
-        ];
+        $player1 = $this->setActivePlayerStartingCards($player1);
         $player1->name = 'Alec';
 
         $player2 = new \App\Game\Models\Player('marvin', 'Marvin', true);
 
-        $player2->deck = [
-            CardFactory::build('estate'),
-            CardFactory::build('estate'),
-            CardFactory::build('copper'),
-            CardFactory::build('copper'),
-            CardFactory::build('copper')
-        ];
-        $player2->hand = [
-            CardFactory::build('estate'),
-            CardFactory::build('copper'),
-            CardFactory::build('copper'),
-            CardFactory::build('copper'),
-            CardFactory::build('copper')
-        ];
+        $player2 = $this->setSecondaryPlayerStartingCards($player2);
         $player2->name = 'Marvin';
 
         $state->players = [$player1, $player2];
         $state->activePlayerId = 'alec';
-        $state->kingdomCards = [
-                'copper' => 30,
-                'silver' => 20,
-                'gold' => 10,
-                'estate' => 8,
-                'duchy' => 8,
-                'province' => 8,
-                'village' => 10,
-                'curse' => 10
-        ];
-        $game->object = serialize($state);
-        $game->save();
+        $state->kingdomCards = self::KINGDOM_CARDS;
 
-        $user = new \App\Models\User();
-        $user->name = 'Alec';
-        $user->game_id = $game->id;
-        $user->guid = 'alec';
-        $user->save();
-
-        $this->game = $game;
+        $this->updater = resolve('App\Game\Services\Updater');
+        $this->updater->setState($state);
     }
 
     protected function playVirtualCard($card) {
         $state = $this->state();
         $player = $state->activePlayer();
         $player->playVirtualCard($card);
-        $state->togglePlayerInput();
-        $this->game->object = serialize($state);
-        $this->game->save();
         $this->updateGame();
     }
 
@@ -200,8 +113,7 @@ class AcceptanceTestBase extends TestCase
         $cards[$stub] = $amount;
 
         $state->kingdomCards = $cards;
-        $this->game->object = serialize($state);
-        $this->game->save();
+        $this->updater->setState($state);
     }
 
     protected function buildGameWithMoat() {
@@ -212,53 +124,46 @@ class AcceptanceTestBase extends TestCase
         $kingdomCards['moat'] = 10;
 
         $state->kingdomCards = $kingdomCards;
-        $this->game->object = serialize($state);
-        $this->game->save();
+        $this->updater->setState($state);
     }
 
     protected function setHand($shorthand) {
         $hand = $this->buildCardStackFromShorthand($shorthand);
         $state = $this->state();
         $state->activePlayer()->hand = $hand;
-        $this->game->object = serialize($state);
-        $this->game->save();
+        $this->updater->setState($state);
     }
 
     protected function setOpponentHand($shorthand) {
         $hand = $this->buildCardStackFromShorthand($shorthand);
         $state = $this->state();
         $state->secondaryPlayer()->hand = $hand;
-        $this->game->object = serialize($state);
-        $this->game->save();
+        $this->updater->setState($state);
     }
 
     protected function setDeck($shorthand) {
         $deck = $this->buildCardStackFromShorthand($shorthand);
         $state = $this->state();
         $state->activePlayer()->deck = $deck;
-        $this->game->object = serialize($state);
-        $this->game->save();
+        $this->updater->setState($state);
     }
 
     protected function setDiscard($shorthand) {
         $discard = $this->buildCardStackFromShorthand($shorthand);
         $state = $this->state();
         $state->activePlayer()->discard = $discard;
-        $this->game->object = serialize($state);
-        $this->game->save();
+        $this->updater->setState($state);
     }
 
     protected function setOpponentDeck($shorthand) {
         $deck = $this->buildCardStackFromShorthand($shorthand);
         $state = $this->state();
         $state->secondaryPlayer()->deck = $deck;
-        $this->game->object = serialize($state);
-        $this->game->save();
+        $this->updater->setState($state);
     }
 
     private function buildCardStackFromShorthand($shorthand) {
         $stack = [];
-        $cardFactory = new \App\Game\Factories\CardFactory();
         foreach($shorthand as $stub) {
             $parts = explode('@', $stub);
             if (empty($parts[1])) {
@@ -398,14 +303,13 @@ class AcceptanceTestBase extends TestCase
     }
 
     protected function state() {
-        return unserialize($this->game->object);
+        return $this->updater->state();
     }
 
     protected function setKingdomCards($kingdom) {
         $state = $this->state();
         $state->kingdomCards = $kingdom;
-        $this->game->object = serialize($state);
-        $this->game->save();
+        $this->updater->setState($state);
     }
 
     protected function assertTotalNumberOfCardsForOpponent($amount) {
@@ -455,5 +359,52 @@ class AcceptanceTestBase extends TestCase
         }
 
         $this->assertEquals($isTrue, true);
+    }
+
+    protected function assertNextStep($step) {
+        $nextStep = $this->state()->activePlayer()->getNextStep();
+        $nextStep = explode('/', $nextStep)[1];
+        $this->assertEquals($nextStep, $step);
+    }
+
+    protected function assertOpponentRevealedSize($size) {
+        $player = $this->state()->secondaryPlayer();
+        $this->assertEquals(count($player->revealed), $size);
+    }
+
+    protected function setActivePlayerStartingCards($player) {
+        $player->deck = [
+            CardFactory::build('estate'),
+            CardFactory::build('estate'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper')
+        ];
+        $player->hand = [
+            CardFactory::build('estate'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper')
+        ];
+        return $player;
+    }
+
+    protected function setSecondaryPlayerStartingCards($player) {
+        $player->deck = [
+            CardFactory::build('estate'),
+            CardFactory::build('estate'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper')
+        ];
+        $player->hand = [
+            CardFactory::build('estate'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper'),
+            CardFactory::build('copper')
+        ];
+        return $player;
     }
 }

@@ -2,7 +2,9 @@
 
 namespace Tests\Acceptance\Game\Cards;
 
-class SpyTest extends CardTestBase
+use Tests\Acceptance\AcceptanceTestBase;
+
+class SpyTest extends AcceptanceTestBase
 {
     public function testSpy() {
         $this->buildGame();

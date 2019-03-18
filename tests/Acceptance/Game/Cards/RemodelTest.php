@@ -2,7 +2,9 @@
 
 namespace Tests\Acceptance\Game\Cards;
 
-class RemodelTest extends CardTestBase
+use Tests\Acceptance\AcceptanceTestBase;
+
+class RemodelTest extends AcceptanceTestBase
 {
     public function testRemodel()
     {

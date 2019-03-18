@@ -2,7 +2,9 @@
 
 namespace Tests\Acceptance\Game\Cards;
 
-class CouncilRoomTest extends CardTestBase
+use Tests\Acceptance\AcceptanceTestBase;
+
+class CouncilRoomTest extends AcceptanceTestBase
 {
     public function testCouncilRoom() {
         $this->buildGame();

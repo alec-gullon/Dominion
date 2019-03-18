@@ -9,7 +9,7 @@ class RemodelTest extends AcceptanceTestBase {
     public function testTrashesEstateIfPossible() {
         $this->buildGameWithAI();
         $this->setOpponentHand(['remodel', 'estate', 'copper@3']);
-        $this->postUpdate('end-turn');
+        $this->update('end-turn');
 
         $this->assertTurnNumber(3);
         $this->assertTrashSize(1);
@@ -33,7 +33,7 @@ class RemodelTest extends AcceptanceTestBase {
         ];
         $this->setKingdomCards($kingdom);
         $this->setOpponentHand(['remodel', 'estate', 'copper@3']);
-        $this->postUpdate('end-turn');
+        $this->update('end-turn');
 
         $this->assertTurnNumber(3);
         $this->assertTrashSize(1);

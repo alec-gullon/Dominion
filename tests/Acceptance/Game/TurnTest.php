@@ -11,8 +11,8 @@ class TurnTest extends AcceptanceTestBase
         $this->buildGame();
         $this->playTreasure('copper');
         $this->playTreasure('copper');
-        $this->postUpdate('buy', 'estate');
-        $this->postUpdate('end-turn');
+        $this->update('buy', 'estate');
+        $this->update('end-turn');
 
         $this->assertTurnNumber(2);
         $this->assertOpponentDeckSize(0);
@@ -32,8 +32,8 @@ class TurnTest extends AcceptanceTestBase
 
         $this->playTreasure('copper');
         $this->playTreasure('copper');
-        $this->postUpdate('buy', 'estate');
-        $this->postUpdate('end-turn');
+        $this->update('buy', 'estate');
+        $this->update('end-turn');
 
         $this->assertGameOver();
     }

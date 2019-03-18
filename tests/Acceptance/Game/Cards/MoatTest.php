@@ -2,7 +2,9 @@
 
 namespace Tests\Acceptance\Game\Cards;
 
-class MoatTest extends CardTestBase
+use Tests\Acceptance\AcceptanceTestBase;
+
+class MoatTest extends AcceptanceTestBase
 {
     public function testMoat() {
         $this->buildGameWithMoat();

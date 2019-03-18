@@ -10,7 +10,7 @@ class LibraryTest extends AcceptanceTestBase {
         $this->buildGameWithAI();
         $this->setOpponentDeck(['village@2', 'copper@3']);
         $this->setOpponentHand(['library', 'estate@4']);
-        $this->postUpdate('end-turn');
+        $this->update('end-turn');
 
         $this->assertNumberOfRemainingCards('silver', 19);
     }
