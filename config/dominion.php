@@ -26,6 +26,7 @@ return [
     ],
     'routes' => [
         'play-treasure' => 'Treasure@playTreasure',
+        'play-all-treasures' => 'Treasure@playAll',
         'end-turn' => 'Turn@endTurn',
         'buy' => 'Buy@buy',
         'advance-to-buy' => 'Buy@advanceToBuy',

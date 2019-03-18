@@ -11,7 +11,7 @@
 <body>
 
 <nav class="nav">
-    <div class="__logo">Dominion</div>
+    <a href="/" class="__logo">Dominion</a>
     <ul class="__links">
         <li class="__link">
             <a href="">About</a>

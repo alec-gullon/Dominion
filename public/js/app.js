@@ -10468,7 +10468,8 @@ var OutboundRouter = function () {
             'endTurn': 'Game@endTurn',
             'playCard': 'Game@playCard',
             'submitChoice': 'Game@submitChoice',
-            'submitChoices': 'Game@submitChoices'
+            'submitChoices': 'Game@submitChoices',
+            'playAllTreasures': 'Game@playAllTreasures'
         };
         this.classMap = {
             'Home': __WEBPACK_IMPORTED_MODULE_0__messages_outbound_Home_js__["a" /* default */],
@@ -10967,6 +10968,16 @@ var Game = function (_OutboundMessage) {
             };
             this.send('/game/update', data);
         }
+    }, {
+        key: 'playAllTreasures',
+        value: function playAllTreasures() {
+            var data = {
+                action: 'play-all-treasures',
+                input: null,
+                guid: window.cookies.get('guid')
+            };
+            this.send('/game/update/', data);
+        }
     }]);
 
     return Game;
@@ -11103,11 +11114,17 @@ function refreshBindings() {
         }
     });
 
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.game-root').find('[data-action="play-all-treasures"]').click(function () {
+        if (sendMessageIfNotBusy(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this))) {
+            new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('playAllTreasures').message();
+        }
+    });
+
     __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.game-root').find('.__kingdom-card-name').mousemove(function (event) {
         var description = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).siblings('.__kingdom-card-description');
         description.show();
         description.css('left', event.pageX + 5);
-        description.css('top', event.pageY + 5);
+        description.css('top', event.pageY + 5 - __WEBPACK_IMPORTED_MODULE_0_jquery___default()(document).scrollTop());
     });
 
     __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.game-root').find('.__kingdom-card-name').mouseleave(function () {
@@ -11119,7 +11136,7 @@ function refreshBindings() {
         var description = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).siblings('.__common-card-description');
         description.show();
         description.css('left', event.pageX + 5);
-        description.css('top', event.pageY + 5);
+        description.css('top', event.pageY + 5 - __WEBPACK_IMPORTED_MODULE_0_jquery___default()(document).scrollTop());
     });
 
     __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.common-card').find('.__letter').mouseleave(function () {

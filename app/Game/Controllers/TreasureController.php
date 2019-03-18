@@ -20,4 +20,13 @@ class TreasureController extends StateController {
         $this->state->phase = 'buy';
     }
 
+    /**
+     * Updates the state when a player has opted to play all the treasure cards that they have in
+     * their hand
+     */
+    public function playAll() {
+        $this->playCardsOfType('treasure');
+        $this->state->phase = 'buy';
+    }
+
 }

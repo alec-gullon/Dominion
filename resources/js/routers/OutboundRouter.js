@@ -19,7 +19,8 @@ export default class OutboundRouter {
             'endTurn': 'Game@endTurn',
             'playCard': 'Game@playCard',
             'submitChoice': 'Game@submitChoice',
-            'submitChoices': 'Game@submitChoices'
+            'submitChoices': 'Game@submitChoices',
+            'playAllTreasures': 'Game@playAllTreasures'
         };
         this.classMap = {
             'Home': Home,

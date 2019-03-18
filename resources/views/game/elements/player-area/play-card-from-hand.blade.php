@@ -8,7 +8,9 @@
 
     <h2 class="__player-area-title">Or alternatively:</h2>
     <div class="__player-area-options">
-        <div class="__player-area-option game-button --white --highlighted">Play all treasures</div>
+        @if ($player->hasCardsOfType('treasure'))
+            <div class="__player-area-option game-button --white --highlighted" data-action="play-all-treasures">Play all treasures</div>
+        @endif
         <div class="__player-area-option game-button --white --highlighted" data-action="end-turn">End turn</div>
     </div>
 @endif

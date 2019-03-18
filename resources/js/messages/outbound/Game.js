@@ -109,4 +109,13 @@ export default class Game extends OutboundMessage {
         this.send('/game/update', data);
     }
 
+    playAllTreasures() {
+        let data = {
+            action: 'play-all-treasures',
+            input: null,
+            guid: window.cookies.get('guid')
+        }
+        this.send('/game/update/', data);
+    }
+
 }

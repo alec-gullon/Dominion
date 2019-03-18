@@ -31,13 +31,24 @@ class TreasureTest extends AcceptanceTestBase
 
         $this->playTreasure('gold');
 
-
-
         $this->assertNumberOfCoins(6);
         $this->assertHandSize(0);
         $this->assertPhase('buy');
         $this->assertLogContains([
             'Alec plays a Gold'
+        ]);
+    }
+
+    public function testPlayAllTreasures() {
+        $this->buildGame();
+
+        $this->postUpdate('play-all-treasures');
+
+        $this->assertHandSize(1);
+        $this->assertNumberOfCoins(4);
+
+        $this->assertLogContains([
+            'Alec plays four Coppers'
         ]);
     }
 }

@@ -104,6 +104,15 @@ class StateController {
     }
 
     /**
+     * Plays all the cards of a particular type from the player's hand
+     *
+     * @param   string      $type
+     */
+    protected function playCardsOfType($type) {
+        $this->effect('PlayAllOfType', compact('type'));
+    }
+
+    /**
      * Adds the $amount of actions to the active player's current total
      *
      * @param   int         $amount

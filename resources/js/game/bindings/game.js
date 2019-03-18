@@ -45,11 +45,17 @@ export default function refreshBindings() {
         }
     });
 
+    $('.game-root').find('[data-action="play-all-treasures"]').click(function() {
+        if (sendMessageIfNotBusy($(this))) {
+            new OutboundRouter('playAllTreasures').message();
+        }
+    });
+
     $('.game-root').find('.__kingdom-card-name').mousemove(function(event) {
         let description = $(this).siblings('.__kingdom-card-description');
         description.show();
         description.css('left', event.pageX+5);
-        description.css('top', event.pageY+5);
+        description.css('top', event.pageY+5-$(document).scrollTop());
     });
 
     $('.game-root').find('.__kingdom-card-name').mouseleave(function() {
@@ -61,7 +67,7 @@ export default function refreshBindings() {
         let description = $(this).siblings('.__common-card-description');
         description.show();
         description.css('left', event.pageX+5);
-        description.css('top', event.pageY+5);
+        description.css('top', event.pageY+5-$(document).scrollTop());
     });
 
     $('.common-card').find('.__letter').mouseleave(function() {
