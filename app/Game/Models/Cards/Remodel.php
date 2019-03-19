@@ -17,6 +17,10 @@ class Remodel extends Card {
         'action'
     ];
 
+    public $features = [
+        'terminal'
+    ];
+
     /**
      * What value of card the player may gain after they have trashed a card from their hand
      *

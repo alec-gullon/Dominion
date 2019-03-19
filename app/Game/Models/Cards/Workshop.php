@@ -17,4 +17,8 @@ class Workshop extends Card {
         'action'
     ];
 
+    public $features = [
+        'terminal'
+    ];
+
 }

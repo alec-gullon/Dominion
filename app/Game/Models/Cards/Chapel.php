@@ -17,4 +17,8 @@ class Chapel extends Card {
         'action'
     ];
 
+    public $features = [
+        'terminal'
+    ];
+
 }

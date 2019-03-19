@@ -18,4 +18,8 @@ class Witch extends Card {
         'attack'
     ];
 
+    public $features = [
+        'terminal'
+    ];
+
 }

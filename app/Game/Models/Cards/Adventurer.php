@@ -17,4 +17,8 @@ class Adventurer extends Card {
         'action'
     ];
 
+    public $features = [
+        'terminal'
+    ];
+
 }

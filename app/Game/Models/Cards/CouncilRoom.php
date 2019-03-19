@@ -17,4 +17,8 @@ class CouncilRoom extends Card {
         'action'
     ];
 
+    public $features = [
+        'terminal'
+    ];
+
 }

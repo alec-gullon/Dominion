@@ -20,18 +20,10 @@ class TreasureStrategy {
     }
 
     public function decision() {
-        $input = $this->decideWhatTreasureCardToPlay();
         return [
-            'action' => 'play-treasure',
-            'input' => $input
+            'action' => 'play-all-treasures',
+            'input' => null
         ];
     }
-
-    private function decideWhatTreasureCardToPlay() {
-        $treasureCards = $this->state->activePlayer()->getCardsOfType('hand', 'treasure');
-        return $treasureCards[0]->stub;
-    }
-
-
 
 }

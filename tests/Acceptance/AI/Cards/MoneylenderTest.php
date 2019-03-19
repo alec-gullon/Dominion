@@ -11,7 +11,7 @@ class MoneylenderTest extends AcceptanceTestBase {
         $this->setOpponentHand(['moneylender', 'copper@2']);
         $this->update('end-turn');
 
-        $this->assertOpponentsNumberOfRemainingCards('silver', 1);
+        $this->assertOpponentsNumberOfRemainingCards('village', 1);
     }
 
     public function testResolvesIfDoesNotHaveCopper() {
@@ -19,7 +19,7 @@ class MoneylenderTest extends AcceptanceTestBase {
         $this->setOpponentHand(['moneylender', 'silver@2']);
         $this->update('end-turn');
 
-        $this->assertOpponentsNumberOfRemainingCards('silver', 3);
+        $this->assertOpponentsNumberOfRemainingCards('village', 1);
     }
 
 }

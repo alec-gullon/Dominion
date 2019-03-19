@@ -18,4 +18,8 @@ class Militia extends Card {
         'attack'
     ];
 
+    public $features = [
+        'terminal'
+    ];
+
 }

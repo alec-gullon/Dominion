@@ -18,4 +18,8 @@ class Bureaucrat extends Card {
         'attack'
     ];
 
+    public $features = [
+        'terminal'
+    ];
+
 }

@@ -17,4 +17,8 @@ class Festival extends Card {
         'action'
     ];
 
+    public $features = [
+        'increasesActions'
+    ];
+
 }

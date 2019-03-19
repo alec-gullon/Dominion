@@ -17,4 +17,8 @@ class ThroneRoom extends Card {
         'action'
     ];
 
+    public $features = [
+        'terminal'
+    ];
+
 }

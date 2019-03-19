@@ -17,4 +17,8 @@ class Moat extends Card {
         'action'
     ];
 
+    public $features = [
+        'terminal'
+    ];
+
 }

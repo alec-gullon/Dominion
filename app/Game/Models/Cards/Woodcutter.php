@@ -17,4 +17,8 @@ class Woodcutter extends Card {
         'action'
     ];
 
+    public $features = [
+        'terminal'
+    ];
+
 }

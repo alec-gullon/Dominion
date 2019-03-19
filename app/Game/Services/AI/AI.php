@@ -47,7 +47,7 @@ class AI {
         foreach ($this->checklist as $strategy) {
             $strategyClassAlias = '\App\Game\Services\AI\Strategies\\' . $strategy;
             $strategy = new $strategyClassAlias($this->state);
-            if ($strategy->isRequired()) {
+            if ($strategy->isRequired() && $strategy->decision() !== null) {
                 return $strategy->decision();
             }
         }

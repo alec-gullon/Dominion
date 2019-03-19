@@ -17,6 +17,10 @@ class Mine extends Card {
         'action'
     ];
 
+    public $features = [
+        'terminal'
+    ];
+
     /**
      * What value of treasure the player can gain after they have trashed a card
      * from their hand

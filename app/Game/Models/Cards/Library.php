@@ -25,4 +25,8 @@ class Library extends Card {
      */
     public $numberOfCardsDrawn = 0;
 
+    public $features = [
+        'terminal'
+    ];
+
 }

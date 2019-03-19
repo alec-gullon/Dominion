@@ -11,7 +11,7 @@ class MineTest extends AcceptanceTestBase {
         $this->setOpponentHand(['mine', 'copper@4']);
         $this->update('end-turn');
 
-        $this->assertOpponentsNumberOfRemainingCards('silver', 2);
+        $this->assertOpponentsNumberOfRemainingCards('village', 1);
     }
 
     public function testSelectsGoldIfTrashingSilver() {

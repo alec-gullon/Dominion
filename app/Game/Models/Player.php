@@ -216,6 +216,18 @@ class Player {
         return $score;
     }
 
+    public function totalCardsWithFeature($feature) {
+        $cards = array_merge($this->hand, $this->played, $this->discard, $this->deck);
+
+        $total = 0;
+        foreach ($cards as $card) {
+            if ($card->hasFeature($feature)) {
+                $total++;
+            }
+        }
+        return $total;
+    }
+
     /**
      * Shuffles the player's deck
      */

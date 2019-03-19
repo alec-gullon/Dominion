@@ -17,4 +17,8 @@ class Chancellor extends Card {
         'action'
     ];
 
+    public $features = [
+        'terminal'
+    ];
+
 }

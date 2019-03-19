@@ -17,4 +17,8 @@ class Smithy extends Card {
         'action'
     ];
 
+    public $features = [
+        'terminal'
+    ];
+
 }

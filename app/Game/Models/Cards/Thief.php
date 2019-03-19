@@ -26,4 +26,8 @@ class Thief extends Card {
      */
     public $trashedCard;
 
+    public $features = [
+        'terminal'
+    ];
+
 }

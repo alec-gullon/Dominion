@@ -17,4 +17,8 @@ class Feast extends Card {
         'action'
     ];
 
+    public $features = [
+        'terminal'
+    ];
+
 }
