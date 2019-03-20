@@ -8,7 +8,7 @@
 ?>
 
 @if (isset($cards[$stub]))
-    <div class="common-card @if ($isActive) highlighted @endif {{ $type }}">
+    <div class="common-card @if ($isActive) highlighted @endif {{ $type }}" data-test="common-card">
         @if ($isActive)
             <div    class="letter"
                     data-action="buy-card"

@@ -3,7 +3,9 @@
     <div class="militia-discard-options">
         <div class="player-area-options">
             @foreach ($state->secondaryPlayer()->hand as $card)
-                <div class="player-area-checkbox button-checkbox">
+                <div    class="player-area-checkbox button-checkbox"
+                        data-test="player-area-checkbox"
+                >
                     <label  class="label">
                         <input  class="input"
                                 type="checkbox"
@@ -24,5 +26,5 @@
         </div>
     </div>
 @else
-    {{ $state->activePlayer()->name }} is selecting cards to discard
+    {{ $state->secondaryPlayer()->name }} is selecting cards to discard
 @endif

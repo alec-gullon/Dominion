@@ -3,6 +3,7 @@
 namespace Tests\Acceptance;
 
 use App\Game\Factories\CardFactory;
+use App\Services\GameObserver;
 
 use Tests\TestCase;
 
@@ -95,6 +96,22 @@ class AcceptanceTestBase extends TestCase
 
         $this->updater = resolve('App\Game\Services\Updater');
         $this->updater->setState($state);
+    }
+
+    public function buildView($isSecondary = false) {
+        $guid = 'alec';
+        if ($isSecondary) {
+            $guid = 'lucy';
+        }
+
+        $state = $this->updater->state();
+        return view('game.index', [
+            'state' => $state,
+            'gameObserver' => new GameObserver($state),
+            'playerKey' => $guid,
+            'activePlayer' => !$isSecondary,
+            'player' => $state->getPlayerById($guid)
+        ])->render();
     }
 
     protected function playVirtualCard($card) {
@@ -403,5 +420,9 @@ class AcceptanceTestBase extends TestCase
             CardFactory::build('copper')
         ];
         return $player;
+    }
+
+    protected function assertTestStringOccursNTimes($needle, $haystack, $n) {
+        $this->assertEquals($n, substr_count($haystack, 'data-test="' . $needle . '"'));
     }
 }

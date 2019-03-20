@@ -1,6 +1,8 @@
 <div class="player-area-options">
     @foreach ($cards as $card)
-        <div class="player-area-checkbox button-checkbox">
+        <div    class="player-area-checkbox button-checkbox"
+                data-test="player-area-checkbox"
+        >
             <label  class="label">
                 <input  class="input"
                         type="checkbox"

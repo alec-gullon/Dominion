@@ -1,9 +1,9 @@
 <?php
-    $trashedCard = App\Game\Factories\CardFactory::build($player->unresolvedCard()->stub);
+    $trashedCard = App\Game\Factories\CardFactory::build($state->activePlayer()->unresolvedCard()->trashedCard);
 ?>
 
 @if ($activePlayer)
-    @include('game.cards.actions.elements.yes-no-response', ['question' => 'Do you want to gain the trashed' . $trashedCard->name])
+    @include('game.cards.actions.elements.yes-no-response', ['question' => 'Do you want to gain the trashed ' . $trashedCard->name . '?'])
 @else
-    {{ $player->name }} is deciding whether or not to gain the trashed card (a {{ $trashedCard->name }}).
+    Alec is deciding whether or not to gain the trashed {{ $trashedCard->name }}
 @endif

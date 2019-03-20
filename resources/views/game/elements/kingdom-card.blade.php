@@ -1,4 +1,4 @@
-<div class="kingdom-card">
+<div class="kingdom-card" data-test="kingdom-card">
     @if (App\Game\Helpers\ViewHelper::isKingdomCardActive($card, $state))
         <div class="kingdom-card-name game-button highlighted"
              data-action="buy-card"
