@@ -52,6 +52,22 @@ class BureaucratTest extends AcceptanceTestBase
         ]);
     }
 
+    public function testWithMoatRevealWhenNoMoat() {
+        $this->buildGameWithMoat();
+        $this->setHand(['bureaucrat', 'copper@4']);
+        $this->setOpponentHand(['copper@5']);
+        $this->playCard('bureaucrat');
+
+        $this->provideInput(true);
+        $this->assertDeckSize(6);
+        $this->assertOpponentHandSize(5);
+        $this->assertOpponentHandSize(5);
+
+        $this->assertLogDoesNotContain([
+            '.. Lucy reveals a Moat'
+        ]);
+    }
+
     public function testNoSilversInKingdom() {
         $this->buildGameWithMoat();
         $this->setNumberOfCardsRemaining('silver', 0);

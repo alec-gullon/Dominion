@@ -31,7 +31,10 @@ class CardStrategy {
      * @return bool
      */
     public function resolveMoat() {
-        return true;
+        if ($this->state->secondaryPlayer()->hasCard('moat')) {
+            return true;
+        }
+        return false;
     }
 
     protected function activePlayer() {

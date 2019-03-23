@@ -23,6 +23,13 @@ class ActionValidator {
         $this->state = $state;
     }
 
+    public function resolveMoat($input) {
+        if ($input === true) {
+            return $this->state->activePlayer()->hasCard('moat');
+        }
+        return true;
+    }
+
     /**
      * Small helper method that provides access to the helper method on CardsHelper without requiring
      * dozens of use statements
