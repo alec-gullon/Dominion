@@ -7,8 +7,12 @@
 html, body {
   height: 100%;
 }
+body {
+  display: flex;
+  flex-direction: column;
+}
 #root {
-  height: 100%;
+  flex-grow: 1;
 }
 .root-loader {
   height: 80%;

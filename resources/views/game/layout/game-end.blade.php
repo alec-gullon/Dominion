@@ -1,11 +1,11 @@
 @php
     $players = $state->players;
 
-    $winner = $players[0];
-    $loser = $players[1];
-    if ($players[1]->score() > $players[0]->score()) {
-        $winner = $players[1];
-        $loser = $players[0];
+    $winner = $players[1];
+    $loser = $players[0];
+    if ($players[0]->score() > $players[1]->score()) {
+        $winner = $players[0];
+        $loser = $players[1];
     }
 
     $heading = 'Congratulations, you are the winner!';

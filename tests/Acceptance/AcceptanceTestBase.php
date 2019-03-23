@@ -10,7 +10,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AcceptanceTestBase extends TestCase
 {
-    use RefreshDatabase;
 
     const KINGDOM_CARDS = [
         'copper' => 30,

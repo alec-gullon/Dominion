@@ -13,19 +13,30 @@ class PlayStrategy {
     }
 
     public function isRequired() {
-        return ($this->state->actions > 0 && $this->state->activePlayer()->hasCardsOfType('action'));
+        return ($this->state->phase === 'action');
     }
 
     public function decision() {
         $input = $this->decideWhatActionCardToPlay();
+
+        $action = 'play-card';
+        if ($input === null) {
+            $action = 'advance-to-buy';
+        }
+
         return [
-            'action' => 'play-card',
+            'action' => $action,
             'input' => $input
         ];
     }
 
     private function decideWhatActionCardToPlay() {
         $handCards = $this->state->activePlayer()->getCardsOfType('hand', 'action');
+
+        if (count($handCards) === 0 || $this->state->actions === 0) {
+            return null;
+        }
+
         foreach ($handCards as $card) {
             if ($card->hasFeature('increasesActions')) {
                 return $card->stub;

@@ -81,41 +81,53 @@ class BuyStrategy {
     private function selectCard() {
 
         $state = $this->state;
-        $player = $state->activePlayer();
 
-        if ($this->state->checkGameOver()) {
+        if ($state->checkGameOver()) {
             $stub = $this->firstCardInArray(self::END_GAME_PRIORITY);
-            if (false !== $stub) {
+            if ($stub) {
                 return $stub;
             }
             return $this->cheapestCard();
         }
 
-        $stub = $this->firstCardInArray(['province', 'gold']);
-        if (false !== $stub) {
-            return $stub;
+        if ($this->shouldBuyProvince()) {
+            return 'province';
+        }
+        if ($this->shouldBuyDuchy()) {
+            return 'duchy';
+        }
+        if ($this->shouldBuyGold()) {
+            return 'gold';
         }
 
-        $numberOfActionIncreasers = $player->totalCardsWithFeature('increasesActions');
-        $numberOfTerminals = $player->totalCardsWithFeature('terminal');
-
-        if ($numberOfActionIncreasers >= $numberOfTerminals) {
-            $stub = $this->firstCardInArray(self::TERMINAL_PRIORITY);
-            if (false !== $stub) {
+        if ($this->shouldBuyActionCard()) {
+            $stub = $this->chooseActionCard();
+            if ($stub) {
                 return $stub;
             }
-        }
+        };
 
-        $stub = $this->firstCardInArray(self::NON_TERMINAL_PRIORITY);
-        if (false !== $stub) {
-            return $stub;
-        }
-
-        if ($this->state->coins >= 3 && $this->state->kingdomCards['silver'] > 0) {
+        if ($this->shouldBuySilver()) {
             return 'silver';
         }
 
         return null;
+    }
+
+    private function chooseActionCard() {
+        $player = $this->state->activePlayer();
+
+        $numberOfActionIncreasers = $player->totalCardsWithFeature('increasesActions');
+        $numberOfTerminals = $player->totalCardsWithFeature('terminal');
+
+        if ($numberOfActionIncreasers >= $numberOfTerminals - 1) {
+            $stub = $this->firstCardInArray(self::TERMINAL_PRIORITY);
+            if ($stub) {
+                return $stub;
+            }
+        }
+
+        return $this->firstCardInArray(self::NON_TERMINAL_PRIORITY);
     }
 
     private function cardExists($stub) {
@@ -150,6 +162,32 @@ class BuyStrategy {
             }
         }
         return $selectedCard->stub;
+    }
+
+    private function shouldBuyProvince() {
+        return ($this->state->coins >= 8
+            && $this->state->turn >= 12
+            && $this->state->hasCard('province')
+        );
+    }
+
+    private function shouldBuyDuchy() {
+        return ($this->state->coins >= 5
+            && $this->state->kingdomCards['province'] <= 2
+            && $this->state->hasCard('duchy')
+        );
+    }
+
+    private function shouldBuyGold() {
+        return ($this->state->coins >= 6 && $this->state->hasCard('gold'));
+    }
+
+    private function shouldBuyActionCard() {
+        return ($this->state->activePlayer()->coinDensity() >= 0.7);
+    }
+
+    private function shouldBuySilver() {
+        return ($this->state->coins >= 3 && $this->state->hasCard('silver'));
     }
 
 }

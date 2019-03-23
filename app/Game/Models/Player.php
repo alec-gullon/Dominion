@@ -228,6 +228,16 @@ class Player {
         return $total;
     }
 
+    public function coinDensity() {
+        $cards = array_merge($this->hand, $this->played, $this->discard, $this->deck);
+
+        $total = 0;
+        foreach ($cards as $card) {
+            $total += $card->denomination;
+        }
+        return $total / count($cards);
+    }
+
     /**
      * Shuffles the player's deck
      */

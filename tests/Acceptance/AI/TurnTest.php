@@ -38,4 +38,12 @@ class TurnTest extends AcceptanceTestBase
         $this->assertOpponentDeckSize(6);
         $this->assertNumberOfRemainingCards('curse', 9);
     }
+
+    public function testAIAdvancesToBuyStageIfItHasNoTreasuresToPlay() {
+        $this->buildGameWithAI();
+        $this->setOpponentHand(['woodcutter@2']);
+        $this->update('end-turn');
+
+        $this->assertNumberOfRemainingCards('village', 9);
+    }
 }

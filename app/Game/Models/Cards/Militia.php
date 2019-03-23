@@ -7,7 +7,7 @@ namespace App\Game\Models\Cards;
  */
 class Militia extends Card {
 
-    public $value = 3;
+    public $value = 4;
 
     public $stub = 'militia';
 

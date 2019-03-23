@@ -22,7 +22,7 @@ class Log {
      *
      * @var array
      */
-    private $entries = [];
+    public $entries = [];
 
     /**
      * The turn that new entries should be recorded against
@@ -33,10 +33,6 @@ class Log {
 
     public function __construct() {
         $this->setCurrentTurn(1);
-    }
-
-    public function entries() {
-        return $this->entries;
     }
 
     public function currentTurn() {
@@ -76,6 +72,32 @@ class Log {
             }
         }
         return $flattenedEntries;
+    }
+
+    public function reversedEntries() {
+        $reversedEntries = [];
+        foreach ($this->entries as $turn => $turnEntries) {
+            $reversedEntries[$turn] = $this->reverseTurnEntries($turnEntries);
+        }
+        return $reversedEntries;
+    }
+
+    private function reverseTurnEntries($turnEntries) {
+        $newEntries = [];
+
+        $groupedEntry = [];
+        foreach ($turnEntries as $turnEntry) {
+            if (strpos($turnEntry, '.. ') === false) {
+                $newEntries = array_merge($groupedEntry, $newEntries);
+                $groupedEntry = [];
+            }
+            $groupedEntry[] = $turnEntry;
+        }
+        if (!empty($groupedEntry)) {
+            $newEntries = array_merge($groupedEntry, $newEntries);
+        }
+
+        return $newEntries;
     }
 
 }
