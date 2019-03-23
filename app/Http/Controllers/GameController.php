@@ -64,7 +64,10 @@ class GameController extends Controller {
         $game = $user->game;
 
         $updater->setState(unserialize($game->object));
-        $updater->update($request->input('action'), $request->input('input'));
+        $updater->update(
+            $request->input('action'),
+            $this->filterInput($request->input('input'))
+        );
         $updater->resolve();
 
         $game->object = serialize($updater->state());
@@ -73,6 +76,13 @@ class GameController extends Controller {
 
         return $this->gameRenderer->renderGameForPlayer($game, $user);
 //        return $this->gameRenderer->renderGameForBothPlayers($game);
+    }
+
+    private function filterInput($input) {
+        if ($input === 'true' || $input === 'false') {
+            return ($input === 'true');
+        }
+        return $input;
     }
 
 }
