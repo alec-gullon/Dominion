@@ -10596,7 +10596,7 @@ var AjaxRouter = function () {
     _createClass(AjaxRouter, [{
         key: 'send',
         value: function send(route, data) {
-            __WEBPACK_IMPORTED_MODULE_0_jquery___default.a.post('http://localhost:8000/' + route, data, function (data) {
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default.a.post(window.baseUrl + '/' + route, data, function (data) {
                 new __WEBPACK_IMPORTED_MODULE_1__routers_InboundRouter_js__["a" /* default */](data.action, data).respond();
             });
         }
@@ -10806,12 +10806,12 @@ var Home = function (_OutboundMessage) {
         key: 'refresh',
         value: function refresh() {
             if (window.cookies.get('guid') === null) {
-                this.send('user/get-name-form/', {});
+                this.send('user/get-name-form', {});
             } else {
                 var data = {
                     guid: window.cookies.get('guid')
                 };
-                this.send('user/refresh-page/', data);
+                this.send('user/refresh-page', data);
             }
         }
     }]);
@@ -10860,7 +10860,7 @@ var Game = function (_OutboundMessage) {
             var data = {
                 guid: window.cookies.get('guid')
             };
-            this.send('/game/create/', data);
+            this.send('/game/create', data);
         }
     }, {
         key: 'createAIGame',
@@ -10868,13 +10868,13 @@ var Game = function (_OutboundMessage) {
             var data = {
                 guid: window.cookies.get('guid')
             };
-            this.send('game/create-ai-game/', data);
+            this.send('game/create-ai-game', data);
         }
     }, {
         key: 'joinIfPossible',
         value: function joinIfPossible() {
             if (window.cookies.get('guid') === null) {
-                this.send('/user/get-name-form/', {});
+                this.send('/user/get-name-form', {});
             } else {
                 this.join();
             }
@@ -10887,7 +10887,7 @@ var Game = function (_OutboundMessage) {
                 gameHash: window.dominion.gameHash,
                 setGuid: true
             };
-            this.send('/user/join-game/', data);
+            this.send('/user/join-game', data);
         }
     }, {
         key: 'submitNameThenJoin',
@@ -10896,7 +10896,7 @@ var Game = function (_OutboundMessage) {
                 name: __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#submit-name--name').val(),
                 responseAction: 'joinGameAfterSettingName'
             };
-            this.send('/user/set-name/', data);
+            this.send('/user/set-name', data);
         }
     }, {
         key: 'playTreasure',
@@ -10906,7 +10906,7 @@ var Game = function (_OutboundMessage) {
                 input: treasureStub,
                 guid: window.cookies.get('guid')
             };
-            this.send('/game/update/', data);
+            this.send('/game/update', data);
         }
     }, {
         key: 'buyCard',
@@ -10916,7 +10916,7 @@ var Game = function (_OutboundMessage) {
                 input: cardStub,
                 guid: window.cookies.get('guid')
             };
-            this.send('/game/update/', data);
+            this.send('/game/update', data);
         }
     }, {
         key: 'endTurn',
@@ -10936,7 +10936,7 @@ var Game = function (_OutboundMessage) {
                 input: cardStub,
                 guid: window.cookies.get('guid')
             };
-            this.send('/game/update/', data);
+            this.send('/game/update', data);
         }
     }, {
         key: 'provideInput',
@@ -10946,7 +10946,7 @@ var Game = function (_OutboundMessage) {
                 input: input,
                 guid: window.cookies.get('guid')
             };
-            this.send('/game/update/', data);
+            this.send('/game/update', data);
         }
     }, {
         key: 'submitChoice',
@@ -10956,7 +10956,7 @@ var Game = function (_OutboundMessage) {
                 input: input,
                 guid: window.cookies.get('guid')
             };
-            this.send('/game/update/', data);
+            this.send('/game/update', data);
         }
     }, {
         key: 'submitChoices',
@@ -10976,7 +10976,7 @@ var Game = function (_OutboundMessage) {
                 input: null,
                 guid: window.cookies.get('guid')
             };
-            this.send('/game/update/', data);
+            this.send('/game/update', data);
         }
     }]);
 
@@ -11020,7 +11020,7 @@ var User = function (_OutboundMessage) {
                 name: __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#submit-name--name').val(),
                 responseAction: 'setGuid'
             };
-            this.send('/user/set-name/', data);
+            this.send('/user/set-name', data);
         }
     }, {
         key: 'submitNameThenJoin',
@@ -11029,7 +11029,7 @@ var User = function (_OutboundMessage) {
                 name: __WEBPACK_IMPORTED_MODULE_0_jquery___default()('#submit-name--name').val(),
                 responseAction: 'joinGameAfterSettingName'
             };
-            this.send('/user/set-name/', data);
+            this.send('/user/set-name', data);
         }
     }]);
 
@@ -11105,7 +11105,7 @@ function refreshBindings() {
     __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.game-root').find('[data-action="submit-choices"]').click(function () {
         if (sendMessageIfNotBusy(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this))) {
             var choices = [];
-            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).parent().find('.__input').each(function () {
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).parent().parent().find('.__input').each(function () {
                 if (__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).prop('checked')) {
                     choices.push(__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).data('option'));
                 }
@@ -11142,6 +11142,28 @@ function refreshBindings() {
     __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.common-card').find('.__letter').mouseleave(function () {
         var description = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).siblings('.__common-card-description');
         description.hide();
+    });
+
+    __WEBPACK_IMPORTED_MODULE_0_jquery___default()('.game-root').find('.militia-discard-options').each(function () {
+        var militiaDiscardOptions = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this);
+        var submit = __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).find('[data-action="submit-choices"]');
+
+        __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).find('.__input').each(function () {
+            __WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).click(function () {
+                var uncheckedOptions = 0;
+                militiaDiscardOptions.find('.__input').each(function () {
+                    if (!__WEBPACK_IMPORTED_MODULE_0_jquery___default()(this).is(':checked')) {
+                        uncheckedOptions++;
+                    }
+                });
+
+                if (uncheckedOptions === 3) {
+                    submit.show();
+                } else {
+                    submit.hide();
+                }
+            });
+        });
     });
 }
 
@@ -11189,7 +11211,7 @@ var User = function () {
 
             new __WEBPACK_IMPORTED_MODULE_1__routers_OutboundRouter_js__["a" /* default */]('joinGame').message();
             setTimeout(function () {
-                window.location.path = 'http://localhost:8000';
+                window.location.path = window.baseUrl;
             }, 1000);
         }
     }]);

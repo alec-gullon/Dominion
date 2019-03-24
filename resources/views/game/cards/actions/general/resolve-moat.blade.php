@@ -1,7 +1,7 @@
 @if (!$activePlayer)
     <h2 class="__player-area-title">Do you reveal a Moat?</h2>
     <div class="__player-area-options">
-        @if ($state->activePlayer()->hasCard('moat'))
+        @if ($state->secondaryPlayer()->hasCard('moat'))
             <div    class="__player-area-option game-button --highlighted"
                     data-action="select-option"
                     data-option="true"

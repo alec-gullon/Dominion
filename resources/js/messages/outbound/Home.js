@@ -4,12 +4,12 @@ export default class Home extends OutboundMessage {
 
     refresh() {
         if (window.cookies.get('guid') === null) {
-            this.send('user/get-name-form/', {});
+            this.send('user/get-name-form', {});
         } else {
             let data =  {
                 guid: window.cookies.get('guid')
             };
-            this.send('user/refresh-page/', data);
+            this.send('user/refresh-page', data);
         }
     }
 

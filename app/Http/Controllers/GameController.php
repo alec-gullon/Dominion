@@ -64,6 +64,7 @@ class GameController extends Controller {
         $game = $user->game;
 
         $updater->setState(unserialize($game->object));
+
         $updater->update(
             $request->input('action'),
             $this->filterInput($request->input('input'))

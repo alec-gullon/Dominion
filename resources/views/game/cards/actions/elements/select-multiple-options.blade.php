@@ -10,6 +10,8 @@
             </label>
         </div>
     @endforeach
+</div>
+<div class="__player-area-options">
     <div    class="__player-area-option game-button --highlighted"
             data-action="submit-choices"
     >

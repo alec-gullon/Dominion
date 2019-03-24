@@ -36,7 +36,7 @@ export default function refreshBindings() {
     $('.game-root').find('[data-action="submit-choices"]').click(function() {
         if (sendMessageIfNotBusy($(this))) {
             let choices = [];
-            $(this).parent().find('.__input').each(function() {
+            $(this).parent().parent().find('.__input').each(function() {
                 if ($(this).prop('checked')) {
                     choices.push($(this).data('option'));
                 }
@@ -73,6 +73,28 @@ export default function refreshBindings() {
     $('.common-card').find('.__letter').mouseleave(function() {
         let description = $(this).siblings('.__common-card-description');
         description.hide();
+    });
+
+    $('.game-root').find('.militia-discard-options').each(function() {
+        let militiaDiscardOptions = $(this);
+        let submit = $(this).find('[data-action="submit-choices"]');
+
+        $(this).find('.__input').each(function() {
+            $(this).click(function() {
+                let uncheckedOptions = 0;
+                militiaDiscardOptions.find('.__input').each(function() {
+                    if (!$(this).is(':checked')) {
+                        uncheckedOptions++;
+                    }
+                });
+
+                if (uncheckedOptions === 3) {
+                    submit.show();
+                } else {
+                    submit.hide();
+                }
+            });
+        });
     });
 
 }

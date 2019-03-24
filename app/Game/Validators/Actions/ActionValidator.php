@@ -25,7 +25,7 @@ class ActionValidator {
 
     public function resolveMoat($input) {
         if ($input === true) {
-            return $this->state->activePlayer()->hasCard('moat');
+            return $this->state->secondaryPlayer()->hasCard('moat');
         }
         return true;
     }

@@ -15,10 +15,12 @@
             </div>
         </div>
     </div>
+
     <script>
         window.dominion = {};
         window.dominion.route = '{{ Route::currentRouteName() }}';
         window.dominion.messageInProgress = false;
+        window.baseUrl = '<?= env('APP_URL') ?>';
     </script>
     <script src="/js/app.js"></script>
 

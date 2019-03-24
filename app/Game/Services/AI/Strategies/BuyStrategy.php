@@ -44,7 +44,9 @@ class BuyStrategy {
         'festival',
         'laboratory',
         'market',
-        'village'
+        'village',
+        'cellar',
+        'spy'
     ];
 
     public function __construct(State $state) {
@@ -100,7 +102,7 @@ class BuyStrategy {
             return 'gold';
         }
 
-        if ($this->shouldBuyActionCard()) {
+        if ($this->shouldBuyActionCardCostingMoreThanTwo()) {
             $stub = $this->chooseActionCard();
             if ($stub) {
                 return $stub;
@@ -109,6 +111,11 @@ class BuyStrategy {
 
         if ($this->shouldBuySilver()) {
             return 'silver';
+        }
+
+        $stub = $this->chooseActionCard();
+        if ($stub) {
+            return $stub;
         }
 
         return null;
@@ -182,7 +189,7 @@ class BuyStrategy {
         return ($this->state->coins >= 6 && $this->state->hasCard('gold'));
     }
 
-    private function shouldBuyActionCard() {
+    private function shouldBuyActionCardCostingMoreThanTwo() {
         return ($this->state->activePlayer()->coinDensity() >= 0.7);
     }
 

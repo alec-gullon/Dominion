@@ -113,8 +113,6 @@ class Updater {
             $method = $this->router->nextMethod();
         }
 
-
-
         if ($validator !== null && method_exists($validator, $method)) {
             return $validator->{$method}($input);
         }
