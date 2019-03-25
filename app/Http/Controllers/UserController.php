@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Renderers\GameRenderer;
-use App\Models\User as UserModel;
+use App\Models\User;
 use App\Models\Game;
 use App\Game\Services\Setup\SetsUpTwoPlayerGame;
 
@@ -19,30 +19,36 @@ class UserController extends Controller {
         $this->gameRenderer = $gameRenderer;
     }
 
-    /**
-     * Take the given id and check that a user corresponding to that guid exists in the database.
-     */
     public function validateId(Request $request) {
         $guid = $request->input('guid');
-        $user = UserModel::where('guid', $guid);
-        $userExists = (count($user) === 0);
-        return response()->json(['userExists' => $userExists]);
+        $user = User::where('guid', $guid)->get();
+        return response()->json([
+            'valid' => (count($user) === 1)
+        ]);
     }
 
     /**
      * Take the provided name and generate a user with this name and assign it to a guid. Then return this guid to the
      * front end so that the client has an identity.
+     *
+     * @param   mixed $request
+     *
+     * @return  string
+     *
+     * @throws \Throwable
      */
     public function setName(Request $request) {
-        $user = new UserModel();
-        $guid = uniqid();
+        $user = new User();
 
         $user->name = $request->input('name');
-        $user->guid = $guid;
+        $user->guid = uniqid();
         $user->game_id = 0;
         $user->save();
 
-        $view = view('player.lobby')->with(['name' => $user->name])->render();
+        $view = view('player.lobby')->with([
+            'name' => $user->name
+        ])->render();
+
         return response()->json([
             'view' => $view,
             'action' => 'setGuid',
@@ -56,7 +62,7 @@ class UserController extends Controller {
     public function refreshPage(Request $request) {
         $guid = $request->input('guid');
 
-        $user = UserModel::where('guid', $guid)->first();
+        $user = User::where('guid', $guid)->first();
 
         if ($user->game_id === '0') {
             return $this->gameRenderer->renderLobby($user);
@@ -74,7 +80,7 @@ class UserController extends Controller {
     /**
      * Returns the form to set the name if the user does not have an already established identity
      */
-    public function getNameForm() {
+    public function nameForm() {
         $view = view('player.name')->render();
         return response()->json([
             'view' => $view,
@@ -85,7 +91,7 @@ class UserController extends Controller {
     /**
      *
      */
-    public function getPlayerLobby(Request $request) {
+    public function playerLobby(Request $request) {
         $view = view('player.lobby')->with('name', $request->user->name)->render();
         return response()->json([
             'view' => $view,
@@ -98,7 +104,7 @@ class UserController extends Controller {
      */
     public function joinGame(SetsUpTwoPlayerGame $setsUpNewPlayers, Request $request) {
         $user = $request->user;
-        $game = Game::where('guid', $request->input('gameHash'))->first();
+        $game = Game::where('guid', $request->input('gameGuid'))->first();
 
         $user->game_id = $game->id;
         $user->save();

@@ -16,13 +16,8 @@ use App\Pommel\Src\Pommel;
 
 class DevController extends Controller {
 
-    public function viewDigitalPatternLibrary(Request $request) {
+    public function digitalPatternLibrary() {
         return view('dev.digital-pattern-library');
-    }
-
-    public function pommel() {
-        $pommel = new Pommel;
-        $pommel->render();
     }
 
 }

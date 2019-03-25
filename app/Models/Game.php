@@ -9,7 +9,7 @@ class Game extends Model
      * The attributes that are mass assignable.
      */
     protected $fillable = [
-        'name', 'guid'
+        'guid', 'object'
     ];
 
     public function users() {

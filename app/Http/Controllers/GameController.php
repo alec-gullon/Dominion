@@ -8,7 +8,7 @@ use App\Game\Services\Updater;
 use App\Game\Services\Setup\SetsUpAIGame;
 
 use App\Game\Models\State;
-use App\Models\Game as GameModel;
+use App\Models\Game;
 
 use App\Http\Renderers\GameRenderer;
 
@@ -23,16 +23,11 @@ class GameController extends Controller {
         $this->gameRenderer = $gameRenderer;
     }
 
-    public function newGame() {
-        return view('index');
-    }
-
     public function create(Request $request) {
         $user = $request->input('user');
-        $game = new GameModel();
+        $game = new Game();
 
         $state = resolve('\App\Game\Models\State');
-
         $game->object = serialize($state);
         $game->guid = uniqid();
         $game->save();
@@ -45,7 +40,7 @@ class GameController extends Controller {
 
     public function createAIGame(Request $request, SetsUpAIGame $setsUpAIGame) {
         $user = $request->input('user');
-        $game = new GameModel();
+        $game = new Game();
 
         $state = resolve('\App\Game\Models\State');
 
@@ -60,7 +55,6 @@ class GameController extends Controller {
         $game->save();
 
         return $this->gameRenderer->renderGameForPlayer($game, $user);
-//        return $this->gameRenderer->renderGameForBothPlayers($game);
     }
 
     public function update(Request $request, Updater $updater) {

@@ -21,14 +21,10 @@ class HomeController extends Controller {
      * either prompts the user to establish an identity, or links the player with the given game and then redirects to
      * the home page
      */
-    public function join(Request $request, $guid) {
+    public function join($guid) {
         $game = Game::where('guid', $guid)->first();
 
         return view('join', ['gameId' => $game->guid]);
-    }
-
-    public function concept() {
-        return view('concept');
     }
 
 }

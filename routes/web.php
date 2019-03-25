@@ -11,24 +11,28 @@
 |
 */
 
-Route::get('/', 'HomeController@index')->name('home');
+/**
+ * Landing routes. These routes tend to do either of the following:
+ *      - deliver an HTML shell, the contents of which are properly populated dependent on the front-end state
+ *      - deliver a fully fledged HTML page, for the simpler pages whose content is independent of front-end state
+ */
 
-Route::post('/user/refresh-page/', 'UserController@refreshPage')->name('user-get-current-view');
-Route::post('/user/validate-id/', 'UserController@validateId')->name('user-validate-id');
-Route::post('/user/set-name/', 'UserController@setName')->name('user-set-name');
-Route::post('/user/get-name-form/', 'UserController@getNameForm')->name('user-input-name-form');
-Route::post('/user/join-game/', 'UserController@joinGame')->name('user-join-game')->middleware('player');
-Route::post('/user/get-player-lobby', 'UserController@getPlayerLobby')->name('user-get-player-lobby')->middleware('player');
+Route::get('/',                             'HomeController@index')->name('home');
+Route::get('/game/new/',                    'HomeController@index')->name('newGame');
+Route::get('/game/join/{guid}/',            'HomeController@join')->name('homeJoin');
 
-Route::get('/game/new/', 'GameController@newGame')->name('newGame');
-Route::post('/game/create/', 'GameController@create')->name('game-create')->middleware('player');
-Route::post('/game/create-ai-game/', 'GameController@createAIGame')->name('game-create-ai-game')->middleware('player');
-Route::post('/game/update/', 'GameController@update')->name('game-update')->middleware('player');
+Route::get('/digital-pattern-library/',     'DevController@digitalPatternLibrary')->name('devDigitalPatternLibrary');
 
-Route::get('/public/game/join/{guid}/', 'HomeController@join')->name('public-game-join');
+/**
+ * AJAX routes. Routes that perform operations on the back-end. Return json responses
+ */
+Route::post('/user/validate-id/',           'UserController@validateId')->name('userValidateId');
+Route::post('/user/refresh-page/',          'UserController@refreshPage')->name('userGetCurrentView');
+Route::post('/user/name-form/',             'UserController@nameForm')->name('userInputNameForm');
+Route::post('/user/set-name/',              'UserController@setName')->name('userSetName');
+Route::post('/user/join-game/',             'UserController@joinGame')->name('userJoinGame')->middleware('player');
+Route::post('/user/player-lobby/',          'UserController@playerLobby')->name('userGetPlayerLobby')->middleware('player');
 
-Route::get('/concept/', 'HomeController@concept');
-
-Route::get('/digital-pattern-library/', 'DevController@viewDigitalPatternLibrary');
-
-Route::get('/pommel', 'DevController@pommel');
+Route::post('/game/create/',                'GameController@create')->name('gameCreate')->middleware('player');
+Route::post('/game/create/ai/',             'GameController@createAIGame')->name('gameCreateAiGame')->middleware('player');
+Route::post('/game/update/',                'GameController@update')->name('gameUpdate')->middleware('player');
