@@ -83,6 +83,17 @@ class UserController extends Controller {
     }
 
     /**
+     *
+     */
+    public function getPlayerLobby(Request $request) {
+        $view = view('player.lobby')->with('name', $request->user->name)->render();
+        return response()->json([
+            'view' => $view,
+            'action' => 'refreshView'
+        ]);
+    }
+
+    /**
      * Joins the game
      */
     public function joinGame(SetsUpTwoPlayerGame $setsUpNewPlayers, Request $request) {

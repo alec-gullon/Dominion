@@ -23,6 +23,10 @@ class GameController extends Controller {
         $this->gameRenderer = $gameRenderer;
     }
 
+    public function newGame() {
+        return view('index');
+    }
+
     public function create(Request $request) {
         $user = $request->input('user');
         $game = new GameModel();

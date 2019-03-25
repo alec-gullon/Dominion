@@ -22,6 +22,9 @@
         <li class="__link">
             <a href="/digital-pattern-library">Digital Pattern Library</a>
         </li>
+        <li class="__link">
+            <a href="/game/new">Start a New Game</a>
+        </li>
     </ul>
 </nav>
 

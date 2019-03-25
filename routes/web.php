@@ -18,7 +18,9 @@ Route::post('/user/validate-id/', 'UserController@validateId')->name('user-valid
 Route::post('/user/set-name/', 'UserController@setName')->name('user-set-name');
 Route::post('/user/get-name-form/', 'UserController@getNameForm')->name('user-input-name-form');
 Route::post('/user/join-game/', 'UserController@joinGame')->name('user-join-game')->middleware('player');
+Route::post('/user/get-player-lobby', 'UserController@getPlayerLobby')->name('user-get-player-lobby')->middleware('player');
 
+Route::get('/game/new/', 'GameController@newGame')->name('newGame');
 Route::post('/game/create/', 'GameController@create')->name('game-create')->middleware('player');
 Route::post('/game/create-ai-game/', 'GameController@createAIGame')->name('game-create-ai-game')->middleware('player');
 Route::post('/game/update/', 'GameController@update')->name('game-update')->middleware('player');

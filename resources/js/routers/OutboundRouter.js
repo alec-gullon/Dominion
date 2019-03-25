@@ -9,6 +9,7 @@ export default class OutboundRouter {
         this.routes = {
             'home': 'Home@refresh',
             'submitName': 'User@submitName',
+            'newGame': 'Game@new',
             'createGame': 'Game@create',
             'createAIGame': 'Game@createAIGame',
             'joinGameIfPossible': 'Game@joinIfPossible',

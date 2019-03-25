@@ -7,6 +7,17 @@ export default class Game extends OutboundMessage {
         window.dominion.connection.send(route, data);
     }
 
+    new() {
+        if (window.cookies.get('guid') === null) {
+            this.send('user/get-name-form', {});
+        } else {
+            let data =  {
+                guid: window.cookies.get('guid')
+            };
+            this.send('user/get-player-lobby', data);
+        }
+    }
+
     create() {
         let data = {
             guid: window.cookies.get('guid')
