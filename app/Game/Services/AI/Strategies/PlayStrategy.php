@@ -44,6 +44,12 @@ class PlayStrategy {
         }
 
         foreach ($handCards as $card) {
+            if (!$card->hasFeature('terminal')) {
+                return $card->stub;
+            }
+        }
+
+        foreach ($handCards as $card) {
             if ($card->hasType('attack')) {
                 return $card->stub;
             }

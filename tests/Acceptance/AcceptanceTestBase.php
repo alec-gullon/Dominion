@@ -2,11 +2,9 @@
 
 namespace Tests\Acceptance;
 
-use App\Game\Services\Updater;
 use App\Game\Factories\CardFactory;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AcceptanceTestBase extends TestCase
 {

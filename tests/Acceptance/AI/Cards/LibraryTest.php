@@ -12,7 +12,7 @@ class LibraryTest extends AcceptanceTestBase {
         $this->setOpponentHand(['library', 'estate@4']);
         $this->update('end-turn');
 
-        $this->assertNumberOfRemainingCards('village', 9);
+        $this->assertTotalNumberOfCardsForOpponent(11);
     }
 
 }

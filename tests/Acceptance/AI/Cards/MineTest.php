@@ -8,15 +8,15 @@ class MineTest extends AcceptanceTestBase {
 
     public function testSelectsSilverIfTrashingCopper() {
         $this->buildGameWithAI();
-        $this->setOpponentHand(['mine', 'copper@4']);
+        $this->setOpponentHand(['mine', 'copper']);
         $this->update('end-turn');
 
-        $this->assertOpponentsNumberOfRemainingCards('village', 1);
+        $this->assertOpponentsNumberOfRemainingCards('silver', 1);
     }
 
     public function testSelectsGoldIfTrashingSilver() {
         $this->buildGameWithAI();
-        $this->setOpponentHand(['mine', 'silver@4']);
+        $this->setOpponentHand(['mine', 'silver']);
         $this->update('end-turn');
 
         $this->assertOpponentsNumberOfRemainingCards('gold', 1);

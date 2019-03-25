@@ -27,7 +27,7 @@ class TurnTest extends AcceptanceTestBase
 
         $this->assertTurnNumber(3);
         $this->assertOpponentDeckSize(6);
-        $this->assertNumberOfRemainingCards('village', 9);
+        $this->assertNumberOfRemainingCards('silver', 19);
     }
 
     public function testAIPlaysWitchInsteadOfSmithy() {
@@ -41,9 +41,9 @@ class TurnTest extends AcceptanceTestBase
 
     public function testAIAdvancesToBuyStageIfItHasNoTreasuresToPlay() {
         $this->buildGameWithAI();
-        $this->setOpponentHand(['woodcutter@2']);
+        $this->setOpponentHand(['woodcutter@2', 'market@2']);
         $this->update('end-turn');
 
-        $this->assertNumberOfRemainingCards('village', 9);
+        $this->assertNumberOfRemainingCards('silver', 19);
     }
 }
