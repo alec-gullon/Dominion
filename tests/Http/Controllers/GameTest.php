@@ -62,5 +62,4 @@ class GameTest extends TestCase
         $this->assertContains('Turn 3', $response->view);
     }
 
-
 }

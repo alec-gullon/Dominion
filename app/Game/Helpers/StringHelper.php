@@ -121,4 +121,19 @@ class StringHelper {
         return $descriptor;
     }
 
+    /**
+     * Filters user input which might be a string when this is not the intent and converts them to their
+     * appropriate proper types
+     *
+     * @param   string      $input
+     *
+     * @return  mixed
+     */
+    public static function filterInput($input) {
+        if ($input === 'true' || $input === 'false') {
+            return ($input === 'true');
+        }
+        return $input;
+    }
+
 }

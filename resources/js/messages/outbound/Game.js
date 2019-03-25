@@ -9,12 +9,12 @@ export default class Game extends OutboundMessage {
 
     new() {
         if (window.cookies.get('guid') === null) {
-            this.send('user/get-name-form', {});
+            this.send('user/name-form', {});
         } else {
             let data =  {
                 guid: window.cookies.get('guid')
             };
-            this.send('user/get-player-lobby', data);
+            this.send('user/player-lobby', data);
         }
     }
 
@@ -29,12 +29,12 @@ export default class Game extends OutboundMessage {
         let data = {
             guid: window.cookies.get('guid')
         };
-        this.send('game/create-ai-game', data);
+        this.send('game/create/ai', data);
     }
 
     joinIfPossible() {
         if (window.cookies.get('guid') === null) {
-            this.send('/user/get-name-form', {});
+            this.send('/user/name-form', {});
         } else {
             this.join();
         }

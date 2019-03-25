@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Renderers\GameRenderer;
 use App\Models\User;
-use App\Models\Game;
-use App\Game\Services\Setup\SetsUpTwoPlayerGame;
 
 use Illuminate\Http\Request;
 
@@ -19,6 +17,9 @@ class UserController extends Controller {
         $this->gameRenderer = $gameRenderer;
     }
 
+    /**
+     * Checks whether or not their is a user in the system with the provided id
+     */
     public function validateId(Request $request) {
         $guid = $request->input('guid');
         $user = User::where('guid', $guid)->get();
@@ -28,14 +29,8 @@ class UserController extends Controller {
     }
 
     /**
-     * Take the provided name and generate a user with this name and assign it to a guid. Then return this guid to the
-     * front end so that the client has an identity.
-     *
-     * @param   mixed $request
-     *
-     * @return  string
-     *
-     * @throws \Throwable
+     * Creates a user with the provided name in the system. Returns the player lobby view following
+     * this change along with the new user's guid so that the identity can be set on the front-end
      */
     public function setName(Request $request) {
         $user = new User();
@@ -57,7 +52,7 @@ class UserController extends Controller {
     }
 
     /**
-     * Returns what the given user should currently be looking at to be placed within the html wrapper.
+     * Returns whatever the user should be looking at following a visit to the site root
      */
     public function refreshPage(Request $request) {
         $guid = $request->input('guid');
@@ -89,7 +84,8 @@ class UserController extends Controller {
     }
 
     /**
-     *
+     * Returns the main player lobby if the user of the site already has an identity established on
+     * the front-end
      */
     public function playerLobby(Request $request) {
         $view = view('player.lobby')->with('name', $request->user->name)->render();
@@ -97,22 +93,6 @@ class UserController extends Controller {
             'view' => $view,
             'action' => 'refreshView'
         ]);
-    }
-
-    /**
-     * Joins the game
-     */
-    public function joinGame(SetsUpTwoPlayerGame $setsUpNewPlayers, Request $request) {
-        $user = $request->user;
-        $game = Game::where('guid', $request->input('gameGuid'))->first();
-
-        $user->game_id = $game->id;
-        $user->save();
-
-        $game = $setsUpNewPlayers->setup($game);
-        $game->save();
-
-        return $this->gameRenderer->renderGameForBothPlayers($game);
     }
 
 }

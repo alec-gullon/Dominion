@@ -67,7 +67,7 @@ class UserTest extends TestCase
         $this->createUser('Alec', $game->id);
         $this->createUser('Lucy');
 
-        $response = $this->jsonPost('/user/join-game/', [
+        $response = $this->jsonPost('/game/join/', [
             'guid' => 'lucy',
             'gameGuid' => 'gameGuid'
         ]);

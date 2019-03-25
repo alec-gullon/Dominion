@@ -19,7 +19,8 @@
 
 Route::get('/',                             'HomeController@index')->name('home');
 Route::get('/game/new/',                    'HomeController@index')->name('newGame');
-Route::get('/game/join/{guid}/',            'HomeController@join')->name('homeJoin');
+
+Route::get('/game/join/{guid}/',            'GameController@joinForm')->name('homeJoin');
 
 Route::get('/digital-pattern-library/',     'DevController@digitalPatternLibrary')->name('devDigitalPatternLibrary');
 
@@ -30,9 +31,9 @@ Route::post('/user/validate-id/',           'UserController@validateId')->name('
 Route::post('/user/refresh-page/',          'UserController@refreshPage')->name('userGetCurrentView');
 Route::post('/user/name-form/',             'UserController@nameForm')->name('userInputNameForm');
 Route::post('/user/set-name/',              'UserController@setName')->name('userSetName');
-Route::post('/user/join-game/',             'UserController@joinGame')->name('userJoinGame')->middleware('player');
 Route::post('/user/player-lobby/',          'UserController@playerLobby')->name('userGetPlayerLobby')->middleware('player');
 
 Route::post('/game/create/',                'GameController@create')->name('gameCreate')->middleware('player');
 Route::post('/game/create/ai/',             'GameController@createAIGame')->name('gameCreateAiGame')->middleware('player');
+Route::post('/game/join/',                  'GameController@join')->name('userJoinGame')->middleware('player');
 Route::post('/game/update/',                'GameController@update')->name('gameUpdate')->middleware('player');
