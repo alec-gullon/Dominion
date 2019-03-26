@@ -77,4 +77,14 @@ class UserTest extends TestCase
         $this->assertEquals(count($response->responses), 2);
     }
 
+    public function testReturnsNameEntryFormIfUserGuidIsInvalid() {
+        $this->createUser('Alec');
+
+        $response = $this->jsonPost('/user/refresh-page/', [
+            'guid' => 'an-invalid-guid'
+        ]);
+
+        $this->assertEquals($response->action, 'unsetGuid');
+    }
+
 }

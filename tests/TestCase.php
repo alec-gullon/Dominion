@@ -29,7 +29,7 @@ abstract class TestCase extends BaseTestCase
         return json_decode($response);
     }
 
-    protected function createUser($name = 'Alec', $gameId = 0 ) {
+    protected function createUser($name = 'Alec', $gameId = 0) {
         $user = new User();
         $user->name = $name;
         $user->guid = lcfirst($name);

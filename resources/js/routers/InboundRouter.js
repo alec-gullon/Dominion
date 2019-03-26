@@ -11,6 +11,7 @@ export default class InboundRouter {
             'home': 'Game@default',
             'refreshView': 'Home@refresh',
             'setGuid': 'User@setGuid',
+            'unsetGuid': 'User@unsetGuid',
             'joinGameAfterSettingName': 'User@joinGameAfterSettingName'
         }
         this.classMap = {

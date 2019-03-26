@@ -13,6 +13,12 @@ export default class User {
         window.cookies.set('guid', this.message.guid);
     }
 
+    unsetGuid() {
+        document.getElementById('root').innerHTML = this.message.view;
+        refreshBindings();
+        window.cookies.erase('guid');
+    }
+
     joinGameAfterSettingName() {
         window.cookies.set('guid', this.message.guid);
 

@@ -59,6 +59,13 @@ class UserController extends Controller {
 
         $user = User::where('guid', $guid)->first();
 
+        if (null === $user) {
+            return response()->json([
+                'view' => view('player.name')->render(),
+                'action' => 'unsetGuid'
+            ]);
+        }
+
         if ($user->game_id === '0') {
             return $this->gameRenderer->renderLobby($user);
         }
