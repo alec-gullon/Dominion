@@ -24,6 +24,8 @@ Route::get('/game/join/{guid}/',            'GameController@joinForm')->name('ho
 
 Route::get('/digital-pattern-library/',     'DevController@digitalPatternLibrary')->name('devDigitalPatternLibrary');
 
+Route::get('/about/',                       'HomeController@about')->name('about');
+
 /**
  * AJAX routes. Routes that perform operations on the back-end. Return json responses
  */
