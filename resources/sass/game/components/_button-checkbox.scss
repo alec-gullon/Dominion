@@ -1,0 +1,22 @@
+.button-checkbox {
+  position: relative;
+
+  &:nth-child(2n) {
+    margin-right: 0;
+  }
+
+  .bc-input {
+    position: absolute;
+    left: -1000px;
+
+    &:checked {
+      &+.button {
+        border: 2px solid $highlight-blue;
+      }
+    }
+  }
+
+  .bc-button {
+    cursor: pointer;
+  }
+}

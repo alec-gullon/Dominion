@@ -5,11 +5,11 @@
     <div id="root" class="home-root">
         <div class="root-loader">
             <div class="loading-message">
-                <div class="__loader loader --large">
-                    <div class="__ripple"></div>
-                    <div class="__ripple"></div>
+                <div class="loader large">
+                    <div class="ripple"></div>
+                    <div class="ripple"></div>
                 </div>
-                <div class="__text">
+                <div class="text">
                     Connecting to Dominion...
                 </div>
             </div>

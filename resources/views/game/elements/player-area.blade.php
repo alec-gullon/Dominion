@@ -10,6 +10,6 @@
     }
 ?>
 
-<div class="__player-area">
+<div class="player-area">
     @include($playerAreaView)
 </div>

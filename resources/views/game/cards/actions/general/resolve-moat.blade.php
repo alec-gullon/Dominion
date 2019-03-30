@@ -1,15 +1,15 @@
 @if (!$activePlayer)
-    <h2 class="__player-area-title">Do you reveal a Moat?</h2>
-    <div class="__player-area-options">
+    <h2 class="player-area-title">Do you reveal a Moat?</h2>
+    <div class="player-area-options">
         @if ($state->secondaryPlayer()->hasCard('moat'))
-            <div    class="__player-area-option game-button --highlighted"
+            <div    class="player-area-option game-button highlighted"
                     data-action="select-option"
                     data-option="true"
             >
                 Yes
             </div>
         @endif
-        <div    class="__player-area-option game-button --highlighted"
+        <div    class="player-area-option game-button highlighted"
                 data-action="select-option"
                 data-option="false"
         >

@@ -1,18 +1,18 @@
-<div class="__player-area-options">
+<div class="player-area-options">
     @foreach ($cards as $card)
-        <div class="__player-area-checkbox button-checkbox">
-            <label  class="__label">
-                <input  class="__input"
+        <div class="player-area-checkbox button-checkbox">
+            <label  class="label">
+                <input  class="input"
                         type="checkbox"
                         data-option="{{ $card->stub }}"
                 />
-                <div class="__button game-button --{{ $card->types[0] }}">{{ $card->name }}</div>
+                <div class="button game-button {{ $card->types[0] }}">{{ $card->name }}</div>
             </label>
         </div>
     @endforeach
 </div>
-<div class="__player-area-options">
-    <div    class="__player-area-option game-button --highlighted"
+<div class="player-area-options">
+    <div    class="player-area-option game-button highlighted"
             data-action="submit-choices"
     >
         {{ $submitMessage }}

@@ -1,0 +1,77 @@
+.game {
+  .hand {
+    width: 20%;
+    border-left: 1px solid $grey-mid;
+    background: white;
+    line-height: 20px;
+    overflow-y: scroll;
+  }
+
+  .hand-title {
+    border-bottom: 1px solid $grey-mid;
+    padding: 15px;
+    margin-bottom: 15px;
+    font-size: 24px;
+  }
+
+  .hand-card {
+    margin: 0px 15px 10px 15px;
+  }
+}
+
+.game {
+  .log {
+    width: 40%;
+    border-left: 1px solid $grey-mid;
+    background: white;
+    font-size: 15px;
+    line-height: 20px;
+    overflow-y: scroll;
+  }
+
+  .log-title {
+    padding: 15px;
+    border-bottom: 1px solid $grey-mid;
+    margin-bottom: 15px;
+    font-size: 24px;
+  }
+
+  .log-entry {
+    display: block;
+    padding: 0 0 10px 15px;
+  }
+}
+
+.game {
+  .player-area {
+    width: 40%;
+    padding: 15px;
+  }
+
+  .player-area-options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .player-area-option {
+    margin: 0 15px 10px 0;
+    width: 48%;
+
+    &:nth-child(2n) {
+      margin-right: 0;
+    }
+  }
+
+  .player-area-title {
+    font-size: 22px;
+    font-weight: 300;
+    margin-bottom: 10px;
+  }
+
+  .player-area-checkbox {
+    margin: 0 .5% 10px 0;
+    width: 48%;
+  }
+}

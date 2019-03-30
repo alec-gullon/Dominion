@@ -13,12 +13,12 @@
     }
 ?>
 
-<div class="__kingdom-cards">
+<div class="kingdom-cards">
 @for ($amount = 6; $amount >= 2; $amount--)
     @if (isset($cardsByValue[$amount]))
-        <div class="__kingdom-card-group">
-            <div class="__coin-divider">
-                <div class="__coin coin">{{ $amount }}</div>
+        <div class="kingdom-card-group">
+            <div class="coin-divider">
+                <div class="coin">{{ $amount }}</div>
             </div>
             @foreach ($cardsByValue[$amount] as $card)
                 @include ('game.elements.kingdom-card', ['card' => $card])

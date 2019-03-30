@@ -1,0 +1,51 @@
+.game-button {
+  border: 1px solid $grey-warm;
+  background: $grey-warm-dark;
+  font-weight: bold;
+  height: 35px;
+  text-align: center;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &.white {
+    background: white;
+  }
+
+  &.treasure {
+    background: $treasure-light;
+    color: $treasure-dark;
+    border: 1px solid $treasure-dark;
+  }
+
+  &.victory {
+    background: $victory-light;
+    color: $victory-dark;
+    border: 1px solid $victory-dark;
+  }
+
+  &.curse {
+    border: 1px solid $curse-dark;
+    color: $curse-dark;
+    background: $curse-light;
+  }
+
+  &.highlighted {
+    border: 2px solid #007bff;
+    cursor: pointer;
+  }
+
+  &.loading {
+    font-size: 0px;
+    &::after {
+      width: 100%;
+      font-size: 16px;
+      content: 'Loading...';
+      height: 100%;
+      display: flex;;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}

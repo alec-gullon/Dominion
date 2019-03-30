@@ -2,68 +2,38 @@
   width: 1200px;
   margin: 4rem auto;
 
-  .__heading {
-    margin-bottom: 1.5rem;
-
-    &.--medium {
-      padding-top: 1rem;
-    }
-  }
-
-  .__paragraph {
-    width: 70%;
-    margin-bottom: 1rem;
-  }
-
-  .__list {
-    padding: .5rem 0 1.5rem 2rem;
-  }
-
-  .__section {
-    padding: 3rem 0 1.5rem 0;
-    margin-bottom: 1.5rem;
-    border-bottom: 1px solid #ccc;
-  }
-
-  .__sub-section {
-    padding: 0 0 1rem 0;
-  }
-
-  .__example-group {
+  .example-group {
     display: flex;
     margin-bottom: 2rem;
     align-items: flex-start;
-  }
 
-  .__example-full-width {
-    margin-bottom: 1rem;
-  }
+    &.vertical {
+      flex-direction: column;
+    }
 
-  .__example-small {
-    width: 10%;
-    margin-right: 2%;
-  }
+    >.description-box {
+      margin-right: 2%;
+    }
 
-  .__example-description-box {
-    margin-right: 2%;
-  }
+    >.heading {
+      margin-bottom: 1rem;
+    }
 
-  .__example-loader {
-    margin-right: 5%;
-  }
-
-  .common-cards-wrapper {
-    display: flex;
-
-    .common-card {
+    >.button,
+    >.game-button,
+    >.button-checkbox {
       width: 10%;
       margin-right: 2%;
     }
-  }
 
-  .__input-example {
-    width: 30%;
-    margin-right: 2%;
-  }
+    >.input {
+      width: 30%;
+      margin-right: 2%;
+    }
 
+    >.loader,
+    >.loading-message {
+      margin-right: 5%;
+    }
+  }
 }

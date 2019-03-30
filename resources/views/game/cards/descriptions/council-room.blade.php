@@ -1,5 +1,5 @@
-<div class="__description">
-    <ul class="__standard-effects">
+<div class="description">
+    <ul class="standard-effects">
         <li>+4 Cards</li>
         <li>+1 Buy</li>
     </ul>

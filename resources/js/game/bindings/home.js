@@ -4,7 +4,7 @@ import OutboundRouter from './../../routers/OutboundRouter.js';
 export default function refreshBindings() {
 
     $('.home-root').find('.submit-name').click(function() {
-        $(this).addClass('--loading');
+        $(this).addClass('loading');
         new OutboundRouter('submitName').message();
     });
 
@@ -25,7 +25,7 @@ export default function refreshBindings() {
     });
 
     $('.home-root').find('[data-action="start-ai-game"]').click(function() {
-        $(this).addClass('--loading');
+        $(this).addClass('loading');
         new OutboundRouter('createAIGame').message();
     })
 

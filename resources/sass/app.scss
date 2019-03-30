@@ -1,14 +1,13 @@
-//@import '~bulma';
+@import 'abstracts/variables';
 
-// Variables
-@import 'global';
-@import 'variables';
+@import 'base/reset';
+@import 'base/base';
+@import 'base/typography';
 
-@import 'atoms/all';
-@import 'molecules/all';
 @import 'components/index';
+@import 'layout/nav';
+@import 'layout/page';
 @import 'pages/index';
 
-body {
-  //display: none;
-}
+@import 'game/index';
+

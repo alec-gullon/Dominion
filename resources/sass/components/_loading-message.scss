@@ -1,0 +1,10 @@
+.loading-message {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  .text {
+    margin-top: 1rem;
+    font-size: 1.4rem;
+  }
+}

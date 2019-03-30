@@ -14,7 +14,7 @@
     }
 @endphp
 
-<div class="__game-end">
+<div class="game-end">
     @include('game.elements.score-card', [
         'heading' => $heading,
         'rows' => [

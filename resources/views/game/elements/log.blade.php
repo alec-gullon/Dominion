@@ -2,11 +2,11 @@
     $log = $state->log;
 ?>
 
-<div class="__log">
+<div class="log">
 @for ($i = $log->currentTurn(); $i >= 1; $i--)
-    <h2 class="__log-title">Turn {{ $i }}</h2>
+    <h2 class="log-title">Turn {{ $i }}</h2>
     @foreach ($log->reversedEntries()[$i] as $entry)
-        <span class="__log-entry">{{ $entry }}</span>
+        <span class="log-entry">{{ $entry }}</span>
     @endforeach
 @endfor
 </div>

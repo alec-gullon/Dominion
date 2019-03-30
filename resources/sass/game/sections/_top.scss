@@ -1,0 +1,102 @@
+.game {
+  .common-cards {
+    width: 200px;
+    border-left: 1px solid $grey-mid;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .common-card-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 0 0 1.5rem;
+
+    &.treasure {
+      flex-grow: 2;
+      background: $treasure-light;
+      color: $treasure-dark;
+    }
+
+    &.victory {
+      flex-grow: 2;
+      background: $victory-light;
+      color: $victory-dark;
+    }
+
+    &.misc {
+      flex-grow: 1;
+      background: $curse-light;
+      color: $curse-dark;
+    }
+  }
+
+  .common-card {
+    margin: 0 0 10px 0;
+  }
+}
+
+.game {
+  .kingdom-cards {
+    flex-grow: 1;
+    padding: 60px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .kingdom-card-group {
+    width: 30%;
+    margin-right: 4%;
+    display: flex;
+    flex-direction: column;
+
+    &:nth-child(3n) {
+      margin-right: 0;
+    }
+  }
+
+  .coin-divider {
+    position: relative;
+    height: 34px;
+    margin-bottom: 20px;
+
+    &:before {
+      content: '';
+      border-top: 1px solid $grey-mid;
+      position: absolute;
+      width: 100%;
+      top: 17px;
+      left: 0;
+    }
+  }
+
+  .coin {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: -17px;
+  }
+
+  .kingdom-card {
+    color: $grey-warm;
+    display: flex;
+    line-height: 35px;
+    margin-bottom: 10px;
+  }
+
+  .kingdom-card-name {
+    width: 85%;
+  }
+
+  .kingdom-card-amount {
+    width: 15%;
+    height: 35px;
+    text-align: center;
+  }
+
+  .kingdom-card-description {
+    position: fixed;
+    z-index: 10;
+    display: none;
+  }
+}

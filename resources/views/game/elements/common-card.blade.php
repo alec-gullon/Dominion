@@ -8,24 +8,24 @@
 ?>
 
 @if (isset($cards[$stub]))
-    <div class="common-card @if ($isActive) --highlighted @endif --{{ $type }}">
+    <div class="common-card @if ($isActive) highlighted @endif {{ $type }}">
         @if ($isActive)
-            <div    class="__letter"
+            <div    class="letter"
                     data-action="buy-card"
                     data-stub="{{ $stub }}"
             >
                 {{ $letter }}
             </div>
         @else
-            <div class="__letter --{{ $type }}">
+            <div class="letter {{ $type }}">
                 {{ $letter }}
             </div>
         @endif
-        <div class="__amount">
+        <div class="amount">
             {{ $cards[$stub] }}
         </div>
 
-        <div class="__common-card-description description-box">
+        <div class="common-card-description description-box">
             @include ('game.cards.descriptions.' . $stub)
         </div>
     </div>

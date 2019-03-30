@@ -1,4 +1,4 @@
-<div class="__description">
+<div class="description">
     <p>
         Draw cards until you have seven in your hand - you may choose to set aside any action cards
         drawn in this fashion, discarding them once done.

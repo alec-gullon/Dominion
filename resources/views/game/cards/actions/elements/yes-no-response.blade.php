@@ -1,12 +1,12 @@
-<h2 class="__player-area-title"><?= $question ?></h2>
-<div class="__player-area-options">
-    <div    class="__player-area-option game-button --highlighted"
+<h2 class="player-area-title"><?= $question ?></h2>
+<div class="player-area-options">
+    <div    class="player-area-option game-button highlighted"
             data-action="select-option"
             data-option="true"
     >
         Yes
     </div>
-    <div    class="__player-area-option game-button --highlighted"
+    <div    class="player-area-option game-button highlighted"
             data-action="select-option"
             data-option="false"
     >

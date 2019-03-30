@@ -1,4 +1,4 @@
-<div    class="__player-area-option game-button --highlighted"
+<div    class="player-area-option game-button highlighted {{ $card->types[0] }}"
         data-action="select-option"
         data-option="{{ $card->stub }}"
 >

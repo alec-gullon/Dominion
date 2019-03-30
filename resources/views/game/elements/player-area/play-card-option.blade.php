@@ -4,11 +4,11 @@
 ?>
 
 @if ($type === 'treasure')
-    <div class="__player-area-option game-button --highlighted --{{ $type }}" data-action="play-treasure" data-stub="{{ $stub }}">
+    <div class="player-area-option game-button highlighted {{ $type }}" data-action="play-treasure" data-stub="{{ $stub }}">
         {{ $card->name }}
     </div>
 @elseif ($type === 'action' && App\Game\Helpers\ViewHelper::canPlayAction($state))
-    <div class="__player-area-option game-button --highlighted --{{ $type }}" data-action="play-card" data-stub="{{ $stub }}">
+    <div class="player-area-option game-button highlighted {{ $type }}" data-action="play-card" data-stub="{{ $stub }}">
         {{ $card->name }}
     </div>
 @endif

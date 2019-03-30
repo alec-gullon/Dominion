@@ -36,7 +36,7 @@ export default function refreshBindings() {
     $('.game-root').find('[data-action="submit-choices"]').click(function() {
         if (sendMessageIfNotBusy($(this))) {
             let choices = [];
-            $(this).parent().parent().find('.__input').each(function() {
+            $(this).parent().parent().find('.input').each(function() {
                 if ($(this).prop('checked')) {
                     choices.push($(this).data('option'));
                 }
@@ -51,27 +51,27 @@ export default function refreshBindings() {
         }
     });
 
-    $('.game-root').find('.__kingdom-card-name').mousemove(function(event) {
-        let description = $(this).siblings('.__kingdom-card-description');
+    $('.game-root').find('.kingdom-card-name').mousemove(function(event) {
+        let description = $(this).siblings('.kingdom-card-description');
         description.show();
         description.css('left', event.pageX+5);
         description.css('top', event.pageY+5-$(document).scrollTop());
     });
 
-    $('.game-root').find('.__kingdom-card-name').mouseleave(function() {
-        let description = $(this).siblings('.__kingdom-card-description');
+    $('.game-root').find('.kingdom-card-name').mouseleave(function() {
+        let description = $(this).siblings('.kingdom-card-description');
         description.hide();
     });
 
-    $('.common-card').find('.__letter').mousemove(function(event) {
-        let description = $(this).siblings('.__common-card-description');
+    $('.common-card').find('.letter').mousemove(function(event) {
+        let description = $(this).siblings('.common-card-description');
         description.show();
         description.css('left', event.pageX+5);
         description.css('top', event.pageY+5-$(document).scrollTop());
     });
 
-    $('.common-card').find('.__letter').mouseleave(function() {
-        let description = $(this).siblings('.__common-card-description');
+    $('.common-card').find('.letter').mouseleave(function() {
+        let description = $(this).siblings('.common-card-description');
         description.hide();
     });
 
@@ -79,10 +79,10 @@ export default function refreshBindings() {
         let militiaDiscardOptions = $(this);
         let submit = $(this).find('[data-action="submit-choices"]');
 
-        $(this).find('.__input').each(function() {
+        $(this).find('.input').each(function() {
             $(this).click(function() {
                 let uncheckedOptions = 0;
-                militiaDiscardOptions.find('.__input').each(function() {
+                militiaDiscardOptions.find('.input').each(function() {
                     if (!$(this).is(':checked')) {
                         uncheckedOptions++;
                     }
@@ -104,6 +104,6 @@ function sendMessageIfNotBusy(object) {
         return false;
     }
     window.dominion.messageInProgress = true;
-    $(object).addClass('--loading');
+    $(object).addClass('loading');
     return true;
 }
