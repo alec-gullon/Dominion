@@ -1,4 +1,4 @@
-@if ($activePlayer)
+@if ($isActivePlayer)
     {{ $state->secondaryPlayer()->name }} is selecting a card
 @else
     <h2 class="player-area-title">Select a victory card to place on your deck:</h2>

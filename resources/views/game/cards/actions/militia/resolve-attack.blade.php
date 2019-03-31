@@ -1,8 +1,10 @@
-@if (!$activePlayer)
+@if ($isActivePlayer)
+    {{ $state->secondaryPlayer()->name }} is selecting cards to discard
+@else
     <h2 class="player-area-title">Select cards to discard from your hand</h2>
     <div class="militia-discard-options">
         <div class="player-area-options">
-            @foreach ($state->secondaryPlayer()->hand as $card)
+            @foreach ($player->hand as $card)
                 <div    class="player-area-checkbox button-checkbox"
                         data-test="player-area-checkbox"
                 >
@@ -25,6 +27,4 @@
             </div>
         </div>
     </div>
-@else
-    {{ $state->secondaryPlayer()->name }} is selecting cards to discard
 @endif

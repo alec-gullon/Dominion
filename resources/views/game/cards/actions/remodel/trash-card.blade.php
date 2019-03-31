@@ -1,4 +1,4 @@
-@if ($activePlayer)
+@if ($isActivePlayer)
     <h2 class="player-area-title">Select a treasure card to trash:</h2>
     <div class="player-area-options">
         @foreach ($player->hand as $card)
@@ -6,5 +6,5 @@
         @endforeach
     </div>
 @else
-    {{ $player->name }} is selecting a treasure card to gain
+    {{ $state->activePlayer()->name }} is selecting a treasure card to gain
 @endif

@@ -1,6 +1,6 @@
-<?php
+@php
     $log = $state->log;
-?>
+@endphp
 
 <div class="log">
 @for ($i = $log->currentTurn(); $i >= 1; $i--)

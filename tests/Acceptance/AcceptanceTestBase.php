@@ -107,9 +107,6 @@ class AcceptanceTestBase extends TestCase
         $state = $this->updater->state();
         return view('game.index', [
             'state' => $state,
-            'gameObserver' => new GameObserver($state),
-            'playerKey' => $guid,
-            'activePlayer' => !$isSecondary,
             'player' => $state->getPlayerById($guid)
         ])->render();
     }

@@ -1,4 +1,4 @@
-@if ($activePlayer)
+@if ($isActivePlayer)
     <h2 class="player-area-title">Trash a Copper from your hand?</h2>
         <div class="player-area-options">
             @if ($player->hasCard('copper'))

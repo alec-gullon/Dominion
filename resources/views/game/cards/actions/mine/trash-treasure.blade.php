@@ -1,4 +1,4 @@
-@if ($activePlayer)
+@if ($isActivePlayer)
     <h2 class="player-area-title">Select a treasure card to trash:</h2>
     <div class="player-area-options">
         @foreach ($player->hand as $card)

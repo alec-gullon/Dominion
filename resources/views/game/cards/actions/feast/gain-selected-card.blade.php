@@ -1,14 +1,8 @@
-<?php
-    $cards = [];
-    foreach ($state->kingdomCards as $stub => $amount) {
-        $card = App\Game\Factories\CardFactory::build($stub);
-        if ($amount > 0 && $card->value <= 5) {
-            $cards[] = $card;
-        }
-    }
-?>
+@php
+    $cards = App\Game\Helpers\ViewHelper::cardsWithValueLessThanOrEqualTo($state, 5);
+@endphp
 
-@if ($activePlayer)
+@if ($isActivePlayer)
     <h2 class="player-area-title">Select card you want to gain</h2>
     <div class="player-area-options">
         @foreach ($cards as $card)

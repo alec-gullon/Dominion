@@ -11,5 +11,7 @@
 ?>
 
 <div class="player-area">
-    @include($playerAreaView)
+    @include($playerAreaView, [
+        'isActivePlayer' => App\Game\Helpers\ViewHelper::isActivePlayer($state, $player)
+    ])
 </div>

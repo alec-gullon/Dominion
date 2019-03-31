@@ -2,6 +2,8 @@
 
 namespace App\Game\Helpers;
 
+use App\Game\Factories\CardFactory;
+
 /**
  * Helper class that provides some methods related to decisions that need to be made about
  * state when generating a view of the game
@@ -30,7 +32,49 @@ class ViewHelper {
      * @return bool
      */
     public static function isKingdomCardActive($card, $state) {
-        return ($card->value <= $state->coins && $state->phase === 'buy' && $state->buys >= 1);
+        return (
+            $card->value <= $state->coins &&
+            $state->phase === 'buy' &&
+            $state->buys >= 1 &&
+            $state->kingdomCards[$card->stub] > 0
+        );
+    }
+
+    public static function kingdomCardsByValue($state) {
+        $cards = $state->kingdomCards;
+
+        $cardsByValue = [];
+        foreach ($cards as $stub => $amount) {
+            $card = CardFactory::build($stub);
+            if (!($card->hasType('action') && $card->stub !== 'gardens')) {
+                continue;
+            }
+
+            $value = $card->value;
+            if (!isset($cardsByValue[$value])) {
+                $cardsByValue[$value] = [];
+            }
+            $cardsByValue[$value][] = $card;
+        }
+
+        return $cardsByValue;
+    }
+
+    public static function cardsWithValueLessThanOrEqualTo($state, $value, $type = 'all') {
+        $cards = [];
+        foreach ($state->kingdomCards as $stub => $amount) {
+            $card = CardFactory::build($stub);
+            if ($amount > 0 && $card->value <= $value) {
+                if ($type === 'all' || $card->hasType($type)) {
+                    $cards[] = $card;
+                }
+            }
+        }
+        return $cards;
+    }
+
+    public static function isActivePlayer($state, $player) {
+        return ($state->activePlayer()->id === $player->id);
     }
 
 }

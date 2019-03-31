@@ -1,17 +1,6 @@
-<?php
-    $cards = $state->kingdomCards;
-    $cardsByValue = [];
-
-    foreach ($cards as $stub => $amount) {
-        $card = App\Game\Factories\CardFactory::build($stub);
-        if (($card->hasType('action') || $card->stub === 'gardens')) {
-            if (!isset($cardsByValue[$card->value])) {
-                $cardsByValue[$card->value] = [];
-            }
-            $cardsByValue[$card->value][] = $card;
-        }
-    }
-?>
+@php
+    $cardsByValue = App\Game\Helpers\ViewHelper::kingdomCardsByValue($state);
+@endphp
 
 <div class="kingdom-cards">
 @for ($amount = 6; $amount >= 2; $amount--)

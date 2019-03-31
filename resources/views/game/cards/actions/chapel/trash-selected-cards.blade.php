@@ -1,4 +1,4 @@
-@if ($activePlayer)
+@if ($isActivePlayer)
     <h2 class="player-area-title">Select cards to trash</h2>
     @include ('game.cards.actions.elements.select-multiple-options', [
         'cards' => $player->hand,

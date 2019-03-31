@@ -1,8 +1,8 @@
-<?php
+@php
     $revealedCards = $state->secondaryPlayer()->revealed;
-?>
+@endphp
 
-@if ($activePlayer)
+@if ($isActivePlayer)
     <h2 class="player-area-title">
         {{ $state->secondaryPlayer()->name }} reveals a {{ $revealedCards[0]->name }} and a {{ $revealedCards[1]->name }} from the top of their deck. Which do you trash?
     </h2>
