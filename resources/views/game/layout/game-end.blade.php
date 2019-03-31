@@ -9,7 +9,7 @@
     }
 
     $heading = 'Congratulations, you are the winner!';
-    if ($winner->id !== $playerKey) {
+    if ($winner->id !== $player->id) {
         $heading = 'Unlucky, Marvin beat you this time!';
     }
 @endphp

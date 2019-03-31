@@ -12,9 +12,6 @@ class GameRenderer {
 
         $view = view('game.index', [
             'state' => $state,
-            'gameObserver' => new GameObserver($state),
-            'playerKey' => $user->guid,
-            'activePlayer' => ($user->guid === $state->activePlayer()->id),
             'player' => $state->getPlayerById($user->guid)
         ])->render();
 
@@ -31,11 +28,7 @@ class GameRenderer {
 
         foreach ($game->users as $user) {
             $view = view('game.index', [
-                'cardFactory' => new CardFactory(),
                 'state' => $state,
-                'gameObserver' => new GameObserver($state),
-                'playerKey' => $user->guid,
-                'activePlayer' => ($user->guid === $state->activePlayer()->id),
                 'player' => $state->getPlayerById($user->guid)
             ])->render();
 
