@@ -17,9 +17,6 @@
             <a href="/about">About</a>
         </li>
         <li class="link">
-            <a href="/rules">Rules</a>
-        </li>
-        <li class="link">
             <a href="/digital-pattern-library">Digital Pattern Library</a>
         </li>
         <li class="link">

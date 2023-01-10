@@ -33,7 +33,7 @@ class ValidatesInput {
 
     private function controller() {
         $route = $this->request->route()->getActionName();
-        $route = explode('App\Http\Controllers\\', $route)[1];
+//        $route = explode('App\Http\Controllers\\', $route)[1];
 
         return 'Http\Requests\\' . explode('@', $route)[0];
     }

@@ -8,7 +8,7 @@ export default class User extends OutboundMessage {
             name: $('#submit-name--name').val(),
             responseAction: 'setGuid'
         };
-        this.send('/user/set-name', data);
+        this.send('user/set-name', data);
     }
 
     submitNameThenJoin() {
@@ -16,7 +16,7 @@ export default class User extends OutboundMessage {
             name: $('#submit-name--name').val(),
             responseAction: 'joinGameAfterSettingName'
         };
-        this.send('/user/set-name', data);
+        this.send('user/set-name', data);
     }
 
 }

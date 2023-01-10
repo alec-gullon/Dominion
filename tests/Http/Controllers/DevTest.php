@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Http\Controllers;
+namespace Tests\Http\Controllers;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 

@@ -22,7 +22,7 @@ export default class Game extends OutboundMessage {
         let data = {
             guid: window.cookies.get('guid')
         };
-        this.send('/game/create', data);
+        this.send('game/create', data);
     }
 
     createAIGame() {
@@ -34,7 +34,7 @@ export default class Game extends OutboundMessage {
 
     joinIfPossible() {
         if (window.cookies.get('guid') === null) {
-            this.send('/user/name-form', {});
+            this.send('user/name-form', {});
         } else {
             this.join();
         }
@@ -46,7 +46,7 @@ export default class Game extends OutboundMessage {
             gameHash: window.dominion.gameHash,
             setGuid: true
         };
-        this.send('/user/join-game', data);
+        this.send('user/join-game', data);
     }
 
     submitNameThenJoin() {
@@ -54,7 +54,7 @@ export default class Game extends OutboundMessage {
             name: $('#submit-name--name').val(),
             responseAction: 'joinGameAfterSettingName'
         };
-        this.send('/user/set-name', data);
+        this.send('user/set-name', data);
     }
 
     playTreasure(treasureStub) {
@@ -63,7 +63,7 @@ export default class Game extends OutboundMessage {
             input: treasureStub,
             guid: window.cookies.get('guid')
         };
-        this.send('/game/update', data);
+        this.send('game/update', data);
     }
 
     buyCard(cardStub) {
@@ -72,7 +72,7 @@ export default class Game extends OutboundMessage {
             input: cardStub,
             guid: window.cookies.get('guid')
         };
-        this.send('/game/update', data);
+        this.send('game/update', data);
     }
 
     endTurn() {
@@ -81,7 +81,7 @@ export default class Game extends OutboundMessage {
             input: null,
             guid: window.cookies.get('guid')
         };
-        this.send('/game/update', data);
+        this.send('game/update', data);
     }
 
     playCard(cardStub) {
@@ -90,7 +90,7 @@ export default class Game extends OutboundMessage {
             input: cardStub,
             guid: window.cookies.get('guid')
         };
-        this.send('/game/update', data);
+        this.send('game/update', data);
     }
 
     provideInput(input) {
@@ -99,7 +99,7 @@ export default class Game extends OutboundMessage {
             input: input,
             guid: window.cookies.get('guid')
         };
-        this.send('/game/update', data);
+        this.send('game/update', data);
     }
 
     submitChoice(input) {
@@ -108,7 +108,7 @@ export default class Game extends OutboundMessage {
             input: input,
             guid: window.cookies.get('guid')
         };
-        this.send('/game/update', data);
+        this.send('game/update', data);
     }
 
     submitChoices(input) {
@@ -117,7 +117,7 @@ export default class Game extends OutboundMessage {
             input: input,
             guid: window.cookies.get('guid')
         };
-        this.send('/game/update', data);
+        this.send('game/update', data);
     }
 
     playAllTreasures() {
@@ -126,7 +126,7 @@ export default class Game extends OutboundMessage {
             input: null,
             guid: window.cookies.get('guid')
         }
-        this.send('/game/update', data);
+        this.send('game/update', data);
     }
 
 }
